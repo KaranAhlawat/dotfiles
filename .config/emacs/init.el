@@ -66,7 +66,7 @@
                 term-mode-hook
                 shell-mode-hook
                 eshell-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+  (add-hook mode (lambda () (display-line-numbers-mode -1))))
 
 (set-default-coding-systems 'utf-8)
 
@@ -391,7 +391,7 @@
        (propertize "\n➜" 'face `(:foreground "#f48cd4")))
      (propertize " " 'face `(:foreground "white")))))
 
-(defun kd/eshell-configure ()
+(defun korv/eshell-configure ()
 
   ;; (require 'magit)
 
@@ -440,7 +440,7 @@
 (use-package eshell
   :hook
   (eshell-first-time-mode . korv/eshell-configure)
-  (eshell-mode . (lambda () (company-mode -1)))
+  (eshell-mode . (lambda () (corfu-mode -1)))
   :init
   (setq eshell-directory-name "~/.config/emacs/eshell/"
         eshell-aliases-file (expand-file-name "~/.config/emacs/eshell/aliases")))
