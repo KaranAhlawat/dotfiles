@@ -78,7 +78,7 @@ return require('packer').startup(function(use)
         use 'saadparwaiz1/cmp_luasnip'
 
         -- chad tree & coq_nvim
-        use 'ms-jpq/chadtree'
+        -- use 'ms-jpq/chadtree'
         -- use 'ms-jpq/coq_nvim'
         -- use 'ms-jpq/coq.artifacts'
         

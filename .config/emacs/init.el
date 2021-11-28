@@ -1,7 +1,7 @@
 (defvar korv/default-font-size 140)
 (defvar korv/default-variable-font-size 140)
 (defvar korv/frame-transparency '(100 . 100))
-(defvar korv/font-name "LigaSFMono Nerd Font")
+(defvar korv/font-name "JetBrainsMono Nerd Font")
 
 (setq gc-cons-threshold (* 50 1000 1000))
 
@@ -453,3 +453,16 @@
     (exec-path-from-shell-initialize)))
 
 (setq gc-cons-threshold (* 2 1000 1000))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(exec-path-from-shell visual-fill-column org-bullets general evil-collection evil rainbow-delimiters page-break-lines dashboard doom-modeline cape corfu consult orderless marginalia vertico all-the-icons which-key doom-themes modus-themes no-littering use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

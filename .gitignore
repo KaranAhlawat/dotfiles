@@ -14,6 +14,7 @@
 .config/emacs/recentf
 .config/emacs/var
 .config/emacs/etc
+.config/emacs/eln-cache
 
 # Org-mode
 .config/emacs/.org-id-locations
