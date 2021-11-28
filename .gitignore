@@ -1,0 +1,54 @@
+.git-credentials
+.gitconfig
+.stow-local-ignore
+
+.config/emacs/*~
+.config/emacs/\#*\#
+.config/emacs/.emacs.desktop
+.config/emacs/.emacs.desktop.lock
+.config/emacs/*.elc
+.config/emacs/auto-save-list
+.config/emacs/tramp
+.config/emacs/.\#*
+.config/emacs/history
+.config/emacs/recentf
+
+# Org-mode
+.config/emacs/.org-id-locations
+.config/emacs/*_archive
+
+# flymake-mode
+.config/emacs/*_flymake.*
+
+# eshell files
+.config/emacs/eshell/history
+.config/emacs/eshell/lastdir
+
+# elpa packages
+.config/emacs/elpa/
+
+# reftex files
+.config/emacs/*.rel
+
+# AUCTeX auto folder
+.config/emacs//auto/
+
+# cask packages
+.config/emacs/.cask/
+.config/emacs/dist/
+
+# Flycheck
+.config/emacs/flycheck_*.el
+
+# server auth directory
+.config/emacs/server/
+
+# projectiles files
+.config/emacs/.projectile
+
+# directory configuration
+.config/emacs/.dir-locals.el
+
+# network security
+.config/emacs/network-security.data
+

@@ -1,0 +1,609 @@
+#+TITLE: Emacs Literate Configuration
+#+AUTHOR: Karan Ahlawat
+#+PROPERTY: header-args:emacs-lisp :tangle ./init.el
+
+This is my personal Emacs configuration, in a literate format using the powerful Org mode. It is an effort to setup a minimal (yet fully functional) Emacs setup.
+
+* Defining Variables
+
+Let's define some variables to keep this DRY.
+
+#+begin_src emacs-lisp
+
+  (defvar korv/default-font-size 140)
+  (defvar korv/default-variable-font-size 140)
+  (defvar korv/frame-transparency '(100 . 100))
+  (defvar korv/font-name "LigaSFMono Nerd Font")
+
+#+end_src
+
+* Garbage Collection Start 
+
+Change the garbage collection defaults for better performance and startup times.
+
+#+begin_src emacs-lisp
+
+  (setq gc-cons-threshold (* 50 1000 1000))
+
+#+end_src
+
+And a function to measure the startup performance
+
+#+begin_src emacs-lisp
+
+  (defun korv/display-startup-time ()
+    (message "Emacs loaded in %s with %d garbage collections."
+             (format "%.2f seconds"
+                     (float-time
+                      (time-subtract after-init-time before-init-time)))
+             gcs-done))
+
+  ;; Add the startup function to the emacs-startup-hook
+  (add-hook 'emacs-startup-hook #'korv/display-startup-time)
+
+#+end_src
+
+* UI Configuration
+
+Some basic UI changes for restorations!
+
+#+begin_src emacs-lisp
+
+  (setq inhibit-startup-message t)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (tooltip-mode -1)
+  (set-fringe-mode 10)
+  (menu-bar-mode -1)
+
+  (setq visual-bell t)
+
+#+end_src
+
+Add we're gonna change some frame parameters to customize the look and behaviour (use a compositor for the transparency)
+
+#+begin_src emacs-lisp
+
+  (set-frame-parameter (selected-frame) 'alpha korv/frame-transparency)
+  (add-to-list 'default-frame-alist `(alpha . ,korv/frame-transparency))
+  (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+#+end_src
+
+** Fonts
+
+Let's set fonts so our editor doesn't look like a pleb
+
+#+begin_src emacs-lisp
+
+  (set-face-attribute 'default nil :font korv/font-name :height korv/default-font-size)
+  (set-face-attribute 'fixed-pitch nil :font korv/font-name :height korv/default-font-size)
+  (set-face-attribute 'variable-pitch nil :font korv/font-name :height korv/default-variable-font-size :weight 'regular)
+
+#+end_src
+
+* Sane-r defaults
+
+Adding/changing some defaults here so that we don't lose our sanity. Dark Souls is fun, but not IRL.
+
+#+begin_src emacs-lisp
+
+  ;; Set <ESC> to escape globally
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+  ;; Change some global defaults
+  (column-number-mode)
+  (global-display-line-numbers-mode t)
+  (setq tab-always-indent 'complete)
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  (show-paren-mode 1)
+  (electric-pair-mode 1)
+  (setq backup-direcotry-alist '(("." . "~/.cache/emacssaves"))
+        create-lockfiles nil
+        initial-major-mode 'fundamental-mode
+        initial-scratch-message nil
+        tab-width 2)
+
+  (setq-default
+   auto-save-list-file-prefix nil
+   cursor-in-non-selected-windows nil
+   fill-column 80
+   help-window-select t
+   indent-tabs-mode nil
+   select-enable-clipboard t
+   x-stretch-cursor t)
+
+  (blink-cursor-mode 0)
+  (delete-selection-mode t)
+
+  ;; Disable line numbers for some modes
+  (dolist (mode '(org-mode-hook
+                  term-mode-hook
+                  shell-mode-hook
+                  eshell-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+  (set-default-coding-systems 'utf-8)
+
+#+end_src
+
+* Packages
+
+Let's setup some package repositories, so our Emacs isn't so lonely.
+
+#+begin_src emacs-lisp
+
+  (require 'package)
+
+  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                           ("org" . "https://orgmode.org/elpa/")
+                           ("elpa" . "https://elpa.gnu.org/packages/")))
+
+  (package-initialize)
+  (unless package-archive-contents
+    (package-refresh-contents))
+
+#+end_src
+
+And bootstrap use-package, our biggest weapon to keep things cleaner. Sorta.
+
+#+begin_src emacs-lisp
+
+  (unless (package-installed-p 'use-package)
+    (package-install 'use-package))
+
+  ;; Setup use-package
+  (require 'use-package)
+  (setq use-package-always-ensure t)
+
+#+end_src
+
+And now, the packages I have so far!
+
+** NO LITTERING ON MY LAWN!
+
+Keeps our Emacs user directory clean (.emacs.d)
+
+#+begin_src emacs-lisp
+
+  (require 'use-package)
+  (setq use-package-always-ensure t)
+
+#+end_src
+
+** Themes, because the world is an ugly place
+
+Shoutout Prost, and his magnificent beard!
+
+#+begin_src emacs-lisp
+
+  (use-package modus-themes
+    :config
+    (setq modus-themes-hl-line '(intense)))
+
+#+end_src
+
+And everyone who contributed to the Doom themes (currently rocking laserwave). I set the theme in the config section itself, passing t so that it doesn't ask me on every run if I trust the themes.
+
+#+begin_src emacs-lisp
+
+(use-package doom-themes
+  :config
+  (load-theme 'doom-laserwave t))
+
+#+end_src
+
+** Which Key
+
+Imagine knowing how to be proficient with your editor of choice :)
+
+#+begin_src emacs-lisp
+
+  (use-package which-key
+    :defer 0
+    :diminish which-key-mode
+    :config
+    (which-key-mode)
+    (setq which-key-idle-delay 0.5))
+
+#+end_src
+
+** All The Icons
+
+Gonna add them sweet sweet icons. Don't forget to run M-x all-the-icons-install-fonts RET to actually install the fonts using this package
+
+#+begin_src emacs-lisp
+
+  (use-package all-the-icons
+    :ensure t)
+
+#+end_src
+
+** Completion
+
+I'm gonna keep it minimal (as stated in the start) and opt for Vertico, Consult, Orderless and Corfu with Cape
+
+*** Vertico
+
+A completion UI framework, working in mysterious minibuffers.
+
+#+begin_src emacs-lisp
+
+  (use-package vertico
+    :ensure t
+    :bind (:map vertico-map
+                ("C-g" . vertico-exit))
+    :custom
+    (vertico-cycle t)
+    :init
+    (vertico-mode))
+#+end_src
+
+Shows the most recently used completions first.
+
+#+begin_src emacs-lisp
+  (use-package savehist
+    :init
+    (savehist-mode))
+#+end_src
+
+Marginalia for more information in completions and the like.
+
+#+begin_src emacs-lisp
+
+  (use-package marginalia
+    :after vertico
+    :ensure t
+    :custom
+    (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+    :init
+    (marginalia-mode))
+
+#+end_src
+
+*** Orderless
+
+Advanced completion and filtering in said completion. Really cool stuff.
+
+#+begin_src emacs-lisp
+
+  (use-package orderless
+    :ensure t
+    :custom
+    (completion-styles '(orderless))
+    (completion-category-defaults nil)
+    (completion-cattegory-overrides '((file (styles partial-completion)))))
+
+#+end_src
+
+*** Consult
+
+The workhorse for a lot of work, goes really well with Vertico to provide it the information to show in the minibuffers.
+
+#+begin_src emacs-lisp
+
+  (use-package consult
+    :init
+    (setq register-preview-delay 0)
+    (setq register-preview-function #'consult-register-format)
+    (advice-add #'register-preview :override #'consult-register-window)
+    (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple)
+    (setq xref-show-xrefs-function #'consult-xref
+          xref-show-definitions-function #'consult-xref)
+    :config
+    (setq consult-preview-key 'any)
+    (setq consult-narrow-key "<") ;; (kbd "C-+")
+    (setq consult-project-root-function
+          (lambda ()
+            (when-let (project (project-current))
+              (car (project-roots project))))))
+
+#+end_src
+
+Not setting up any keybinds for consult right here, I prefer to do that using General. You may proceed as you wish.
+
+*** Corfu
+
+It is a region completion package that builds on Emacs' in-built functionality instead of it's own, like Company does. Anything can plug into it as long as it has a proper completion-at-point-function.
+
+#+begin_src emacs-lisp
+
+  (use-package corfu
+    :custom
+    (corfu-cycle t)
+    (corfu-auto t)
+    (corfu-quit-at-boundary t)
+    (corfu-quit-no-match t)
+    (corfu-preselect-first t)
+    (corfu-echo-documentation nil)
+    :bind
+    (:map corfu-map
+          ("TAB" . corfu-next)
+          ([tab] . corfu-next)
+          ("S-TAB" . corfu-previous)
+          ([backtab] . corfu-previous))
+    :init
+    (corfu-global-mode))
+
+#+end_src
+
+And Cape, for completion-at-point-functions which are nice but not included in Emacs by default.
+
+#+begin_src emacs-lisp
+  ;; TODO: Remap keybinds?
+
+  (use-package cape
+    :bind (("C-c p p" . completion-at-point)
+           ("C-c p t" . complete-tag)
+           ("C-c p d" . cape-dabbrev)
+           ("C-c p f" . cape-file)
+           ("C-c p k" . cape-keyword)
+           ("C-C p a" . cape-abbrev))
+    :init
+    (add-to-list 'completion-at-point-functions #'cape-file)
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+    (add-to-list 'completion-at-point-functions #'cape-abbrev)
+    (add-to-list 'completion-at-point-functions #'cape-keyword))
+
+  (use-package dabbrev)
+
+#+end_src
+
+** UI Packages
+
+Some packages for a better UI experience
+
+*** Doom Modeline
+
+I like the Doom Emacs Modeline much better than the default one, so here goes.
+
+#+begin_src emacs-lisp
+
+  (use-package doom-modeline
+    :ensure t
+    :init
+    (doom-modeline-mode 1))
+
+#+end_src
+
+*** Dashboard
+
+A nice dashboard greets you when you run Emacs.
+
+#+begin_src emacs-lisp
+
+  (use-package dashboard
+    :custom
+    (initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+    (dashboard-banner-logo "")
+    (dashboard-startup-banner 'logo)
+    (dashboard-center-content t)
+    (dashboard-show-shortcuts t)
+    (dashboard-projects-backend 'project-el)
+    (dashboard-items '((recents . 5)
+                       (projects . 5)))
+    (dashboard-set-heading-icons t)
+    (dashboard-set-file-icons t)
+    (dashboard-set-init-info t)
+    :hook
+    (dashboard-mode . (lambda () (setq global-hl-line-mode nil)))
+    :config
+    (dashboard-setup-startup-hook))
+
+  (use-package page-break-lines
+    :after dashboard
+    :config
+    (page-break-lines-mode))
+#+end_src
+
+And bracket pair matching
+
+#+begin_src emacs-lisp
+
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode))
+
+#+end_src
+
+* Keybinds!
+
+The meat and potatoes, as I like to call it.
+
+** The Dark Side (Evil)
+
+I like Vim keybinds. They be nice and cozy. Sue me! Evil gives me that. And Evil collection adds evil-mode to alot more commonly used mode. (Unbound the "C-s" for fun)
+
+#+begin_src emacs-lisp
+
+  (global-unset-key (kbd "C-s"))
+
+  (use-package evil
+    :init
+    (setq evil-want-integration t)
+    (setq evil-want-keybinding nil)
+    (setq evil-want-C-u-scroll t)
+    (setq evil-want-C-i-jump nil)
+    :config
+    (evil-mode 1)
+    (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+    (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+
+    (evil-set-initial-state 'message-buffer-mode 'normal)
+    (evil-set-initial-state 'dashboard-mode 'normal))
+
+  (use-package evil-collection
+    :after evil
+    :config
+    (evil-collection-init))
+
+#+end_src
+
+
+** General
+
+A package to configure your own isolated key bindings. And one which I use all the time. Great stuff.
+
+#+begin_src emacs-lisp
+
+  (use-package general
+    :config
+    (general-create-definer korv/leader-keys
+      :keymaps '(normal emacs)
+      :prefix "C-,"
+      :global-prefix ",")
+
+    (korv/leader-keys
+     "b" '(:ignore t :which-key "buffers")
+     "bs" '(consult-buffer :which-key "Switch buffer")
+     "bk" '(kill-current-buffer :which-key "Kill buffer")
+     "w" '(:ignore t :which-key "windows")
+     "wv" '(evil-window-vsplit :which-key "Vertical split")
+     "ws" '(evil-window-split :which-key "Horizontal split")
+     "wh" '(evil-window-left :which-key "Focus left")
+     "wj" '(evil-window-down :which-key "Focus down")
+     "wk" '(evil-window-up :which-key "Focus up")
+     "wl" '(evil-window-right :which-key "Focus right")
+     "wc" '(delete-window :which-key "Close window")
+     "o" '(:ignore t :which-key "open")
+     "oe" '(eshell :which-key "Eshell")
+     "ot" '(vterm :which-key "Vterm")
+     "f" '(:ignore t :which-key "file")
+     "ff" '(find-file :which-key "Find File")
+     "fr" '(consult-recent-file :which-key "Recent files")
+     "fs" '(save-buffer :which-key "Save file")
+     "fl" '(consult-line :which-key "Search file")
+     "q" '(:ignore t :which-key "session")
+     "qq" '(kill-emacs :which-key "Quit Emacs")
+     "h" '(:ignore t :which-key "help")
+     "hf" '(describe-function :which-key "Describe function")
+     "hv" '(describe-variable :which-key "Describe variable")))
+
+#+end_src
+
+* Org Mode
+
+One of the best pieces of software I've come in contact with. Although I don't utilize it to it's full potential, it has more potential than Harry Potter. Ok, maybe that isn't saying much. But it's cracked.
+
+A function (from EFS) for setting up better font rendering in Org files.
+
+#+begin_src emacs-lisp
+
+  (defun korv/org-font-setup ()
+
+    ;; Replace list hyphen with dot
+    (font-lock-add-keywords 'org-mode
+                            '(("^ *\\([-]\\) "
+                               (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))))
+
+    ;; Set faces for heading levels
+    (dolist (face '((org-level-1 . 1.2)
+                    (org-level-2 . 1.1)
+                    (org-level-3 . 1.05)
+                    (org-level-4 . 1.0)
+                    (org-level-5 . 1.1)
+                    (org-level-6 . 1.1)
+                    (org-level-7 . 1.1)
+                    (org-level-8 . 1.1)))
+      (set-face-attribute (car face) nil :font "JetBrainsMono Nerd Font" :weight 'regular :height (cdr face)))
+
+    ;; Ensure fixed pitch appears as fixed pitch
+    (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+    (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
+    (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
+    (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
+
+#+end_src
+
+Some minor modes to enable when we enter org-mode
+
+#+begin_src emacs-lisp
+
+  (defun korv/org-mode-setup ()
+    (org-indent-mode)
+    (variable-pitch-mode 1)
+    (visual-line-mode 1))
+
+#+end_src
+
+And now we configure the package. Beauty of use-package I think.
+
+#+begin_src emacs-lisp
+
+  (use-package org
+    :pin org
+    :commands (org-capture org-agenda)
+    :hook (org-mode . korv/org-mode-setup)
+    :config
+    (require 'org-tempo)
+
+    ;; Add <el and <sh snippet for quicker code blocks
+    (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+    (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+
+    (setq org-confirm-babel-evaluate nil
+          org-ellipsis " ▾")
+
+    (advice-add 'org-refile :after 'org-save-all-org-buffers)
+
+    (korv/org-font-setup)
+
+    ;; Enable emacs-lisp in the code blocks
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((emacs-lisp . t))))
+
+
+#+end_src
+
+Some visual changes in the org buffer apart from fonts
+
+#+begin_src emacs-lisp
+
+;; Nicer heading bullets
+(use-package org-bullets
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("" "○" "●" "○" "●" "○" "●")))
+
+;; Center org buffer
+(defun korv/org-mode-visual-fill ()
+  (setq visual-fill-column-width 100
+	visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(use-package visual-fill-column
+  :hook (org-mode . korv/org-mode-visual-fill))
+
+#+end_src
+
+Add auto-tangle when the file changes
+
+#+begin_src emacs-lisp
+
+  (defun korv/org-babel-tangle-config ()
+    (when (string-equal (buffer-file-name)
+                        (expand-file-name "~/.dotfiles/.config/emacs/Emacs.org"))
+      (let ((org-confirm-babel-evaluate nil))
+        (org-babel-tangle))))
+
+  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'korv/org-babel-tangle-config)))
+
+#+end_src
+
+* Garbage Collection End
+
+And now we close off the GC :)
+
+#+begin_src emacs-lisp
+
+  (setq gc-cons-threshold (* 2 1000 1000))
+
+#+end_src
