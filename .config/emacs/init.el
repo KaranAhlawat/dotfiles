@@ -357,4 +357,99 @@
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'korv/org-babel-tangle-config)))
 
+(defun read-file (file-path)
+  (with-temp-buffer
+    (insert-file-contents file-path)
+    (buffer-string)))
+
+(defun korv/map-line-to-status-char (line)
+  (cond ((string-match "^?\\? " line) "?")))
+
+(defun korv/get-git-status-prompt ()
+  (let ((status-lines (cdr (process-lines "git" "status" "--porcelain" "-b"))))
+    (seq-uniq (seq-filter 'identity (mapcar 'kd/map-line-to-status-char status-lines)))))
+
+(defun korv/get-prompt-path ()
+  (let* ((current-path (eshell/pwd))
+         (git-output (shell-command-to-string "git rev-parse --show-toplevel"))
+         (has-path (not (string-match "^fatal" git-output))))
+    (if (not has-path)
+        (abbreviate-file-name current-path)
+      (string-remove-prefix (file-name-directory git-output) current-path))))
+
+(defun korv/eshell-prompt ()
+  (let ((current-branch "master"))
+    (concat
+     "\n"
+     (propertize (korv/get-prompt-path) 'face `(:foreground "#2fafff"))
+     (when current-branch
+       (concat
+        (propertize " on " 'face `(:foreground "white"))
+        (propertize (concat "" current-branch) 'face `(:foreground "#f48cd4"))))
+     (if (= (user-uid) 0)
+         (propertize "\n#" 'face `(:foreground "red2"))
+       (propertize "\n➜" 'face `(:foreground "#f48cd4")))
+     (propertize " " 'face `(:foreground "white")))))
+
+(defun kd/eshell-configure ()
+
+  ;; (require 'magit)
+
+  (require 'evil-collection-eshell)
+  (evil-collection-eshell-setup)
+
+  (use-package xterm-color)
+
+  (push 'eshell-tramp eshell-modules-list)
+  (push 'xterm-color-filter eshell-preoutput-filter-functions)
+  (delq 'eshell-handle-ansi-color eshell-output-filter-functions)
+
+  ;; Save command history
+  (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
+
+  (add-hook 'eshell-before-prompt-hook
+            (lambda ()
+              (setq xterm-color-preserve-properties t)))
+
+  (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
+
+  (add-hook 'eshell-pre-command-hook
+            (lambda () (setenv "TERM" "xterm-256color")))
+  (add-hook 'eshell-post-command-hook
+            (lambda () (setenv "TERM" "dumb")))
+
+  (eshell-hist-initialize)
+
+  (evil-define-key '(normal insert visual) eshell-mode-map (kbd "C-r") 'consult-history)
+  (evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'eshell-bol)
+  (evil-normalize-keymaps)
+
+
+  (setq eshell-history-size 5000
+        eshell-buffer-maximum-lines 5000
+        eshell-hist-ignoredups t
+        eshell-destroy-buffer-when-process-dies t
+        eshell-highlight-prompt t
+        eshell-prefer-lisp-functions nil
+        eshell-scroll-to-bottom-on-output t
+        eshell-prompt-function 'korv/eshell-prompt
+        eshell-prompt-regexp "^➜ ")
+
+  (setenv "PAGER" "cat"))
+
+(use-package eshell
+  :hook
+  (eshell-first-time-mode . korv/eshell-configure)
+  (eshell-mode . (lambda () (company-mode -1)))
+  :init
+  (setq eshell-directory-name "~/.config/emacs/eshell/"
+        eshell-aliases-file (expand-file-name "~/.config/emacs/eshell/aliases")))
+
+(use-package exec-path-from-shell
+  :init
+  (setq exec-path-from-shell-check-startup-files nil)
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+
 (setq gc-cons-threshold (* 2 1000 1000))
