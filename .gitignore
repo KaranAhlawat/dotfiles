@@ -2,14 +2,14 @@
 .gitconfig
 .stow-local-ignore
 
-.config/emacs/*~
-.config/emacs/\#*\#
+.config/emacs/**/*~
+.config/emacs/**/\#*\#
 .config/emacs/.emacs.desktop
 .config/emacs/.emacs.desktop.lock
-.config/emacs/*.elc
-.config/emacs/auto-save-list
+.config/emacs/**/*.elc
+.config/emacs/**/auto-save-list
 .config/emacs/tramp
-.config/emacs/.\#*
+.config/emacs/**/.\#*
 .config/emacs/history
 .config/emacs/recentf
 
@@ -18,7 +18,7 @@
 .config/emacs/*_archive
 
 # flymake-mode
-.config/emacs/*_flymake.*
+.config/emacs/**/*_flymake.*
 
 # eshell files
 .config/emacs/eshell/history
@@ -28,7 +28,7 @@
 .config/emacs/elpa/
 
 # reftex files
-.config/emacs/*.rel
+.config/emacs/**/*.rel
 
 # AUCTeX auto folder
 .config/emacs//auto/
@@ -38,7 +38,7 @@
 .config/emacs/dist/
 
 # Flycheck
-.config/emacs/flycheck_*.el
+.config/emacs/**/flycheck_*.el
 
 # server auth directory
 .config/emacs/server/
