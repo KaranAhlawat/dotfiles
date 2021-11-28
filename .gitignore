@@ -12,6 +12,8 @@
 .config/emacs/**/.\#*
 .config/emacs/history
 .config/emacs/recentf
+.config/emacs/var
+.config/emacs/etc
 
 # Org-mode
 .config/emacs/.org-id-locations
