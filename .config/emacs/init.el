@@ -15,6 +15,10 @@
 ;; Add the startup function to the emacs-startup-hook
 (add-hook 'emacs-startup-hook #'korv/display-startup-time)
 
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 (setq inhibit-startup-message t)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -357,8 +361,10 @@
   :hook (org-mode . korv/org-mode-visual-fill))
 
 (defun korv/org-babel-tangle-config ()
-  (when (string-equal (buffer-file-name)
-                      (expand-file-name "~/.dotfiles/.config/emacs/Emacs.org"))
+  (when (or (string-equal (buffer-file-name)
+                          (expand-file-name "~/.config/emacs/Emacs.org"))
+            (string-equal (buffer-file-name)
+                          (expand-file-name "~/.config/emacs/Development.org")))
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
 
@@ -385,7 +391,7 @@
       (string-remove-prefix (file-name-directory git-output) current-path))))
 
 (defun korv/eshell-prompt ()
-  (let ((current-branch "master"))
+  (let ((current-branch (magit-get-current-branch)))
     (concat
      "\n"
      (propertize (korv/get-prompt-path) 'face `(:foreground "#2fafff"))
@@ -445,6 +451,7 @@
   (setenv "PAGER" "cat"))
 
 (use-package eshell
+  :after magit
   :hook
   (eshell-first-time-mode . korv/eshell-configure)
   (eshell-mode . (lambda () (corfu-mode -1)))
@@ -458,5 +465,7 @@
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
+
+(load (expand-file-name "~/.config/emacs/dev.el"))
 
 (setq gc-cons-threshold (* 2 1000 1000))

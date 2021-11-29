@@ -11,7 +11,10 @@
       *mode-line-foreground-color* phundrak-nord5)
 
 (setf *mode-line-border-color* phundrak-nord1
-      *mode-line-border-width* 0)
+      *mode-line-border-width* 0
+      *mode-line-pad-x* 10
+      *mode-line-pad-y* 2
+      *mode-line-position* :top)
 
 (load-module "battery-portable")
 (load-module "cpu")

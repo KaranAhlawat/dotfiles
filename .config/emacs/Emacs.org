@@ -43,6 +43,16 @@ And a function to measure the startup performance
 
 #+end_src
 
+Also gonna set the custom file to be a seperate file so it doesn't mess with my stuff.
+
+#+begin_src emacs-lisp
+
+  (setq custom-file (concat user-emacs-directory "custom.el"))
+  (when (file-exists-p custom-file)
+    (load custom-file))
+
+#+end_src
+
 * UI Configuration
 
 Some basic UI changes for restorations!
@@ -599,8 +609,10 @@ Add auto-tangle when the file changes
 #+begin_src emacs-lisp
 
   (defun korv/org-babel-tangle-config ()
-    (when (string-equal (buffer-file-name)
-                        (expand-file-name "~/.dotfiles/.config/emacs/Emacs.org"))
+    (when (or (string-equal (buffer-file-name)
+                            (expand-file-name "~/.config/emacs/Emacs.org"))
+              (string-equal (buffer-file-name)
+                            (expand-file-name "~/.config/emacs/Development.org")))
       (let ((org-confirm-babel-evaluate nil))
         (org-babel-tangle))))
 
@@ -643,7 +655,7 @@ And now the actual prompt function.
 #+begin_src emacs-lisp
 
   (defun korv/eshell-prompt ()
-    (let ((current-branch "master"))
+    (let ((current-branch (magit-get-current-branch)))
       (concat
        "\n"
        (propertize (korv/get-prompt-path) 'face `(:foreground "#2fafff"))
@@ -715,6 +727,7 @@ Putting it all together, here's what we get
 #+begin_src emacs-lisp
 
   (use-package eshell
+    :after magit
     :hook
     (eshell-first-time-mode . korv/eshell-configure)
     (eshell-mode . (lambda () (corfu-mode -1)))
@@ -730,6 +743,17 @@ Putting it all together, here's what we get
       (exec-path-from-shell-initialize)))
 
 #+end_src
+
+* Development
+
+Load the development elisp file.
+
+#+begin_src emacs-lisp
+
+ (load (expand-file-name "~/.config/emacs/dev.el"))
+
+#+end_src
+
 * Garbage Collection End
 
 And now we close off the GC :)

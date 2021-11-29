@@ -16,8 +16,8 @@
 
 (load "~/.config/stumpwm/commands.lisp")
 (load "~/.config/stumpwm/theme.lisp")
-(load "~/.config/stumpwm/modeline.lisp")
 (load "~/.config/stumpwm/keybinds.lisp")
+(load "~/.config/stumpwm/modeline.lisp")
 
 (when *initializing*
   (mode-line))
@@ -31,40 +31,9 @@
 (load-module "urgentwindows")
 (load-module "globalwindows")
 (load-module "stumptray")
-(load-module "swm-gaps")
-(setf swm-gaps:*head-gaps-size* 0
-      swm-gaps:*inner-gaps-size* 5
-      swm-gaps:*outer-gaps-size* 10)
 
 (when *initializing*
   (stumptray::stumptray))
 
-(when *initializing*
-  (swm-gaps:toggle-gaps))
-
 (setf *startup-message* "StumpWM is ready!")
-
-(setf *message-window-gravity* :center
-      *input-window-gravity* :center
-      *window-border-style* :thin
-      *message-window-padding* 10
-      *maxsize-border-width* 2
-      *normal-border-width* 2
-      *transient-border-width* 2
-      stumpwm::*float-window-border* 4
-      stumpwm::*float-window-title-height* 20
-      *mouse-focus-policy* :click)
-
-
-(defvar *korv/workspaces* (list "I" "II" "III" "IV" "V"))
-(stumpwm:grename (nth 0 *korv/workspaces*))
-(dolist (workspace (cdr *korv/workspaces*))
-  (stumpwm:gnewbg workspace))
-
-(defvar *move-to-keybinds* (list "!" "@" "#" "$" "%" "^" "&" "*" "("))
-(dotimes (y (length *korv/workspaces*))
-  (let ((workspace (write-to-string (+ y 1))))
-    (define-key *root-map* (kbd workspace) (concat "gselect " workspace))
-    (define-key *root-map* (kbd (nth y *move-to-keybinds*)) (concat "gmove-and-follow " workspace))))
-
 

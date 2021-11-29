@@ -1,4 +1,4 @@
-(defcommand delete-window-and-fram () ()
+(defcommand delete-window-and-frame () ()
             "Delete the current frame with it's window."
             (delete-window)
             (remove-split))
