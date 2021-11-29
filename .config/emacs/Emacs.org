@@ -13,7 +13,7 @@ Let's define some variables to keep this DRY.
   (defvar korv/default-font-size 140)
   (defvar korv/default-variable-font-size 140)
   (defvar korv/frame-transparency '(100 . 100))
-  (defvar korv/font-name "JetBrainsMono Nerd Font")
+  (defvar korv/font-name "LigaSFMono Nerd Font")
 
 #+end_src
 
