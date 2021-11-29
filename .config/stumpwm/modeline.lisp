@@ -1,5 +1,5 @@
 (setf *mode-line-timeout* 2)
-(setf *time-modeline-string* " %a %b %Y|%I:%M %p")
+(setf *time-modeline-string* " %a %b %d|%I:%M %p")
 
 (setf *group-format* "%t")
 
@@ -31,7 +31,7 @@
 (setf stumptray:*tray-placeholder-pixels-per-space* 10)
 
 (defvar *mode-line-formatter-list*
-  '(("%g") ("%W") ("^>") ("%d") ("%I") ("%B") ("%T"))
+  '(("%g") ("%W") ("^>") ("%d") ("%I") ("%C") ("%M") ("%B") ("%T"))
   "List of formatters for the modeline.")
 
 (defun generate-modeline (elements &optional not-invertedp)

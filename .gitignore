@@ -15,6 +15,7 @@
 .config/emacs/var
 .config/emacs/etc
 .config/emacs/eln-cache
+.config/emacs/tmp
 
 # Org-mode
 .config/emacs/.org-id-locations
