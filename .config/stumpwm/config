@@ -1,0 +1,100 @@
+#-quicklisp
+(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
+                                       (user-homedir-pathname))))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
+
+(in-package :stumpwm)
+(setf *default-package* :stumpwm)
+
+(set-module-dir "/usr/share/stumpwm/contrib/")
+(setf *startup-message* nil)
+
+(run-shell-command "xsetroot -cursor_name left_ptr")
+(run-shell-command "xmodmap ~/.config/stumpwm/Xmodmap")
+(run-shell-command "nitrogen --restore")
+(run-shell-command "sleep 1 && autostart")
+
+(load "~/.config/stumpwm/commands.lisp")
+(load "~/.config/stumpwm/theme.lisp")
+(load "~/.config/stumpwm/modeline.lisp")
+
+(when *initializing*
+  (mode-line))
+
+(setf *mouse-focus-policy* :click
+      *float-window-modifier* :META)
+
+(load-module "beckon")
+(load-module "end-session")
+(load-module "stump-backlight")
+(load-module "urgentwindows")
+(load-module "globalwindows")
+(load-module "stumptray")
+(load-module "swm-gaps")
+(setf swm-gaps:*head-gaps-size* 0
+      swm-gaps:*inner-gaps-size* 5
+      swm-gaps:*outer-gaps-size* 10)
+
+(when *initializing*
+  (stumptray::stumptray))
+
+(when *initializing*
+  (swm-gaps:toggle-gaps))
+
+(setf *startup-message* "StumpWM is ready!")
+
+(setf *message-window-gravity* :center
+      *input-window-gravity* :center
+      *window-border-style* :thin
+      *message-window-padding* 10
+      *maxsize-border-width* 2
+      *normal-border-width* 2
+      *transient-border-width* 2
+      stumpwm::*float-window-border* 4
+      stumpwm::*float-window-title-height* 20
+      *mouse-focus-policy* :click)
+
+
+(run-shell-command "xmodmap -e 'clear mod4'" t)
+(run-shell-command "xmodmap -e \'keycode 133 = F20\'" t)
+(set-prefix-key (kbd "F20"))
+
+(defvar *korv/workspaces* (list "I" "II" "III" "IV" "V"))
+(stumpwm:grename (nth 0 *korv/workspaces*))
+(dolist (workspace (cdr *korv/workspaces*))
+  (stumpwm:gnewbg workspace))
+
+(defvar *move-to-keybinds* (list "!" "@" "#" "$" "%" "^" "&" "*" "("))
+(dotimes (y (length *korv/workspaces*))
+  (let ((workspace (write-to-string (+ y 1))))
+    (define-key *root-map* (kbd workspace) (concat "gselect " workspace))
+    (define-key *root-map* (kbd (nth y *move-to-keybinds*)) (concat "gmove-and-follow " workspace))))
+
+
+
+(define-key *root-map* (kbd "Q") "quit")
+(define-key *root-map* (kbd "R") "restart-hard")
+
+(define-key *root-map* (kbd "q") "delete")
+(define-key *root-map* (kbd "r") "remove")
+
+(define-key *root-map* (kbd "h") "move-focus left")
+(define-key *root-map* (kbd "j") "move-focus down")
+(define-key *root-map* (kbd "k") "move-focus up")
+(define-key *root-map* (kbd "l") "move-focus right")
+(define-key *root-map* (kbd "H") "move-window left")
+(define-key *root-map* (kbd "J") "move-window down")
+(define-key *root-map* (kbd "K") "move-window up")
+(define-key *root-map* (kbd "L") "move-window right")
+
+(setf *resize-increment* 50)
+(define-key *top-map* (kbd "M-l") "resize-direction Right")
+(define-key *top-map* (kbd "M-h") "resize-direction Left")
+(define-key *top-map* (kbd "M-k") "resize-direction Up")
+(define-key *top-map* (kbd "M-j") "resize-direction Down")
+
+(define-key *root-map* (kbd "RET") "exec kitty")
+(define-key *root-map* (kbd "W") "exec brave")
+(define-key *root-map* (kbd "D") "exec discord")
+(define-key *root-map* (kbd "p") "exec")

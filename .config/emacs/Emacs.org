@@ -13,7 +13,7 @@ Let's define some variables to keep this DRY.
   (defvar korv/default-font-size 140)
   (defvar korv/default-variable-font-size 140)
   (defvar korv/frame-transparency '(100 . 100))
-  (defvar korv/font-name "LigaSFMono Nerd Font")
+  (defvar korv/font-name "JetBrainsMono Nerd Font")
 
 #+end_src
 
@@ -454,8 +454,8 @@ A package to configure your own isolated key bindings. And one which I use all t
     :config
     (general-create-definer korv/leader-keys
       :keymaps '(normal emacs)
-      :prefix "C-,"
-      :global-prefix ",")
+      :prefix "C-SPC"
+      :global-prefix "SPC")
 
     (korv/leader-keys
      "b" '(:ignore t :which-key "buffers")
