@@ -12,6 +12,21 @@
   "pk" '(project-kill-buffers :which-key "Kill project buffers")
   "pc" '(project-async-shell-command :which-key "Async cmd project root"))
 
-(use-package slime
+(use-package sly
+    :defer t
+    :config
+    (setq inferior-lisp-program "sbcl"))
+
+(use-package elixir-mode
   :config
-  (setq inferior-lisp-program "sbcl"))
+  (add-hook 'elixir-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'elixir-format nil t))))
+
+(use-package alchemist)
+
+(use-package eglot
+  :ensure t
+  :config
+  (add-to-list 'eglot-server-programs '(elixir-mode "/usr/lib/elixir-ls/language_server.sh"))
+  (add-to-list 'eglot-ignored-server-capabilities :hoverProvider))

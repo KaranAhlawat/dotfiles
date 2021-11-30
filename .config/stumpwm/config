@@ -17,6 +17,7 @@
 (load "~/.config/stumpwm/commands.lisp")
 (load "~/.config/stumpwm/theme.lisp")
 (load "~/.config/stumpwm/keybinds.lisp")
+(load "~/.config/stumpwm/utilities.lisp")
 (load "~/.config/stumpwm/modeline.lisp")
 
 (when *initializing*

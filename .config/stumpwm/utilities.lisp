@@ -1,5 +1,3 @@
-(in-package :stumpwm)
-
 (ql:quickload :dbus)
 
 (load-module "stump-nm")

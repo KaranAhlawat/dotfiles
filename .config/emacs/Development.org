@@ -38,12 +38,49 @@ Gonna use the built-in project.el package (starting from Emacs 28+) for project 
 * Languages
 ** Lisp
 
-For (Common) Lisp, we're gonna use the SLIME package and configure it appropriately.
+For (Common) Lisp, we're gonna use the SLY package and configure it appropriately.
 
 #+begin_src emacs-lisp
 
-  (use-package slime
+  (use-package sly
+      :defer t
+      :config
+      (setq inferior-lisp-program "sbcl"))
+
+#+end_src
+
+** Elixir
+
+We're gonna setup elixir mode and see how it goes from there.
+
+#+begin_src emacs-lisp
+
+  (use-package elixir-mode
     :config
-    (setq inferior-lisp-program "sbcl"))
+    (add-hook 'elixir-mode-hook
+              (lambda ()
+                (add-hook 'before-save-hook 'elixir-format nil t))))
+
+#+end_src
+
+And we are going to setup alchemist even though it might be outdated.
+
+#+begin_src emacs-lisp
+
+  (use-package alchemist)
+
+#+end_src
+
+* Language server integration
+
+Language servers are nice to provide completions, jumps and the like. But they require a client, and here we're gonna use eglot ( could switch to lsp-mode if this doesn't work well ).
+
+#+begin_src emacs-lisp
+
+  (use-package eglot
+    :ensure t
+    :config
+    (add-to-list 'eglot-server-programs '(elixir-mode "/usr/lib/elixir-ls/language_server.sh"))
+    (add-to-list 'eglot-ignored-server-capabilities :hoverProvider))
 
 #+end_src

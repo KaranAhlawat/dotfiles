@@ -73,8 +73,8 @@
     (define-key m (kbd "L") "move-window right")
     (define-key m (kbd "/") "hsplit-and-focus")
     (define-key m (kbd "-") "vsplit-and-focus")
-    (define-key m (kbd "s") "hsplit")
-    (define-key m (kbd "v") "vsplit")
+    (define-key m (kbd "s") "vsplit")
+    (define-key m (kbd "v") "hsplit")
     (define-key m (kbd "S") "hsplit-equally")
     (define-key m (kbd "V") "vsplit-equally")
     (define-key m (kbd ".") "iresize")
@@ -101,8 +101,8 @@
 (define-key *top-map* (kbd "M-TAB") "next")
 (define-key *top-map* (kbd "M-S-TAB") "prev")
 
-(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec amixer -q set Master 2%+ unmute")
-(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec amixer -q set Master 2%- unmute")
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec amixer -q set Master 5%+ unmute")
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec amixer -q set Master 5%- unmute")
 (define-key *top-map* (kbd "XF86AudioMute") "exec amixer -q set Master 1+ toggle")
 
 (define-key *root-map* (kbd "B") "beckon")

@@ -33,9 +33,18 @@
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-(set-face-attribute 'default nil :font korv/font-name :height korv/default-font-size)
-(set-face-attribute 'fixed-pitch nil :font korv/font-name :height korv/default-font-size)
-(set-face-attribute 'variable-pitch nil :font korv/font-name :height korv/default-variable-font-size :weight 'regular)
+(defun korv/set-font-faces ()
+  (message "Setting font faces.")
+  (set-face-attribute 'default nil :font korv/font-name :height korv/default-font-size :weight 'medium)
+  (set-face-attribute 'fixed-pitch nil :font korv/font-name :height korv/default-font-size :weight 'medium)
+  (set-face-attribute 'variable-pitch nil :font korv/font-name :height korv/default-variable-font-size :weight 'regular))
+
+(if (daemonp)
+    (add-hook 'after-make-frame-functions
+              (lambda (frame)
+                (with-selected-frame frame
+                  (korv/set-font-faces))))
+  (korv/set-font-faces))
 
 ;; Set <ESC> to escape globally
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -111,7 +120,7 @@
 
 (use-package doom-themes
   :config
-  (load-theme 'doom-laserwave t))
+  (load-theme 'doom-solarized-dark t))
 
 (use-package which-key
   :defer 0
@@ -261,10 +270,10 @@
     :global-prefix "SPC")
 
   (korv/leader-keys
-   "b" '(:ignore t :which-key "buffers")
+   "b"  '(:ignore t :which-key "buffers")
    "bs" '(consult-buffer :which-key "Switch buffer")
    "bk" '(kill-current-buffer :which-key "Kill buffer")
-   "w" '(:ignore t :which-key "windows")
+   "w"  '(:ignore t :which-key "windows")
    "wv" '(evil-window-vsplit :which-key "Vertical split")
    "ws" '(evil-window-split :which-key "Horizontal split")
    "wh" '(evil-window-left :which-key "Focus left")
@@ -272,17 +281,18 @@
    "wk" '(evil-window-up :which-key "Focus up")
    "wl" '(evil-window-right :which-key "Focus right")
    "wc" '(delete-window :which-key "Close window")
-   "o" '(:ignore t :which-key "open")
+   "o"  '(:ignore t :which-key "open")
    "oe" '(eshell :which-key "Eshell")
    "ot" '(vterm :which-key "Vterm")
-   "f" '(:ignore t :which-key "file")
+   "f"  '(:ignore t :which-key "file")
    "ff" '(find-file :which-key "Find File")
    "fr" '(consult-recent-file :which-key "Recent files")
    "fs" '(save-buffer :which-key "Save file")
    "fl" '(consult-line :which-key "Search file")
-   "q" '(:ignore t :which-key "session")
+   "q"  '(:ignore t :which-key "session")
    "qq" '(kill-emacs :which-key "Quit Emacs")
-   "h" '(:ignore t :which-key "help")
+   "qf" '(delete-frame :which-key "Quit frame")
+   "h"  '(:ignore t :which-key "help")
    "hf" '(describe-function :which-key "Describe function")
    "hv" '(describe-variable :which-key "Describe variable")))
 
@@ -361,10 +371,10 @@
   :hook (org-mode . korv/org-mode-visual-fill))
 
 (defun korv/org-babel-tangle-config ()
-  (when (or (string-equal (buffer-file-name)
-                          (expand-file-name "~/.config/emacs/Emacs.org"))
-            (string-equal (buffer-file-name)
-                          (expand-file-name "~/.config/emacs/Development.org")))
+  (when (member (buffer-file-name)
+                 (list
+                  (expand-file-name "~/.dotfiles/.config/emacs/Emacs.org")
+                  (expand-file-name "~/.dotfiles/.config/emacs/Development.org")))
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
 
