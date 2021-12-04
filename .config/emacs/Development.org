@@ -17,6 +17,17 @@ First, the Magit package because it's absolutely great to use.
 
 #+end_src
 
+Now, we define mappings for magit cuz they're cool as hecc.
+
+#+begin_src emacs-lisp
+
+  (korv/leader-keys
+    "g"  '(:ignore t :which-key "magit")
+    "gs" '(magit-status :which-key))
+ 
+
+#+end_src
+
 * Project Management
 
 Gonna use the built-in project.el package (starting from Emacs 28+) for project management. Here's I'm defining keybinds for convenience.
@@ -35,6 +46,22 @@ Gonna use the built-in project.el package (starting from Emacs 28+) for project 
 
 #+end_src
 
+* Syntax Checking and Linting
+
+Flycheck can use various linters and checkers for real-time code checking.
+
+#+begin_src emacs-lisp
+
+  (use-package flycheck
+    :defer t
+    :ensure t
+    :init
+    (global-flycheck-mode)
+    :config
+    (setq flycheck-javascript-eslint-executable "eslint_d"))
+
+#+end_src
+
 * Languages
 ** Lisp
 
@@ -45,7 +72,25 @@ For (Common) Lisp, we're gonna use the SLY package and configure it appropriatel
   (use-package sly
       :defer t
       :config
-      (setq inferior-lisp-program "sbcl"))
+      (setq inferior-lisp-program "sbcl")
+      (add-hook 'sly-mode-hook
+                (lambda ()
+                  (unless (sly-connected-p)
+                    (save-excursion (sly))))))
+
+#+end_src
+
+And parinfer-rust-mode for editing lisps.
+
+#+begin_src emacs-lisp
+  
+  (use-package parinfer-rust-mode
+    :hook
+    (emacs-lisp-mode . parinfer-rust-mode)
+    (lisp-mode . parinfer-rust-mode)
+    (common-lisp-mode . parinfer-rust-mode)
+    :init
+    (setq parinfer-rust-auto-download t))
 
 #+end_src
 
@@ -56,6 +101,7 @@ We're gonna setup elixir mode and see how it goes from there.
 #+begin_src emacs-lisp
 
   (use-package elixir-mode
+    :defer t
     :config
     (add-hook 'elixir-mode-hook
               (lambda ()
@@ -67,7 +113,24 @@ And we are going to setup alchemist even though it might be outdated.
 
 #+begin_src emacs-lisp
 
-  (use-package alchemist)
+  (use-package alchemist
+    :defer t
+    :hook (elixir-mode . alchemist-mode))
+
+#+end_src
+
+** Javascript
+
+Here we go again
+
+#+begin_src emacs-lisp
+
+  (use-package js2-mode
+    :mode ("\\.js\\'")
+    :defer t
+    :config
+    (setq js2-basic-offset 2)
+    (setq tab-width 2))
 
 #+end_src
 
@@ -79,8 +142,24 @@ Language servers are nice to provide completions, jumps and the like. But they r
 
   (use-package eglot
     :ensure t
+    :defer t
+    :hook
+    ((elixir-mode js2-mode) . eglot-ensure)
     :config
-    (add-to-list 'eglot-server-programs '(elixir-mode "/usr/lib/elixir-ls/language_server.sh"))
+    (add-to-list 'eglot-server-programs '(elixir-mode . ("/usr/lib/elixir-ls/language_server.sh")))
     (add-to-list 'eglot-ignored-server-capabilities :hoverProvider))
+
+#+end_src
+
+
+* Highlight numbers
+
+Cuz why not?
+
+#+begin_src emacs-lisp
+
+  (use-package highlight-numbers
+    :config
+    (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 
 #+end_src

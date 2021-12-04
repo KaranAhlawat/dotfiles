@@ -55,7 +55,6 @@
 (setq tab-always-indent 'complete)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (show-paren-mode 1)
-(electric-pair-mode 1)
 (setq backup-direcotry-alist '(("." . "~/.cache/emacssaves"))
       create-lockfiles nil
       initial-major-mode 'fundamental-mode
@@ -83,10 +82,14 @@
 
 (set-default-coding-systems 'utf-8)
 
+(setq split-width-threshold 0
+      split-height-threshold nil)
+
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
@@ -114,13 +117,25 @@
 (setq auto-save-list-file-prefix (expand-file-name "tmp/auto-saves/sessions/" user-emacs-directory)
       auto-save-file-name-transforms `((".*" ,(expand-file-name "tmp/auto-saves" user-emacs-directory) t)))
 
+(use-package auto-package-update
+  :custom
+  (auto-package-update-interval 7)
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-hide-results t)
+  :config
+  (auto-package-update-maybe)
+  (auto-package-update-at-time "09:00"))
+
 (use-package modus-themes
   :config
   (setq modus-themes-hl-line '(intense)))
 
 (use-package doom-themes
   :config
-  (load-theme 'doom-solarized-dark t))
+  (load-theme 'doom-moonlight t))
+
+(use-package autothemer
+  :ensure t)
 
 (use-package which-key
   :defer 0
@@ -131,6 +146,18 @@
 
 (use-package all-the-icons
   :ensure t)
+
+(use-package all-the-icons-dired
+  :config
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+
+(use-package smartparens
+  :config
+  (require 'smartparens-config)
+  (smartparens-global-mode +1))
+
+(use-package evil-smartparens
+  :hook smartparens-enabled-hook)
 
 (use-package vertico
   :ensure t
@@ -180,7 +207,7 @@
   :custom
   (corfu-cycle t)
   (corfu-auto t)
-  (corfu-quit-at-boundary t)
+  (corfu-quit-at-boundary nil)
   (corfu-quit-no-match t)
   (corfu-preselect-first t)
   (corfu-echo-documentation nil)
@@ -292,9 +319,7 @@
    "q"  '(:ignore t :which-key "session")
    "qq" '(kill-emacs :which-key "Quit Emacs")
    "qf" '(delete-frame :which-key "Quit frame")
-   "h"  '(:ignore t :which-key "help")
-   "hf" '(describe-function :which-key "Describe function")
-   "hv" '(describe-variable :which-key "Describe variable")))
+   "h"  '(:keymap help-map :which-key "help")))
 
 (defun korv/org-font-setup ()
 

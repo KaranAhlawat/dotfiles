@@ -16,6 +16,7 @@
 .config/emacs/etc
 .config/emacs/eln-cache
 .config/emacs/tmp
+.config/emacs/parinfer-rust/
 
 # Org-mode
 .config/emacs/.org-id-locations

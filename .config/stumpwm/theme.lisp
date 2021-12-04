@@ -7,14 +7,14 @@
              ,(make-instance 'xft:font :family "JetBrainsMono Nerd Font" :subfamily "Regular" :size 12 :antialiasing t)))
 
 
-(set-border-color phundrak-nord1)
-(set-focus-color phundrak-nord1)
-(set-unfocus-color phundrak-nord3)
-(set-float-focus-color phundrak-nord1)
-(set-float-unfocus-color phundrak-nord3)
+(set-border-color k-tnight15)
+(set-focus-color k-tnight15)
+(set-unfocus-color k-tnight14)
+(set-float-focus-color k-tnight15)
+(set-float-unfocus-color k-tnight14)
 
-(set-fg-color phundrak-nord4)
-(set-bg-color phundrak-nord1)
+(set-fg-color k-tnight11)
+(set-bg-color k-tnight17)
 
 (setf *normal-border-width*       0
       *float-window-border*       0

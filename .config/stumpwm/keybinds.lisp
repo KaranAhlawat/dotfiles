@@ -40,7 +40,7 @@
 
 (define-key *root-map* (kbd "q") '*k-session-map*)
 
-(defvar *korv/workspaces* (list "I" "II" "III" "IV" "V"))
+(defvar *korv/workspaces* (list "1" "2" "3" "4" "5"))
 (stumpwm:grename (nth 0 *korv/workspaces*))
 (dolist (workspace (cdr *korv/workspaces*))
   (stumpwm:gnewbg workspace))
@@ -108,3 +108,14 @@
 (define-key *root-map* (kbd "B") "beckon")
 (define-key *root-map* (kbd "C-b") "banish")
 (define-key *root-map* (kbd "r") "reload")
+
+(define-key *root-map* (kbd "C-e") "eval")
+
+;; Slynk connection
+(defcommand slynk() ()
+  (eval (load "~/.config/stumpwm/slynk.lisp"))
+  (echo-string
+   (current-screen)
+   "Starting Slynk. M-x sly-connect RET RET, then (in-package :stumpwm)."))
+
+(define-key *root-map* (kbd "s") "slynk")

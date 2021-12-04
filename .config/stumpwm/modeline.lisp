@@ -1,5 +1,5 @@
 (setf *mode-line-timeout* 2)
-(setf *time-modeline-string* " %a %b %d|%I:%M %p")
+(setf *time-modeline-string* " %a %b%d|%I:%M %p")
 
 (setf *group-format* "%t")
 
@@ -7,12 +7,12 @@
 
 (load "~/.config/stumpwm/color.lisp")
 
-(setf *mode-line-background-color* phundrak-nord1
-      *mode-line-foreground-color* phundrak-nord5)
+(setf *mode-line-background-color* k-tnight17
+      *mode-line-foreground-color* k-tnight10)
 
-(setf *mode-line-border-color* phundrak-nord1
+(setf *mode-line-border-color* k-tnight10
       *mode-line-border-width* 0
-      *mode-line-pad-x* 10
+      *mode-line-pad-x* 20
       *mode-line-pad-y* 2
       *mode-line-position* :top)
 
@@ -25,11 +25,11 @@
 
 (setf cpu::*cpu-modeline-fmt*        "%c"
       cpu::*cpu-usage-modeline-fmt*  "^f1 ^f0^[~A~@d%^]"
-      mem::*mem-modeline-fmt*        "^f1^f0%p"
+      mem::*mem-modeline-fmt*        "^f1^f0%p"
       wifi::*wifi-modeline-fmt*      "^f1  %e"
       wifi::*use-colors*             nil
       *hiddn-window-color*           "^**"
-      *mode-line-highlight-template* "[~A]")
+      *mode-line-highlight-template* " ~A ")
 
 (setf stumptray:*tray-placeholder-pixels-per-space* 10)
 
@@ -37,31 +37,41 @@
   '(("%g") ("%W") ("^>") ("%d") ("%I") ("%C") ("%M") ("%B") ("%T"))
   "List of formatters for the modeline.")
 
-(defun generate-modeline (elements &optional not-invertedp)
-  "Generate a modeline for StumpWM."
-  (when elements
-    (cons (if not-invertedp
-            (format nil
-                    " ^(:fg \"~A\")^(:bg \"~A\")^f1^f0^(:fg \"~A\") "
-                    phundrak-nord1
-                    phundrak-nord15
-                    phundrak-nord3)
-            (format nil
-                    " ^(:fg \"~A\")^(:bg \"~A\")^f1^f0^** "
-                    phundrak-nord15
-                    phundrak-nord1))
-          (let* ((current-element (car elements))
-                 (formatter       (car current-element))
-                 (commandp        (cdr current-element)))
-            (cons (if commandp
-                     `(:eval (run-shell-command ,formatter t))
-                     (format nil "~A" formatter))
-                   (generate-modeline (cdr elements) (not not-invertedp)))))))
+(defvar *modeline-colors*
+  `(("." ".")
+    (,k-tnight10 ,k-tnight17)
+    (,k-tnight17 ,k-tnight01)
+    (,k-tnight17 ,k-tnight17)
+    (,k-tnight17 ,k-tnight00)
+    (,k-tnight17 ,k-tnight09)
+    (,k-tnight17 ,k-tnight06)
+    (,k-tnight17 ,k-tnight03)
+    (,k-tnight17 ,k-tnight11)
+    (,k-tnight10 ,k-tnight17)))
+
+(defun generate-modeline (elements colors)
+  "Generate a modeline for StumpWM. The user has to specify a list of colors manually, with the first element being a dummy element"
+  (when (and elements colors)
+    (let* ((current-element (car elements))
+           (formatter       (car current-element))
+           (prev-colors     (car colors))
+           (curr-colors     (cadr colors))
+           (curr-fg         (car curr-colors))
+           (curr-bg         (cadr curr-colors))
+           (prev-bg         (cadr prev-colors)))
+      (cons
+       (format nil
+               " ^(:fg \"~A\")^(:bg \"~A\")^(:fg \"~A\") "
+               prev-bg
+               curr-bg
+               curr-fg)
+       (cons (format nil "~A" formatter)
+             (generate-modeline (cdr elements) (cdr colors)))))))
 
 (defcommand reload-modeline () ()
             "Reload modeline."
             (setf *screen-mode-line-format*
-                  (cdr (generate-modeline *mode-line-formatter-list*))))
+                 (cdr (generate-modeline *mode-line-formatter-list* *modeline-colors*))))
 
 (reload-modeline)
 
