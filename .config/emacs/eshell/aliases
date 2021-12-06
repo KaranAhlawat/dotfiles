@@ -25,3 +25,8 @@ alias doompurge ~/.emacs.d/bin/doom purge
 alias cp cp -i $1
 alias mv mv -i $1
 alias rm rm -i $1
+
+# Add node and npm
+alias npm ~/.fnm/aliases/default/bin/npm
+alias npx ~/.fnm/aliases/default/bin/npx
+alias node ~/.fnm/aliases/default/bin/node

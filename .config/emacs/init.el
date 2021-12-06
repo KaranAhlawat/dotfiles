@@ -1,7 +1,7 @@
 (defvar korv/default-font-size 140)
 (defvar korv/default-variable-font-size 140)
 (defvar korv/frame-transparency '(100 . 100))
-(defvar korv/font-name "LigaSFMono Nerd Font")
+(defvar korv/font-name "Google Sans Mono")
 
 (setq gc-cons-threshold (* 50 1000 1000))
 
@@ -52,7 +52,7 @@
 ;; Change some global defaults
 (column-number-mode)
 (global-display-line-numbers-mode t)
-(setq tab-always-indent 'complete)
+(setq tab-always-indent t)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (show-paren-mode 1)
 (setq backup-direcotry-alist '(("." . "~/.cache/emacssaves"))
@@ -134,9 +134,6 @@
   :config
   (load-theme 'doom-moonlight t))
 
-(use-package autothemer
-  :ensure t)
-
 (use-package which-key
   :defer 0
   :diminish which-key-mode
@@ -154,10 +151,8 @@
 (use-package smartparens
   :config
   (require 'smartparens-config)
-  (smartparens-global-mode +1))
 
-(use-package evil-smartparens
-  :hook smartparens-enabled-hook)
+  (smartparens-global-mode +1))
 
 (use-package vertico
   :ensure t
@@ -211,12 +206,6 @@
   (corfu-quit-no-match t)
   (corfu-preselect-first t)
   (corfu-echo-documentation nil)
-  :bind
-  (:map corfu-map
-        ("TAB" . corfu-next)
-        ([tab] . corfu-next)
-        ("S-TAB" . corfu-previous)
-        ([backtab] . corfu-previous))
   :init
   (corfu-global-mode))
 
@@ -268,58 +257,98 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(global-unset-key (kbd "C-s"))
+(defun meow-setup ()
+  (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+  (meow-motion-overwrite-define-key
+   '("j" . meow-next)
+   '("k" . meow-prev)
+   '("SPC q f" . delete-frame)
+   '("SPC f l" . consult-line))
+  (meow-leader-define-key
+   ;; SPC j/k will run the original command in MOTION state.
+   '("j" . "H-j")
+   '("k" . "H-k")
+   ;; Use SPC (0-9) for digit arguments.
+   '("1" . meow-digit-argument)
+   '("2" . meow-digit-argument)
+   '("3" . meow-digit-argument)
+   '("4" . meow-digit-argument)
+   '("5" . meow-digit-argument)
+   '("6" . meow-digit-argument)
+   '("7" . meow-digit-argument)
+   '("8" . meow-digit-argument)
+   '("9" . meow-digit-argument)
+   '("0" . meow-digit-argument)
+   '("/" . meow-keypad-describe-key)
+   '("?" . meow-cheatsheet))
+  (meow-normal-define-key
+   '("0" . meow-expand-0)
+   '("9" . meow-expand-9)
+   '("8" . meow-expand-8)
+   '("7" . meow-expand-7)
+   '("6" . meow-expand-6)
+   '("5" . meow-expand-5)
+   '("4" . meow-expand-4)
+   '("3" . meow-expand-3)
+   '("2" . meow-expand-2)
+   '("1" . meow-expand-1)
+   '("-" . negative-argument)
+   '(";" . meow-reverse)
+   '("," . meow-inner-of-thing)
+   '("." . meow-bounds-of-thing)
+   '("[" . meow-beginning-of-thing)
+   '("]" . meow-end-of-thing)
+   '("a" . meow-append)
+   '("A" . meow-open-below)
+   '("b" . meow-back-word)
+   '("B" . meow-back-symbol)
+   '("c" . meow-change)
+   '("d" . meow-delete)
+   '("D" . meow-backward-delete)
+   '("e" . meow-next-word)
+   '("E" . meow-next-symbol)
+   '("f" . meow-find)
+   '("g" . meow-cancel-selection)
+   '("G" . meow-grab)
+   '("h" . meow-left)
+   '("H" . meow-left-expand)
+   '("i" . meow-insert)
+   '("I" . meow-open-above)
+   '("j" . meow-next)
+   '("J" . meow-next-expand)
+   '("k" . meow-prev)
+   '("K" . meow-prev-expand)
+   '("l" . meow-right)
+   '("L" . meow-right-expand)
+   '("m" . meow-join)
+   '("n" . meow-search)
+   '("o" . meow-block)
+   '("O" . meow-to-block)
+   '("p" . meow-yank)
+   '("q" . meow-quit)
+   '("Q" . meow-goto-line)
+   '("r" . meow-replace)
+   '("R" . meow-swap-grab)
+   '("s" . meow-kill)
+   '("t" . meow-till)
+   '("u" . meow-undo)
+   '("U" . meow-undo-in-selection)
+   '("v" . meow-visit)
+   '("w" . meow-mark-word)
+   '("W" . meow-mark-symbol)
+   '("x" . meow-line)
+   '("X" . meow-goto-line)
+   '("y" . meow-save)
+   '("Y" . meow-sync-grab)
+   '("z" . meow-pop-selection)
+   '("'" . repeat)
+   '("<escape>" . mode-line-other-buffer)))
 
-(use-package evil
-  :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-C-i-jump nil)
+(use-package meow
+  :ensure t
   :config
-  (evil-mode 1)
-  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-
-  (evil-set-initial-state 'message-buffer-mode 'normal)
-  (evil-set-initial-state 'dashboard-mode 'normal))
-
-(use-package evil-collection
-  :after evil
-  :config
-  (evil-collection-init))
-
-(use-package general
-  :config
-  (general-create-definer korv/leader-keys
-    :keymaps '(normal emacs)
-    :prefix "C-SPC"
-    :global-prefix "SPC")
-
-  (korv/leader-keys
-   "b"  '(:ignore t :which-key "buffers")
-   "bs" '(consult-buffer :which-key "Switch buffer")
-   "bk" '(kill-current-buffer :which-key "Kill buffer")
-   "w"  '(:ignore t :which-key "windows")
-   "wv" '(evil-window-vsplit :which-key "Vertical split")
-   "ws" '(evil-window-split :which-key "Horizontal split")
-   "wh" '(evil-window-left :which-key "Focus left")
-   "wj" '(evil-window-down :which-key "Focus down")
-   "wk" '(evil-window-up :which-key "Focus up")
-   "wl" '(evil-window-right :which-key "Focus right")
-   "wc" '(delete-window :which-key "Close window")
-   "o"  '(:ignore t :which-key "open")
-   "oe" '(eshell :which-key "Eshell")
-   "ot" '(vterm :which-key "Vterm")
-   "f"  '(:ignore t :which-key "file")
-   "ff" '(find-file :which-key "Find File")
-   "fr" '(consult-recent-file :which-key "Recent files")
-   "fs" '(save-buffer :which-key "Save file")
-   "fl" '(consult-line :which-key "Search file")
-   "q"  '(:ignore t :which-key "session")
-   "qq" '(kill-emacs :which-key "Quit Emacs")
-   "qf" '(delete-frame :which-key "Quit frame")
-   "h"  '(:keymap help-map :which-key "help")))
+  (meow-setup)
+  (meow-global-mode 1))
 
 (defun korv/org-font-setup ()
 
@@ -441,7 +470,7 @@
 
 (defun korv/eshell-configure ()
 
-  ;; (require 'magit)
+  (require 'magit)
 
   (require 'evil-collection-eshell)
   (evil-collection-eshell-setup)

@@ -3,8 +3,8 @@
 (ql:quickload :clx-truetype)
 (load-module "ttf-fonts")
 
-(set-font `(,(make-instance 'xft:font :family "JetBrainsMono Nerd Font" :subfamily "Regular" :size 12 :antialiasing t)
-             ,(make-instance 'xft:font :family "JetBrainsMono Nerd Font" :subfamily "Regular" :size 12 :antialiasing t)))
+(set-font `(,(make-instance 'xft:font :family "Liga SFMono Nerd Font" :subfamily "Medium" :size 12 :antialiasing t)
+            ,(make-instance 'xft:font :family "Liga SFMono Nerd Font" :subfamily "Medium" :size 12 :antialiasing t)))
 
 
 (set-border-color k-tnight15)

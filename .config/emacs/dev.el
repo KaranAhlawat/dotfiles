@@ -2,19 +2,37 @@
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-(korv/leader-keys
-  "g"  '(:ignore t :which-key "magit")
-  "gs" '(magit-status :which-key))
+(define-key magit-mode-map (kbd "s") 'magit-status)
 
-(korv/leader-keys
-  "p"  '(:ignore t :which-key "project")
-  "pp" '(project-switch-project :which-key "Switch project")
-  "pf" '(project-find-file :which-key "Project find file")
-  "pd" '(project-dired :which-key "Dired project root")
-  "pe" '(project-eshell :which-key "Eshell project root")
-  "pa" '(project-forget-project :which-key "Remove project")
-  "pk" '(project-kill-buffers :which-key "Kill project buffers")
-  "pc" '(project-async-shell-command :which-key "Async cmd project root"))
+;; (korv/leader-keys
+;;   "p"  '(:ignore t :which-key "project")
+;;   "pp" '(project-switch-project :which-key "Switch project")
+;;   "pf" '(project-find-file :which-key "Project find file")
+;;   "pd" '(project-dired :which-key "Dired project root")
+;;   "pe" '(project-eshell :which-key "Eshell project root")
+;;   "pa" '(project-forget-project :which-key "Remove project")
+;;   "pk" '(project-kill-buffers :which-key "Kill project buffers")
+;;   "pc" '(project-async-shell-command :which-key "Async cmd project root"))
+
+(defvar korv/project-root-list '(".git" "mix.exs" ".project"))
+
+(defun member-project-list-p (file)
+  (member file korv/project-root-list))
+
+(defun project-definer-p (dir)
+  (let ((dir-files (directory-files dir)))
+    (and (mapcar #'member-project-list-p dir-files))))
+
+
+(defun korv/project-try-explicit (dir)
+  "Find a super-directory of DIR containing a root file."
+  (locate-dominating-file dir #'project-definer-p))
+
+(defmethod project-root ((project string))
+  project)
+
+(add-hook 'project-find-functions
+    #'korv/project-try-explicit)
 
 (use-package flycheck
   :defer t
@@ -27,11 +45,7 @@
 (use-package sly
     :defer t
     :config
-    (setq inferior-lisp-program "sbcl")
-    (add-hook 'sly-mode-hook
-              (lambda ()
-                (unless (sly-connected-p)
-                  (save-excursion (sly))))))
+    (setq inferior-lisp-program "sbcl"))
 
 (use-package parinfer-rust-mode
   :hook
@@ -56,8 +70,7 @@
   :mode ("\\.js\\'")
   :defer t
   :config
-  (setq js2-basic-offset 2)
-  (setq tab-width 2))
+  (setq js2-basic-offset 2))
 
 (use-package eglot
   :ensure t
@@ -69,5 +82,49 @@
   (add-to-list 'eglot-ignored-server-capabilities :hoverProvider))
 
 (use-package highlight-numbers
+  :defer t
   :config
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
+
+(defface tree-sitter-hl-face:warning
+  '((default :inherit font-lock-warning-face))
+  "Face for parser errors"
+  :group 'tree-sitter-hl-faces)
+
+(defun korv/tree-sitter-common ()
+  (unless font-lock-defaults
+    (setq font-lock-defaults '(nil)))
+  (setq tree-sitter-hl-use-font-lock-keywords nil)
+  (tree-sitter-mode +1)
+  (tree-sitter-hl-mode +1))
+
+(defun korv/elixir-tree-sitter ()
+  (setq
+   tree-sitter-hl-default-patterns
+   (read
+    (concat
+     "["
+     (s-replace "#match?" ".match?"
+                (f-read-text (expand-file-name "~/Secondary/dev/tree-sitter/elixir/highlights.scm")))
+     "]")))
+
+  (korv/tree-sitter-common))
+
+
+(use-package tree-sitter
+  :ensure t
+  :hook ((elixir-mode . korv/elixir-tree-sitter))
+  :custom-face
+  (tree-sitter-hl-face:operator ((t)))
+  (tree-sitter-hl-face:variable ((t)))
+  (tree-sitter-hl-face:function.method.call ((t)))
+  (tree-sitter-hl-face:property ((t)))
+
+  :config
+  (setq tree-sitter-debug-highlight-jump-region t)
+  (setq tree-sitter-debug-jump-buttons t))
+
+
+(use-package tree-sitter-langs
+  :ensure t
+  :after tree-sitter)

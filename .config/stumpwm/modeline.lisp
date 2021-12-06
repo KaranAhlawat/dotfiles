@@ -31,10 +31,10 @@
       *hiddn-window-color*           "^**"
       *mode-line-highlight-template* " ~A ")
 
-(setf stumptray:*tray-placeholder-pixels-per-space* 10)
+(setf stumptray:*tray-placeholder-pixels-per-space* 14)
 
 (defvar *mode-line-formatter-list*
-  '(("%g") ("%W") ("^>") ("%d") ("%I") ("%C") ("%M") ("%B") ("%T"))
+  '(("%g") ("%W") ("^>") ("%d") ("%I") ("%C") ("%B") ("%T"))
   "List of formatters for the modeline.")
 
 (defvar *modeline-colors*
@@ -45,7 +45,6 @@
     (,k-tnight17 ,k-tnight00)
     (,k-tnight17 ,k-tnight09)
     (,k-tnight17 ,k-tnight06)
-    (,k-tnight17 ,k-tnight03)
     (,k-tnight17 ,k-tnight11)
     (,k-tnight10 ,k-tnight17)))
 
