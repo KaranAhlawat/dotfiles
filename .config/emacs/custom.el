@@ -8,7 +8,7 @@
  '(exec-path
    '("/usr/local/bin" "/usr/bin" "/usr/lib/emacs/28.0.60/x86_64-pc-linux-gnu" "/home/karan/.fnm/aliases/default/bin"))
  '(package-selected-packages
-   '(meow tree-sitter-langs tree-sitter all-the-icons-dired consult-flycheck js2-mode flycheck parinfer-rust-mode auto-package-update highlight-numbers smartparens yasnippets alchemist eglot elixir-mode sly xterm-color which-key visual-fill-column vertico use-package rainbow-delimiters page-break-lines org-bullets orderless no-littering modus-themes marginalia magit general exec-path-from-shell doom-themes doom-modeline dashboard corfu consult cape))
+   '(eldoc-box meow tree-sitter-langs tree-sitter all-the-icons-dired consult-flycheck js2-mode flycheck parinfer-rust-mode auto-package-update highlight-numbers smartparens yasnippets alchemist eglot elixir-mode sly xterm-color which-key visual-fill-column vertico use-package rainbow-delimiters page-break-lines org-bullets orderless no-littering modus-themes marginalia magit general exec-path-from-shell doom-themes doom-modeline dashboard corfu consult cape))
  '(split-width-threshold nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

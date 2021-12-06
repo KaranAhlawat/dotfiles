@@ -4,35 +4,11 @@
 
 (define-key magit-mode-map (kbd "s") 'magit-status)
 
-;; (korv/leader-keys
-;;   "p"  '(:ignore t :which-key "project")
-;;   "pp" '(project-switch-project :which-key "Switch project")
-;;   "pf" '(project-find-file :which-key "Project find file")
-;;   "pd" '(project-dired :which-key "Dired project root")
-;;   "pe" '(project-eshell :which-key "Eshell project root")
-;;   "pa" '(project-forget-project :which-key "Remove project")
-;;   "pk" '(project-kill-buffers :which-key "Kill project buffers")
-;;   "pc" '(project-async-shell-command :which-key "Async cmd project root"))
-
-(defvar korv/project-root-list '(".git" "mix.exs" ".project"))
-
-(defun member-project-list-p (file)
-  (member file korv/project-root-list))
-
-(defun project-definer-p (dir)
-  (let ((dir-files (directory-files dir)))
-    (and (mapcar #'member-project-list-p dir-files))))
-
-
-(defun korv/project-try-explicit (dir)
-  "Find a super-directory of DIR containing a root file."
-  (locate-dominating-file dir #'project-definer-p))
-
-(defmethod project-root ((project string))
-  project)
-
-(add-hook 'project-find-functions
-    #'korv/project-try-explicit)
+(use-package project-x
+  :load-path "~/.config/emacs/project-x/"
+  :after project
+  :config
+  (setq project-x-local-identifier '(".project" "mix.exs" ".gitignore" "Cargo.toml")))
 
 (use-package flycheck
   :defer t
@@ -110,10 +86,13 @@
 
   (korv/tree-sitter-common))
 
+(defun korv/js-tree-sitter ()
+  (korv/tree-sitter-common))
 
 (use-package tree-sitter
   :ensure t
   :hook ((elixir-mode . korv/elixir-tree-sitter))
+  :hook ((js2-mode . korv/js-tree-sitter))
   :custom-face
   (tree-sitter-hl-face:operator ((t)))
   (tree-sitter-hl-face:variable ((t)))
@@ -124,7 +103,15 @@
   (setq tree-sitter-debug-highlight-jump-region t)
   (setq tree-sitter-debug-jump-buttons t))
 
-
 (use-package tree-sitter-langs
   :ensure t
   :after tree-sitter)
+
+(use-package eldoc
+  :hook
+  (eglot-connect . eldoc-mode))
+
+(use-package eldoc-box
+  :commands (eldoc-box-hover-at-point-mode)
+  :hook
+  (eldoc-mode . eldoc-box-hover-at-point-mode))
