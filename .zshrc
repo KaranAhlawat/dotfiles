@@ -61,6 +61,9 @@ export PATH=/home/karan/.deno/bin:$PATH
 export PATH=/home/karan/.local/bin/:/home/karan/.fnm:/home/karan/.yarn/bin/:$PATH
 eval "`fnm env`"
 
+# scripts
+export PATH=/home/karan/.config/scripts/:$PATH
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

@@ -52,7 +52,18 @@
   :ensure t
   :defer t
   :hook
-  ((elixir-mode js2-mode) . eglot-ensure)
+  ((elixir-mode js2-mode java-mode) . eglot-ensure)
+  :bind
+  (:map eglot-mode-map
+        ("C-c C-l C-r" . 'eglot-rename)
+        ("C-c C-c C-a" . 'eglot-code-actions)
+        ("C-c C-f C-t" . 'eglot-find-typeDefinition)
+        ("C-c C-f C-d" . 'eglot-find-declaration)
+        ("C-c C-f C-m" . 'eglot-find-implementation)
+        ("C-c C-c C-q" . 'eglot-code-action-quickfix)
+        ("C-c C-b"     . 'eglot-format-buffer)
+        ("C-c C-c C-o" . 'eglot-code-action-organize-imports)
+        ("C-c C-h"     . 'eldoc-box-eglot-help-at-point))
   :config
   (add-to-list 'eglot-server-programs '(elixir-mode . ("/usr/lib/elixir-ls/language_server.sh")))
   (add-to-list 'eglot-ignored-server-capabilities :hoverProvider))

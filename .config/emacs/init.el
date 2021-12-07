@@ -472,9 +472,6 @@
 
   (require 'magit)
 
-  (require 'evil-collection-eshell)
-  (evil-collection-eshell-setup)
-
   (use-package xterm-color)
 
   (push 'eshell-tramp eshell-modules-list)
@@ -496,11 +493,6 @@
             (lambda () (setenv "TERM" "dumb")))
 
   (eshell-hist-initialize)
-
-  (evil-define-key '(normal insert visual) eshell-mode-map (kbd "C-r") 'consult-history)
-  (evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'eshell-bol)
-  (evil-normalize-keymaps)
-
 
   (setq eshell-history-size 5000
         eshell-buffer-maximum-lines 5000
@@ -527,8 +519,7 @@
   :init
   (setq exec-path-from-shell-check-startup-files nil)
   :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
+  (exec-path-from-shell-initialize))
 
 (load (expand-file-name "~/.config/emacs/dev.el"))
 

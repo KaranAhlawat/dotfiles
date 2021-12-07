@@ -18,6 +18,7 @@
 .config/emacs/tmp
 .config/emacs/parinfer-rust/
 .config/emacs/project-x/
+.config/emacs/eglot-*
 
 # Org-mode
 .config/emacs/.org-id-locations

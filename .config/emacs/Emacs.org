@@ -751,9 +751,6 @@ And now a configuration function
 
     (require 'magit)
 
-    (require 'evil-collection-eshell)
-    (evil-collection-eshell-setup)
-
     (use-package xterm-color)
 
     (push 'eshell-tramp eshell-modules-list)
@@ -775,11 +772,6 @@ And now a configuration function
               (lambda () (setenv "TERM" "dumb")))
 
     (eshell-hist-initialize)
-
-    (evil-define-key '(normal insert visual) eshell-mode-map (kbd "C-r") 'consult-history)
-    (evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'eshell-bol)
-    (evil-normalize-keymaps)
-
 
     (setq eshell-history-size 5000
           eshell-buffer-maximum-lines 5000
@@ -812,8 +804,7 @@ Putting it all together, here's what we get
     :init
     (setq exec-path-from-shell-check-startup-files nil)
     :config
-    (when (memq window-system '(mac ns x))
-      (exec-path-from-shell-initialize)))
+    (exec-path-from-shell-initialize))
 
 #+end_src
 
