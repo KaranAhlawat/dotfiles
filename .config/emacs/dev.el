@@ -4,11 +4,26 @@
 
 (define-key magit-mode-map (kbd "s") 'magit-status)
 
-(use-package project-x
-  :load-path "~/.config/emacs/project-x/"
-  :after project
+(use-package project
   :config
-  (setq project-x-local-identifier '(".project" "mix.exs" ".gitignore" "Cargo.toml")))
+  (defvar project-root-markers '("Cargo.toml" "mix.exs" ".project"))
+
+  (defun korv/project-find-root (path)
+    (let* ((this-dir (file-name-as-directory (file-truename path)))
+           (parent-dir (expand-file-name (concat this-dir "../")))
+           (system-root-dir (expand-file-name "/")))
+      (cond
+       ((korv/project-root-p this-dir) (cons 'transient this-dir))
+       ((equal system-root-dir this-dir) nil)
+       (t (korv/project-find-root parent-dir)))))
+
+  (defun korv/project-root-p (path)
+    (let ((results (mapcar (lambda (marker)
+                             (file-exists-p (concat path marker)))
+                           project-root-markers)))
+      (eval `(or ,@ results))))
+
+  (add-to-list 'project-find-functions #'korv/project-find-root))
 
 (use-package flycheck
   :defer t
@@ -38,6 +53,11 @@
             (lambda ()
               (add-hook 'before-save-hook 'elixir-format nil t))))
 
+(use-package flycheck-credo
+  :after elixir-mode
+  :config
+  (flycheck-credo-setup))
+
 (use-package alchemist
   :defer t
   :hook (elixir-mode . alchemist-mode))
@@ -48,71 +68,90 @@
   :config
   (setq js2-basic-offset 2))
 
+(use-package web-mode
+  :mode "\\.html\\'"
+  :mode "\\.[h]?eex\\'"
+  :config
+  (setq web-mode-enable-html-entities-fontification t)
+  (setq web-mode-auto-close-style 1))
+
+(use-package emmet-mode
+  :hook ((web-mode . emmet-mode)
+         (mhtml-mode . emmet-mode))
+  :config
+  (define-key emmet-mode-keymap (kbd "TAB") #'emmet-expand-line))
+
 (use-package eglot
   :ensure t
   :defer t
+  :init
+  (setq eglot-sync-connect 1
+        eglot-connect-timeout 10
+        eglot-autoshutdown t
+        eglot-send-changes-idle-time 0.5
+        eglot-auto-display-help-buffer nil)
+  (setq eglot-stay-out-of '(flycheck))
   :hook
-  ((elixir-mode js2-mode java-mode) . eglot-ensure)
+  ((elixir-mode js2-mode) . eglot-ensure)
   :bind
   (:map eglot-mode-map
-        ("C-c C-l C-r" . 'eglot-rename)
-        ("C-c C-c C-a" . 'eglot-code-actions)
-        ("C-c C-f C-t" . 'eglot-find-typeDefinition)
-        ("C-c C-f C-d" . 'eglot-find-declaration)
-        ("C-c C-f C-m" . 'eglot-find-implementation)
-        ("C-c C-c C-q" . 'eglot-code-action-quickfix)
-        ("C-c C-b"     . 'eglot-format-buffer)
-        ("C-c C-c C-o" . 'eglot-code-action-organize-imports)
-        ("C-c C-h"     . 'eldoc-box-eglot-help-at-point))
+        ("C-c l r"   . 'eglot-rename)
+        ("C-c l a"   . 'eglot-code-actions)
+        ("C-c l f t" . 'eglot-find-typeDefinition)
+        ("C-c l f d" . 'eglot-find-declaration)
+        ("C-c l f m" . 'eglot-find-implementation)
+        ("C-c l q"   . 'eglot-code-action-quickfix)
+        ("C-c l b"   . 'eglot-format-buffer)
+        ("C-c l o"   . 'eglot-code-action-organize-imports)
+        ("C-c l h"   . 'eldoc-box-eglot-help-at-point))
   :config
-  (add-to-list 'eglot-server-programs '(elixir-mode . ("/usr/lib/elixir-ls/language_server.sh")))
-  (add-to-list 'eglot-ignored-server-capabilities :hoverProvider))
+  (add-to-list 'eglot-ignored-server-capabilities :hoverProvider)
+
+  (defconst eglot-eclipse-jdt-home "/home/karan/.java/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.5.700.v20200207-2156.jar")
+
+  (defun eglot-eclipse-jdt-contact (interactive)
+    (let ((cp (getenv "CLASSPATH")))
+      (setenv "CLASSPATH" (concat cp ":" eglot-eclipse-jdt-home))
+      (unwind-protect (eglot--eclipse-jdt-contact nil)
+        (setenv "CLASSPATH" cp))))
+
+  (setcdr (assq 'java-mode eglot-server-programs) #'eglot-eclipse-jdt-contact)
+
+  (add-hook 'java-mode-hook 'eglot-ensure))
+
+(use-package consult-eglot
+  :defer t
+  :config
+  (define-key eglot-mode-map [remap xref-find-apropos] #'consult-eglot-symbols))
+
+;; Defer Eglot shutting down servers for a few seconds
+
+(defun eglot--defer-server-shutdown (fn &optional server)
+  (cl-letf (((symbol-function #'eglot-shutdown)
+             (lambda (server)
+               (run-at-time 5
+                            nil
+                            (lambda (server)
+                              (unless (eglot--managed-buffers server)
+                                (eglot-shutdown server)))
+                            server))))
+    (funcall fn server)))
+
+(advice-add #'eglot--managed-mode
+            :around #'eglot--defer-server-shutdown)
 
 (use-package highlight-numbers
   :defer t
   :config
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 
-(defface tree-sitter-hl-face:warning
-  '((default :inherit font-lock-warning-face))
-  "Face for parser errors"
-  :group 'tree-sitter-hl-faces)
-
-(defun korv/tree-sitter-common ()
-  (unless font-lock-defaults
-    (setq font-lock-defaults '(nil)))
-  (setq tree-sitter-hl-use-font-lock-keywords nil)
-  (tree-sitter-mode +1)
-  (tree-sitter-hl-mode +1))
-
-(defun korv/elixir-tree-sitter ()
-  (setq
-   tree-sitter-hl-default-patterns
-   (read
-    (concat
-     "["
-     (s-replace "#match?" ".match?"
-                (f-read-text (expand-file-name "~/Secondary/dev/tree-sitter/elixir/highlights.scm")))
-     "]")))
-
-  (korv/tree-sitter-common))
-
-(defun korv/js-tree-sitter ()
-  (korv/tree-sitter-common))
-
 (use-package tree-sitter
   :ensure t
-  :hook ((elixir-mode . korv/elixir-tree-sitter))
-  :hook ((js2-mode . korv/js-tree-sitter))
-  :custom-face
-  (tree-sitter-hl-face:operator ((t)))
-  (tree-sitter-hl-face:variable ((t)))
-  (tree-sitter-hl-face:function.method.call ((t)))
-  (tree-sitter-hl-face:property ((t)))
-
   :config
   (setq tree-sitter-debug-highlight-jump-region t)
-  (setq tree-sitter-debug-jump-buttons t))
+  (setq tree-sitter-debug-jump-buttons t)
+  (global-tree-sitter-mode +1))
+
 
 (use-package tree-sitter-langs
   :ensure t

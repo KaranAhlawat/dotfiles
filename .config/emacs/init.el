@@ -1,5 +1,5 @@
-(defvar korv/default-font-size 140)
-(defvar korv/default-variable-font-size 140)
+(defvar korv/default-font-size 150)
+(defvar korv/default-variable-font-size 150)
 (defvar korv/frame-transparency '(100 . 100))
 (defvar korv/font-name "Google Sans Mono")
 
@@ -72,7 +72,6 @@
 
 (blink-cursor-mode 0)
 (delete-selection-mode t)
-
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
                 term-mode-hook
@@ -130,9 +129,12 @@
   :config
   (setq modus-themes-hl-line '(intense)))
 
-(use-package doom-themes
-  :config
-  (load-theme 'doom-moonlight t))
+(use-package doom-themes)
+
+(load-theme 'spacemacs-dark t)
+
+(setq spacemacs-theme-org-bold t
+      spacemacs-theme-underline-parens t)
 
 (use-package which-key
   :defer 0
@@ -212,12 +214,6 @@
 ;; TODO: Remap keybinds?
 
 (use-package cape
-  :bind (("C-c p p" . completion-at-point)
-         ("C-c p t" . complete-tag)
-         ("C-c p d" . cape-dabbrev)
-         ("C-c p f" . cape-file)
-         ("C-c p k" . cape-keyword)
-         ("C-C p a" . cape-abbrev))
   :init
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
@@ -229,7 +225,10 @@
 (use-package doom-modeline
   :ensure t
   :init
-  (doom-modeline-mode 1))
+  (doom-modeline-mode 1)
+  :config
+  (setq doom-modeline--eglot t
+        doom-modeline--project-root t))
 
 (use-package dashboard
   :custom
@@ -398,7 +397,9 @@
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 
   (setq org-confirm-babel-evaluate nil
-        org-ellipsis " ▾")
+        org-ellipsis " ▾"
+        org-agenda-files (list "~/Documents/org/Agenda.org")
+        org-latex-pdf-process '("tectonic -X compile --outdir=%o %f"))
 
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
@@ -462,7 +463,7 @@
      (when current-branch
        (concat
         (propertize " on " 'face `(:foreground "white"))
-        (propertize (concat "" current-branch) 'face `(:foreground "#f48cd4"))))
+        (propertize (concat " " current-branch) 'face `(:foreground "#f48cd4"))))
      (if (= (user-uid) 0)
          (propertize "\n#" 'face `(:foreground "red2"))
        (propertize "\n➜" 'face `(:foreground "#f48cd4")))
@@ -522,5 +523,6 @@
   (exec-path-from-shell-initialize))
 
 (load (expand-file-name "~/.config/emacs/dev.el"))
+(load (expand-file-name "~/.config/emacs/tree-sitter.el"))
 
 (setq gc-cons-threshold (* 2 1000 1000))

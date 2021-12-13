@@ -64,6 +64,10 @@ eval "`fnm env`"
 # scripts
 export PATH=/home/karan/.config/scripts/:$PATH
 
+export PATH=/usr/lib/elixir-ls/:$PATH
+
+#export CLASSPATH="/home/karan/.java/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.5.700.v20200207-2156.jar"
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

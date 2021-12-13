@@ -19,6 +19,7 @@
 .config/emacs/parinfer-rust/
 .config/emacs/project-x/
 .config/emacs/eglot-*
+.config/emacs/tree-sitter.el
 
 # Org-mode
 .config/emacs/.org-id-locations
