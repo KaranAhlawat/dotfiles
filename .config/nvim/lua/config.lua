@@ -1,5 +1,5 @@
 -- Set the colorscheme and lualine options
-vim.cmd [[ colorscheme tokyonight ]]
+vim.cmd [[ colorscheme gabriel ]]
 
 vim.g.tokyonight_style = "night"
 vim.g.tokyonight_lualine_bold = true

@@ -24,7 +24,7 @@
 
 (define-key *root-map* (kbd "a") '*k-apps-map*)
 
-(define-key *top-map* (kbd "M-RET") "term")
+(define-key *top-map* (kbd "M-S-RET") "term")
 (define-key *top-map* (kbd "Print") '*k-screenshot-map*)
 
 (defvar *k-session-map*

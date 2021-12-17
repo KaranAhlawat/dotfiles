@@ -34,7 +34,8 @@ return require('packer').startup(function(use)
         use {
           'tjdevries/gruvbuddy.nvim',
           requires = { 'tjdevries/colorbuddy.vim' }
-      }
+        }
+        use 'gantoreno/vim-gabriel'
 
 	-- Treesitter
 	use 'nvim-treesitter/nvim-treesitter'

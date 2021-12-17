@@ -12,8 +12,8 @@ Let's define some variables to keep this DRY.
 
   (defvar korv/default-font-size 150)
   (defvar korv/default-variable-font-size 150)
-  (defvar korv/frame-transparency '(100 . 100))
-  (defvar korv/font-name "Google Sans Mono")
+  (defvar korv/frame-transparency '(95 . 90))
+  (defvar korv/font-name "Iosevka Nerd Font Mono")
 
 #+end_src
 
@@ -245,10 +245,18 @@ And spacemacs themes.
 
 #+begin_src emacs-lisp
 
-  (load-theme 'spacemacs-dark t)
-
   (setq spacemacs-theme-org-bold t
         spacemacs-theme-underline-parens t)
+
+#+end_src
+
+And ujelly theme
+
+#+begin_src emacs-lisp
+
+      (use-package ujelly-theme
+        :config
+        (load-theme 'ujelly-theme t))
 
 #+end_src
 
@@ -416,6 +424,22 @@ And Cape, for completion-at-point-functions which are nice but not included in E
     (add-to-list 'completion-at-point-functions #'cape-keyword))
 
   (use-package dabbrev)
+
+#+end_src
+
+*** kind-icon
+
+icons for corfu
+
+#+begin_src emacs-lisp
+
+  (use-package kind-icon
+    :ensure t
+    :after corfu
+    :custom
+    (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
+    :config
+    (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 #+end_src
 

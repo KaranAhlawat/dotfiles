@@ -20,6 +20,7 @@
 .config/emacs/project-x/
 .config/emacs/eglot-*
 .config/emacs/tree-sitter.el
+.config/emacs/.cache
 
 # Org-mode
 .config/emacs/.org-id-locations

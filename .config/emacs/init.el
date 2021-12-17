@@ -1,7 +1,7 @@
 (defvar korv/default-font-size 150)
 (defvar korv/default-variable-font-size 150)
-(defvar korv/frame-transparency '(100 . 100))
-(defvar korv/font-name "Google Sans Mono")
+(defvar korv/frame-transparency '(95 . 90))
+(defvar korv/font-name "Iosevka Nerd Font Mono")
 
 (setq gc-cons-threshold (* 50 1000 1000))
 
@@ -131,10 +131,12 @@
 
 (use-package doom-themes)
 
-(load-theme 'spacemacs-dark t)
-
 (setq spacemacs-theme-org-bold t
       spacemacs-theme-underline-parens t)
+
+(use-package ujelly-theme
+  :config
+  (load-theme 'ujelly-theme t))
 
 (use-package which-key
   :defer 0
@@ -221,6 +223,14 @@
   (add-to-list 'completion-at-point-functions #'cape-keyword))
 
 (use-package dabbrev)
+
+(use-package kind-icon
+  :ensure t
+  :after corfu
+  :custom
+  (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 (use-package doom-modeline
   :ensure t

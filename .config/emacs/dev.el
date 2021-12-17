@@ -68,18 +68,49 @@
   :config
   (setq js2-basic-offset 2))
 
+(use-package typescript-mode
+  :mode ("\\.ts\\'")
+  :defer t)
+
 (use-package web-mode
   :mode "\\.html\\'"
-  :mode "\\.[h]?eex\\'"
+  :init
+  (add-to-list 'auto-mode-alist '("\\.heex\\'" . mhtml-mode))
   :config
   (setq web-mode-enable-html-entities-fontification t)
-  (setq web-mode-auto-close-style 1))
+  (setq web-mode-auto-close-style 1)
+  (setq web-mode-engines-alist '(("elixir" . "\\.ex\\'"))))
+
 
 (use-package emmet-mode
   :hook ((web-mode . emmet-mode)
-         (mhtml-mode . emmet-mode))
+         (mhtml-mode . emmet-mode)
+         (poly-elixir-web-mode . emmet-mode))
+
   :config
   (define-key emmet-mode-keymap (kbd "TAB") #'emmet-expand-line))
+
+(use-package polymode
+  :ensure t
+  :mode ("\.ex$" . poly-elixir-web-mode)
+  :config
+  (define-hostmode poly-elixir-hostmode :mode 'elixir-mode)
+  (define-innermode poly-live-view-expr-elixir-innermode
+    :mode 'web-mode
+    :head-matcher (rx line-start (* space) "~H" (= 3 (char "\"'")) line-end)
+    :tail-matcher (rx line-start (* space) (= 3 (char "\"'")) line-end)
+    :head-mode 'host
+    :tail-mode 'host
+    :allow-nested nil
+    :keep-in-mode 'host
+    :fallback-mode 'host)
+  (define-polymode poly-elixir-web-mode
+    :hostmode 'poly-elixir-hostmode
+    :innermodes '(poly-live-view-expr-elixir-innermode)))
+
+(use-package prettier
+  :config
+  (global-prettier-mode))
 
 (use-package eglot
   :ensure t
@@ -92,7 +123,7 @@
         eglot-auto-display-help-buffer nil)
   (setq eglot-stay-out-of '(flycheck))
   :hook
-  ((elixir-mode js2-mode) . eglot-ensure)
+  ((elixir-mode js2-mode typescript-mode) . eglot-ensure)
   :bind
   (:map eglot-mode-map
         ("C-c l r"   . 'eglot-rename)
