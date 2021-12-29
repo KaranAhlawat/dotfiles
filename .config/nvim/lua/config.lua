@@ -1,5 +1,5 @@
 -- Set the colorscheme and lualine options
-vim.cmd [[ colorscheme gabriel ]]
+vim.cmd [[ colorscheme kanagawa ]]
 
 vim.g.tokyonight_style = "night"
 vim.g.tokyonight_lualine_bold = true
@@ -9,8 +9,8 @@ vim.g.tokyonight_hide_inactive_statusline = true
 require('lualine').setup {
     options = {
       theme = 'tokyonight',
-      section_separators = { left = "", right = "" },
-      component_separators = { left = "|", right = "|" }
+      section_separators = { left = "", right = "" },
+      component_separators = { left = "", right = "" }
     },
     sections = {
       lualine_x = { 'encoding', 'filetype' }

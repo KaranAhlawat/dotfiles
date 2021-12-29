@@ -6,7 +6,7 @@
 
 (use-package project
   :config
-  (defvar project-root-markers '("Cargo.toml" "mix.exs" ".project"))
+  (defvar project-root-markers '("Cargo.toml" "mix.exs" ".project" "package.json"))
 
   (defun korv/project-find-root (path)
     (let* ((this-dir (file-name-as-directory (file-truename path)))
@@ -108,9 +108,16 @@
     :hostmode 'poly-elixir-hostmode
     :innermodes '(poly-live-view-expr-elixir-innermode)))
 
-(use-package prettier
-  :config
-  (global-prettier-mode))
+(use-package prettier)
+
+(load (expand-file-name "emacs-prisma-mode/prisma-mode" user-emacs-directory))
+
+(use-package solidity-mode
+  :mode ("\\.sol\\'")
+  :defer t)
+
+(use-package solidity-flycheck
+  :after solidity-mode)
 
 (use-package eglot
   :ensure t
@@ -123,7 +130,7 @@
         eglot-auto-display-help-buffer nil)
   (setq eglot-stay-out-of '(flycheck))
   :hook
-  ((elixir-mode js2-mode typescript-mode) . eglot-ensure)
+  ((c-mode c++-mode elixir-mode js2-mode typescript-mode prisma-mode) . eglot-ensure)
   :bind
   (:map eglot-mode-map
         ("C-c l r"   . 'eglot-rename)
@@ -134,9 +141,15 @@
         ("C-c l q"   . 'eglot-code-action-quickfix)
         ("C-c l b"   . 'eglot-format-buffer)
         ("C-c l o"   . 'eglot-code-action-organize-imports)
-        ("C-c l h"   . 'eldoc-box-eglot-help-at-point))
+        ("C-c l h"   . 'eldoc-box-eglot-help-at-point)
+        ("C-c l c"   . 'consult-eglot-symbols))
   :config
   (add-to-list 'eglot-ignored-server-capabilities :hoverProvider)
+  (add-to-list 'eglot-server-programs '(prisma-mode . ("prisma-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '(solidity-mode . ("solc" "--lsp")))
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+
+  (setq eglot-confirm-server-initiated-edits nil)
 
   (defconst eglot-eclipse-jdt-home "/home/karan/.java/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.5.700.v20200207-2156.jar")
 
@@ -150,37 +163,22 @@
 
   (add-hook 'java-mode-hook 'eglot-ensure))
 
-(use-package consult-eglot
-  :defer t
-  :config
-  (define-key eglot-mode-map [remap xref-find-apropos] #'consult-eglot-symbols))
-
-;; Defer Eglot shutting down servers for a few seconds
-
-(defun eglot--defer-server-shutdown (fn &optional server)
-  (cl-letf (((symbol-function #'eglot-shutdown)
-             (lambda (server)
-               (run-at-time 5
-                            nil
-                            (lambda (server)
-                              (unless (eglot--managed-buffers server)
-                                (eglot-shutdown server)))
-                            server))))
-    (funcall fn server)))
-
-(advice-add #'eglot--managed-mode
-            :around #'eglot--defer-server-shutdown)
-
 (use-package highlight-numbers
   :defer t
   :config
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
+
+(defun korv/enable-tree-sitter-hl ()
+  (message "Is this thing on?")
+  (tree-sitter-hl-mode +1))
 
 (use-package tree-sitter
   :ensure t
   :config
   (setq tree-sitter-debug-highlight-jump-region t)
   (setq tree-sitter-debug-jump-buttons t)
+  (add-hook 'js2-mode-hook #'korv/enable-tree-sitter-hl)
+  (add-hook 'c++-mode-hook #'korv/enable-tree-sitter-hl)
   (global-tree-sitter-mode +1))
 
 
@@ -193,6 +191,4 @@
   (eglot-connect . eldoc-mode))
 
 (use-package eldoc-box
-  :commands (eldoc-box-hover-at-point-mode)
-  :hook
-  (eldoc-mode . eldoc-box-hover-at-point-mode))
+  :commands (eldoc-box-hover-at-point-mode))

@@ -50,6 +50,9 @@ alias l="ls -la"
 alias vi="nvim"
 alias vim="nvim"
 
+alias gs="git status"
+alias ga="git add"
+
 # ----------------------------- EXPORTS --------------------------------
 export EDITOR="nvim"
 
@@ -66,7 +69,10 @@ export PATH=/home/karan/.config/scripts/:$PATH
 
 export PATH=/usr/lib/elixir-ls/:$PATH
 
-#export CLASSPATH="/home/karan/.java/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.5.700.v20200207-2156.jar"
+# pyenv
+export PATH=/home/karan/.pyenv/shims/:$PATH
+
+eval "$(direnv hook zsh)"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

@@ -1,7 +1,8 @@
-(defvar korv/default-font-size 150)
-(defvar korv/default-variable-font-size 150)
+(defvar korv/default-font-size 145)
+(defvar korv/default-variable-font-size 145)
 (defvar korv/frame-transparency '(95 . 90))
 (defvar korv/font-name "Iosevka Nerd Font Mono")
+(defvar korv/org-headings-font "Iosevka Nerd Font Mono")
 
 (setq gc-cons-threshold (* 50 1000 1000))
 
@@ -129,14 +130,12 @@
   :config
   (setq modus-themes-hl-line '(intense)))
 
-(use-package doom-themes)
+(use-package doom-themes
+  :config
+  (load-theme 'doom-material-dark t))
 
 (setq spacemacs-theme-org-bold t
       spacemacs-theme-underline-parens t)
-
-(use-package ujelly-theme
-  :config
-  (load-theme 'ujelly-theme t))
 
 (use-package which-key
   :defer 0
@@ -375,7 +374,7 @@
                   (org-level-6 . 1.1)
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "JetBrainsMono Nerd Font" :weight 'regular :height (cdr face)))
+    (set-face-attribute (car face) nil :font korv/org-headings-font :weight 'regular :height (cdr face)))
 
   ;; Ensure fixed pitch appears as fixed pitch
   (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
@@ -465,19 +464,27 @@
         (abbreviate-file-name current-path)
       (string-remove-prefix (file-name-directory git-output) current-path))))
 
+
+(defun korv/get-current-eshell-color ()
+  (let ((cur-bg-mode (frame-parameter nil 'background-mode)))
+    (if (string-equal cur-bg-mode "dark")
+        "white"
+      "black")))
+
 (defun korv/eshell-prompt ()
-  (let ((current-branch (magit-get-current-branch)))
+  (let ((current-branch (magit-get-current-branch))
+        (current-color (korv/get-current-eshell-color)))
     (concat
      "\n"
      (propertize (korv/get-prompt-path) 'face `(:foreground "#2fafff"))
      (when current-branch
        (concat
-        (propertize " on " 'face `(:foreground "white"))
+        (propertize " on " 'face `(:foreground current-color))
         (propertize (concat " " current-branch) 'face `(:foreground "#f48cd4"))))
      (if (= (user-uid) 0)
          (propertize "\n#" 'face `(:foreground "red2"))
        (propertize "\n➜" 'face `(:foreground "#f48cd4")))
-     (propertize " " 'face `(:foreground "white")))))
+     (propertize " " 'face `(:foreground current-color)))))
 
 (defun korv/eshell-configure ()
 

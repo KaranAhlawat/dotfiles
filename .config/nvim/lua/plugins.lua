@@ -36,6 +36,7 @@ return require('packer').startup(function(use)
           requires = { 'tjdevries/colorbuddy.vim' }
         }
         use 'gantoreno/vim-gabriel'
+        use 'rebelot/kanagawa.nvim'
 
 	-- Treesitter
 	use 'nvim-treesitter/nvim-treesitter'

@@ -28,7 +28,7 @@ Going to use =projectile=
 
   (use-package project
     :config
-    (defvar project-root-markers '("Cargo.toml" "mix.exs" ".project"))
+    (defvar project-root-markers '("Cargo.toml" "mix.exs" ".project" "package.json"))
 
     (defun korv/project-find-root (path)
       (let* ((this-dir (file-name-as-directory (file-truename path)))
@@ -203,11 +203,35 @@ We add prettier for code formatting.
 
 #+begin_src emacs-lisp
 
-  (use-package prettier
-    :config
-    (global-prettier-mode))
+  (use-package prettier)
 
 #+end_src
+
+** Prisma
+
+Prisma is an ORM for JS/TS.
+
+#+begin_src emacs-lisp
+
+  (load (expand-file-name "emacs-prisma-mode/prisma-mode" user-emacs-directory))
+
+#+end_src
+
+** Solidity
+
+A toast to my baby steps into the web3 world.
+
+#+begin_src emacs-lisp
+
+  (use-package solidity-mode
+    :mode ("\\.sol\\'")
+    :defer t)
+
+  (use-package solidity-flycheck
+    :after solidity-mode)
+
+#+end_src
+
 
 * Language server integration
 
@@ -226,7 +250,7 @@ Language servers are nice to provide completions, jumps and the like. But they r
           eglot-auto-display-help-buffer nil)
     (setq eglot-stay-out-of '(flycheck))
     :hook
-    ((elixir-mode js2-mode typescript-mode) . eglot-ensure)
+    ((c-mode c++-mode elixir-mode js2-mode typescript-mode prisma-mode) . eglot-ensure)
     :bind
     (:map eglot-mode-map
           ("C-c l r"   . 'eglot-rename)
@@ -237,9 +261,15 @@ Language servers are nice to provide completions, jumps and the like. But they r
           ("C-c l q"   . 'eglot-code-action-quickfix)
           ("C-c l b"   . 'eglot-format-buffer)
           ("C-c l o"   . 'eglot-code-action-organize-imports)
-          ("C-c l h"   . 'eldoc-box-eglot-help-at-point))
+          ("C-c l h"   . 'eldoc-box-eglot-help-at-point)
+          ("C-c l c"   . 'consult-eglot-symbols))
     :config
     (add-to-list 'eglot-ignored-server-capabilities :hoverProvider)
+    (add-to-list 'eglot-server-programs '(prisma-mode . ("prisma-language-server" "--stdio")))
+    (add-to-list 'eglot-server-programs '(solidity-mode . ("solc" "--lsp")))
+    (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+
+    (setq eglot-confirm-server-initiated-edits nil)
 
     (defconst eglot-eclipse-jdt-home "/home/karan/.java/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.5.700.v20200207-2156.jar")
 
@@ -252,9 +282,12 @@ Language servers are nice to provide completions, jumps and the like. But they r
     (setcdr (assq 'java-mode eglot-server-programs) #'eglot-eclipse-jdt-contact)
 
     (add-hook 'java-mode-hook 'eglot-ensure))
+#+end_src
 
+We also add consult eglot for symbols and stuff, and defer the shutdown of the server.
+
+#+begin_src elisp
   (use-package consult-eglot
-    :defer t
     :config
     (define-key eglot-mode-map [remap xref-find-apropos] #'consult-eglot-symbols))
 
@@ -273,9 +306,8 @@ Language servers are nice to provide completions, jumps and the like. But they r
 
   (advice-add #'eglot--managed-mode
               :around #'eglot--defer-server-shutdown)
-                                
-               
-#+end_src
+
+#+END_SRC
 
 * Highlight numbers
 
@@ -296,14 +328,20 @@ Cuz why not?
 Treesitter is an incrememntal parsing library
 
 #+begin_src emacs-lisp
+  
+  (defun korv/enable-tree-sitter-hl ()
+    (message "Is this thing on?")
+    (tree-sitter-hl-mode +1))
 
   (use-package tree-sitter
     :ensure t
     :config
     (setq tree-sitter-debug-highlight-jump-region t)
     (setq tree-sitter-debug-jump-buttons t)
+    (add-hook 'js2-mode-hook #'korv/enable-tree-sitter-hl)
+    (add-hook 'c++-mode-hook #'korv/enable-tree-sitter-hl)
     (global-tree-sitter-mode +1))
- 
+
 
   (use-package tree-sitter-langs
     :ensure t
@@ -322,8 +360,6 @@ Eldoc and a couple of feature-addition packages.
     (eglot-connect . eldoc-mode))
 
   (use-package eldoc-box
-    :commands (eldoc-box-hover-at-point-mode)
-    :hook
-    (eldoc-mode . eldoc-box-hover-at-point-mode))
+    :commands (eldoc-box-hover-at-point-mode))
 
 #+end_src

@@ -1,5 +1,5 @@
 (setf *mode-line-timeout* 2)
-(setf *time-modeline-string* " %a %b%d|%I:%M %p")
+(setf *time-modeline-string* " %a %b %d|%I:%M %p")
 
 (setf *group-format* "%t")
 
@@ -29,7 +29,7 @@
       wifi::*wifi-modeline-fmt*      "^f1  %e"
       wifi::*use-colors*             nil
       *hiddn-window-color*           "^**"
-      *mode-line-highlight-template* " ~A ")
+      *mode-line-highlight-template* "[~A]")  ;;" ~A "
 
 (setf stumptray:*tray-placeholder-pixels-per-space* 14)
 
