@@ -265,6 +265,23 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
+(use-package popper
+  :ensure t
+  :bind (("C-`" . popper-toggle-latest)
+         ("M-`" . popper-cycle)
+         ("C-M-`" . popper-toggle-type))
+  :init
+  (setq popper-reference-buffers
+        '("\\*Messages\\*"
+          "Output\\*$"
+          "\\*Async Shell Command\\*"
+          "\\*Backtrace\\*"
+          "\\*Warnings\\*"
+          help-mode
+          compilation-mode))
+  (popper-mode +1)
+  (popper-echo-mode +1))
+
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
@@ -543,4 +560,3 @@
 (load (expand-file-name "~/.config/emacs/tree-sitter.el"))
 
 (setq gc-cons-threshold (* 2 1000 1000))
-(put 'dired-find-alternate-file 'disabled nil)

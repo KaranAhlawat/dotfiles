@@ -288,3 +288,20 @@ require('telescope').setup {
 }
 
 ---------------------------- NVIM NOITFY ------------------------------------
+require('notify').setup {
+  stages = "fade",
+  on_open = nil,
+  on_close = nil,
+  render = "default",
+  timeout = 2500,
+  background_colour = "Normal",
+  minimum_width = 50,
+  icons = {
+    ERROR = "",
+    WARN = "",
+    INFO = "",
+    DEBUG = "",
+    TRACE = "✎",
+  },
+}
+vim.notify = require('notify')
