@@ -330,7 +330,6 @@ Treesitter is an incrememntal parsing library
 #+begin_src emacs-lisp
   
   (defun korv/enable-tree-sitter-hl ()
-    (message "Is this thing on?")
     (tree-sitter-hl-mode +1))
 
   (use-package tree-sitter

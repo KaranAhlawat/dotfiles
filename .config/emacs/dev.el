@@ -169,7 +169,6 @@
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 
 (defun korv/enable-tree-sitter-hl ()
-  (message "Is this thing on?")
   (tree-sitter-hl-mode +1))
 
 (use-package tree-sitter

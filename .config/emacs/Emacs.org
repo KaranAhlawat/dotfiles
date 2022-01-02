@@ -10,11 +10,11 @@ Let's define some variables to keep this DRY.
 
 #+begin_src emacs-lisp
 
-  (defvar korv/default-font-size 145)
-  (defvar korv/default-variable-font-size 145)
+  (defvar korv/default-font-size 140)
+  (defvar korv/default-variable-font-size 140)
   (defvar korv/frame-transparency '(95 . 90))
-  (defvar korv/font-name "Iosevka Nerd Font Mono")
-  (defvar korv/org-headings-font "Iosevka Nerd Font Mono")
+  (defvar korv/font-name "Google Sans Mono")
+  (defvar korv/org-headings-font "Google Sans Mono")
 
 #+end_src
 

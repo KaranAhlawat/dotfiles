@@ -108,5 +108,7 @@ return require('packer').startup(function(use)
             }
           end
         }
+
+        use 'rcarriga/nvim-notify'
 end)
 

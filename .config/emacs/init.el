@@ -1,8 +1,8 @@
-(defvar korv/default-font-size 145)
-(defvar korv/default-variable-font-size 145)
+(defvar korv/default-font-size 140)
+(defvar korv/default-variable-font-size 140)
 (defvar korv/frame-transparency '(95 . 90))
-(defvar korv/font-name "Iosevka Nerd Font Mono")
-(defvar korv/org-headings-font "Iosevka Nerd Font Mono")
+(defvar korv/font-name "Google Sans Mono")
+(defvar korv/org-headings-font "Google Sans Mono")
 
 (setq gc-cons-threshold (* 50 1000 1000))
 
@@ -543,3 +543,4 @@
 (load (expand-file-name "~/.config/emacs/tree-sitter.el"))
 
 (setq gc-cons-threshold (* 2 1000 1000))
+(put 'dired-find-alternate-file 'disabled nil)

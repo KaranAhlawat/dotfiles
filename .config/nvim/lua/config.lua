@@ -87,19 +87,8 @@ vim.g.markdown_fenced_languages = {
 
 -------------------------------- Treesitter --------------------------
 
-local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
-
-parser_config.prisma = {
-  install_info = {
-    url = "https://github.com/victorhqc/tree-sitter-prisma",
-    files = { "src/parser.c", "src/binding.cc" },
-    branch = "main"
-  }
-}
-
 require('nvim-treesitter.configs').setup {
   ensure_installed = { "lua", "c", "cpp", "rust", "elm", "java", "javascript", "typescript", "graphql", "elixir" },
-
   highlight = { enable = true },
   incremental_selection = { enable = true },
   indent = { enable = true },
@@ -297,3 +286,5 @@ require('telescope').setup {
     }
   }
 }
+
+---------------------------- NVIM NOITFY ------------------------------------
