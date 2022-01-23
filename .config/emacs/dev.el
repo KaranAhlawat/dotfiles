@@ -5,7 +5,6 @@
 
 ;;; Code:
 
-
 ;;; Magit
 (use-package magit
   :custom
@@ -144,6 +143,10 @@
 
 (use-package eglot-fsharp)
 
+;;; Setup for GO
+(use-package go-mode
+  :mode "\\.go\\'")
+
 (use-package eglot
   :ensure t
   :defer t
@@ -155,7 +158,7 @@
         eglot-auto-display-help-buffer nil)
   (setq eglot-stay-out-of '(flycheck))
   :hook
-  ((c-mode c++-mode elixir-mode js2-mode typescript-mode prisma-mode fsharp-mode) . eglot-ensure)
+  ((c-mode c++-mode elixir-mode js2-mode typescript-mode prisma-mode fsharp-mode go-mode) . eglot-ensure)
   :bind
   (:map eglot-mode-map
         ("C-c l r"   . 'eglot-rename)
@@ -203,6 +206,7 @@
   (setq tree-sitter-debug-jump-buttons t)
   (add-hook 'js2-mode-hook #'korv/enable-tree-sitter-hl)
   (add-hook 'c++-mode-hook #'korv/enable-tree-sitter-hl)
+  (add-hook 'go-mode-hook #'korv/enable-tree-sitter-hl)
   (global-tree-sitter-mode +1))
 
 
