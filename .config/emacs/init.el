@@ -294,7 +294,7 @@
    '("j" . "H-j")
    '("k" . "H-k")
    '("q f" . delete-frame)
-   '("f l" . kill-buffer)
+   '("f l" . consult-line)
    ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)
