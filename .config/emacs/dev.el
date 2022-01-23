@@ -16,7 +16,7 @@
 ;;; Project.el
 (use-package project
   :config
-  (defvar project-root-markers '("Cargo.toml" "mix.exs" ".project" "package.json"))
+  (defvar project-root-markers '("Cargo.toml" "mix.exs" "go.mod" ".project" "package.json"))
 
   (defun korv/project-find-root (path)
     (let* ((this-dir (file-name-as-directory (file-truename path)))
@@ -145,7 +145,9 @@
 
 ;;; Setup for GO
 (use-package go-mode
-  :mode "\\.go\\'")
+  :mode "\\.go\\'"
+  :config
+  (add-hook 'go-mode-hook #'gofmt-before-save))
 
 (use-package eglot
   :ensure t

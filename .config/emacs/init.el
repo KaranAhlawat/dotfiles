@@ -5,11 +5,11 @@
 
 ;;; Code:
 
-(defvar korv/default-font-size 140)
-(defvar korv/default-variable-font-size 140)
+(defvar korv/default-font-size 150)
+(defvar korv/default-variable-font-size 150)
 (defvar korv/frame-transparency '(95 . 90))
-(defvar korv/font-name "Google Sans Mono")
-(defvar korv/org-headings-font "Google Sans Mono")
+(defvar korv/font-name "Iosevka Nerd Font Mono")
+(defvar korv/org-headings-font "Iosevka Nerd Font Mono")
 
 (setq gc-cons-threshold (* 50 1000 1000))
 
@@ -80,7 +80,7 @@
  select-enable-clipboard t
  x-stretch-cursor t)
 
-(blink-cursor-mode 0)
+(blink-cursor-mode 1)
 (delete-selection-mode t)
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
