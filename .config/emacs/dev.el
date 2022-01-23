@@ -119,6 +119,16 @@
 (use-package solidity-flycheck
   :after solidity-mode)
 
+(use-package fsharp-mode
+  :defer t
+  :ensure t
+  :mode
+  ("\\.fs\\'" . fsharp-mode)
+  :config
+  (setq-default fsharp-indent-offset 2))
+
+(use-package eglot-fsharp)
+
 (use-package eglot
   :ensure t
   :defer t
@@ -130,7 +140,7 @@
         eglot-auto-display-help-buffer nil)
   (setq eglot-stay-out-of '(flycheck))
   :hook
-  ((c-mode c++-mode elixir-mode js2-mode typescript-mode prisma-mode) . eglot-ensure)
+  ((c-mode c++-mode elixir-mode js2-mode typescript-mode prisma-mode fsharp-mode) . eglot-ensure)
   :bind
   (:map eglot-mode-map
         ("C-c l r"   . 'eglot-rename)
@@ -148,6 +158,7 @@
   (add-to-list 'eglot-server-programs '(prisma-mode . ("prisma-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '(solidity-mode . ("solc" "--lsp")))
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+  (add-to-list 'eglot-server-programs '(elixir-mode "~/.elixir-ls/language_server.sh"))
 
   (setq eglot-confirm-server-initiated-edits nil)
 

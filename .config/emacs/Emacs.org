@@ -28,6 +28,14 @@ Change the garbage collection defaults for better performance and startup times.
 
 #+end_src
 
+A little cleanup
+
+#+begin_src emacs-lisp
+
+  (setq native-comp-async-report-warnings-errors nil)
+
+#+end_src
+
 And a function to measure the startup performance
 
 #+begin_src emacs-lisp
@@ -530,13 +538,13 @@ The meat and potatoes, as I like to call it.
     (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
     (meow-motion-overwrite-define-key
      '("j" . meow-next)
-     '("k" . meow-prev)
-     '("SPC q f" . delete-frame)
-     '("SPC f l" . consult-line))
+     '("k" . meow-prev))
     (meow-leader-define-key
      ;; SPC j/k will run the original command in MOTION state.
      '("j" . "H-j")
      '("k" . "H-k")
+     '("q f" . delete-frame)
+     '("f l" . kill-buffer)
      ;; Use SPC (0-9) for digit arguments.
      '("1" . meow-digit-argument)
      '("2" . meow-digit-argument)

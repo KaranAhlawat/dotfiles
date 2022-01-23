@@ -1,3 +1,4 @@
+vim.opt.guicursor="i:block"
 -- Set the colorscheme and lualine options
 vim.cmd [[ colorscheme kanagawa ]]
 
@@ -120,7 +121,7 @@ local on_attach = function(_, bufnr)
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'graphql', 'prismals' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'graphql', 'prismals' }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,
@@ -140,8 +141,17 @@ nvim_lsp.elixirls.setup {
   flags = {
     debounce_text_changes = 150
     },
-  cmd = { "elixir-ls" },
+  cmd = { "/home/karan/.elixir-ls/language_server.sh" },
   root_dir = utils.root_pattern("mix.exs", ".git", ".projectile")
+}
+
+nvim_lsp.tsserver.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = {
+    debounce_text_changes = 150
+  },
+  single_file_support = true
 }
 
 -- setup denols

@@ -6,6 +6,8 @@
 
 (setq gc-cons-threshold (* 50 1000 1000))
 
+(setq native-comp-async-report-warnings-errors nil)
+
 (defun korv/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
            (format "%.2f seconds"
@@ -286,13 +288,13 @@
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
-   '("k" . meow-prev)
-   '("SPC q f" . delete-frame)
-   '("SPC f l" . consult-line))
+   '("k" . meow-prev))
   (meow-leader-define-key
    ;; SPC j/k will run the original command in MOTION state.
    '("j" . "H-j")
    '("k" . "H-k")
+   '("q f" . delete-frame)
+   '("f l" . kill-buffer)
    ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)
    '("2" . meow-digit-argument)

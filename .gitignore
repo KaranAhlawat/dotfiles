@@ -21,6 +21,7 @@
 .config/emacs/eglot-*
 .config/emacs/tree-sitter.el
 .config/emacs/.cache
+.config/emacs/FsAutoComplete
 
 # Org-mode
 .config/emacs/.org-id-locations

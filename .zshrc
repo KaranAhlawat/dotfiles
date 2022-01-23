@@ -72,6 +72,9 @@ export PATH=/usr/lib/elixir-ls/:$PATH
 # pyenv
 export PATH=/home/karan/.pyenv/shims/:$PATH
 
+# Go src
+export PATH=/home/karan/go/bin/:$PATH
+
 eval "$(direnv hook zsh)"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!

@@ -1,5 +1,5 @@
 (setf *mode-line-timeout* 2)
-(setf *time-modeline-string* " %a %b %d|%I:%M %p")
+(setf *time-modeline-string* " %a %b%d|%I:%M %p")
 
 (setf *group-format* "%t")
 
