@@ -1,3 +1,10 @@
+;;; init.el --- configure my emacs to my liking
+
+;;; Commentary:
+;; This package is not a package but a configuration file
+
+;;; Code:
+
 (defvar korv/default-font-size 140)
 (defvar korv/default-variable-font-size 140)
 (defvar korv/frame-transparency '(95 . 90))
@@ -134,7 +141,7 @@
 
 (use-package doom-themes
   :config
-  (load-theme 'doom-material-dark t))
+  (load-theme 'doom-tokyo-night t))
 
 (setq spacemacs-theme-org-bold t
       spacemacs-theme-underline-parens t)
@@ -378,7 +385,7 @@
   (meow-global-mode 1))
 
 (defun korv/org-font-setup ()
-
+  "Setup fonts for org mode"
   ;; Replace list hyphen with dot
   (font-lock-add-keywords 'org-mode
                           '(("^ *\\([-]\\) "
@@ -559,6 +566,5 @@
   (exec-path-from-shell-initialize))
 
 (load (expand-file-name "~/.config/emacs/dev.el"))
-(load (expand-file-name "~/.config/emacs/tree-sitter.el"))
 
 (setq gc-cons-threshold (* 2 1000 1000))

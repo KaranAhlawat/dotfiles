@@ -1,9 +1,20 @@
+;;; dev.el --- Configuration of development stuff
+
+;;; Commentary:
+;; This is again not a package
+
+;;; Code:
+
+
+;;; Magit
 (use-package magit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 (define-key magit-mode-map (kbd "s") 'magit-status)
 
+
+;;; Project.el
 (use-package project
   :config
   (defvar project-root-markers '("Cargo.toml" "mix.exs" ".project" "package.json"))
@@ -25,6 +36,7 @@
 
   (add-to-list 'project-find-functions #'korv/project-find-root))
 
+;;; Flycheck for errors
 (use-package flycheck
   :defer t
   :ensure t
@@ -33,11 +45,14 @@
   :config
   (setq flycheck-javascript-eslint-executable "eslint_d"))
 
+
+;; Sly repl
 (use-package sly
     :defer t
     :config
     (setq inferior-lisp-program "sbcl"))
 
+;;; Lisp tingz
 (use-package parinfer-rust-mode
   :hook
   (emacs-lisp-mode . parinfer-rust-mode)
@@ -46,6 +61,7 @@
   :init
   (setq parinfer-rust-auto-download t))
 
+;;; Setup of elixir
 (use-package elixir-mode
   :defer t
   :config
@@ -62,16 +78,19 @@
   :defer t
   :hook (elixir-mode . alchemist-mode))
 
+;;; JS setup
 (use-package js2-mode
   :mode ("\\.js\\'")
   :defer t
   :config
   (setq js2-basic-offset 2))
 
+;;; TS setup
 (use-package typescript-mode
   :mode ("\\.ts\\'")
   :defer t)
 
+;;; HTML setup
 (use-package web-mode
   :mode "\\.html\\'"
   :init
@@ -81,7 +100,7 @@
   (setq web-mode-auto-close-style 1)
   (setq web-mode-engines-alist '(("elixir" . "\\.ex\\'"))))
 
-
+;;; emmet setup
 (use-package emmet-mode
   :hook ((web-mode . emmet-mode)
          (mhtml-mode . emmet-mode)
@@ -90,6 +109,7 @@
   :config
   (define-key emmet-mode-keymap (kbd "TAB") #'emmet-expand-line))
 
+;;; For heex files
 (use-package polymode
   :ensure t
   :mode ("\.ex$" . poly-elixir-web-mode)
@@ -108,22 +128,17 @@
     :hostmode 'poly-elixir-hostmode
     :innermodes '(poly-live-view-expr-elixir-innermode)))
 
+;;; prettier sometimes
 (use-package prettier)
 
+;;; modified emacs-prisma-mode a little
 (load (expand-file-name "emacs-prisma-mode/prisma-mode" user-emacs-directory))
-
-(use-package solidity-mode
-  :mode ("\\.sol\\'")
-  :defer t)
-
-(use-package solidity-flycheck
-  :after solidity-mode)
 
 (use-package fsharp-mode
   :defer t
   :ensure t
   :mode
-  ("\\.fs\\'" . fsharp-mode)
+  ("\\.fs[iylx]\\'" . fsharp-mode)
   :config
   (setq-default fsharp-indent-offset 2))
 
@@ -156,7 +171,6 @@
   :config
   (add-to-list 'eglot-ignored-server-capabilities :hoverProvider)
   (add-to-list 'eglot-server-programs '(prisma-mode . ("prisma-language-server" "--stdio")))
-  (add-to-list 'eglot-server-programs '(solidity-mode . ("solc" "--lsp")))
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   (add-to-list 'eglot-server-programs '(elixir-mode "~/.elixir-ls/language_server.sh"))
 
