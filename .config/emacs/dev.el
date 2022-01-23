@@ -104,7 +104,8 @@
   :hook ((web-mode . emmet-mode)
          (mhtml-mode . emmet-mode)
          (poly-elixir-web-mode . emmet-mode))
-
+  :custom
+  (emmet-self-closing-tag-style " /")
   :config
   (define-key emmet-mode-keymap (kbd "TAB") #'emmet-expand-line))
 
@@ -137,11 +138,18 @@
   :defer t
   :ensure t
   :mode
-  ("\\.fs[iylx]\\'" . fsharp-mode)
+  ("\\.fs[iyl]\\'" . fsharp-mode)
   :config
   (setq-default fsharp-indent-offset 2))
 
-(use-package eglot-fsharp)
+(use-package eglot-fsharp
+  :after fsharp-mode)
+
+;; Defining a derived mode for fsx files
+(define-derived-mode fsx-mode fsharp-mode "fsharpScriptMode"
+  "A major mode derived from fsharp-mode for editing fsx files with eglot")
+
+(add-to-list 'auto-mode-alist '("\\.fsx\\'" . fsx-mode))
 
 ;;; Setup for GO
 (use-package go-mode
@@ -178,6 +186,7 @@
   (add-to-list 'eglot-server-programs '(prisma-mode . ("prisma-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   (add-to-list 'eglot-server-programs '(elixir-mode "~/.elixir-ls/language_server.sh"))
+  (add-to-list 'eglot-server-programs '(fsx-mode . ("fsautocomplete" "--background-service-enabled")))
 
   (setq eglot-confirm-server-initiated-edits nil)
 
