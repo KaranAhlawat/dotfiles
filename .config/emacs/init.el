@@ -8,8 +8,8 @@
 (defvar korv/default-font-size 145)
 (defvar korv/default-variable-font-size 145)
 (defvar korv/frame-transparency '(95 . 90))
-(defvar korv/font-name "Google Sans Mono")
-(defvar korv/org-headings-font "Google Sans Mono")
+(defvar korv/font-name "Liga SFMono Nerd Font")
+(defvar korv/org-headings-font "Liga SFMono Nerd Font")
 
 (setq gc-cons-threshold (* 50 1000 1000))
 

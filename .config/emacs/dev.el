@@ -176,6 +176,15 @@
   :mode "\\.proto\\'")
 
 ;; Haskell Setup
+(use-package haskell-mode
+  :mode "\\.hs\\'"
+  :config
+  (setq haskell-process-type 'stack-ghci))
+
+(use-package hindent
+  :hook haskell-mode
+  :config
+  (setq hindent-reformat-buffer-on-save t))
 
 (use-package eglot
   :ensure t

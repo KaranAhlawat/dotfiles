@@ -17,4 +17,4 @@
             "Invoke a terminal, possible with a @arg{program}."
             (run-shell-command (if program
                                  (format nil "kitty ~A" program)
-                                 "kitty")))
+                                 "wezterm")))
