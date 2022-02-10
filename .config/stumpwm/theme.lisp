@@ -28,11 +28,11 @@
       *message-window-gravity*   :top)
 
 
-(load-module "swm-gaps")
+;; (load-module "swm-gaps")
 
-(setf swm-gaps:*head-gaps-size*  0
-      swm-gaps:*inner-gaps-size* 5
-      swm-gaps:*outer-gaps-size* 10)
+;; (setf swm-gaps:*head-gaps-size*  0
+;;       swm-gaps:*inner-gaps-size* 5
+;;       swm-gaps:*outer-gaps-size* 0)
 
-(when *initializing*
-  (swm-gaps:toggle-gaps))
+;; (when *initializing*
+;;   (swm-gaps:toggle-gaps))

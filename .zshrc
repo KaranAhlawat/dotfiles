@@ -33,7 +33,6 @@ zinit light-mode for \
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 
-#zinit light romkatv/powerlevel10k
 zinit light agkozak/zsh-z
 zinit light supercrabtree/k
 
@@ -56,6 +55,9 @@ alias ga="git add"
 # ----------------------------- EXPORTS --------------------------------
 export EDITOR="nvim"
 
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export DOTNET_NEW_PREFERRED_LANG=F#
+
 # dvm
 export DENO_INSTALL="$HOME/.deno"
 export PATH=/home/karan/.deno/bin:$PATH
@@ -76,6 +78,17 @@ export PATH=/home/karan/.pyenv/shims/:$PATH
 export PATH=/home/karan/go/bin/:$PATH
 
 eval "$(direnv hook zsh)"
+
+# zsh parameter completion for the dotnet CLI
+
+_dotnet_zsh_complete()
+{
+  local completions=("$(dotnet complete "$words")")
+
+  reply=( "${(ps:\n:)completions}" )
+}
+
+compctl -K _dotnet_zsh_complete dotnet
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

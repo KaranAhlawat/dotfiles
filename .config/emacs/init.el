@@ -5,11 +5,11 @@
 
 ;;; Code:
 
-(defvar korv/default-font-size 150)
-(defvar korv/default-variable-font-size 150)
+(defvar korv/default-font-size 145)
+(defvar korv/default-variable-font-size 145)
 (defvar korv/frame-transparency '(95 . 90))
-(defvar korv/font-name "Iosevka Nerd Font Mono")
-(defvar korv/org-headings-font "Iosevka Nerd Font Mono")
+(defvar korv/font-name "Google Sans Mono")
+(defvar korv/org-headings-font "Google Sans Mono")
 
 (setq gc-cons-threshold (* 50 1000 1000))
 
@@ -45,9 +45,9 @@
 
 (defun korv/set-font-faces ()
   (message "Setting font faces.")
-  (set-face-attribute 'default nil :font korv/font-name :height korv/default-font-size :weight 'medium)
-  (set-face-attribute 'fixed-pitch nil :font korv/font-name :height korv/default-font-size :weight 'medium)
-  (set-face-attribute 'variable-pitch nil :font korv/font-name :height korv/default-variable-font-size :weight 'regular))
+  (set-face-attribute 'default nil :font korv/font-name :height korv/default-font-size :weight 'semi-bold)
+  (set-face-attribute 'fixed-pitch nil :font korv/font-name :height korv/default-font-size :weight 'semi-bold)
+  (set-face-attribute 'variable-pitch nil :font korv/font-name :height korv/default-variable-font-size :weight 'bold))
 
 (if (daemonp)
     (add-hook 'after-make-frame-functions
@@ -68,8 +68,7 @@
 (setq backup-direcotry-alist '(("." . "~/.cache/emacssaves"))
       create-lockfiles nil
       initial-major-mode 'fundamental-mode
-      initial-scratch-message nil
-      tab-width 2)
+      initial-scratch-message nil)
 
 (setq-default
  auto-save-list-file-prefix nil
@@ -78,7 +77,8 @@
  help-window-select t
  indent-tabs-mode nil
  select-enable-clipboard t
- x-stretch-cursor t)
+ x-stretch-cursor t
+ tab-width 2)
 
 (blink-cursor-mode 1)
 (delete-selection-mode t)
@@ -139,12 +139,13 @@
   :config
   (setq modus-themes-hl-line '(intense)))
 
+(use-package nano-theme)
+
 (use-package doom-themes
   :config
-  (load-theme 'doom-tokyo-night t))
-
-(setq spacemacs-theme-org-bold t
-      spacemacs-theme-underline-parens t)
+  (load-theme 'doom-dark+ t)
+  (setq doom-dark+-blue-modeline 1)
+  (setq doom-dark+-padded-modeline 1))
 
 (use-package which-key
   :defer 0
@@ -219,7 +220,10 @@
   (corfu-preselect-first t)
   (corfu-echo-documentation nil)
   :init
-  (corfu-global-mode))
+  (corfu-global-mode)
+  :config
+  (setq corfu-auto-prefix 1))
+
 
 ;; TODO: Remap keybinds?
 
@@ -424,6 +428,7 @@
   :pin org
   :commands (org-capture org-agenda)
   :hook (org-mode . korv/org-mode-setup)
+  :mode "\\.org\\'"
   :config
   (require 'org-tempo)
 
@@ -451,10 +456,15 @@
   :custom
   (org-bullets-bullet-list '("" "○" "●" "○" "●" "○" "●")))
 
+;; Toggle latex fragments in Org
+(use-package org-fragtog
+  :config
+  (add-hook 'org-mode-hook 'org-fragtog-mode))
+
 ;; Center org buffer
 (defun korv/org-mode-visual-fill ()
   (setq visual-fill-column-width 100
-	visual-fill-column-center-text t)
+         	visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
 (use-package visual-fill-column
@@ -462,9 +472,9 @@
 
 (defun korv/org-babel-tangle-config ()
   (when (member (buffer-file-name)
-                 (list
-                  (expand-file-name "~/.dotfiles/.config/emacs/Emacs.org")
-                  (expand-file-name "~/.dotfiles/.config/emacs/Development.org")))
+                (list
+                 (expand-file-name "~/.dotfiles/.config/emacs/Emacs.org")
+                 (expand-file-name "~/.dotfiles/.config/emacs/Development.org")))
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
 

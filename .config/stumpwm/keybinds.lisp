@@ -20,6 +20,7 @@
     (define-key m (kbd "w") "exec microsoft-edge-beta")
     (define-key m (kbd "d") "exec discord")
     (define-key m (kbd "e") "exec emacsclient -c")
+    (define-key m (kbd "z") "exec zeal")
     m))
 
 (define-key *root-map* (kbd "a") '*k-apps-map*)

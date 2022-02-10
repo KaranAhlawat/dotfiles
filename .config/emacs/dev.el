@@ -12,11 +12,14 @@
 
 (define-key magit-mode-map (kbd "s") 'magit-status)
 
+(use-package magit-gitflow
+  :config
+  (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))
 
 ;;; Project.el
 (use-package project
   :config
-  (defvar project-root-markers '("Cargo.toml" "mix.exs" "go.mod" ".project" "package.json"))
+  (defvar project-root-markers '("Cargo.toml" "mix.exs" "go.mod" ".project" "package.json" "stack.yaml"))
 
   (defun korv/project-find-root (path)
     (let* ((this-dir (file-name-as-directory (file-truename path)))
@@ -59,6 +62,13 @@
   (common-lisp-mode . parinfer-rust-mode)
   :init
   (setq parinfer-rust-auto-download t))
+
+;; C++ font lock
+(use-package modern-cpp-font-lock
+  :ensure t
+  :defer t
+  :config
+  (add-hook 'c++-mode-hook #'modern-c++-font-lock-mode))
 
 ;;; Setup of elixir
 (use-package elixir-mode
@@ -134,28 +144,38 @@
 ;;; modified emacs-prisma-mode a little
 (load (expand-file-name "emacs-prisma-mode/prisma-mode" user-emacs-directory))
 
+
+;; F#
 (use-package fsharp-mode
   :defer t
   :ensure t
   :mode
   ("\\.fs[iyl]\\'" . fsharp-mode)
   :config
-  (setq-default fsharp-indent-offset 2))
+  (setq-default fsharp-indent-offset 4))
 
 (use-package eglot-fsharp
   :after fsharp-mode)
 
 ;; Defining a derived mode for fsx files
-(define-derived-mode fsx-mode fsharp-mode "fsharpScriptMode"
+(define-derived-mode fsx-mode fsharp-mode "F# Script Mode"
   "A major mode derived from fsharp-mode for editing fsx files with eglot")
 
 (add-to-list 'auto-mode-alist '("\\.fsx\\'" . fsx-mode))
 
-;;; Setup for GO
+(setq inferior-fsharp-program "dotnet fsi --readline")
+
+;; Setup for GO
 (use-package go-mode
   :mode "\\.go\\'"
   :config
   (add-hook 'go-mode-hook #'gofmt-before-save))
+
+;; Setup for ProtoBuf
+(use-package protobuf-mode
+  :mode "\\.proto\\'")
+
+;; Haskell Setup
 
 (use-package eglot
   :ensure t
@@ -231,3 +251,5 @@
 
 (use-package eldoc-box
   :commands (eldoc-box-hover-at-point-mode))
+
+;; dev.el ends here
