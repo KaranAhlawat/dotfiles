@@ -86,6 +86,12 @@ vim.g.markdown_fenced_languages = {
   "ts=typescript"
   }
 
+vim.diagnostic.config {
+  virtual_text = {
+    prefix = "*"
+  }
+}
+
 -------------------------------- Treesitter --------------------------
 
 require('nvim-treesitter.configs').setup {
