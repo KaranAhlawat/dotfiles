@@ -5,11 +5,11 @@
 
 ;;; Code:
 
-(defvar korv/default-font-size 135)
-(defvar korv/default-variable-font-size 135)
+(defvar korv/default-font-size 140)
+(defvar korv/default-variable-font-size 140)
 (defvar korv/frame-transparency '(95 . 90))
-(defvar korv/font-name "Liga SFMono Nerd Font")
-(defvar korv/org-headings-font "Liga SFMono Nerd Font")
+(defvar korv/font-name "Iosevka Nerd Font Mono")
+(defvar korv/org-headings-font "Iosevka Nerd Font Mono")
 ;;(defvar korv/font-name "VictorMono")
 ;;(defvar korv/org-headings-font "VictorMono")
 
@@ -60,6 +60,7 @@
 
 ;; Set <ESC> to escape globally
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(global-set-key (kbd "C-x k") 'kill-current-buffer)
 
 ;; Change some global defaults
 (column-number-mode)
