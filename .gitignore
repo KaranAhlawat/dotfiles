@@ -1,6 +1,5 @@
 .git-credentials
 .gitconfig
-.stow-local-ignore
 
 .config/emacs/**/*~
 .config/emacs/**/\#*\#

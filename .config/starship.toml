@@ -13,4 +13,6 @@ disabled = true
 [package]
 disabled = true
 
-
+[hostname]
+ssh_only = false
+disabled = false

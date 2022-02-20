@@ -60,6 +60,7 @@ export PATH=/home/karan/.local/bin/:/home/karan/.fnm:/home/karan/.yarn/bin/:$PAT
 eval "`fnm env`"
 
 # pyenv
+export PATH=/home/karan/.pyenv/bin/:$PATH
 export PATH=/home/karan/.pyenv/shims/:$PATH
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!

@@ -1,0 +1,9 @@
+.git
+.gitignore
+.sbclrc
+.config/kitty
+.config/picom
+.config/rofi
+.config/scripts
+.config/stumpwm
+.doom.d

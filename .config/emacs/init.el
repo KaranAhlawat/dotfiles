@@ -5,11 +5,11 @@
 
 ;;; Code:
 
-(defvar korv/default-font-size 140)
-(defvar korv/default-variable-font-size 140)
-(defvar korv/frame-transparency '(95 . 90))
-(defvar korv/font-name "Iosevka Nerd Font Mono")
-(defvar korv/org-headings-font "Iosevka Nerd Font Mono")
+(defvar korv/default-font-size 135)
+(defvar korv/default-variable-font-size 135)
+(defvar korv/frame-transparency '(100 . 100))
+(defvar korv/font-name "JetBrainsMono Nerd Font")
+(defvar korv/org-headings-font "JetBrainsMono Nerd Font")
 ;;(defvar korv/font-name "VictorMono")
 ;;(defvar korv/org-headings-font "VictorMono")
 
