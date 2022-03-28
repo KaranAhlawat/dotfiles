@@ -1,6 +1,11 @@
 vim.opt.guicursor="i:block"
+
+-- Vscode dark options
+vim.g.vscode_style = "dark"
+vim.g.vscode_italic_comment = 1
+
 -- Set the colorscheme and lualine options
-vim.cmd [[ colorscheme kanagawa ]]
+vim.cmd [[ colorscheme vscode ]]
 
 vim.g.tokyonight_style = "night"
 vim.g.tokyonight_lualine_bold = true
@@ -8,15 +13,17 @@ vim.g.tokyonight_italic_keywords = false
 vim.g.tokyonight_hide_inactive_statusline = true
 
 require('lualine').setup {
-    options = {
-      theme = 'tokyonight',
-      section_separators = { left = "", right = "" },
-      component_separators = { left = "", right = "" }
-    },
-    sections = {
-      lualine_x = { 'encoding', 'filetype' }
-    }
+   options = {
+     theme = 'tokyonight',
+     section_separators = { left = "", right = "" },
+     component_separators = { left = "", right = "" }
+   },
+   sections = {
+     lualine_x = { 'encoding', 'filetype' }
+   }
 }
+
+vim.o.laststatus = 2
 
 -- Chadtree config
 local chadtree_settings = {
@@ -67,6 +74,7 @@ vim.opt.smartcase = true
 vim.opt.completeopt = { "menu", "menuone", "noinsert" }
 vim.g.completion_matching_strategy_list = { 'exact', 'substring', 'fuzzy' }
 vim.opt.shortmess:append "c"
+vim.opt_global.shortmess:remove "F"
 
 -- signcolunm width in lsp mode
 
@@ -85,12 +93,6 @@ vim.g.timeoutlen = 20
 vim.g.markdown_fenced_languages = {
   "ts=typescript"
   }
-
-vim.diagnostic.config {
-  virtual_text = {
-    prefix = "*"
-  }
-}
 
 -------------------------------- Treesitter --------------------------
 
@@ -202,6 +204,20 @@ nvim_lsp.sumneko_lua.setup {
     },
   },
 }
+
+--- Metals setup ---
+
+metals_config = require("metals").bare_config()
+metals_config.init_options.statusBarProvider = "on"
+
+vim.cmd(
+  [[
+  augroup lsp
+  au!
+  au FileType java,scala,sbt lua require("metals").initialize_or_attach(metals_config)
+  augroup end
+  ]]
+)
 
 -- Coq nvim
 -- vim.g.coq_settings = {
@@ -321,3 +337,9 @@ require('notify').setup {
   },
 }
 vim.notify = require('notify')
+
+require('which-key').setup {}
+
+require('nvim-tree').setup {
+  auto_close = true
+}

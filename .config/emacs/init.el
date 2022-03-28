@@ -8,8 +8,8 @@
 (defvar korv/default-font-size 135)
 (defvar korv/default-variable-font-size 135)
 (defvar korv/frame-transparency '(100 . 100))
-(defvar korv/font-name "JetBrainsMono Nerd Font")
-(defvar korv/org-headings-font "JetBrainsMono Nerd Font")
+(defvar korv/font-name "Liberation Mono")
+(defvar korv/org-headings-font "Liberation Mono")
 ;;(defvar korv/font-name "VictorMono")
 ;;(defvar korv/org-headings-font "VictorMono")
 
@@ -307,6 +307,7 @@
    '("j" . "H-j")
    '("k" . "H-k")
    '("q f" . delete-frame)
+   '("q e" . kill-emacs)
    '("f l" . consult-line)
    ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)

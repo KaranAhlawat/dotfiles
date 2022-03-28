@@ -35,13 +35,12 @@ return require('packer').startup(function(use)
           'tjdevries/gruvbuddy.nvim',
           requires = { 'tjdevries/colorbuddy.vim' }
         }
-        use 'gantoreno/vim-gabriel'
         use 'rebelot/kanagawa.nvim'
+        use 'Mofiqul/vscode.nvim'
 
 	-- Treesitter
 	use 'nvim-treesitter/nvim-treesitter'
         use 'nvim-treesitter/nvim-treesitter-textobjects'
-        use 'pantharshit00/vim-prisma'
 
 	-- LSP
 	use 'neovim/nvim-lspconfig'
@@ -79,19 +78,8 @@ return require('packer').startup(function(use)
         use 'hrsh7th/cmp-nvim-lsp'
         use 'saadparwaiz1/cmp_luasnip'
 
-        -- chad tree & coq_nvim
-        -- use 'ms-jpq/chadtree'
-        -- use 'ms-jpq/coq_nvim'
-        -- use 'ms-jpq/coq.artifacts'
-        
         -- Nvimtree
-        use { 'kyazdani42/nvim-tree.lua',
-          config = function()
-            require'nvim-tree'.setup{
-              auto_close = true,
-            }
-          end
-        }
+        use 'kyazdani42/nvim-tree.lua'
 
         -- Pictograms for lsp
         use 'onsails/lspkind-nvim'
@@ -101,14 +89,11 @@ return require('packer').startup(function(use)
 
         -- which key
         -- Lua
-        use {
-          "folke/which-key.nvim",
-          config = function()
-            require("which-key").setup {
-            }
-          end
-        }
+        use "folke/which-key.nvim"
 
         use 'rcarriga/nvim-notify'
+
+        -- Setup nvim-metals for Scala
+        use({'scalameta/nvim-metals', require = { "nvim-lua/plenar.nvim" }})
 end)
 

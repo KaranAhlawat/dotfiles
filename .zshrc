@@ -54,14 +54,21 @@ alias ga="git add"
 
 # ----------------------------- EXPORTS --------------------------------
 export EDITOR="nvim"
+export PATH=/home/karan/.local/bin:$PATH
 
 # fnm
-export PATH=/home/karan/.local/bin/:/home/karan/.fnm:/home/karan/.yarn/bin/:$PATH
-eval "`fnm env`"
+#export PATH=/home/karan/.fnm:/home/karan/.yarn/bin/:$PATH
+#eval "`fnm env`"
 
 # pyenv
 export PATH=/home/karan/.pyenv/bin/:$PATH
 export PATH=/home/karan/.pyenv/shims/:$PATH
+
+# coursier
+export PATH="$PATH:/home/karan/.local/share/coursier/bin"
+
+# intellij from toolbox
+export PATH="$PATH:/home/karan/programs/idea-IC-213.6777.52/bin"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
