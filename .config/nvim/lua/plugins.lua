@@ -29,14 +29,8 @@ return require('packer').startup(function(use)
 
 	-- Colorschemes
 	use 'folke/tokyonight.nvim'
-        use 'TarunDaCoder/citylights.nvim'
-        use 'morhetz/gruvbox'
-        use {
-          'tjdevries/gruvbuddy.nvim',
-          requires = { 'tjdevries/colorbuddy.vim' }
-        }
-        use 'rebelot/kanagawa.nvim'
         use 'Mofiqul/vscode.nvim'
+        use 'shaunsingh/nord.nvim'
 
 	-- Treesitter
 	use 'nvim-treesitter/nvim-treesitter'
@@ -92,8 +86,5 @@ return require('packer').startup(function(use)
         use "folke/which-key.nvim"
 
         use 'rcarriga/nvim-notify'
-
-        -- Setup nvim-metals for Scala
-        use({'scalameta/nvim-metals', require = { "nvim-lua/plenar.nvim" }})
 end)
 

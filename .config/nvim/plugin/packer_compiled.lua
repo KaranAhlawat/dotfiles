@@ -74,11 +74,6 @@ _G.packer_plugins = {
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
-  ["citylights.nvim"] = {
-    loaded = true,
-    path = "/home/karan/.local/share/nvim/site/pack/packer/start/citylights.nvim",
-    url = "https://github.com/TarunDaCoder/citylights.nvim"
-  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -104,30 +99,10 @@ _G.packer_plugins = {
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
-  ["colorbuddy.vim"] = {
-    loaded = true,
-    path = "/home/karan/.local/share/nvim/site/pack/packer/start/colorbuddy.vim",
-    url = "https://github.com/tjdevries/colorbuddy.vim"
-  },
-  gruvbox = {
-    loaded = true,
-    path = "/home/karan/.local/share/nvim/site/pack/packer/start/gruvbox",
-    url = "https://github.com/morhetz/gruvbox"
-  },
-  ["gruvbuddy.nvim"] = {
-    loaded = true,
-    path = "/home/karan/.local/share/nvim/site/pack/packer/start/gruvbuddy.nvim",
-    url = "https://github.com/tjdevries/gruvbuddy.nvim"
-  },
   ["indent-blankline.nvim"] = {
     loaded = true,
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
     url = "https://github.com/lukas-reineke/indent-blankline.nvim"
-  },
-  ["kanagawa.nvim"] = {
-    loaded = true,
-    path = "/home/karan/.local/share/nvim/site/pack/packer/start/kanagawa.nvim",
-    url = "https://github.com/rebelot/kanagawa.nvim"
   },
   ["lexima.vim"] = {
     loaded = true,
@@ -143,6 +118,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/hoob3rt/lualine.nvim"
+  },
+  ["nord.nvim"] = {
+    loaded = true,
+    path = "/home/karan/.local/share/nvim/site/pack/packer/start/nord.nvim",
+    url = "https://github.com/shaunsingh/nord.nvim"
   },
   ["nvim-cmp"] = {
     loaded = true,
@@ -209,20 +189,15 @@ _G.packer_plugins = {
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/vim-commentary",
     url = "https://github.com/tpope/vim-commentary"
   },
-  ["vim-gabriel"] = {
-    loaded = true,
-    path = "/home/karan/.local/share/nvim/site/pack/packer/start/vim-gabriel",
-    url = "https://github.com/gantoreno/vim-gabriel"
-  },
   ["vim-kitty"] = {
     loaded = true,
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/vim-kitty",
     url = "https://github.com/fladson/vim-kitty"
   },
-  ["vim-prisma"] = {
+  ["vscode.nvim"] = {
     loaded = true,
-    path = "/home/karan/.local/share/nvim/site/pack/packer/start/vim-prisma",
-    url = "https://github.com/pantharshit00/vim-prisma"
+    path = "/home/karan/.local/share/nvim/site/pack/packer/start/vscode.nvim",
+    url = "https://github.com/Mofiqul/vscode.nvim"
   },
   ["which-key.nvim"] = {
     loaded = true,

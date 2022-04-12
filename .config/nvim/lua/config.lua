@@ -5,7 +5,7 @@ vim.g.vscode_style = "dark"
 vim.g.vscode_italic_comment = 1
 
 -- Set the colorscheme and lualine options
-vim.cmd [[ colorscheme vscode ]]
+vim.cmd [[ colorscheme nord ]]
 
 vim.g.tokyonight_style = "night"
 vim.g.tokyonight_lualine_bold = true
@@ -14,7 +14,7 @@ vim.g.tokyonight_hide_inactive_statusline = true
 
 require('lualine').setup {
    options = {
-     theme = 'tokyonight',
+     theme = 'nord',
      section_separators = { left = "", right = "" },
      component_separators = { left = "", right = "" }
    },
@@ -97,7 +97,7 @@ vim.g.markdown_fenced_languages = {
 -------------------------------- Treesitter --------------------------
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { "lua", "c", "cpp", "rust", "elm", "java", "javascript", "typescript", "graphql", "elixir" },
+  ensure_installed = { "lua", "c", "cpp", "rust", "elm", "java", "javascript", "typescript", "graphql", "elixir", "go", "scala" },
   highlight = { enable = true },
   incremental_selection = { enable = true },
   indent = { enable = true },
@@ -129,7 +129,7 @@ local on_attach = function(_, bufnr)
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'graphql', 'prismals' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'graphql', 'prismals', 'gopls' }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,
@@ -204,20 +204,6 @@ nvim_lsp.sumneko_lua.setup {
     },
   },
 }
-
---- Metals setup ---
-
-metals_config = require("metals").bare_config()
-metals_config.init_options.statusBarProvider = "on"
-
-vim.cmd(
-  [[
-  augroup lsp
-  au!
-  au FileType java,scala,sbt lua require("metals").initialize_or_attach(metals_config)
-  augroup end
-  ]]
-)
 
 -- Coq nvim
 -- vim.g.coq_settings = {

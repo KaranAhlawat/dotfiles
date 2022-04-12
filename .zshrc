@@ -53,7 +53,7 @@ alias gs="git status"
 alias ga="git add"
 
 # ----------------------------- EXPORTS --------------------------------
-export EDITOR="nvim"
+export EDITOR="emacsclient"
 export PATH=/home/karan/.local/bin:$PATH
 
 # fnm
@@ -69,6 +69,9 @@ export PATH="$PATH:/home/karan/.local/share/coursier/bin"
 
 # intellij from toolbox
 export PATH="$PATH:/home/karan/programs/idea-IC-213.6777.52/bin"
+
+# GO Path
+export PATH="$PATH:/home/karan/go/bin"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
