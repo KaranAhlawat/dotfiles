@@ -184,6 +184,11 @@ _G.packer_plugins = {
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
   },
+  vim = {
+    loaded = true,
+    path = "/home/karan/.local/share/nvim/site/pack/packer/start/vim",
+    url = "https://github.com/mountain-theme/vim"
+  },
   ["vim-commentary"] = {
     loaded = true,
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/vim-commentary",

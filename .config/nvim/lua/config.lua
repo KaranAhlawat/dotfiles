@@ -14,7 +14,7 @@ vim.g.tokyonight_hide_inactive_statusline = true
 
 require('lualine').setup {
    options = {
-     theme = 'nord',
+     -- theme = 'nord',
      section_separators = { left = "", right = "" },
      component_separators = { left = "", right = "" }
    },
@@ -326,6 +326,8 @@ vim.notify = require('notify')
 
 require('which-key').setup {}
 
-require('nvim-tree').setup {
-  auto_close = true
-}
+require('nvim-tree').setup {}
+
+vim.cmd [[
+  autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
+]]

@@ -31,6 +31,7 @@ return require('packer').startup(function(use)
 	use 'folke/tokyonight.nvim'
         use 'Mofiqul/vscode.nvim'
         use 'shaunsingh/nord.nvim'
+        use 'mountain-theme/vim'
 
 	-- Treesitter
 	use 'nvim-treesitter/nvim-treesitter'
