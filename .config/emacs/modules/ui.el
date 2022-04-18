@@ -13,16 +13,17 @@
               (lambda (frame)
                 (with-selected-frame frame
                   (set-face-attribute 'default nil
-		                                  :font "BlexMono Nerd Font Mono"
-		                                  :height 130
-		                                  :weight 'normal))))
+                                      :font "BlexMono Nerd Font Mono"
+		                              :height 120
+		                              :weight 'normal))))
   (set-face-attribute 'default nil
                       :font "BlexMono Nerd Font Mono"
-                      :height 130
+                      :height 120
                       :weight 'normal))
 
 (setq visual-bell t)
 (blink-cursor-mode 1)
+(pixel-scroll-precision-mode 1)
 
 (straight-use-package 'all-the-icons)
 (straight-use-package 'all-the-icons-dired)
@@ -86,10 +87,9 @@
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
 (require 'whitespace)
-(setq whitespace-style '(face spaces newline tabs space-mark tab-mark newline-mark))
+(setq whitespace-style '(face spaces tabs space-mark tab-mark))
 (setq whitespace-display-mappings
       '((space-mark 32 [183] [46])
-        (newline-mark 10 [8629 10])
         (tab-mark 9 [8594 9] [92 9])))
 (global-whitespace-mode)
 

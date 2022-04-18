@@ -8,6 +8,8 @@
 (straight-use-package 'cider)
 (straight-use-package 'auctex)
 (straight-use-package 'go-mode)
+(straight-use-package 'gotest)
+(straight-use-package 'yaml-mode)
 
 (require 'parinfer-rust-mode)
 (setq parinfer-rust-auto-download t)
@@ -21,6 +23,7 @@
 (push '("\\.py\\'" . python-mode) auto-mode-alist)
 (push '("\\.rs\\'" . rustic-mode) auto-mode-alist)
 (push '("\\.go\\'" . go-mode) auto-mode-alist)
+(push '("\\.yaml\\'" . yaml-mode) auto-mode-alist)
 
 ;; Scala
 (push '("scala" . scala-mode) interpreter-mode-alist)
@@ -42,7 +45,7 @@
   (push '(output-pdf "PDF Tools") TeX-view-program-selection))
 
 ;; GO setup
-(gofmt-before-save)
+(add-hook 'before-save-hook 'gofmt-before-save)
 (add-hook 'go-mode-hook (lambda () (setq-local tab-width 4)))
 
 (provide 'programming)
