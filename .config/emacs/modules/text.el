@@ -32,4 +32,6 @@
 (add-hook 'nov-mode 'visual-line-mode)
 (add-hook 'nov-mode 'visual-fill-column-mode)
 
+(setq org-agenda-files (list "~/Documents/Org/TODO.org"))
+
 (provide 'text)

@@ -2,6 +2,7 @@
 
 (straight-use-package 'parinfer-rust-mode)
 (straight-use-package 'python-mode)
+(straight-use-package 'poetry)
 (straight-use-package 'sbt-mode)
 (straight-use-package 'scala-mode)
 (straight-use-package 'rustic)
@@ -47,5 +48,8 @@
 ;; GO setup
 (add-hook 'before-save-hook 'gofmt-before-save)
 (add-hook 'go-mode-hook (lambda () (setq-local tab-width 4)))
+
+;; Poetry setup
+(setq poetry-tracking-strategy 'switch-buffer)
 
 (provide 'programming)

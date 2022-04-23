@@ -21,7 +21,7 @@
   (define-key project-prefix-map (kbd "g") 'magit-status)
   (define-key project-prefix-map (kbd "G") 'project-find-regexp))
 
-(defvar project-root-markers '("mix.exs" "build.sbt" ".project" "Cargo.toml" "project.clj" "go.mod"))
+(defvar project-root-markers '("mix.exs" "build.sbt" ".project" "Cargo.toml" "project.clj" "go.mod" "pyproject.toml"))
 
 (defun k-conf/project-find-root (path)
   (let* ((this-dir (file-name-as-directory (file-truename path)))

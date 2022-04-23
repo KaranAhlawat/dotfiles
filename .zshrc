@@ -51,7 +51,7 @@ alias gs="git status"
 alias ga="git add"
 
 # ----------------------------- EXPORTS --------------------------------
-export EDITOR="emacsclient"
+export EDITOR="nvim"
 export PATH=/home/karan/.local/bin:$PATH
 
 # coursier
