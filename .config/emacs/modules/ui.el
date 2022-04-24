@@ -91,6 +91,5 @@
 (setq whitespace-display-mappings
       '((space-mark 32 [183] [46])
         (tab-mark 9 [8594 9] [92 9])))
-(global-whitespace-mode)
 
 (provide 'ui)
