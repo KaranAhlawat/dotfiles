@@ -34,8 +34,9 @@
                         (nilness        . t)
                         (unusedwrite    . t)
                         (unusedparams   . t))
-      lsp-modeline-code-actions-enable nil)
-
+      lsp-modeline-code-actions-enable nil
+      lsp-keep-workspace-alive nil
+      lsp-completion-provider :none)
 
 (add-hook 'scala-mode-hook 'lsp-deferred)
 (add-hook 'go-mode-hook 'lsp-deferred)

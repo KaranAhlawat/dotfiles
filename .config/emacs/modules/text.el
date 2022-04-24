@@ -29,9 +29,14 @@
 (require 'nov)
 (push '("\\.epub\\'" . nov-mode) auto-mode-alist)
 (setq nov-text-width 100)
-(add-hook 'nov-mode 'visual-line-mode)
-(add-hook 'nov-mode 'visual-fill-column-mode)
+(add-hook 'nov-mode-hook 'visual-line-mode)
+(add-hook 'nov-mode-hook 'visual-fill-column-mode)
 
-(setq org-agenda-files (list "~/Documents/Org/TODO.org"))
+;; Agenda setup
+(setq org-directory "~/Documents/Org"
+      org-agenda-files (list "TODO.org")
+      org-agenda-start-with-log-mode t
+      org-log-done 'time
+      org-log-into-drawer t)
 
 (provide 'text)

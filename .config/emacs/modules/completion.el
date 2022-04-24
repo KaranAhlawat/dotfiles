@@ -32,17 +32,19 @@
 (marginalia-mode 1)
 
 (require 'orderless)
-(setq completion-styles '(orderless)
+(setq completion-styles '(orderless basic)
       completion-category-defaults nil
       completion-category-overrides '((file (styles . (partial-completion)))))
 
-(setq corfu-cycle t)
-(setq corfu-auto t)
-(setq corfu-quit-at-boundary nil)
-(setq corfu-quit-no-match t)
-(setq corfu-echo-documentation nil)
-(setq corfu-auto-prefix 1)
-(setq corfu-preselect-first t)
+(require 'corfu)
+(setq corfu-cycle t
+      corfu-auto t
+      corfu-auto-delay 0.5
+      corfu-quit-no-match t
+      corfu-echo-documentation nil
+      corfu-auto-prefix 1
+      corfu-preselect-first t
+      corfu-commit-predicate nil)
 (corfu-global-mode)
 
 (add-to-list 'completion-at-point-functions #'cape-file)
