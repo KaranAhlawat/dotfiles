@@ -1,6 +1,7 @@
 ;;; defaults.el -*- lexical-binding: t; -*-
 
 (straight-use-package 'no-littering)
+(straight-use-package 'autothemer)
 
 (require 'no-littering)
 
@@ -35,6 +36,7 @@
 (setq scroll-conservatively 101)
 (setq scroll-margin 1)
 (setq scroll-preserve-screen-position t)
+(setq custom-theme-directory "~/.config/emacs/modules/")
 
 (blink-cursor-mode -1)
 

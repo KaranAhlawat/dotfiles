@@ -7,6 +7,7 @@
 (require 'programming)
 (require 'keybinds)
 (require 'eshell-conf)
+(require 'funcs)
 
 (straight-use-package 'project)
 

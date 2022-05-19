@@ -13,13 +13,25 @@
               (lambda (frame)
                 (with-selected-frame frame
                   (set-face-attribute 'default nil
-                                      :font "BlexMono Nerd Font Mono"
-		                              :height 120
-		                              :weight 'normal))))
+                                      :font "BlexMono Nerd Font"
+                                      :height 130
+                                      :weight 'normal))
+                (with-selected-frame frame
+                  (set-face-attribute 'fixed-pitch nil
+                                      :font "BlexMono Nerd Font"
+                                      :height 130
+                                      :weight 'normal))))
+                
   (set-face-attribute 'default nil
-                      :font "BlexMono Nerd Font Mono"
-                      :height 120
+                      :font "BlexMono Nerd Font"
+                      :height 130
+                      :weight 'normal)
+  (set-face-attribute 'fixed-pitch nil
+                      :font "BlexMono Nerd Font"
+                      :height 130
                       :weight 'normal))
+  
+                      
 
 (setq visual-bell t)
 (blink-cursor-mode 1)
@@ -34,6 +46,7 @@
 (straight-use-package 'page-break-lines)
 (straight-use-package 'dashboard)
 (straight-use-package 'doom-themes)
+(straight-use-package '(ligature :type git :host github :repo "mickeynp/ligature.el"))
 
 (require 'modus-themes)
 (modus-themes-load-themes)
@@ -52,12 +65,17 @@
       modus-themes-paren-match '(bold)
       modus-themes-region '(no-extend bg-only))
 
-;; (modus-themes-load-vivendi)
-(setq doom-nord-brighter-comments nil
-      doom-nord-brighter-modeline t)
-(load-theme 'doom-nord t)
 
 (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
+;; (modus-themes-load-vivendi)
+
+(require 'vscode-dark-plus-theme)
+(setq vscode-dark-plus-scale-org-faces t
+      vscode-dark-plus-invert-hl-todo nil
+      vscode-dark-plus-box-org-todo nil)
+;; (load-theme 'vscode-dark-plus t)
+
+(load-theme 'doom-material t)
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)
@@ -68,7 +86,7 @@
 (setq dashboard-show-shortcuts nil)
 (setq dashboard-projects-backend 'project-el)
 (setq dashboard-items '((recents . 5)
-			                  (projects . 5)))
+                        (projects . 5)))
 (setq dashboard-set-heading-icons t)
 (setq dashboard-set-file-icons t)
 (setq dashboard-set-init-info t)
@@ -91,5 +109,20 @@
 (setq whitespace-display-mappings
       '((space-mark 32 [183] [46])
         (tab-mark 9 [8594 9] [92 9])))
+
+;; Ligature setup
+(require 'ligature)
+(ligature-set-ligatures 'prog-mode '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->" "///" "/=" "/=="
+                                     "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|" "<||"
+                                     "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<" "<==>" "<-|"
+                                     "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+" "</>" "</" "<*"
+                                     "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?" ":?>" ":=" "::=" "=>>"
+                                     "==>" "=/=" "=!=" "=>" "===" "=:=" "==" "!==" "!!" "!=" ">]" ">:"
+                                     ">>-" ">>=" ">=>" ">>>" ">-" ">=" "&&&" "&&" "|||>" "||>" "|>" "|]"
+                                     "|}" "|=>" "|->" "|=" "||-" "|-" "||=" "||" ".." ".?" ".=" ".-" "..<"
+                                     "..." "+++" "+>" "++" "[||]" "[<" "[|" "{|" "??" "?." "?=" "?:" "##"
+                                     "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
+                                     "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
+(global-ligature-mode)
 
 (provide 'ui)

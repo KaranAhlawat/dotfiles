@@ -41,11 +41,20 @@
 (add-hook 'scala-mode-hook 'lsp-deferred)
 (add-hook 'go-mode-hook 'lsp-deferred)
 (add-hook 'python-mode-hook 'lsp-deferred)
+(add-hook 'c-mode-hook 'lsp-deferred)
+(add-hook 'c++-mode-hook 'lsp-deferred)
 
-(add-hook 'python-mode-hook (lambda () (tree-sitter-hl-mode 1)))
-(add-hook 'go-mode-hook (lambda () (tree-sitter-hl-mode 1)))
-(add-hook 'c++-mode-hook (lambda () (tree-sitter-hl-mode 1)))
-(add-hook 'c-mode-hook (lambda () (tree-sitter-hl-mode 1)))
+(require 'tree-sitter)
+(require 'tree-sitter-hl)
+
+(defun k-conf/enable-tree-hl ()
+  (tree-sitter-hl-mode 1))
+
+(add-hook 'python-mode-hook #'k-conf/enable-tree-hl)
+(add-hook 'go-mode-hook #'k-conf/enable-tree-hl)
+(add-hook 'c++-mode-hook #'k-conf/enable-tree-hl)
+(add-hook 'c-mode-hook #'k-conf/enable-tree-hl)
+(add-hook 'scala-mode-hook #'k-conf/enable-tree-hl)
 
 (require 'eldoc)
 (add-hook 'lsp-mode-hook 'eldoc-mode)

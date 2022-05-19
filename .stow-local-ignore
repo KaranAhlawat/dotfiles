@@ -1,7 +1,8 @@
 .git
 .gitignore
 .sbclrc
-.config/kitty
+.config/wezterm
+.config/alacritty
 .config/picom
 .config/rofi
 .config/scripts

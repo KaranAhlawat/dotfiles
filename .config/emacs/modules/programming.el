@@ -2,6 +2,7 @@
 
 (straight-use-package 'parinfer-rust-mode)
 (straight-use-package 'python-mode)
+(straight-use-package 'blacken)
 (straight-use-package 'poetry)
 (straight-use-package 'sbt-mode)
 (straight-use-package 'scala-mode)
@@ -11,6 +12,8 @@
 (straight-use-package 'go-mode)
 (straight-use-package 'gotest)
 (straight-use-package 'yaml-mode)
+(straight-use-package 'sly)
+(straight-use-package 'sqlformat)
 
 (require 'parinfer-rust-mode)
 (setq parinfer-rust-auto-download t)
@@ -37,8 +40,7 @@
 
 ;; Rust setup
 (require 'rustic)
-(setq rustic-analyzer-command '("~/.local/bin/rust-analyzer"))
-(setq rustic-lsp-client 'eglot)
+(setq rustic-lsp-client 'lsp-mode)
 (setq rustic-enable-detached-file-support t)
 
 ;; Latex mode
@@ -51,5 +53,21 @@
 
 ;; Poetry setup
 (setq poetry-tracking-strategy 'switch-buffer)
+
+;; Blacken setup
+(add-hook 'python-mode-hook 'blacken-mode)
+
+;; Sly setup
+(require 'sly)
+(require 'sly-autoloads)
+
+(setq sly-keep-buffers-on-connection-close nil
+      sly-kill-without-query-p t
+      inferior-lisp-program "ros -Q run")
+
+;; SQL Formatter setup (remember to install pgFormat)
+(require 'sqlformat)
+(setq sqlformat-command 'pgformatter)
+(add-hook 'sql-mode-hook 'sqlformat-on-save-mode)
 
 (provide 'programming)

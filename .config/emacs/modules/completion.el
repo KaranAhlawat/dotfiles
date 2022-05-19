@@ -45,7 +45,7 @@
       corfu-auto-prefix 1
       corfu-preselect-first t
       corfu-commit-predicate nil)
-(corfu-global-mode)
+(global-corfu-mode)
 
 (add-to-list 'completion-at-point-functions #'cape-file)
 (add-to-list 'completion-at-point-functions #'cape-dabbrev)

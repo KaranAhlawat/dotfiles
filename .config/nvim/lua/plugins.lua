@@ -32,6 +32,7 @@ return require('packer').startup(function(use)
         use 'Mofiqul/vscode.nvim'
         use 'shaunsingh/nord.nvim'
         use 'mountain-theme/vim'
+        use 'sainnhe/sonokai'
 
 	-- Treesitter
 	use 'nvim-treesitter/nvim-treesitter'

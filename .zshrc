@@ -36,8 +36,6 @@ zinit light zsh-users/zsh-completions
 zinit light agkozak/zsh-z
 zinit light supercrabtree/k
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-#[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 eval "$(starship init zsh)"
 
 # ----------------------------- ALIASES ---------------------------------
@@ -50,6 +48,8 @@ alias vim="nvim"
 alias gs="git status"
 alias ga="git add"
 
+alias sbcl="ros run"
+
 # ----------------------------- EXPORTS --------------------------------
 export EDITOR="nvim"
 export PATH=/home/karan/.local/bin:$PATH
@@ -57,11 +57,22 @@ export PATH=/home/karan/.local/bin:$PATH
 # coursier
 export PATH="$PATH:/home/karan/.local/share/coursier/bin"
 
-# intellij from toolbox
-export PATH="$PATH:/home/karan/programs/idea-IC-213.6777.52/bin"
-
 # Go path
 export PATH="$PATH:/home/karan/go/bin"
 
 # GO Path
 export PATH="$PATH:/usr/local/go/bin"
+
+# fnm
+export PATH=.local/share/fnm:$PATH
+eval "`fnm env`"
+
+# roswell
+export PATH="$PATH:/home/karan/.roswell/bin"
+
+# Cargo
+export PATH="$PATH:/home/karan/.cargo/bin"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
