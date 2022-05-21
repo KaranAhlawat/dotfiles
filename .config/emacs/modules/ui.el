@@ -14,20 +14,20 @@
                 (with-selected-frame frame
                   (set-face-attribute 'default nil
                                       :font "Noto Sans Mono"
-                                      :height 115
+                                      :height 120
                                       :weight 'normal))
                 (with-selected-frame frame
                   (set-face-attribute 'fixed-pitch nil
                                       :font "Noto Sans Mono"
-                                      :height 115
+                                      :height 120
                                       :weight 'normal))))
   (set-face-attribute 'default nil
                       :font "Noto Sans Mono"
-                      :height 115
+                      :height 120
                       :weight 'normal)
   (set-face-attribute 'fixed-pitch nil
                       :font "Noto Sans Mono"
-                      :height 115
+                      :height 120
                       :weight 'normal))
   
                       
