@@ -21,6 +21,7 @@ autoload -Uz _zinit compinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 fpath+=~/.config/zsh/completions/_fnm
 compinit
+zstyle ':completion:*' menu select
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)

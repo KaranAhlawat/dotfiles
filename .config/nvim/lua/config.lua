@@ -5,7 +5,8 @@ vim.g.vscode_style = "dark"
 vim.g.vscode_italic_comment = 1
 
 -- Set the colorscheme and lualine options
-vim.cmd [[ colorscheme sonokai ]]
+vim.cmd [[ colorscheme vscode ]]
+vim.cmd [[ colorscheme oceanic_material ]]
 
 vim.g.tokyonight_style = "night"
 vim.g.tokyonight_lualine_bold = true

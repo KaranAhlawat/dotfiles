@@ -5,7 +5,11 @@
 (straight-use-package 'blacken)
 (straight-use-package 'poetry)
 (straight-use-package 'sbt-mode)
-(straight-use-package 'scala-mode)
+(straight-use-package '(scala-mode
+                        :type git
+                        :host github
+                        :repo "Kazark/emacs-scala-mode"
+                        :branch "scala3"))
 (straight-use-package 'rustic)
 (straight-use-package 'cider)
 (straight-use-package 'auctex)

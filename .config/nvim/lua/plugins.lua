@@ -33,6 +33,7 @@ return require('packer').startup(function(use)
         use 'shaunsingh/nord.nvim'
         use 'mountain-theme/vim'
         use 'sainnhe/sonokai'
+        use 'glepnir/oceanic-material'
 
 	-- Treesitter
 	use 'nvim-treesitter/nvim-treesitter'

@@ -159,6 +159,11 @@ _G.packer_plugins = {
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
+  ["oceanic-material"] = {
+    loaded = true,
+    path = "/home/karan/.local/share/nvim/site/pack/packer/start/oceanic-material",
+    url = "https://github.com/glepnir/oceanic-material"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/packer.nvim",
