@@ -13,22 +13,22 @@
               (lambda (frame)
                 (with-selected-frame frame
                   (set-face-attribute 'default nil
-                                      :font "Noto Sans Mono"
-                                      :height 120
-                                      :weight 'normal))
+                                      :font "JetBrainsMono Nerd Font Mono"
+                                      :height 125
+                                      :weight 'regular))
                 (with-selected-frame frame
                   (set-face-attribute 'fixed-pitch nil
-                                      :font "Noto Sans Mono"
-                                      :height 120
-                                      :weight 'normal))))
+                                      :font "JetBrainsMono Nerd Font Mono"
+                                      :height 125
+                                      :weight 'regular))))
   (set-face-attribute 'default nil
-                      :font "Noto Sans Mono"
-                      :height 120
-                      :weight 'normal)
+                      :font "JetBrainsMono Nerd Font Mono"
+                      :height 125
+                      :weight 'regular)
   (set-face-attribute 'fixed-pitch nil
-                      :font "Noto Sans Mono"
-                      :height 120
-                      :weight 'normal))
+                      :font "JetBrainsMono Nerd Font Mono"
+                      :height 125
+                      :weight 'regular))
   
                       
 
@@ -74,13 +74,12 @@
       vscode-dark-plus-box-org-todo nil)
 ;; (load-theme 'vscode-dark-plus t)
 
-(load-theme 'doom-material t)
+(load-theme 'doom-one t)
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-(setq dashboard-banner-logo-title "")
-(setq dashboard-startup-banner 'logo)
+(setq dashboard-startup-banner (concat user-emacs-directory "fish.png"))
 (setq dashboard-center-content t)
 (setq dashboard-show-shortcuts nil)
 (setq dashboard-projects-backend 'project-el)
@@ -89,6 +88,9 @@
 (setq dashboard-set-heading-icons t)
 (setq dashboard-set-file-icons t)
 (setq dashboard-set-init-info t)
+(setq dashboard-set-navigator t
+      dashboard-path-style 'truncate-beginning
+      dashboard-path-max-length 50)
 
 (with-eval-after-load 'dashboard
   (page-break-lines-mode))

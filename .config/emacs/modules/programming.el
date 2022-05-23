@@ -44,8 +44,10 @@
 
 ;; Rust setup
 (require 'rustic)
+(require 'lsp-rust)
 (setq rustic-lsp-client 'lsp-mode)
 (setq rustic-enable-detached-file-support t)
+(add-hook 'rustic-mode-hook #'lsp-rust-analyzer-inlay-hints-mode)
 
 ;; Latex mode
 (with-eval-after-load "latex"
@@ -73,5 +75,6 @@
 (require 'sqlformat)
 (setq sqlformat-command 'pgformatter)
 (add-hook 'sql-mode-hook 'sqlformat-on-save-mode)
+(setq lsp-sqls-workspace-config-path "root")
 
 (provide 'programming)

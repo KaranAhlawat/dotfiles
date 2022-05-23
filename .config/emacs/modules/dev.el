@@ -36,13 +36,17 @@
                         (unusedparams   . t))
       lsp-modeline-code-actions-enable nil
       lsp-keep-workspace-alive nil
-      lsp-completion-provider :none)
+      lsp-completion-provider :none
+      lsp-enable-snippet nil
+      lsp-enable-xref t
+      lsp-enable-imenu t)
 
 (add-hook 'scala-mode-hook 'lsp-deferred)
 (add-hook 'go-mode-hook 'lsp-deferred)
 (add-hook 'python-mode-hook 'lsp-deferred)
 (add-hook 'c-mode-hook 'lsp-deferred)
 (add-hook 'c++-mode-hook 'lsp-deferred)
+(add-hook 'sql-mode-hook 'lsp-deferred)
 
 (require 'tree-sitter)
 (require 'tree-sitter-hl)
@@ -58,7 +62,6 @@
 
 (require 'eldoc)
 (add-hook 'lsp-mode-hook 'eldoc-mode)
-
 (add-hook 'eldoc-mode-hook 'eldoc-box-hover-mode)
 
 (require 'smartparens-config)
