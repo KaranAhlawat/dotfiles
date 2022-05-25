@@ -59,6 +59,7 @@
 (add-hook 'c++-mode-hook #'k-conf/enable-tree-hl)
 (add-hook 'c-mode-hook #'k-conf/enable-tree-hl)
 (add-hook 'scala-mode-hook #'k-conf/enable-tree-hl)
+(add-hook 'rustic-mode-hook #'k-conf/enable-tree-hl)
 
 (require 'eldoc)
 (add-hook 'lsp-mode-hook 'eldoc-mode)

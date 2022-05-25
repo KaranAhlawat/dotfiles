@@ -75,6 +75,7 @@
 (require 'sqlformat)
 (setq sqlformat-command 'pgformatter)
 (add-hook 'sql-mode-hook 'sqlformat-on-save-mode)
+(add-hook 'sql-mode-hook 'sql-highlight-postgres-keywords)
 (setq lsp-sqls-workspace-config-path "root")
 
 (provide 'programming)

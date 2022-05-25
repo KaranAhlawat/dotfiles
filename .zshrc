@@ -51,6 +51,8 @@ alias ga="git add"
 
 alias sbcl="ros run"
 
+alias tree="exa --tree --icons"
+
 # ----------------------------- EXPORTS --------------------------------
 export EDITOR="nvim"
 export PATH=/home/karan/.local/bin:$PATH

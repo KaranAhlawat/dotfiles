@@ -18,6 +18,5 @@
   (when (string= major-mode "c++-mode")
     (let ((exec-name (car (split-string (buffer-name) "\\."))))
       (comint-run (format "./%s" exec-name)))))
-    
 
 (provide 'funcs)

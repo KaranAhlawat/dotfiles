@@ -13,21 +13,21 @@
               (lambda (frame)
                 (with-selected-frame frame
                   (set-face-attribute 'default nil
-                                      :font "JetBrainsMono Nerd Font Mono"
-                                      :height 125
+                                      :font "Monaco Nerd Font Mono"
+                                      :height 120
                                       :weight 'regular))
                 (with-selected-frame frame
                   (set-face-attribute 'fixed-pitch nil
-                                      :font "JetBrainsMono Nerd Font Mono"
-                                      :height 125
+                                      :font "Monaco Nerd Font Mono"
+                                      :height 120
                                       :weight 'regular))))
   (set-face-attribute 'default nil
-                      :font "JetBrainsMono Nerd Font Mono"
-                      :height 125
+                      :font "Monaco Nerd Font Mono"
+                      :height 120
                       :weight 'regular)
   (set-face-attribute 'fixed-pitch nil
-                      :font "JetBrainsMono Nerd Font Mono"
-                      :height 125
+                      :font "Monaco Nerd Font Mono"
+                      :height 120
                       :weight 'regular))
   
                       
@@ -37,6 +37,7 @@
 (pixel-scroll-precision-mode 1)
 
 (straight-use-package 'all-the-icons)
+(straight-use-package 'vscode-icon)
 (straight-use-package 'all-the-icons-dired)
 (straight-use-package 'doom-modeline)
 (straight-use-package 'vscode-dark-plus-theme)
@@ -46,6 +47,7 @@
 (straight-use-package 'dashboard)
 (straight-use-package 'doom-themes)
 (straight-use-package '(ligature :type git :host github :repo "mickeynp/ligature.el"))
+(straight-use-package 'dired-sidebar)
 
 (require 'modus-themes)
 (modus-themes-load-themes)
@@ -74,7 +76,7 @@
       vscode-dark-plus-box-org-todo nil)
 ;; (load-theme 'vscode-dark-plus t)
 
-(load-theme 'doom-one t)
+(load-theme 'doom-nord t)
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)
@@ -125,5 +127,15 @@
                                      "###" "####" "#[" "#{" "#=" "#!" "#:" "#_(" "#_" "#?" "#(" ";;" "_|_"
                                      "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
 (global-ligature-mode)
+
+;; Dired sidebar setup
+(require 'dired-sidebar)
+(require 'vscode-icon)
+(global-set-key (kbd "C-c C-t") 'dired-sidebar-toggle-sidebar)
+(setq dired-sidebar-subtree-line-prefix "  "
+      dired-sidebar-theme 'all-the-icons
+      dired-sidebar-use-term-integration t
+      dired-sidebar-use-one-instance t
+      dired-sidebar-use-magit-integration t)
 
 (provide 'ui)
