@@ -14,7 +14,7 @@ vim.g.tokyonight_hide_inactive_statusline = true
 
 require('lualine').setup {
    options = {
-     section_separators = { left = "", right = "" },
+     section_separators = { left = "", right = "" },
      component_separators = { left = "", right = "" }
    },
    sections = {
