@@ -13,20 +13,20 @@
               (lambda (frame)
                 (with-selected-frame frame
                   (set-face-attribute 'default nil
-                                      :font "Monego"
+                                      :font "Monego Ligatures"
                                       :height 120
                                       :weight 'regular))
                 (with-selected-frame frame
                   (set-face-attribute 'fixed-pitch nil
-                                      :font "Monego"
+                                      :font "Monego Ligatures"
                                       :height 120
                                       :weight 'regular))))
   (set-face-attribute 'default nil
-                      :font "Monego"
+                      :font "Monego Ligatures"
                       :height 120
                       :weight 'regular)
   (set-face-attribute 'fixed-pitch nil
-                      :font "Monego"
+                      :font "Monego Ligatures"
                       :height 120
                       :weight 'regular))
   
