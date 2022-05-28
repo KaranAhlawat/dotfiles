@@ -13,21 +13,21 @@
               (lambda (frame)
                 (with-selected-frame frame
                   (set-face-attribute 'default nil
-                                      :font "Monego Ligatures"
-                                      :height 120
+                                      :font "MonegoLigatures Nerd Font Mono"
+                                      :height 130
                                       :weight 'regular))
                 (with-selected-frame frame
                   (set-face-attribute 'fixed-pitch nil
-                                      :font "Monego Ligatures"
-                                      :height 120
+                                      :font "MonegoLigatures Nerd Font Mono"
+                                      :height 130
                                       :weight 'regular))))
   (set-face-attribute 'default nil
-                      :font "Monego Ligatures"
-                      :height 120
+                      :font "MonegoLigatures Nerd Font Mono"
+                      :height 130
                       :weight 'regular)
   (set-face-attribute 'fixed-pitch nil
-                      :font "Monego Ligatures"
-                      :height 120
+                      :font "MonegoLigatures Nerd Font Mono"
+                      :height 130
                       :weight 'regular))
   
                       
@@ -52,8 +52,8 @@
 (require 'modus-themes)
 (modus-themes-load-themes)
 
-(setq modus-themes-bold-constructs t
-      modus-themes-italic-constructs t
+(setq modus-themes-bold-constructs nil
+      modus-themes-italic-constructs nil
       modus-themes-syntax '(green-stings)
       modus-themes-links '(neutral-underline bold)
       modus-themes-prompts '(intense)
@@ -76,7 +76,7 @@
       vscode-dark-plus-box-org-todo nil)
 ;; (load-theme 'vscode-dark-plus t)
 
-(load-theme 'doom-nord t)
+(load-theme 'doom-tomorrow-night t)
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)
