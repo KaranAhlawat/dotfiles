@@ -1,7 +1,6 @@
 .git
 .gitignore
 .sbclrc
-.config/wezterm
 .config/alacritty
 .config/picom
 .config/rofi

@@ -16,5 +16,5 @@ disabled = true
 disabled = true
 
 [hostname]
+disabled = true
 ssh_only = false
-disabled = false

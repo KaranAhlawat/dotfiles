@@ -13,24 +13,22 @@
               (lambda (frame)
                 (with-selected-frame frame
                   (set-face-attribute 'default nil
-                                      :font "MonegoLigatures Nerd Font Mono"
-                                      :height 130
+                                      :font "CaskaydiaCove Nerd Font"
+                                      :height 140
                                       :weight 'regular))
                 (with-selected-frame frame
                   (set-face-attribute 'fixed-pitch nil
-                                      :font "MonegoLigatures Nerd Font Mono"
-                                      :height 130
+                                      :font "CaskaydiaCove Nerd Font"
+                                      :height 140
                                       :weight 'regular))))
   (set-face-attribute 'default nil
-                      :font "MonegoLigatures Nerd Font Mono"
-                      :height 130
+                      :font "CaskaydiaCove Nerd Font"
+                      :height 140
                       :weight 'regular)
   (set-face-attribute 'fixed-pitch nil
-                      :font "MonegoLigatures Nerd Font Mono"
-                      :height 130
+                      :font "CaskaydiaCove Nerd Font"
+                      :height 140
                       :weight 'regular))
-  
-                      
 
 (setq visual-bell t)
 (blink-cursor-mode 1)
@@ -76,6 +74,9 @@
       vscode-dark-plus-box-org-todo nil)
 ;; (load-theme 'vscode-dark-plus t)
 
+(with-eval-after-load 'doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
 (load-theme 'doom-tomorrow-night t)
 
 (require 'dashboard)
@@ -100,6 +101,7 @@
 (which-key-mode)
 (setq which-key-idle-delay 0.5)
 
+;; Doom modeline setup
 (add-hook 'after-init-hook 'doom-modeline-init)
 
 (setq doom-modeline-minor-modes nil
@@ -138,4 +140,5 @@
       dired-sidebar-use-one-instance t
       dired-sidebar-use-magit-integration t)
 
+(set-face-italic 'italic nil)
 (provide 'ui)
