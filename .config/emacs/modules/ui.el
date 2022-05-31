@@ -13,20 +13,20 @@
               (lambda (frame)
                 (with-selected-frame frame
                   (set-face-attribute 'default nil
-                                      :font "CaskaydiaCove Nerd Font"
+                                      :font "MonoLisa"
                                       :height 140
                                       :weight 'regular))
                 (with-selected-frame frame
                   (set-face-attribute 'fixed-pitch nil
-                                      :font "CaskaydiaCove Nerd Font"
+                                      :font "MonoLisa"
                                       :height 140
                                       :weight 'regular))))
   (set-face-attribute 'default nil
-                      :font "CaskaydiaCove Nerd Font"
+                      :font "MonoLisa"
                       :height 140
                       :weight 'regular)
   (set-face-attribute 'fixed-pitch nil
-                      :font "CaskaydiaCove Nerd Font"
+                      :font "MonoLisa"
                       :height 140
                       :weight 'regular))
 

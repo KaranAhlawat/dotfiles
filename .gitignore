@@ -22,6 +22,9 @@
 .config/emacs/.cache
 .config/emacs/FsAutoComplete
 
+# Lua lang server
+.luarc.json
+
 # Org-mode
 .config/emacs/.org-id-locations
 .config/emacs/*_archive
