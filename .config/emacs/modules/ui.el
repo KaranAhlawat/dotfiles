@@ -8,27 +8,15 @@
 (add-hook 'nov-mode-hook (lambda () (display-line-numbers-mode -1)))
 (add-hook 'pdf-view-mode (lambda () (display-line-numbers-mode -1)))
 
-(if (daemonp)
-    (add-hook 'after-make-frame-functions
-              (lambda (frame)
-                (with-selected-frame frame
-                  (set-face-attribute 'default nil
-                                      :font "SFMono Nerd Font"
-                                      :height 130
-                                      :weight 'regular))
-                (with-selected-frame frame
-                  (set-face-attribute 'fixed-pitch nil
-                                      :font "SFMono Nerd Font"
-                                      :height 130
-                                      :weight 'regular))))
-  (set-face-attribute 'default nil
-                      :font "SFMono Nerd Font"
-                      :height 130
-                      :weight 'regular)
-  (set-face-attribute 'fixed-pitch nil
-                      :font "SFMono Nerd Font"
-                      :height 130
-                      :weight 'regular))
+(defun k/setup-font-faces ()
+  "Setup faces for emacs"
+  (when (display-graphic-p)
+    (set-face-attribute 'default nil :font (font-spec :family "Iosevka SS07 Extended" :size 19 :weight 'regular))
+    (set-face-attribute 'fixed-pitch nil :font (font-spec :family "Iosevka SS07 Extended" :size 19 :weight 'regular))
+    (set-face-attribute 'variable-pitch nil :font (font-spec :family "Iosevka Aile" :size 20 :weight 'regular))))
+
+(add-hook 'after-init-hook 'k/setup-font-faces)
+(add-hook 'server-after-make-frame-hook 'k/setup-font-faces)
 
 (setq visual-bell t)
 (blink-cursor-mode 1)
