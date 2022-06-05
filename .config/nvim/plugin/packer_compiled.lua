@@ -104,6 +104,11 @@ _G.packer_plugins = {
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
     url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
+  ["kanagawa.nvim"] = {
+    loaded = true,
+    path = "/home/karan/.local/share/nvim/site/pack/packer/start/kanagawa.nvim",
+    url = "https://github.com/rebelot/kanagawa.nvim"
+  },
   ["lexima.vim"] = {
     loaded = true,
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/lexima.vim",
@@ -118,11 +123,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/hoob3rt/lualine.nvim"
-  },
-  ["nord.nvim"] = {
-    loaded = true,
-    path = "/home/karan/.local/share/nvim/site/pack/packer/start/nord.nvim",
-    url = "https://github.com/shaunsingh/nord.nvim"
   },
   ["nvim-cmp"] = {
     loaded = true,
@@ -159,10 +159,10 @@ _G.packer_plugins = {
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
-  ["oceanic-material"] = {
+  ["onedark.nvim"] = {
     loaded = true,
-    path = "/home/karan/.local/share/nvim/site/pack/packer/start/oceanic-material",
-    url = "https://github.com/glepnir/oceanic-material"
+    path = "/home/karan/.local/share/nvim/site/pack/packer/start/onedark.nvim",
+    url = "https://github.com/navarasu/onedark.nvim"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -174,11 +174,6 @@ _G.packer_plugins = {
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  sonokai = {
-    loaded = true,
-    path = "/home/karan/.local/share/nvim/site/pack/packer/start/sonokai",
-    url = "https://github.com/sainnhe/sonokai"
-  },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
@@ -188,16 +183,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/karan/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
-  },
-  ["tokyonight.nvim"] = {
-    loaded = true,
-    path = "/home/karan/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
-    url = "https://github.com/folke/tokyonight.nvim"
-  },
-  vim = {
-    loaded = true,
-    path = "/home/karan/.local/share/nvim/site/pack/packer/start/vim",
-    url = "https://github.com/mountain-theme/vim"
   },
   ["vim-commentary"] = {
     loaded = true,

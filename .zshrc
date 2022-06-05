@@ -60,9 +60,6 @@ export PATH=/home/karan/.local/bin:$PATH
 # coursier
 export PATH="$PATH:/home/karan/.local/share/coursier/bin"
 
-# Go path
-export PATH="$PATH:/home/karan/go/bin"
-
 # GO Path
 export PATH="$PATH:/usr/local/go/bin"
 
@@ -70,11 +67,11 @@ export PATH="$PATH:/usr/local/go/bin"
 export PATH=.local/share/fnm:$PATH
 eval "`fnm env`"
 
-# roswell
-export PATH="$PATH:/home/karan/.roswell/bin"
-
 # Cargo
 export PATH="$PATH:/home/karan/.cargo/bin"
+
+# Nim
+export PATH=/home/karan/.nimble/bin:$PATH
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

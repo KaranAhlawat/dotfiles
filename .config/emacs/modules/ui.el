@@ -13,21 +13,21 @@
               (lambda (frame)
                 (with-selected-frame frame
                   (set-face-attribute 'default nil
-                                      :font "MonoLisa"
-                                      :height 140
+                                      :font "SFMono Nerd Font"
+                                      :height 130
                                       :weight 'regular))
                 (with-selected-frame frame
                   (set-face-attribute 'fixed-pitch nil
-                                      :font "MonoLisa"
-                                      :height 140
+                                      :font "SFMono Nerd Font"
+                                      :height 130
                                       :weight 'regular))))
   (set-face-attribute 'default nil
-                      :font "MonoLisa"
-                      :height 140
+                      :font "SFMono Nerd Font"
+                      :height 130
                       :weight 'regular)
   (set-face-attribute 'fixed-pitch nil
-                      :font "MonoLisa"
-                      :height 140
+                      :font "SFMono Nerd Font"
+                      :height 130
                       :weight 'regular))
 
 (setq visual-bell t)
@@ -38,46 +38,32 @@
 (straight-use-package 'vscode-icon)
 (straight-use-package 'all-the-icons-dired)
 (straight-use-package 'doom-modeline)
-(straight-use-package 'vscode-dark-plus-theme)
-(straight-use-package 'modus-themes)
 (straight-use-package 'which-key)
 (straight-use-package 'page-break-lines)
 (straight-use-package 'dashboard)
-(straight-use-package 'doom-themes)
 (straight-use-package '(ligature :type git :host github :repo "mickeynp/ligature.el"))
 (straight-use-package 'dired-sidebar)
+(straight-use-package 'atom-one-dark-theme)
 
-(require 'modus-themes)
-(modus-themes-load-themes)
-
-(setq modus-themes-bold-constructs nil
-      modus-themes-italic-constructs nil
-      modus-themes-syntax '(green-stings)
-      modus-themes-links '(neutral-underline bold)
-      modus-themes-prompts '(intense)
-      modus-themes-mode-line '(3d accented)
-      modus-themes-completions '((selection . (accented))
-                                 (popup     . (accented bold)))
-      modus-themes-fringes 'subtle
-      modus-themes-lang-checkers '(straight-underline text-also faint)
+(setq modus-themes-slanted-constructs t
+      modus-themes-italic-constructs t
+      modus-themes-bold-constructs t
+      modus-themes-mixed-fonts t
+      modus-themes-scale-headings t
       modus-themes-subtle-line-numbers t
-      modus-themes-paren-match '(bold)
-      modus-themes-region '(no-extend bg-only))
+      modus-themes-mode-line '(borderless)
+      modus-themes-syntax '(faint)
+      modus-themes-lang-checkers '(faint)
+      modus-themes-completions '(opinionated)
+      modus-themes-operandi-color-overrides
+      '((bg-main . "#FAFAFA")
+        (fg-main . "#101010"))
+      modus-themes-vivendi-color-overrides
+      '((bg-main . "#101010")
+        (fg-main . "#FAFAFA"))
+      modus-themes-org-blocks 'gray-background)
 
-
-(define-key global-map (kbd "<f5>") #'modus-themes-toggle)
-;; (modus-themes-load-vivendi)
-
-(require 'vscode-dark-plus-theme)
-(setq vscode-dark-plus-scale-org-faces t
-      vscode-dark-plus-invert-hl-todo nil
-      vscode-dark-plus-box-org-todo nil)
-;; (load-theme 'vscode-dark-plus t)
-
-(with-eval-after-load 'doom-themes
-  (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t))
-(load-theme 'doom-tomorrow-night t)
+(load-theme 'modus-vivendi t)
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)

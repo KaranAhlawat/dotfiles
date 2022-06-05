@@ -16,22 +16,21 @@
 (straight-use-package 'go-mode)
 (straight-use-package 'gotest)
 (straight-use-package 'yaml-mode)
-(straight-use-package 'sly)
 (straight-use-package 'sqlformat)
+(straight-use-package 'nim-mode)
 
 (require 'parinfer-rust-mode)
 (setq parinfer-rust-auto-download t)
 (add-hook 'emacs-lisp-mode-hook 'parinfer-rust-mode)
-(add-hook 'common-lisp-mode-hook 'parinfer-rust-mode)
 (add-hook 'lisp-mode-hook 'parinfer-rust-mode)
 (add-hook 'clojure-mode-hook 'parinfer-rust-mode)
 (add-hook 'cider-mode-hook 'parinfer-rust-mode)
 
-(push '("\\.cl\\'" . common-lisp-mode) auto-mode-alist)
 (push '("\\.py\\'" . python-mode) auto-mode-alist)
 (push '("\\.rs\\'" . rustic-mode) auto-mode-alist)
 (push '("\\.go\\'" . go-mode) auto-mode-alist)
 (push '("\\.yaml\\'" . yaml-mode) auto-mode-alist)
+(push '("\\.clj\\'" . clojure-mode) auto-mode-alist)
 
 ;; Scala
 (push '("scala" . scala-mode) interpreter-mode-alist)
@@ -63,19 +62,15 @@
 ;; Blacken setup
 (add-hook 'python-mode-hook 'blacken-mode)
 
-;; Sly setup
-(require 'sly)
-(require 'sly-autoloads)
-
-(setq sly-keep-buffers-on-connection-close nil
-      sly-kill-without-query-p t
-      inferior-lisp-program "ros -Q run")
-
 ;; SQL Formatter setup (remember to install pgFormat)
 (require 'sqlformat)
 (setq sqlformat-command 'pgformatter)
 (add-hook 'sql-mode-hook 'sqlformat-on-save-mode)
 (add-hook 'sql-mode-hook 'sql-highlight-postgres-keywords)
 (setq lsp-sqls-workspace-config-path "root")
+
+;; Nim setup
+(require 'nim-mode)
+(add-hook 'nim-mode-hook (lambda () (setq-local tab-width 4)))
 
 (provide 'programming)

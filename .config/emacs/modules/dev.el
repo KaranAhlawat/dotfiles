@@ -47,6 +47,8 @@
 (add-hook 'c-mode-hook 'lsp-deferred)
 (add-hook 'c++-mode-hook 'lsp-deferred)
 (add-hook 'sql-mode-hook 'lsp-deferred)
+(add-hook 'nim-mode-hook 'lsp-deferred)
+(add-hook 'cider-mode-hook 'lsp-deferred)
 
 (require 'tree-sitter)
 (require 'tree-sitter-hl)
@@ -79,5 +81,6 @@
 (add-hook 'rustic-mode-hook 'flycheck-mode)
 (add-hook 'c-mode-hook 'flycheck-mode)
 (add-hook 'c++-mode-hook 'flycheck-mode)
+(add-hook 'nim-mode-hook 'flycheck-mode)
 
 (provide 'dev)

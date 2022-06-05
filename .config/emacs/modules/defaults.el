@@ -40,5 +40,7 @@
 
 (blink-cursor-mode -1)
 
+(add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes/"))
+
 (provide 'defaults)
 				

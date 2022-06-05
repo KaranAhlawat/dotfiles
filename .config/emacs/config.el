@@ -1,5 +1,5 @@
-(require 'ui)
 (require 'defaults)
+(require 'ui)
 (require 'completion)
 (require 'editing)
 (require 'text)
