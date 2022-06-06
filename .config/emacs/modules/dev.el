@@ -48,7 +48,7 @@
 (add-hook 'c++-mode-hook 'lsp-deferred)
 (add-hook 'sql-mode-hook 'lsp-deferred)
 (add-hook 'nim-mode-hook 'lsp-deferred)
-(add-hook 'cider-mode-hook 'lsp-deferred)
+(add-hook 'clojure-mode-hook 'lsp-deferred)
 
 (require 'tree-sitter)
 (require 'tree-sitter-hl)

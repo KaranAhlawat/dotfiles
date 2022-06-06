@@ -11,9 +11,9 @@
 (defun k/setup-font-faces ()
   "Setup faces for emacs"
   (when (display-graphic-p)
-    (set-face-attribute 'default nil :font (font-spec :family "Iosevka SS07 Extended" :size 19 :weight 'regular))
-    (set-face-attribute 'fixed-pitch nil :font (font-spec :family "Iosevka SS07 Extended" :size 19 :weight 'regular))
-    (set-face-attribute 'variable-pitch nil :font (font-spec :family "Iosevka Aile" :size 20 :weight 'regular))))
+    (set-face-attribute 'default nil :font (font-spec :family "Iosevka SS07 Extended" :size 13.0 :weight 'regular))
+    (set-face-attribute 'fixed-pitch nil :font (font-spec :family "Iosevka SS07 Extended" :size 13.0 :weight 'regular))
+    (set-face-attribute 'variable-pitch nil :font (font-spec :family "Iosevka Aile" :size 13.5 :weight 'regular))))
 
 (add-hook 'after-init-hook 'k/setup-font-faces)
 (add-hook 'server-after-make-frame-hook 'k/setup-font-faces)
