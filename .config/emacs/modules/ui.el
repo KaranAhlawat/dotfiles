@@ -23,14 +23,12 @@
 (pixel-scroll-precision-mode 1)
 
 (straight-use-package 'all-the-icons)
-(straight-use-package 'vscode-icon)
 (straight-use-package 'all-the-icons-dired)
 (straight-use-package 'doom-modeline)
 (straight-use-package 'which-key)
 (straight-use-package 'page-break-lines)
 (straight-use-package 'dashboard)
 (straight-use-package '(ligature :type git :host github :repo "mickeynp/ligature.el"))
-(straight-use-package 'dired-sidebar)
 (straight-use-package 'atom-one-dark-theme)
 
 (setq modus-themes-slanted-constructs t
@@ -105,15 +103,4 @@
                                      "__" "~~" "~~>" "~>" "~-" "~@" "$>" "^=" "]#"))
 (global-ligature-mode)
 
-;; Dired sidebar setup
-(require 'dired-sidebar)
-(require 'vscode-icon)
-(global-set-key (kbd "C-c C-t") 'dired-sidebar-toggle-sidebar)
-(setq dired-sidebar-subtree-line-prefix "  "
-      dired-sidebar-theme 'all-the-icons
-      dired-sidebar-use-term-integration t
-      dired-sidebar-use-one-instance t
-      dired-sidebar-use-magit-integration t)
-
-(set-face-italic 'italic nil)
 (provide 'ui)
