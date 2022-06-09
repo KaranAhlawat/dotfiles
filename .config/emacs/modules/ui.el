@@ -11,9 +11,9 @@
 (defun k/setup-font-faces ()
   "Setup faces for emacs"
   (when (display-graphic-p)
-    (set-face-attribute 'default nil :font (font-spec :family "Iosevka SS07 Extended" :size 13.0 :weight 'regular))
-    (set-face-attribute 'fixed-pitch nil :font (font-spec :family "Iosevka SS07 Extended" :size 13.0 :weight 'regular))
-    (set-face-attribute 'variable-pitch nil :font (font-spec :family "Iosevka Aile" :size 13.5 :weight 'regular))))
+    (set-face-attribute 'default nil :font (font-spec :family "Iosevka SS07 Extended" :size 14.0 :weight 'regular))
+    (set-face-attribute 'fixed-pitch nil :font (font-spec :family "Iosevka SS07 Extended" :size 14.0 :weight 'regular))
+    (set-face-attribute 'variable-pitch nil :font (font-spec :family "Iosevka Aile" :size 14.5 :weight 'regular))))
 
 (add-hook 'after-init-hook 'k/setup-font-faces)
 (add-hook 'server-after-make-frame-hook 'k/setup-font-faces)
@@ -51,7 +51,8 @@
         (fg-main . "#FAFAFA"))
       modus-themes-org-blocks 'gray-background)
 
-(load-theme 'modus-vivendi t)
+;; (load-theme 'modus-vivendi t)
+(load-theme 'atom-one-dark t)
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)
@@ -79,7 +80,7 @@
 (add-hook 'after-init-hook 'doom-modeline-init)
 
 (setq doom-modeline-minor-modes nil
-      doom-modeline-buffer-file-name-style 'truncate-except-project)
+     doom-modeline-buffer-file-name-style 'truncate-except-project)
 
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 

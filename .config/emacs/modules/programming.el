@@ -12,7 +12,6 @@
                         :branch "scala3"))
 (straight-use-package 'rustic)
 (straight-use-package 'cider)
-(straight-use-package 'auctex)
 (straight-use-package 'go-mode)
 (straight-use-package 'gotest)
 (straight-use-package 'yaml-mode)
@@ -72,5 +71,10 @@
 ;; Nim setup
 (require 'nim-mode)
 (add-hook 'nim-mode-hook (lambda () (setq-local tab-width 4)))
+
+;; Cider Setup
+(require 'cider)
+(setq cider-repl-pop-to-buffer-on-connect 'display-only
+      cider-repl-display-help-banner nil)
 
 (provide 'programming)

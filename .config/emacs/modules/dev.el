@@ -12,6 +12,7 @@
 (straight-use-package 'smartparens)
 (straight-use-package 'exec-path-from-shell)
 (straight-use-package 'flycheck)
+(straight-use-package 'flycheck-clj-kondo)
 
 (require 'magit)
 (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
@@ -43,12 +44,17 @@
 
 (add-hook 'scala-mode-hook 'lsp-deferred)
 (add-hook 'go-mode-hook 'lsp-deferred)
-(add-hook 'python-mode-hook 'lsp-deferred)
 (add-hook 'c-mode-hook 'lsp-deferred)
 (add-hook 'c++-mode-hook 'lsp-deferred)
 (add-hook 'sql-mode-hook 'lsp-deferred)
 (add-hook 'nim-mode-hook 'lsp-deferred)
 (add-hook 'clojure-mode-hook 'lsp-deferred)
+(add-hook 'python-mode-hook 'lsp-deferred)
+
+(add-hook 'lsp-completion-mode-hook
+          (lambda ()
+            (setf (alist-get 'lsp-capf completion-category-defaults)
+                  '((styles . (orderless flex))))))
 
 (require 'tree-sitter)
 (require 'tree-sitter-hl)
@@ -82,5 +88,13 @@
 (add-hook 'c-mode-hook 'flycheck-mode)
 (add-hook 'c++-mode-hook 'flycheck-mode)
 (add-hook 'nim-mode-hook 'flycheck-mode)
+(add-hook 'clojure-mode-hook 'flycheck-mode)
+
+(require 'flycheck-clj-kondo)
+(add-hook 'clojure-mode-hook (lambda ()
+                               (setq-local lsp-diagnostic-package :none)
+                               (setq-local flycheck-checker 'clj-kondo-clj)))
+
+                                                                                       
 
 (provide 'dev)

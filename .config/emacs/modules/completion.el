@@ -32,7 +32,7 @@
 (marginalia-mode 1)
 
 (require 'orderless)
-(setq completion-styles '(orderless basic)
+(setq completion-styles '(orderless flex)
       completion-category-defaults nil
       completion-category-overrides '((file (styles . (partial-completion)))))
 
@@ -68,7 +68,10 @@
 
 (add-hook 'org-mode-hook 'tempel-setup-capf)
 (add-hook 'LaTeX-mode-hook 'tempel-setup-capf)
+(add-hook 'clojure-mode-hook 'tempel-setup-capf)
 (with-eval-after-load "latex"
   (define-key LaTeX-mode-map (kbd "C-t") 'tempel-expand))
+(with-eval-after-load "clojure-mode"
+  (define-key clojure-mode-map (kbd "C-t") 'tempel-expand))
 
 (provide 'completion)
