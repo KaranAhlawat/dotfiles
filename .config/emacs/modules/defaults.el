@@ -6,7 +6,9 @@
 (require 'no-littering)
 
 (setq auto-save-file-name-transforms
-      `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+      `((".*"
+         ,(no-littering-expand-var-file-name "auto-save/")
+         t)))
 
 (setq global-auto-revert-non-file-buffers t)
 
@@ -14,17 +16,15 @@
 
 (defun k-defaults/display-startup-time ()
   (message "Emacs loaded in %s with %d GCs."
-	   (format "%.2f seconds"
-		   (float-time
-		    (time-subtract after-init-time before-init-time)))
-	   gcs-done))
+	         (format "%.2f seconds"
+		               (float-time
+		                (time-subtract after-init-time before-init-time)))
+	         gcs-done))
 
 (add-hook 'emacs-startup-hook #'k-defaults/display-startup-time)
 (global-auto-revert-mode 1)
 
-(setq-default indent-tabs-mode nil
-              tab-width 2
-              cursor-type 'box)
+(setq-default indent-tabs-mode nil tab-width 2 cursor-type 'box)
 (setq tab-always-indent 'complete)
 
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -40,7 +40,9 @@
 
 (blink-cursor-mode -1)
 
-(add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes/"))
+(add-to-list 'custom-theme-load-path
+             (concat user-emacs-directory "themes/"))
 
 (provide 'defaults)
 				
+;;; defaults.el ends here.

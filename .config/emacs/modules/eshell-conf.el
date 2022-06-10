@@ -26,18 +26,19 @@
             (eshell/alias "clear" "clear 1")))
           
                           
-(defun eshell/gst ()
-  (magit-status (pop args) nil)
-  (eshell/echo))
+(defun eshell/gst () (magit-status (pop args) nil) (eshell/echo))
 
 (defun curr-dir-git-branch-string (pwd)
   (interactive)
-  (when (and (not (file-remote-p pwd))
-             (eshell-search-path "git")
-             (locate-dominating-file pwd ".git"))
-    (let* ((git-url (shell-command-to-string "git config --get remote.origin.url"))
+  (when (and
+         (not (file-remote-p pwd))
+         (eshell-search-path "git")
+         (locate-dominating-file pwd ".git"))
+    (let* ((git-url
+            (shell-command-to-string "git config --get remote.origin.url"))
            (git-repo (file-name-base (s-trim git-url)))
-           (git-output (shell-command-to-string "git rev-parse --abbrev-ref HEAD"))
+           (git-output
+            (shell-command-to-string "git rev-parse --abbrev-ref HEAD"))
            (git-branch (s-trim git-output))
            (git-icon "\xe0a0"))
       (concat git-repo " " git-icon " " git-branch))))
@@ -58,40 +59,54 @@
   (let ((p-lst (split-string pwd "/")))
     (if (> (length p-lst) 2)
         (concat
-         (mapconcat (lambda (elm) (if (zerop (length elm)) ""
-                                    (substring elm 0 1)))
-                    (butlast p-lst 2)
-                    "/")
+         (mapconcat
+          (lambda (elm)
+            (if (zerop (length elm)) "" (substring elm 0 1)))
+          (butlast p-lst 2)
+          "/")
          "/"
-         (mapconcat (lambda (elm) elm)
-                    (last p-lst 2)
-                    "/"))
+         (mapconcat (lambda (elm) elm) (last p-lst 2) "/"))
       pwd)))
 
 (defun split-dir-prompt (directory)
   (if (string-match-p ".*/.*" directory)
-      (list (file-name-directory directory) (file-name-base directory))
+      (list
+       (file-name-directory directory)
+       (file-name-base directory))
     (list "" directory)))
 
 (defun eshell/eshell-local-prompt-function ()
   (interactive)
   (let* ((pwd (eshell/pwd))
          (host (s-trim (shell-command-to-string "hostname")))
-         (directory (split-dir-prompt
-                     (pwd-shorten-dirs
-                      (pwd-replace-home pwd))))
+         (directory
+          (split-dir-prompt (pwd-shorten-dirs (pwd-replace-home pwd))))
          (parent (car directory))
          (name (cadr directory))
          (branch (curr-dir-git-branch-string pwd))
          (dark-env (eq 'dark (frame-parameter nil 'background-mode)))
-         (for-host (if dark-env `(:foreground "#00c06f") `(:foreground "#a60000")))
+         (for-host
+          (if dark-env
+              `(:foreground "#00c06f")
+            `(:foreground "#a60000")))
          (for-bars `(:weight bold))
-         (for-parent (if dark-env `(:foreground "#00bcff") `(:foreground "#2544bb")))
-         (for-dir (if dark-env `(:foreground "#2fafff" :weight bold)
-                    `(:foreground "#0000c0" :weight bold)))
-         (for-git (if dark-env `(:foreground "#00d3d0") `(:foreground "#145c33")))
-         (for-prompt (if dark-env `(:foreground "#f78fe7" :weight ultra-bold) `
-                       (:foreground "#8f0075" :weight ultra-bold))))
+         (for-parent
+          (if dark-env
+              `(:foreground "#00bcff")
+            `(:foreground "#2544bb")))
+         (for-dir
+          (if dark-env
+              `(:foreground "#2fafff" :weight bold)
+            `(:foreground "#0000c0" :weight bold)))
+         (for-git
+          (if dark-env
+              `(:foreground "#00d3d0")
+            `(:foreground "#145c33")))
+         (for-prompt
+          (if dark-env
+              `(:foreground "#f78fe7" :weight ultra-bold)
+            `
+            (:foreground "#8f0075" :weight ultra-bold))))
     (concat
      "\n"
      (propertize (concat host " ") 'face for-host)
@@ -99,8 +114,9 @@
      (propertize parent 'face for-parent)
      (propertize name 'face for-dir)
      (when branch
-       (concat (propertize " ── " 'face for-bars)
-               (propertize branch 'face for-git)))
+       (concat
+        (propertize " ── " 'face for-bars)
+        (propertize branch 'face for-git)))
      (propertize "\n" 'face for-bars)
      (propertize (if (= (user-uid) 0) " #" " ➜") 'face for-prompt)
      (propertize " " 'face `(:weight normal)))))
@@ -108,8 +124,7 @@
 
 (setq-default eshell-prompt-function #'eshell/eshell-local-prompt-function)
 
-(setq eshell-highlight-prompt t
-      eshell-prompt-regexp "^ ➜")
+(setq eshell-highlight-prompt t eshell-prompt-regexp "^ ➜")
 
 (require 'eshell-z)
 
@@ -118,6 +133,7 @@
 (define-key global-map (kbd "C-!") #'eshell)
 
 (require 'eshell-syntax-highlighting)
-(add-hook 'eshell-mode-hook (lambda ()
-                              (eshell-syntax-highlighting-mode)))
+(add-hook 'eshell-mode-hook
+          (lambda () (eshell-syntax-highlighting-mode)))
+
 (provide 'eshell-conf)

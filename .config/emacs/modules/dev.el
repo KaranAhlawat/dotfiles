@@ -11,8 +11,6 @@
 (straight-use-package 'tree-sitter-langs)
 (straight-use-package 'smartparens)
 (straight-use-package 'exec-path-from-shell)
-(straight-use-package 'flycheck)
-(straight-use-package 'flycheck-clj-kondo)
 
 (require 'magit)
 (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
@@ -26,21 +24,24 @@
 (require 'lsp-metals)
 (require 'lsp-go)
 (require 'lsp-pyright)
+(require 'lsp-clojure)
 
 (define-key lsp-mode-map (kbd "C-l") lsp-command-map)
 (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
 (setq lsp-headerline-breadcrumb-enable nil
       lsp-signature-render-documentation nil
-      lsp-go-analyses '((fieldalignment . t)
-                        (nilness        . t)
-                        (unusedwrite    . t)
-                        (unusedparams   . t))
+      lsp-go-analyses
+      '((fieldalignment . t)
+        (nilness        . t)
+        (unusedwrite    . t)
+        (unusedparams   . t))
       lsp-modeline-code-actions-enable nil
       lsp-keep-workspace-alive nil
       lsp-completion-provider :none
       lsp-enable-snippet nil
       lsp-enable-xref t
-      lsp-enable-imenu t)
+      lsp-enable-imenu t
+      lsp-diagnostics-provider :flymake)
 
 (add-hook 'scala-mode-hook 'lsp-deferred)
 (add-hook 'go-mode-hook 'lsp-deferred)
@@ -53,14 +54,14 @@
 
 (add-hook 'lsp-completion-mode-hook
           (lambda ()
-            (setf (alist-get 'lsp-capf completion-category-defaults)
-                  '((styles . (orderless flex))))))
+            (setf
+             (alist-get 'lsp-capf completion-category-defaults)
+             '((styles . (orderless flex))))))
 
 (require 'tree-sitter)
 (require 'tree-sitter-hl)
 
-(defun k-conf/enable-tree-hl ()
-  (tree-sitter-hl-mode 1))
+(defun k-conf/enable-tree-hl () (tree-sitter-hl-mode 1))
 
 (add-hook 'python-mode-hook #'k-conf/enable-tree-hl)
 (add-hook 'go-mode-hook #'k-conf/enable-tree-hl)
@@ -74,27 +75,20 @@
 (add-hook 'eldoc-mode-hook 'eldoc-box-hover-mode)
 
 (require 'smartparens-config)
+(add-hook 'emacs-lisp-mode-hook 'smartparens-strict-mode)
+(add-hook 'clojure-mode-hook 'smartparens-strict-mode)
 (smartparens-global-mode 1)
 
 (require 'exec-path-from-shell)
 (setq exec-path-from-shell-check-startup-file nil)
 (exec-path-from-shell-initialize)
 
-(require 'flycheck)
-(add-hook 'go-mode-hook 'flycheck-mode)
-(add-hook 'scala-mode-hook 'flycheck-mode)
-(add-hook 'python-mode-hook 'flycheck-mode)
-(add-hook 'rustic-mode-hook 'flycheck-mode)
-(add-hook 'c-mode-hook 'flycheck-mode)
-(add-hook 'c++-mode-hook 'flycheck-mode)
-(add-hook 'nim-mode-hook 'flycheck-mode)
-(add-hook 'clojure-mode-hook 'flycheck-mode)
+;; Flymake setup
+(require 'flymake)
 
-(require 'flycheck-clj-kondo)
-(add-hook 'clojure-mode-hook (lambda ()
-                               (setq-local lsp-diagnostic-package :none)
-                               (setq-local flycheck-checker 'clj-kondo-clj)))
-
-                                                                                       
+(add-hook 'prog-mode-hook 'flymake-mode)
+(remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake)
 
 (provide 'dev)
+
+;;; dev.el ends here.

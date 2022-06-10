@@ -15,8 +15,8 @@
   (interactive "p")
   (if minibuffer-completing-file-name
       (if (string-match-p "/." (minibuffer-contents))
-	  (zap-up-to-char (- arg) ?/)
-	(delete-minibuffer-contents))
+	        (zap-up-to-char (- arg) ?/)
+	      (delete-minibuffer-contents))
     (backward-kill-word arg)))
 
 (require 'vertico)
@@ -28,13 +28,16 @@
 (savehist-mode)
 
 (require 'marginalia)
-(setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+(setq marginalia-annotators
+      '(marginalia-annotators-heavy marginalia-annotators-light nil))
 (marginalia-mode 1)
 
 (require 'orderless)
-(setq completion-styles '(orderless flex)
+(setq completion-styles
+      '(orderless flex)
       completion-category-defaults nil
-      completion-category-overrides '((file (styles . (partial-completion)))))
+      completion-category-overrides
+      '((file (styles . (partial-completion)))))
 
 (require 'corfu)
 (setq corfu-cycle t
@@ -63,8 +66,7 @@
 (define-key tempel-map (kbd "TAB") 'tempel-next)
 (defun tempel-setup-capf ()
   (setq-local completion-at-point-functions
-              (cons #'tempel-expand
-                    completion-at-point-functions)))
+              (cons #'tempel-expand completion-at-point-functions)))
 
 (add-hook 'org-mode-hook 'tempel-setup-capf)
 (add-hook 'LaTeX-mode-hook 'tempel-setup-capf)

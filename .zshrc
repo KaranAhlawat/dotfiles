@@ -62,6 +62,7 @@ export PATH="$PATH:/home/karan/.local/share/coursier/bin"
 
 # GO Path
 export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:/home/karan/go/bin"
 
 # fnm
 export PATH=.local/share/fnm:$PATH
