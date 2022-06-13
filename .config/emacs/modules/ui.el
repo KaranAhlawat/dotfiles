@@ -10,7 +10,7 @@
 (add-hook 'pdf-view-mode (lambda () (display-line-numbers-mode -1)))
 
 (defun k/setup-font-faces ()
-  "Setup faces for emacs"
+  "Setup faces for Emacs."
   (when (display-graphic-p)
     (set-face-attribute 'default nil
                         :font (font-spec :family "Iosevka SS07 Extended"
@@ -34,7 +34,7 @@
 
 (straight-use-package 'all-the-icons)
 (straight-use-package 'all-the-icons-dired)
-(straight-use-package 'doom-modeline)
+(straight-use-package 'mood-line)
 (straight-use-package 'which-key)
 (straight-use-package 'page-break-lines)
 (straight-use-package 'dashboard)
@@ -49,13 +49,15 @@
       modus-themes-scale-headings t
       modus-themes-subtle-line-numbers t
       modus-themes-mode-line
-      '(borderless)
+      '(borderless accented)
       modus-themes-syntax
       '(faint)
       modus-themes-lang-checkers
       '(faint)
       modus-themes-completions
       '(opinionated)
+      modus-themes-region
+      '(accented bg-only)
       modus-themes-operandi-color-overrides
       '((bg-main . "#FAFAFA")
         (fg-main . "#101010"))
@@ -63,7 +65,7 @@
       '((bg-main . "#101010")
         (fg-main . "#e5e5e5"))
       modus-themes-org-blocks 'gray-background)
-
+(define-key global-map (kbd "<f5>") #'modus-themes-toggle)
 (load-theme 'modus-vivendi t)
 
 (require 'dashboard)
@@ -86,10 +88,12 @@
 (which-key-mode)
 (setq which-key-idle-delay 0.5)
 
-;; Doom modeline setup
-(add-hook 'after-init-hook 'doom-modeline-init)
-
-(setq doom-modeline-minor-modes nil doom-modeline-buffer-file-name-style 'truncate-except-project)
+;; Mood Line setup
+(require 'mood-line)
+(mood-line-mode)
+(setq mood-line-show-eol-style t
+      mood-line-show-cursor-point t
+      mood-line-show-encoding-information t)
 
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 

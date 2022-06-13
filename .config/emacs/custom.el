@@ -13,6 +13,25 @@
      (output-html "xdg-open")))
  '(custom-safe-themes
    '("73312750a0ce791489cad7fe2579d8582ea44d6dfcde274cb07c763277706a22" default))
+ '(ignored-local-variable-values
+   '((elisp-lint-indent-specs
+      (if-let* . 2)
+      (when-let* . 1)
+      (let* . defun)
+      (nrepl-dbind-response . 2)
+      (cider-save-marker . 1)
+      (cider-propertize-region . 1)
+      (cider-map-repls . 1)
+      (cider--jack-in . 1)
+      (cider--make-result-overlay . 1)
+      (insert-label . defun)
+      (insert-align-label . defun)
+      (insert-rect . defun)
+      (cl-defun . 2)
+      (with-parsed-tramp-file-name . 2)
+      (thread-first . 1)
+      (thread-last . 1))
+     (checkdoc-package-keywords-flag)))
  '(safe-local-variable-values '((leixcal-binding . t)))
  '(warning-suppress-log-types '((org))))
  ;; custom-set-faces was added by Custom.

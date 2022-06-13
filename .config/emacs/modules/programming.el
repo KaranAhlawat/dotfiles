@@ -68,6 +68,8 @@
 
 ;; Cider Setup
 (require 'cider)
-(setq cider-repl-pop-to-buffer-on-connect 'display-only cider-repl-display-help-banner nil)
+(setq cider-repl-pop-to-buffer-on-connect nil
+      cider-repl-display-help-banner nil
+      cider-shadow-cljs-command "shadow-cljs")
 
 (provide 'programming)

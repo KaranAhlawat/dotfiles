@@ -21,8 +21,8 @@
             (eshell/alias "vi" "find-file $1")
             (eshell/alias "ee" "find-file-other-window $1")
             (eshell/alias "d" "dired $1")
-            (eshell/alias "ls" "exa --icons --color=always")
-            (eshell/alias "l" "exa -la --icons --color=always")
+            (eshell/alias "ls" "exa --color=always")
+            (eshell/alias "l" "exa -la --color=always")
             (eshell/alias "clear" "clear 1")))
           
                           
