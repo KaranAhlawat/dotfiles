@@ -13,13 +13,9 @@
   "Setup faces for Emacs."
   (when (display-graphic-p)
     (set-face-attribute 'default nil
-                        :font (font-spec :family "Iosevka SS07 Extended"
-                                         :size 14.0
-                                         :weight 'regular))
+                        :font (font-spec :family "PragmataPro Liga" :size 15.0))
     (set-face-attribute 'fixed-pitch nil
-                        :font (font-spec :family "Iosevka SS07 Extended"
-                                         :size 14.0
-                                         :weight 'regular))
+                        :font (font-spec :family "PragmataPro Liga" :size 15.0))
     (set-face-attribute 'variable-pitch nil
                         :font (font-spec :family "Iosevka Aile"
                                          :size 14.5
@@ -40,7 +36,6 @@
 (straight-use-package 'dashboard)
 (straight-use-package
  '(ligature :type git :host github :repo "mickeynp/ligature.el"))
-(straight-use-package 'atom-one-dark-theme)
 
 (setq modus-themes-slanted-constructs t
       modus-themes-italic-constructs t

@@ -6,4 +6,5 @@
 .config/rofi
 .config/scripts
 .config/stumpwm
+.config/nvim-bkp
 .doom.d

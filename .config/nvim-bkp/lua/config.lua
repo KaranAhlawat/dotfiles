@@ -1,22 +1,10 @@
 vim.opt.guicursor="i:block"
 
--- Vscode dark options
-vim.g.vscode_style = "dark"
-vim.g.vscode_italic_comment = 1
+require("gemstones").setup {}
+
+vim.cmd("colorscheme gemstones")
 
 -- Set the colorscheme and lualine options
--- vim.cmd [[ colorscheme vscode ]]
-local onedark = require('onedark')
-onedark.setup {
-  style = 'deep'
-}
-onedark.load()
-
-vim.g.tokyonight_style = "night"
-vim.g.tokyonight_lualine_bold = true
-vim.g.tokyonight_italic_keywords = false
-vim.g.tokyonight_hide_inactive_statusline = true
-
 require('lualine').setup {
    options = {
      section_separators = { left = "", right = "" },
@@ -88,12 +76,14 @@ vim.g.timeoutlen = 20
 
 vim.g.markdown_fenced_languages = {
   "ts=typescript"
-  }
+}
+
+vim.opt.cmdheight = 0
 
 -------------------------------- Treesitter --------------------------
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { "lua", "c", "cpp", "rust", "javascript", "typescript", "graphql", "go", "scala" },
+  ensure_installed = { "lua", "c", "cpp", "rust", "javascript", "typescript", "graphql", "go", "scala", "vue" },
   highlight = { enable = true },
   incremental_selection = { enable = true },
   indent = { enable = true },
@@ -125,7 +115,7 @@ local on_attach = function(_, bufnr)
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'graphql', 'gopls' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'graphql', 'gopls', 'volar' }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,
@@ -134,20 +124,15 @@ for _, lsp in ipairs(servers) do
         debounce_text_changes = 150,
       }
     }
+
+    if lsp == 'volar' then
+      nvim_lsp.volar.setup {
+        filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'}
+      }
+    end
 end
 
 local utils = require 'lspconfig/util'
-
--- setup tsserver
-
-nvim_lsp.tsserver.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  flags = {
-    debounce_text_changes = 150
-  },
-  single_file_support = true
-}
 
 -- setup denols
 

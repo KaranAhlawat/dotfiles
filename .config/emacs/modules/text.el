@@ -8,6 +8,9 @@
 (straight-use-package 'nov)
 
 (defun k/setup-org-face ()
+  "Setup different faces for Org Mode headings and such.
+Uses Iosevka Etoile for the headings, otherwise uses Ioesvka Aile for
+the text"
   (set-face-attribute 'org-document-title nil :font "Iosevka Etoile" :weight 'bold :height 1.3)
 
   (dolist (face

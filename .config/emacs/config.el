@@ -8,6 +8,7 @@
 (require 'keybinds)
 (require 'eshell-conf)
 (require 'funcs)
+(require 'web)
 
 (straight-use-package 'project)
 

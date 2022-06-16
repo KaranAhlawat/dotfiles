@@ -25,6 +25,7 @@
 (require 'lsp-go)
 (require 'lsp-pyright)
 (require 'lsp-clojure)
+(require 'lsp-volar)
 
 (define-key lsp-mode-map (kbd "C-l") lsp-command-map)
 (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
@@ -51,12 +52,17 @@
 (add-hook 'nim-mode-hook 'lsp-deferred)
 (add-hook 'clojure-mode-hook 'lsp-deferred)
 (add-hook 'python-mode-hook 'lsp-deferred)
+(add-hook 'rjsx-mode-hook 'lsp-deferred)
+(add-hook 'css-mode-hook  'lsp-deferred)
+(add-hook 'web-mode-hook 'lsp-deferred)
 
 (add-hook 'lsp-completion-mode-hook
           (lambda ()
             (setf
              (alist-get 'lsp-capf completion-category-defaults)
              '((styles . (orderless flex))))))
+
+
 
 (require 'tree-sitter)
 (require 'tree-sitter-hl)
@@ -88,6 +94,13 @@
 
 (add-hook 'prog-mode-hook 'flymake-mode)
 (remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake)
+(define-key flymake-mode-map
+            (kbd "M-g d")
+            #'flymake-show-buffer-diagnostics)
+(define-key flymake-mode-map
+            (kbd "M-g M-d")
+            #'flymake-show-project-diagnostics)
+(define-key flymake-mode-map (kbd "M-g f") #'consult-flymake)
 
 (provide 'dev)
 

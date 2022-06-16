@@ -28,9 +28,7 @@ return require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 
 	-- Colorschemes
-        use 'Mofiqul/vscode.nvim'
-        use 'rebelot/kanagawa.nvim'
-        use 'navarasu/onedark.nvim'
+	use 'jadnw/gemstones.nvim'
 
 	-- Treesitter
 	use 'nvim-treesitter/nvim-treesitter'
