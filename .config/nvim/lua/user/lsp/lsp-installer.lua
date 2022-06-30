@@ -14,7 +14,9 @@ local servers = {
   "pyright",
   "yamlls",
   "bashls",
-  "volar"
+  "volar",
+  "clangd",
+  "gopls"
 }
 
 lsp_installer.setup()

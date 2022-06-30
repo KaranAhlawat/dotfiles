@@ -49,8 +49,6 @@ alias vim="nvim"
 alias gs="git status"
 alias ga="git add"
 
-alias sbcl="ros run"
-
 alias tree="exa --tree --icons"
 
 # ----------------------------- EXPORTS --------------------------------
@@ -64,9 +62,10 @@ export PATH="$PATH:/home/karan/.local/share/coursier/bin"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:/home/karan/go/bin"
 
-# fnm
-export PATH=.local/share/fnm:$PATH
-eval "`fnm env`"
+# nvm setup
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Cargo
 export PATH="$PATH:/home/karan/.cargo/bin"
@@ -77,3 +76,8 @@ export PATH=/home/karan/.nimble/bin:$PATH
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# pnpm
+export PNPM_HOME="/home/karan/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end

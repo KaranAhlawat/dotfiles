@@ -25,7 +25,6 @@
 (require 'lsp-go)
 (require 'lsp-pyright)
 (require 'lsp-clojure)
-(require 'lsp-volar)
 
 (define-key lsp-mode-map (kbd "C-l") lsp-command-map)
 (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
@@ -49,12 +48,11 @@
 (add-hook 'c-mode-hook 'lsp-deferred)
 (add-hook 'c++-mode-hook 'lsp-deferred)
 (add-hook 'sql-mode-hook 'lsp-deferred)
-(add-hook 'nim-mode-hook 'lsp-deferred)
 (add-hook 'clojure-mode-hook 'lsp-deferred)
 (add-hook 'python-mode-hook 'lsp-deferred)
-(add-hook 'rjsx-mode-hook 'lsp-deferred)
-(add-hook 'css-mode-hook  'lsp-deferred)
 (add-hook 'web-mode-hook 'lsp-deferred)
+(add-hook 'typescript-mode-hook 'lsp-deferred)
+(add-hook 'css-mode-hook 'lsp-deferred)
 
 (add-hook 'lsp-completion-mode-hook
           (lambda ()
@@ -62,12 +60,12 @@
              (alist-get 'lsp-capf completion-category-defaults)
              '((styles . (orderless flex))))))
 
-
-
 (require 'tree-sitter)
 (require 'tree-sitter-hl)
 
-(defun k-conf/enable-tree-hl () (tree-sitter-hl-mode 1))
+(defun k-conf/enable-tree-hl ()
+  "Enable tree sitter highlighting."
+  (tree-sitter-hl-mode 1))
 
 (add-hook 'python-mode-hook #'k-conf/enable-tree-hl)
 (add-hook 'go-mode-hook #'k-conf/enable-tree-hl)

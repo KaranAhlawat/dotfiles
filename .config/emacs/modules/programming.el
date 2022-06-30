@@ -15,7 +15,6 @@
 (straight-use-package 'gotest)
 (straight-use-package 'yaml-mode)
 (straight-use-package 'sqlformat)
-(straight-use-package 'nim-mode)
 (straight-use-package
  '(elfmt :type git :host github :repo "riscy/elfmt"))
 
@@ -55,16 +54,12 @@
 ;; Blacken setup
 (add-hook 'python-mode-hook 'blacken-mode)
 
-;; SQL Formatter setup (remember to install pgFormat)
+;; SQL Formatter setup (remember to install pgFormat/pg_format)
 (require 'sqlformat)
 (setq sqlformat-command 'pgformatter)
 (add-hook 'sql-mode-hook 'sqlformat-on-save-mode)
 (add-hook 'sql-mode-hook 'sql-highlight-postgres-keywords)
 (setq lsp-sqls-workspace-config-path "root")
-
-;; Nim setup
-(require 'nim-mode)
-(add-hook 'nim-mode-hook (lambda () (setq-local tab-width 4)))
 
 ;; Cider Setup
 (require 'cider)

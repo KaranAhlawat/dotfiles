@@ -32,7 +32,12 @@
       (thread-first . 1)
       (thread-last . 1))
      (checkdoc-package-keywords-flag)))
- '(safe-local-variable-values '((leixcal-binding . t)))
+ '(safe-local-variable-values
+   '((eval (prettier-mode))
+     (prettier-mode . t)
+     (lsp-clients-typescript-npm-location . "./node_modules/.bin/tsserver")
+     (eval prettier-mode t)
+     (leixcal-binding . t)))
  '(warning-suppress-log-types '((org))))
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

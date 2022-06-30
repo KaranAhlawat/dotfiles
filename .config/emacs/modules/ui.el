@@ -13,12 +13,12 @@
   "Setup faces for Emacs."
   (when (display-graphic-p)
     (set-face-attribute 'default nil
-                        :font (font-spec :family "PragmataPro Liga" :size 15.0))
+                        :font (font-spec :family "MesloLGM Nerd Font" :size 14.5))
     (set-face-attribute 'fixed-pitch nil
-                        :font (font-spec :family "PragmataPro Liga" :size 15.0))
+                        :font (font-spec :family "MesloLGM Nerd Font" :size 14.5))
     (set-face-attribute 'variable-pitch nil
                         :font (font-spec :family "Iosevka Aile"
-                                         :size 14.5
+                                         :size 15.0
                                          :weight 'regular))))
 
 (add-hook 'after-init-hook 'k/setup-font-faces)
@@ -36,17 +36,18 @@
 (straight-use-package 'dashboard)
 (straight-use-package
  '(ligature :type git :host github :repo "mickeynp/ligature.el"))
+(straight-use-package 'solarized-emacs)
 
 (setq modus-themes-slanted-constructs t
       modus-themes-italic-constructs t
-      modus-themes-bold-constructs t
+      modus-themes-bold-constructs nil
       modus-themes-mixed-fonts t
       modus-themes-scale-headings t
       modus-themes-subtle-line-numbers t
       modus-themes-mode-line
       '(borderless accented)
       modus-themes-syntax
-      '(faint)
+      '(faint green-strings)
       modus-themes-lang-checkers
       '(faint)
       modus-themes-completions
@@ -61,7 +62,9 @@
         (fg-main . "#e5e5e5"))
       modus-themes-org-blocks 'gray-background)
 (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
-(load-theme 'modus-vivendi t)
+;; (load-theme 'modus-vivendi t)
+
+(load-theme 'solarized-wombat-dark t)
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)
@@ -102,10 +105,10 @@
 (require 'ligature)
 (ligature-set-ligatures 'prog-mode
                         '("-|" "-~" "---" "-<<" "-<" "--" "->" "->>" "-->" "///" "/="
-                          "/==" "/>" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|"
+                          "/==" "//" "/*" "*>" "***" "*/" "<-" "<<-" "<=>" "<=" "<|"
                           "<||" "<|||" "<|>" "<:" "<>" "<-<" "<<<" "<==" "<<=" "<=<"
                           "<==>" "<-|" "<<" "<~>" "<=|" "<~~" "<~" "<$>" "<$" "<+>" "<+"
-                          "</>" "</" "<*" "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?"
+                          "<*" "<*>" "<->" "<!--" ":>" ":<" ":::" "::" ":?"
                           ":?>" ":=" "::=" "=>>" "==>" "=/=" "=!=" "=>" "===" "=:=" "=="
                           "!==" "!!" "!=" ">]" ">:" ">>-" ">>=" ">=>" ">>>" ">-" ">="
                           "&&&" "&&" "|||>" "||>" "|>" "|]" "|}" "|=>" "|->" "|=" "||-"

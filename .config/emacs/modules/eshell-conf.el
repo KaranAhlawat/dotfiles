@@ -21,8 +21,8 @@
             (eshell/alias "vi" "find-file $1")
             (eshell/alias "ee" "find-file-other-window $1")
             (eshell/alias "d" "dired $1")
-            (eshell/alias "ls" "exa --color=always")
-            (eshell/alias "l" "exa -la --color=always")
+            (eshell/alias "ls" "exa --color=always $1")
+            (eshell/alias "l" "exa -la --color=always $1")
             (eshell/alias "clear" "clear 1")))
           
                           
@@ -135,5 +135,11 @@
 (require 'eshell-syntax-highlighting)
 (add-hook 'eshell-mode-hook
           (lambda () (eshell-syntax-highlighting-mode)))
+
+(add-hook 'eshell-mode-hook
+          (lambda ()
+            (define-key eshell-hist-mode-map
+                        (kbd "M-r")
+                        'consult-history)))
 
 (provide 'eshell-conf)
