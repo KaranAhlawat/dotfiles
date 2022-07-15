@@ -24,7 +24,7 @@ keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle_current_linewis
 keymap("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>')
 
 -- Tabline
-keymap("n", "<leader>tn", ":TablineTabNew<CR>", opts)
+keymap("n", "<leader>tn", ":TablineTabNew .<CR>", opts)
 keymap("n", "<leader>tq", "<cmd>bdelete!<CR>", opts)
 keymap("n", "<leader>tj", ":TablineBufferNext<CR>", opts)
 keymap("n", "<leader>tk", ":TablineBufferPrevious<CR>", opts)
