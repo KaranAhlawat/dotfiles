@@ -9,7 +9,7 @@ end
 -- Set options
 vim.opt.backup = false                          -- creates a backup file
 vim.opt.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard
-vim.opt.cmdheight = 0                           -- more space in the neovim command line for displaying messages
+vim.opt.cmdheight = 1                           -- more space in the neovim command line for displaying messages
 vim.opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
 vim.opt.conceallevel = 0                        -- so that `` is visible in markdown files
 vim.opt.fileencoding = "utf-8"                  -- the encoding written to a file
@@ -108,6 +108,24 @@ lualine.setup {
   },
 }
 
+-- Setup nvim-cmp.
+local status_pairs_ok, npairs = pcall(require, "nvim-autopairs")
+if not status_pairs_ok then
+  return
+end
+
+npairs.setup {
+  check_ts = true, -- treesitter integration
+  disable_filetype = { "TelescopePrompt" },
+}
+
+local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+local cmp_status_ok, cmp = pcall(require, "cmp")
+if not cmp_status_ok then
+  return
+end
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done {})
+
 -- lsp setup
 local status_lsp_inst_ok, lsp_installer = pcall(require, "nvim-lsp-installer")
 if not status_lsp_inst_ok then
@@ -121,7 +139,8 @@ local servers = {
   "tsserver",
   "pyright",
   "gopls",
-  "rust_analyzer"
+  "rust_analyzer",
+  "sqls"
 }
 
 lsp_installer.setup()
@@ -275,4 +294,23 @@ cmp.setup({
 	experimental = {
 		ghost_text = true,
 	},
+})
+
+-- TreeSitter configuration
+local status_ok, configs = pcall(require, "nvim-treesitter.configs")
+if not status_ok then
+	return
+end
+
+configs.setup({
+	ensure_installed = "all", -- one of "all" or a list of languages
+	ignore_install = { "" }, -- List of parsers to ignore installing
+	highlight = {
+		enable = true, -- false will disable the whole extension
+		disable = { "css" }, -- list of language that will be disabled
+	},
+	autopairs = {
+		enable = true,
+	},
+	indent = { enable = true, disable = { "python", "css" } },
 })

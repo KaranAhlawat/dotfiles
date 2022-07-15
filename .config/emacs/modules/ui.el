@@ -62,9 +62,9 @@
         (fg-main . "#e5e5e5"))
       modus-themes-org-blocks 'gray-background)
 (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
-;; (load-theme 'modus-vivendi t)
+(load-theme 'modus-vivendi t)
 
-(load-theme 'solarized-wombat-dark t)
+;; (load-theme 'solarized-wombat-dark t)
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)
