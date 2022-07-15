@@ -40,22 +40,7 @@ return packer.startup(function(use)
   use "kyazdani42/nvim-web-devicons"
   use "kyazdani42/nvim-tree.lua"
   use "nvim-lualine/lualine.nvim"
-  use { "kdheepak/tabline.nvim",
-    config = function()
-      require("tabline").setup {
-        enable = true,
-        options = {
-          -- If lualine is installed tabline will use separators configured in lualine by default.
-          -- These options can be used to override those settings.
-          show_tabs_always = true, -- this shows tabs only when there are more than one tab or if the first tab is named
-          show_bufnr = false, -- this appends [bufnr] to buffer section,
-          show_filename_only = false, -- shows base filename only instead of relative path in filename
-          modified_icon = "+ ", -- change the default modified icon
-          modified_italic = false, -- set to true by default; this determines whether the filename turns italic if modified
-          show_tabs_only = false, -- this shows only tabs instead of tabs + buffers
-        }
-      }
-    end }
+  use "romgrk/barbar.nvim"
   use "lewis6991/impatient.nvim"
   use "lukas-reineke/indent-blankline.nvim"
   use { "folke/which-key.nvim",
