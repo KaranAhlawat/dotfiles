@@ -13,12 +13,12 @@
   "Setup faces for Emacs."
   (when (display-graphic-p)
     (set-face-attribute 'default nil
-                        :font (font-spec :family "MesloLGM Nerd Font" :size 14.5))
+                        :font (font-spec :family "Berkeley Mono" :size 14.0))
     (set-face-attribute 'fixed-pitch nil
-                        :font (font-spec :family "MesloLGM Nerd Font" :size 14.5))
+                        :font (font-spec :family "Berkeley Mono " :size 14.0))
     (set-face-attribute 'variable-pitch nil
                         :font (font-spec :family "Iosevka Aile"
-                                         :size 15.0
+                                         :size 14.5
                                          :weight 'regular))))
 
 (add-hook 'after-init-hook 'k/setup-font-faces)

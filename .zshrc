@@ -19,7 +19,6 @@ fi
 source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit compinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-fpath+=~/.config/zsh/completions/_fnm
 compinit
 zstyle ':completion:*' menu select
 
@@ -81,3 +80,9 @@ export SDKMAN_DIR="$HOME/.sdkman"
 export PNPM_HOME="/home/karan/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+# bun completions
+[ -s "/home/karan/.bun/_bun" ] && source "/home/karan/.bun/_bun"
+
+# Bun
+export BUN_INSTALL="/home/karan/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

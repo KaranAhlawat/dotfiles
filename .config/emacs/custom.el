@@ -33,7 +33,10 @@
       (thread-last . 1))
      (checkdoc-package-keywords-flag)))
  '(safe-local-variable-values
-   '((eval (prettier-mode))
+   '((cider-shadow-watched-build . ":app")
+     (cider-ns-refresh-after-fn . "integrant.repl/resume")
+     (cider-ns-refresh-before-fn . "integrant.repl/suspend")
+     (eval (prettier-mode))
      (prettier-mode . t)
      (lsp-clients-typescript-npm-location . "./node_modules/.bin/tsserver")
      (eval prettier-mode t)
