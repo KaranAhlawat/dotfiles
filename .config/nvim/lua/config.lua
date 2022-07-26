@@ -1,7 +1,17 @@
 -- Colorscheme setup
-local colorscheme = "PaperColor"
 
-local status_color_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
+local material_ok, material = pcall(require, "material")
+if not material_ok then
+  return
+end
+
+material.setup({
+  lualine_style = "default"
+})
+
+local colorscheme = "material"
+
+local status_color_ok, _ = pcall(vim.cmd.colorscheme, colorscheme)
 if not status_color_ok then
 	return
 end
@@ -52,6 +62,7 @@ local status_lualine_ok, lualine = pcall(require, "lualine")
 if not status_lualine_ok then
   return
 end
+
 
 local hide_in_width = function()
   return vim.fn.winwidth(0) > 80

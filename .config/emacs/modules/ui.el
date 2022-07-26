@@ -13,9 +13,9 @@
   "Setup faces for Emacs."
   (when (display-graphic-p)
     (set-face-attribute 'default nil
-                        :font (font-spec :family "Berkeley Mono" :size 14.0))
+                        :font (font-spec :family "Cascadia Code" :size 14.0))
     (set-face-attribute 'fixed-pitch nil
-                        :font (font-spec :family "Berkeley Mono " :size 14.0))
+                        :font (font-spec :family "Cascadia Code " :size 14.0))
     (set-face-attribute 'variable-pitch nil
                         :font (font-spec :family "Iosevka Aile"
                                          :size 14.5

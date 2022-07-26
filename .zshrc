@@ -16,6 +16,15 @@ if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
         print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
 
+_dotnet_zsh_complete()
+{
+  local completions=("$(dotnet complete "$words")")
+
+  reply=( "${(ps:\n:)completions}" )
+}
+
+compctl -K _dotnet_zsh_complete dotnet
+
 source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit compinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
@@ -49,6 +58,8 @@ alias gs="git status"
 alias ga="git add"
 
 alias tree="exa --tree --icons"
+
+alias code="codium"
 
 # ----------------------------- EXPORTS --------------------------------
 export EDITOR="nvim"

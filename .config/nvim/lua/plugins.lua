@@ -50,6 +50,7 @@ return packer.startup(function(use)
 
   -- Colorschemes
   use "NLKNguyen/papercolor-theme"
+  use "marko-cerovac/material.nvim"
 
   -- cmp plugins
   use "hrsh7th/nvim-cmp"
