@@ -8,7 +8,7 @@ end)
 
 return {
   font = wezterm.font("Cascadia Code", {weight="Regular"}),
-  font_size = 15,
+  font_size = 16,
   use_fancy_tab_bar = true,
   window_decorations = "RESIZE",
   color_scheme = "Material (base16)"

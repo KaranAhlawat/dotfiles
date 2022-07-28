@@ -36,7 +36,7 @@
 (straight-use-package 'dashboard)
 (straight-use-package
  '(ligature :type git :host github :repo "mickeynp/ligature.el"))
-(straight-use-package 'solarized-emacs)
+(straight-use-package 'doom-themes)
 
 (setq modus-themes-slanted-constructs t
       modus-themes-italic-constructs t
@@ -62,9 +62,9 @@
         (fg-main . "#e5e5e5"))
       modus-themes-org-blocks 'gray-background)
 (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
-(load-theme 'modus-vivendi t)
+;;(load-theme 'modus-vivendi t)
 
-;; (load-theme 'solarized-wombat-dark t)
+(load-theme 'doom-solarized-dark t)
 
 (require 'dashboard)
 (dashboard-setup-startup-hook)

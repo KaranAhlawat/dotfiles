@@ -16,6 +16,9 @@ if not status_color_ok then
 	return
 end
 
+-- set cursor to block
+vim.o.guicursor = "i:block"
+
 -- Set options
 vim.opt.backup = false                          -- creates a backup file
 vim.opt.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard

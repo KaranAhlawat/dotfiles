@@ -59,8 +59,6 @@ alias ga="git add"
 
 alias tree="exa --tree --icons"
 
-alias code="codium"
-
 # ----------------------------- EXPORTS --------------------------------
 export EDITOR="nvim"
 export PATH=/home/karan/.local/bin:$PATH
