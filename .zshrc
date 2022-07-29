@@ -51,20 +51,13 @@ eval "$(starship init zsh)"
 alias ls="exa --icons"
 alias l="ls -la"
 
-alias vi="nvim"
-alias vim="nvim"
-
 alias gs="git status"
 alias ga="git add"
 
 alias tree="exa --tree --icons"
 
 # ----------------------------- EXPORTS --------------------------------
-export EDITOR="nvim"
 export PATH=/home/karan/.local/bin:$PATH
-
-# coursier
-export PATH="$PATH:/home/karan/.local/share/coursier/bin"
 
 # GO Path
 export PATH="$PATH:/usr/local/go/bin"
@@ -78,9 +71,6 @@ export NVM_DIR="$HOME/.nvm"
 # Cargo
 export PATH="$PATH:/home/karan/.cargo/bin"
 
-# Nim
-export PATH=/home/karan/.nimble/bin:$PATH
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
@@ -89,9 +79,3 @@ export SDKMAN_DIR="$HOME/.sdkman"
 export PNPM_HOME="/home/karan/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
-# bun completions
-[ -s "/home/karan/.bun/_bun" ] && source "/home/karan/.bun/_bun"
-
-# Bun
-export BUN_INSTALL="/home/karan/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
