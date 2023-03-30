@@ -1,0 +1,204 @@
+#+title: Setup for Silverblue
+#+date: 2023-03-30
+#+author: Karan Ahlawat
+
+* Why?
+
+Because there are a few steps involved in the setup after the system has been installed (and optionally rebased to a bootable OCI image) and I would rather not forget them.
+
+Also because using Ansible would be overkill for this. (not my words, but wise words from a wise person)
+
+* Tools
+1. Fedora Silverblue
+2. Toolbox
+3. Bash
+4. yadm
+
+** Flatpaks
+1. Celluloid
+2. Firefox
+3. Discord
+4. Extension Manager
+5. Flatseal
+6. ONLYOFFICE
+7. Spotify
+8. Chromium
+     
+** Common Software on Host and Toolbox
+1. bat
+2. exa
+3. fd-find
+4. ripgrep
+5. starship
+6. zoxide
+
+** Host Specific Software (Layered)
+1. gnome-tweaks
+2. vim
+3. yaru-sound-theme
+
+** Toolbox Specific Software
+1. helix
+2. gcc-c++
+3. Emacs (bleeding-emacs from the COPRs for now)
+4. flatpak-builder
+5. flatpak-spawn
+6. bash-completion
+   
+   
+* Dotfiles Managed
+1. Emacs
+2. .bashrc
+3. .bash_profile
+4. starship.toml
+5. bat/config
+6. .local/bin scripts (get_host, switch_theme)
+7. .gitconfig
+8. fontconfig
+
+* Host Setup
+1. Install Silverblue or Kinoite
+   
+2. Wait for first update to finish (takes very long for now)
+   
+3. Update fedora.repo mirror to https://centos.mirror.alwyzon.net/fedora/linux/
+   
+4. Enable automatic updates in background
+   - Set =AutomaticUpdatePolicy= in =/etc/rpm-ostreed.conf= to =stage=.
+   - Enable =rpm-ostreed-automatic.timer=.
+     
+5. =sudo nano /etc/yum.repos.d/asus.repo=
+   
+6. Paste in this repo metadata
+
+   #+BEGIN_SRC
+   [copr:copr.fedorainfracloud.org:lukenukem:asus-linux]
+   name=Copr repo for asus-linux owned by lukenukem      baseurl=https://download.copr.fedorainfracloud.org/results/lukenukem/asus-linux/fedora-$releasever-$basearch/
+   type=rpm-md
+   skip_if_unavailable=True
+   gpgcheck=1
+   gpgkey=https://download.copr.fedorainfracloud.org/results/lukenukem/asus-linux/pubkey.gpg
+   repo_gpgcheck=0
+   enabled=1
+   enabled_metadata=1
+   #+END_SRC
+
+7. Setup Starship COPR
+
+   #+begin_src shell
+     sudo wget https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-$(rpm -E %fedora)/atim-starship-fedora-$(rpm -E %fedora).repo -O /etc/yum.repos.d/_copr\:copr.fedorainfracloud.org\:atim\:starship.repo
+   #+end_src
+   
+8. Setup RPMfusion repos properly
+
+   #+BEGIN_SRC shell
+     rpm-ostree install --apply-live https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+   #+end_src
+
+   #+BEGIN_SRC shell
+     rpm-ostree update \
+            --uninstall rpmfusion-free-release-35-1.noarch \
+            --uninstall rpmfusion-nonfree-release-35-1.noarch \
+            --install rpmfusion-free-release \
+            --install rpmfusion-nonfree-release
+   #+end_src
+
+9. Install packages
+
+   #+begin_src shell
+     rpm-ostree install akmod-nvidia xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-power asusctl supergfxctl bat exa fd-find gnome-tweaks ripgrep vim yaru-sound-theme zoxide starship
+   #+end_src
+
+10. Modify kernel arguments
+    
+    #+begin_src shell
+      rpm-ostree kargs --append=rd.driver.blacklist=nouveau --append=modprobe.blacklist=nouveau --append=nvidia-drm.modeset=1
+    #+end_src
+
+11. Remove some pre-layered packages on the Host
+
+    #+begin_src shell
+      rpm-ostree override remove firefox firefox-langpacks gnome-tour
+    #+end_src
+
+12. Restart and enable services
+
+    #+begin_src shell
+      systemctl enable nvidia-{suspend,resume,hibernate}
+      systemctl enable --now supergfxd.service
+      systemctl mask nvidia-fallback.service
+    #+end_src
+
+13. Remove all default flatpaks
+
+    #+begin_src shell
+      flatpak uninstall --all --delete-data --assumeyes
+      flatpak remote-delete fedora
+    #+end_src
+
+14. Install everything from Flathub
+
+    #+begin_src shell
+      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      flatpak remote-modify --enable flathub
+      flatpak install flathub org.gnome.Calculator \
+                        org.gnome.Calendar \
+                        org.gnome.Evince \
+                        org.gnome.Logs \
+                        org.gnome.baobab \
+                        org.gnome.eog \
+                        org.gnome.clocks \
+                        org.gnome.TextEditor \
+                        org.gnome.Weather \
+                        org.gnome.FileRoller \
+                        com.github.tchx84.Flatseal \
+                        com.discordapp.Discord \
+                        io.github.celluloid_player.Celluloid \
+                        org.mozilla.firefox \
+                        org.freedesktop.Platform.ffmpeg-full \
+                        com.mattjakeman.ExtensionManager \
+                        com.spotify.Client \
+                        org.chromium.Chromium \
+                        org.onlyoffice.desktopeditors
+    #+end_src
+
+15. Setup yadm
+
+    #+begin_src shell
+      curl -fLo ~/.local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && chmod a+x ~/.local/bin/yadm
+    #+end_src
+
+16. Pull down dotfiles into place.
+
+17. Modify gnome-terimnal tab switching keys
+
+    #+begin_src shell
+      gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab '<Control>Tab'
+      gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab '<Control><Shift>Tab'
+    #+end_src
+
+18. Install catppuccin-theme for gnome-terminal
+
+    #+begin_src shell
+      curl -L https://raw.githubusercontent.com/catppuccin/gnome-terminal/v0.2.0/install.py | python3 -
+    #+end_src
+
+* Firefox Stuff
+
+Run this:
+=sudo flatpak override --socket=wayland --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox=
+or set it from the Flatseal application.
+
+Make sure this matches in =about:config=
+
+#+begin_src text
+  media.ffmpeg.vaapi.enabled = true
+
+  media.ffvpx.enabled = false
+
+  media.navigator.mediadatadecoder_vpx_enabled = true
+
+  media.rdd-vpx.enabled = false
+
+  extensions.pocket.enable = false
+#+end_src
