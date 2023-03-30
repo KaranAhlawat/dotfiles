@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+cd $HOME/.config/gtk-4.0
+rm ./gtk.css
+
+case $1 in
+  light)
+    sed -i 's/catppuccin_mocha/catppuccin_latte/' $HOME/.config/helix/config.toml
+    sed -i 's/Coldark-Dark/Coldark-Cold/' $HOME/.config/bat/config
+    ln -s gtk-light.css gtk.css
+    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command "'gnome-terminal --maximize --profile host-light'"
+    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command "'gnome-terminal --maximize --profile dev-light'"
+  ;;
+  dark)
+    sed -i 's/catppuccin_latte/catppuccin_mocha/' $HOME/.config/helix/config.toml
+    sed -i 's/Coldark-Cold/Coldark-Dark/' $HOME/.config/bat/config
+    ln -s gtk-dark.css gtk.css
+    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command "'gnome-terminal --maximize --profile host-dark'"
+    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command "'gnome-terminal --maximize --profile dev-dark'"
+  ;;
+esac
+
+toolbox run -c dev emacsclient -e "(conf/switch-theme-to-os 'kaolin-light 'kaolin-temple)"

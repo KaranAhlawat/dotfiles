@@ -1,0 +1,18 @@
+[init]
+	defaultBranch = main
+[user]
+	name = Karan Ahlawat
+	email = ahlawatkaran12@gmail.com
+[alias]
+	co = checkout
+	br = branch
+	cm = commit
+	st = status
+	l = log --oneline
+	lg = log --graph
+[core]
+	editor = nvim
+[credential "https://github.com"]
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = !/usr/bin/gh auth git-credential

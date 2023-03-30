@@ -1,0 +1,112 @@
+;;; development.el --- Making the money -*- lexical-binding: t; -*-
+;;; Commentary:
+;;; Sets up a great dev exp inside Emacs
+;;; Code:
+
+;; Magit, the magical git interface
+(use-package magit
+  :straight t
+  :custom
+  (magit-display-buffer-function
+   #'magit-display-buffer-same-window-except-diff-v1))
+
+;; Now that eglot is in Emacs itself, that is a huge incentive to move
+;; away from lsp-mode, at least for me.
+(use-package eglot
+  :straight nil
+  :ensure nil
+  :custom
+  (eglot-autoshutdown t)
+  (eglot-send-changes-idle-time 0.2)
+  (eglot-confirm-server-initiated-edits nil)
+  (eglot-events-buffer-size 0)
+
+  :config
+  (dolist (mode
+           '(c-ts-mode-hook
+             c++-ts-mode-hook
+             typescript-ts-mode-hook
+             tsx-ts-mode-hook
+             js-ts-mode-hook
+             python-ts-mode-hook
+             java-ts-mode-hook
+             csharp-ts-mode-hook
+             elixir-ts-mode-hook
+             heex-ts-mode-hook
+             php-mode-hook))
+    (add-hook mode 'eglot-ensure))
+
+  (dolist (mode '(elixir-ts-mode heex-ts-mode))
+    (add-to-list
+     'eglot-server-programs
+     `(,mode . ("~/.local/bin/els/language_server.sh"))))
+
+  (add-to-list
+   'eglot-server-programs
+   `(php-mode
+     .
+     ,(eglot-alternatives
+       '(("phpactor" "language-server") ("intelephense" "--stdio")))))
+
+  (dolist (mode '(js-ts-mode typescript-ts-mode tsx-ts-mode))
+    (let ((lang-id
+           (cond
+            ((eq mode 'js-ts-mode)
+             "javascript")
+            ((eq mode 'typescript-ts-mode)
+             "typescript")
+            ((eq mode 'tsx-ts-mode)
+             "typescriptreact"))))
+      (add-to-list
+       'eglot-server-programs
+       `((,mode :language-id ,lang-id)
+         .
+         ,(eglot-alternatives
+           '(("node"
+              "/home/karan/repos/vtsls/packages/server/bin/vtsls.js"
+              "--stdio")
+             ("typescript-language-server" "--stdio"))))))))
+
+;; Eldoc for documentation
+(use-package eldoc
+  :ensure nil
+  :straight nil
+  :hook eglot-ensure
+  :custom
+  (eldoc-echo-area-use-multiline-p 2)
+  (eldoc-echo-area-display-truncation-message nil)
+  (eldoc-echo-area-prefer-doc-buffer t)
+  (eldoc-idle-delay 0.25))
+
+(use-package smartparens
+  :straight t
+  :hook ((clojure-mode) . smartparens-strict-mode)
+  :init (smartparens-global-mode))
+
+;; Tweak flymake just a little bit
+(use-package flymake
+  :ensure nil
+  :straight nil
+  :hook prog-mode
+  :bind
+  (:map
+   flymake-mode-map
+   ("M-g d" . #'flymake-show-buffer-diagnostics)
+   ("M-g M-d" . #'flymake-show-project-diagnostics))
+  :config
+  (remove-hook
+   'flymake-diagnostic-functions #'flymake-proc-legacy-flymake))
+
+(use-package markdown-mode
+  :straight t
+  :demand t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :bind (:map markdown-mode-map ("C-c C-e" . markdown-do)))
+
+(use-package yasnippet
+  :straight t
+  :config
+  (yas-global-mode))
+
+(provide 'development)
+;;; development.el ends here

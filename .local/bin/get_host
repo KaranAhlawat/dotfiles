@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+function get_host() {
+    if [ -f "/run/.toolboxenv" ]
+    then
+        TOOLBOX_NAME=$(cat /run/.containerenv | grep -oP "(?<=name=\")[^\";]+")
+        echo "${TOOLBOX_NAME}"
+    else
+       echo "${HOSTNAME}"
+    fi
+}
+
+get_host
