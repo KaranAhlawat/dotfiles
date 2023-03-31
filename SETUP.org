@@ -46,16 +46,6 @@ Also because using Ansible would be overkill for this. (not my words, but wise w
 6. bash-completion
    
    
-* Dotfiles Managed
-1. Emacs
-2. .bashrc
-3. .bash_profile
-4. starship.toml
-5. bat/config
-6. .local/bin scripts (get_host, switch_theme)
-7. .gitconfig
-8. fontconfig
-
 * Host Setup
 1. Install Silverblue or Kinoite
    
@@ -71,17 +61,17 @@ Also because using Ansible would be overkill for this. (not my words, but wise w
    
 6. Paste in this repo metadata
 
-   #+BEGIN_SRC
-   [copr:copr.fedorainfracloud.org:lukenukem:asus-linux]
-   name=Copr repo for asus-linux owned by lukenukem      baseurl=https://download.copr.fedorainfracloud.org/results/lukenukem/asus-linux/fedora-$releasever-$basearch/
-   type=rpm-md
-   skip_if_unavailable=True
-   gpgcheck=1
-   gpgkey=https://download.copr.fedorainfracloud.org/results/lukenukem/asus-linux/pubkey.gpg
-   repo_gpgcheck=0
-   enabled=1
-   enabled_metadata=1
-   #+END_SRC
+   #+begin_src shell
+     [copr:copr.fedorainfracloud.org:lukenukem:asus-linux]
+     name=Copr repo for asus-linux owned by lukenukem baseurl=https://download.copr.fedorainfracloud.org/results/lukenukem/asus-linux/fedora-$releaseve r-$basearch/
+     type=rpm-md
+     skip_if_unavailable=True
+     gpgcheck=1
+     gpgkey=https://download.copr.fedorainfracloud.org/results/lukenukem/asus-linux/pubkey.gpg
+     repo_gpgcheck=0
+     enabled=1
+     enabled_metadata=1
+   #+end_src
 
 7. Setup Starship COPR
 
@@ -91,11 +81,11 @@ Also because using Ansible would be overkill for this. (not my words, but wise w
    
 8. Setup RPMfusion repos properly
 
-   #+BEGIN_SRC shell
+   #+begin_src shell
      rpm-ostree install --apply-live https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
    #+end_src
 
-   #+BEGIN_SRC shell
+   #+begin_src shell
      rpm-ostree update \
             --uninstall rpmfusion-free-release-35-1.noarch \
             --uninstall rpmfusion-nonfree-release-35-1.noarch \
@@ -106,7 +96,9 @@ Also because using Ansible would be overkill for this. (not my words, but wise w
 9. Install packages
 
    #+begin_src shell
-     rpm-ostree install akmod-nvidia xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-power asusctl supergfxctl bat exa fd-find gnome-tweaks ripgrep vim yaru-sound-theme zoxide starship
+     rpm-ostree install akmod-nvidia xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-power \
+                asusctl supergfxctl bat exa fd-find gnome-tweaks ripgrep vim \
+                yaru-sound-theme zoxide starship
    #+end_src
 
 10. Modify kernel arguments
@@ -123,11 +115,11 @@ Also because using Ansible would be overkill for this. (not my words, but wise w
 
 12. Restart and enable services
 
-    #+begin_src shell
-      systemctl enable nvidia-{suspend,resume,hibernate}
-      systemctl enable --now supergfxd.service
-      systemctl mask nvidia-fallback.service
-    #+end_src
+     #+begin_src shell
+       systemctl enable nvidia-{suspend,resume,hibernate}
+       systemctl enable --now supergfxd.service
+       systemctl mask nvidia-fallback.service
+     #+end_src
 
 13. Remove all default flatpaks
 
@@ -172,16 +164,16 @@ Also because using Ansible would be overkill for this. (not my words, but wise w
 
 17. Modify gnome-terimnal tab switching keys
 
-    #+begin_src shell
+   #+begin_src shell
       gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab '<Control>Tab'
       gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab '<Control><Shift>Tab'
     #+end_src
 
 18. Install catppuccin-theme for gnome-terminal
 
-    #+begin_src shell
-      curl -L https://raw.githubusercontent.com/catppuccin/gnome-terminal/v0.2.0/install.py | python3 -
-    #+end_src
+   #+begin_src shell
+     curl -L https://raw.githubusercontent.com/catppuccin/gnome-terminal/v0.2.0/install.py |   python3 -
+   #+end_src
 
 * Firefox Stuff
 

@@ -29,7 +29,7 @@
 
 ;; Define font families
 (defvar conf/victor-mono
-  '(:family "Victor Mono" :weight regular :height 150)
+  '(:family "Victor Mono" :weight semi-bold :height 150)
   "The Victor Mono font family.")
 
 (defvar conf/ibm-serif

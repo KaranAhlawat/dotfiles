@@ -17,7 +17,7 @@
    '(line-number ((t (:inherit fixed-pitch))))
    '(line-number-current-line ((t (:inherit fixed-pitch))))
    '(org-block-begin-line ((t (:inherit fixed-pitch))))
-   '(org-block-end-line ((t (:inherit fixed-pitch :height 0.9 :background "#303035" :foreground "##303035"))))))
+   '(org-block-end-line ((t (:inherit org-block-begin-line))))))
 
 ;; ORG CONFIGURATION
 (use-package org
@@ -73,25 +73,11 @@
    org-appear-autoemphasis t
    org-appear-autosubmarkers t))
 
-(use-package org-modern-indent
-  :straight (:host github :repo "jdtsmith/org-modern-indent")
-  :after org
-  :config (add-hook 'org-mode-hook #'org-modern-indent-mode 90))
-
-(use-package org-modern
+(use-package org-superstar
   :straight t
-  :after org
-  :hook
-  (org-mode . org-modern-mode)
-  (org-agenda-finalize . org-modern-agenda)
-  (org-modern-mode . conf/org-modern-spacing)
+  :hook (org-mode . org-superstar-mode)
   :config
-  (defun conf/org-modern-spacing ()
-    (setq-local line-spacing
-                (if org-modern-mode
-                    0.1
-                  0.0)))
-  (setq org-modern-todo nil))
+  (org-superstar-configure-like-org-bullets))
 
 ;; Some minor org tweaks
 (use-package visual-fill-column
