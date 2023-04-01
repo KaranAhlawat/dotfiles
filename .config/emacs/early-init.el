@@ -60,7 +60,9 @@
 (setq inhibit-startup-echo-area-message user-login-name) ; read the docstring
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-buffer-menu t)
+(setq ring-bell-function 'ignore)
 
 (setq initial-major-mode 'fundamental-mode)
 (setq backup-directory-alist '(("." . "~/.cache/emacssaves")))
 (setq create-lockfiles nil)
+;; early-init.el ends here

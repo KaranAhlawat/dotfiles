@@ -1,6 +1,7 @@
 #+title: Setup for Silverblue
 #+date: 2023-03-30
 #+author: Karan Ahlawat
+#+startup: fold
 
 * Why?
 
@@ -151,7 +152,8 @@ Also because using Ansible would be overkill for this. (not my words, but wise w
                         com.mattjakeman.ExtensionManager \
                         com.spotify.Client \
                         org.chromium.Chromium \
-                        org.onlyoffice.desktopeditors
+                        org.onlyoffice.desktopeditors \
+                        org.gnome.NautilusPreviewer
     #+end_src
 
 15. Setup yadm

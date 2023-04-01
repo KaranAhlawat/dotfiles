@@ -28,9 +28,9 @@
 (blink-cursor-mode -1)
 
 ;; Define font families
-(defvar conf/victor-mono
-  '(:family "Victor Mono" :weight semi-bold :height 150)
-  "The Victor Mono font family.")
+(defvar conf/meslo-mono
+  '(:family "MesloLGMDZ Nerd Font" :weight regular :height 150)
+  "The Meslo font family.")
 
 (defvar conf/ibm-serif
   '(:family "IBM Plex Serif" :weight regular :height 150)
@@ -43,7 +43,7 @@
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
  '(line-number ((t (:inherit default))))
- `(fixed-pitch ((t ,conf/victor-mono)))
+ `(fixed-pitch ((t ,conf/meslo-mono)))
  `(variable-pitch ((t ,conf/ubuntu-sans))))
 
 ;; And now for the themes

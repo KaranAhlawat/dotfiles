@@ -23,8 +23,9 @@ function get_host() {
 
 export PS1="\n\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u@\`get_host\`\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n\$ "
 
+. "$HOME/.cargo/env"
+
 eval "$(zoxide init bash)"
+eval "$(fnm env --use-on-cd)"
 eval "$(starship init bash)"
 
-#export PATH="$HOME/.yarn/bin:$PATH"
-#export GRAVEYARD="$HOME/.local/share/graveyard"
