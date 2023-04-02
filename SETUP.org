@@ -199,8 +199,8 @@ Make sure this matches in ~about:config~
 * Emacs setup
 
 1. Install from dnf or build from source (within a toolbox)
-2. Copy the desktop entry to ~~/.local/share/applications~
-3. Copy icon (can find one you like here https://github.com/railwaycat/homebrew-emacsmacport/) to ~~/.local/share/icon~
+2. Copy the desktop entry to =~/.local/share/applications=
+3. Copy icon (can find one you like here https://github.com/railwaycat/homebrew-emacsmacport/) to =~/.local/share/icon=
 4. Setup keybind for quick launch using ~toolbox run -c dev emacsclient --reuse-frame --alternate-editor=''~
 
 * Flutter
