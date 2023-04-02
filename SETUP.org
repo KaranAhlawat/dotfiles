@@ -63,7 +63,8 @@ Also because using Ansible would be overkill for this. (not my words, but wise w
 
    #+begin_src shell
      [copr:copr.fedorainfracloud.org:lukenukem:asus-linux]
-     name=Copr repo for asus-linux owned by lukenukem baseurl=https://download.copr.fedorainfracloud.org/results/lukenukem/asus-linux/fedora-$releaseve r-$basearch/
+     name=Copr repo for asus-linux owned by lukenukem
+     baseurl=https://download.copr.fedorainfracloud.org/results/lukenukem/asus-linux/fedora-$releaseve r-$basearch/
      type=rpm-md
      skip_if_unavailable=True
      gpgcheck=1
