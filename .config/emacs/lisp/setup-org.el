@@ -12,7 +12,6 @@
    '(org-code ((t (:inherit fixed-pitch))))
    '(org-verbatim ((t (:inherit fixed-pitch))))
    '(org-special-keyword ((t (:inherit fixed-pitch))))
-   '(org-meta-line ((t (:inherit fixed-pitch))))
    '(org-checkbox ((t (:inherit fixed-pitch))))
    '(line-number ((t (:inherit fixed-pitch))))
    '(line-number-current-line ((t (:inherit fixed-pitch))))
@@ -43,7 +42,7 @@
      (800 1000 1200 1400 1600 1800 2000)
      " ┄┄┄┄┄ "
      "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-   org-agenda-current-time-string "⭠ now ─────────────────────────────────────────────────"
+   org-agenda-current-time-string " now ─────────────────────────────────────────────────"
    org-agenda-files (list (concat (getenv "HOME") "/Documents" "/agenda")))
 
   ;; Appearance settings

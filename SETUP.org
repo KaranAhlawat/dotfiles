@@ -45,8 +45,7 @@ Also because using Ansible would be overkill for this. (not my words, but wise w
 4. flatpak-builder
 5. flatpak-spawn
 6. bash-completion
-   
-   
+      
 * Host Setup
 1. Install Silverblue or Kinoite
    
@@ -55,10 +54,10 @@ Also because using Ansible would be overkill for this. (not my words, but wise w
 3. Update fedora.repo mirror to https://centos.mirror.alwyzon.net/fedora/linux/
    
 4. Enable automatic updates in background
-   - Set =AutomaticUpdatePolicy= in =/etc/rpm-ostreed.conf= to =stage=.
-   - Enable =rpm-ostreed-automatic.timer=.
+   - Set ~AutomaticUpdatePolicy~ in ~/etc/rpm-ostreed.conf~ to ~stage~.
+   - Enable ~rpm-ostreed-automatic.timer~.
      
-5. =sudo nano /etc/yum.repos.d/asus.repo=
+5. ~sudo nano /etc/yum.repos.d/asus.repo~
    
 6. Paste in this repo metadata
 
@@ -180,10 +179,10 @@ Also because using Ansible would be overkill for this. (not my words, but wise w
 * Firefox Stuff
 
 Run this:
-=sudo flatpak override --socket=wayland --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox=
+~sudo flatpak override --socket=wayland --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox~
 or set it from the Flatseal application.
 
-Make sure this matches in =about:config=
+Make sure this matches in ~about:config~
 
 #+begin_src text
   media.ffmpeg.vaapi.enabled = true
@@ -196,3 +195,54 @@ Make sure this matches in =about:config=
 
   extensions.pocket.enable = false
 #+end_src
+
+* Emacs setup
+
+1. Install from dnf or build from source (within a toolbox)
+2. Copy the desktop entry to ~~/.local/share/applications~
+3. Copy icon (can find one you like here https://github.com/railwaycat/homebrew-emacsmacport/) to ~~/.local/share/icon~
+4. Setup keybind for quick launch using ~toolbox run -c dev emacsclient --reuse-frame --alternate-editor=''~
+
+* Flutter
+
+I am going to try to use Flutter because it seems to be the only technology that can run on any platform I could care about targetting. The setup is involved though (and I may  not have gotten it entirely correct)
+1. Enter the toolbox
+2. Ensure a JDK is installed ~sudo dnf install java-<ver>-openjdk~
+3. Download the flutter linux tar file
+4. Extract to ~/opt/flutter~
+5. Download the Android Studio tar file
+6. Extract to ~/opt/android-studio~
+7. Add ~/opt/flutter/bin~ and ~/opt/android-studio/bin~ to ~$PATH~.
+8. Run ~studio.sh~ to start Android Studio, and then go through the setup, installing at least
+   - Android SDK Build-Tools
+   - Android SDK Command-line Tools
+   - Android Emulator
+   - SDK Patch Applier v4
+   - Android SDK Platform-Tools
+   - Android SDK Platform
+   - System Image
+
+     Do not, out of these, only Command-line Tools and System Image were not installed by the Android Studio setup.
+9. This will create a folder called ~Android/Sdk~  in your ~$HOME~ folder. (might be able to override this but have not figured that out). Also set ~ANDROID_SDK~ environment variable to the location of your ~Android/Sdk~ folder.
+10. Add the following to ~$PATH~
+    - ~$ANDROID_SDK/cmdline-tools/latest/bin~
+    - ~$ANDROID_SDK/emulator~
+    - ~$ANDROID_SDK/platform-tools~
+11. Make sure Chrome is executable from the command line.
+12. Install =clang, cmake, ninja-build, gtk3-devel and zlma-devel= for running the application as a Linux application.
+13. Run ~flutter doctor~, it /should/ all be green. But if anything isn't it's trivial to fix.
+14. Run ~flutter doctor --android-licenses~
+15. Use ~avdmanager~ to create new emulators from the CLI, or create an emulator from Android Studio AVD Manager GUI. If using the GUI, you can set the =Emulated Performance= in the Verify Configuration section to Hardware.
+16. Running the emulator from the command line, you can use the following -
+    ~emulator -avd <avd name> -accel auto -gpu host~
+    if your setup supports VM accelaration.
+17. In case it does support VM acceleration, layer =qemu-kvm, libvirt, virt-install, bridge-utils=. And enable =libvirtd= in systemd
+18. Finally, to support Skia rendering, you can try and connect to the emulator using the =adb= tool, and then do the following
+    #+begin_src shell
+      su
+      setprop debug.hwui.renderer skiagl
+      stop
+      start
+    #+end_src
+19. Create Flutter project, start emulator (if you want to develop a mobile application), use ~flutter run~, this gives you an option to select a device (Linux, Chrome, Android). Supports hot reload and hot refresh by default.
+20. You can disable telemetry using the =flutter= and =dart= executables.

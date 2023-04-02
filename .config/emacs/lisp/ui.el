@@ -28,9 +28,9 @@
 (blink-cursor-mode -1)
 
 ;; Define font families
-(defvar conf/meslo-mono
-  '(:family "MesloLGMDZ Nerd Font" :weight regular :height 150)
-  "The Meslo font family.")
+(defvar conf/scp-mono
+  '(:family "SauceCodePro Nerd Font" :weight medium :height 150)
+  "The SCP font family.")
 
 (defvar conf/ibm-serif
   '(:family "IBM Plex Serif" :weight regular :height 150)
@@ -43,7 +43,7 @@
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
  '(line-number ((t (:inherit default))))
- `(fixed-pitch ((t ,conf/meslo-mono)))
+ `(fixed-pitch ((t ,conf/scp-mono)))
  `(variable-pitch ((t ,conf/ubuntu-sans))))
 
 ;; And now for the themes
@@ -80,7 +80,8 @@
      (7 . (variable-pitch 1.1))
      (t . (variable-pitch 1.1))))
 
-  (conf/switch-theme-to-os 'ef-light 'ef-trio-dark))
+  ;; (conf/switch-theme-to-os 'ef-light 'ef-trio-dark)
+  )
 
 (use-package kaolin-themes
   :straight t
@@ -95,7 +96,7 @@
         kaolin-themes-modeline-padded t
         kaolin-themes-git-gutter-solid t
         kaolin-ocean-alt-bg t)
-  (conf/switch-theme-to-os 'kaolin-light 'kaolin-temple))
+  (conf/switch-theme-to-os 'kaolin-light 'kaolin-ocean))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key
