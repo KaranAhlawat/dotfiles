@@ -222,8 +222,7 @@ I am going to try to use Flutter because it seems to be the only technology that
    - Android SDK Platform-Tools
    - Android SDK Platform
    - System Image
-
-     Do not, out of these, only Command-line Tools and System Image were not installed by the Android Studio setup.
+   - Do note, out of these, only Command-line Tools and System Image were not installed by the Android Studio setup.
 9. This will create a folder called ~Android/Sdk~  in your ~$HOME~ folder. (might be able to override this but have not figured that out). Also set ~ANDROID_SDK~ environment variable to the location of your ~Android/Sdk~ folder.
 10. Add the following to ~$PATH~
     - ~$ANDROID_SDK/cmdline-tools/latest/bin~
