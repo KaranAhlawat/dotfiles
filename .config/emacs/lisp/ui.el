@@ -28,9 +28,17 @@
 (blink-cursor-mode -1)
 
 ;; Define font families
-(defvar conf/scp-mono
-  '(:family "SauceCodePro Nerd Font" :weight medium :height 150)
-  "The SCP font family.")
+(defvar conf/fsm-mono
+  '(:family "FantasqueSansMono Nerd Font" :weight regular :height 160)
+  "The FSM font family.")
+
+(defvar conf/input-mono
+  '(:family "Input Mono" :weight regular :height 140)
+  "The Input Mono font family.")
+
+(defvar conf/input-cond-mono
+  '(:family "Input Mono Condensed" :weight regular :height 140)
+  "The Input Mono font family.")
 
 (defvar conf/ibm-serif
   '(:family "IBM Plex Serif" :weight regular :height 150)
@@ -40,11 +48,16 @@
   '(:family "Ubuntu" :weight regular :height 150)
   "The Ubuntu font family.")
 
+(defvar conf/input-sans
+  '(:family "Input Sans Condensed" :weight regular :height 140)
+  "The Input Sans font family.")
+
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
+ `(default ((t ,conf/input-mono)))
  '(line-number ((t (:inherit default))))
- `(fixed-pitch ((t ,conf/scp-mono)))
- `(variable-pitch ((t ,conf/ubuntu-sans))))
+ `(fixed-pitch ((t ,conf/input-cond-mono)))
+ `(variable-pitch ((t ,conf/input-sans))))
 
 ;; And now for the themes
 (defun conf/is-it-dark-yet? ()
