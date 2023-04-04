@@ -29,11 +29,4 @@ eval "$(zoxide init bash)"
 eval "$(fnm env --use-on-cd)"
 eval "$(starship init bash)"
 
-export ANDROID_SDK="/var/home/karan/Android/Sdk"
-
 export PATH="$PATH:/opt/flutter/bin"
-export PATH="$PATH:/opt/android-studio/bin"
-export PATH="$PATH:$ANDROID_SDK/cmdline-tools/latest/bin"
-export PATH="$PATH:$ANDROID_SDK/emulator"
-export PATH="$PATH:$ANDROID_SDK/platform-tools"
-
