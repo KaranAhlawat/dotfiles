@@ -71,8 +71,10 @@
                                                       :entriesLimit 200)))
                   :pylsp (:plugins (:jedi_completion (:include_params t
                                                       :fuzzy t)
-                                                     :pylint (:enabled :json-false)))
-                  :golsp (:usePlaceholders t)
+                                    :pylint (:enabled :json-false)))
+                  :golsp (:usePlaceholders t
+                          :staticcheck t
+                          :matcher "Fuzzy")
                   :dart (:completeFunctionCalls t
                          :enableSnippets t))))
 
