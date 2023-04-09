@@ -58,8 +58,7 @@
 
 (require 'windows)
 
-(use-package
- popper
+(use-package popper
  :straight t
  :commands popper-mode
  :bind

@@ -27,7 +27,9 @@
    (org-mode . org-indent-mode)
    (org-mode . org-toggle-pretty-entities)
    (org-mode . variable-pitch-mode)
-   (org-mode . conf/org-font-setup))
+   (org-mode . conf/org-font-setup)
+   (org-mode . (lambda ()
+                 (hl-line-mode -1))))
   :config
   (setq
    org-auto-align-tags nil

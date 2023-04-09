@@ -71,7 +71,8 @@
     "\\*Inferior .*\\*$"
     "^\\*cider-repl.*\\*$"
     "\\*ielm\\*"
-    "\\*edebug\\*")
+    "\\*edebug\\*"
+    "\\*Flutter\\*")
   "List of buffer names used in REPL buffers.")
 (defvar conf/repl-names-shackle-rules
   (mapcar

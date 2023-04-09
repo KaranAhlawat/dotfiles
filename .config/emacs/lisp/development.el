@@ -33,7 +33,8 @@
              csharp-ts-mode-hook
              elixir-ts-mode-hook
              heex-ts-mode-hook
-             php-mode-hook))
+             php-mode-hook
+             dart-mode))
     (add-hook mode 'eglot-ensure))
 
   (dolist (mode '(elixir-ts-mode heex-ts-mode))
@@ -62,10 +63,18 @@
        `((,mode :language-id ,lang-id)
          .
          ,(eglot-alternatives
-           '(("node"
-              "/home/karan/repos/vtsls/packages/server/bin/vtsls.js"
-              "--stdio")
-             ("typescript-language-server" "--stdio"))))))))
+           '(("vtsls" "--stdio")
+             ("typescript-language-server" "--stdio")))))))
+
+  (setq-default eglot-workspace-configuration
+                '(:vtsls (:experimental (:completion (:enableServerSideFuzzyMatch t
+                                                      :entriesLimit 200)))
+                  :pylsp (:plugins (:jedi_completion (:include_params t
+                                                      :fuzzy t)
+                                                     :pylint (:enabled :json-false)))
+                  :golsp (:usePlaceholders t)
+                  :dart (:completeFunctionCalls t
+                         :enableSnippets t))))
 
 ;; Eldoc for documentation
 (use-package eldoc

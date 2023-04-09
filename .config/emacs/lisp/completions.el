@@ -31,15 +31,15 @@
   (vertico-cycle t)
   (vertico-preselect 'first))
 
-(use-package vertico-directory
-  :after vertico
-  :ensure nil
-  :bind
-  (:map vertico-map
-        ("RET" . vertico-directory-enter)
-        ("DEL" . vertico-directory-delete-char)
-        ("M-DEL" . vertico-directory-delete-word))
-  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+;; (use-package vertico-directory
+;;   :after vertico
+;;   :ensure nil
+;;   :bind
+;;   (:map vertico-map
+;;         ("RET" . vertico-directory-enter)
+;;         ("DEL" . vertico-directory-delete-char)
+;;         ("M-DEL" . vertico-directory-delete-word))
+;;   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
 
 ;; A few more useful configurations

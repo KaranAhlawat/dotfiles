@@ -32,9 +32,17 @@
   '(:family "Ubuntu" :weight regular :height 150)
   "The Ubuntu font family.")
 
+(defvar conf/berk-mono
+  '(:family "BerkeleyMono Nerd Font" :weight regular :height 150)
+  "The Berkeley Mono font family.")
+
+(defvar conf/cask-mono
+  '(:family "CaskCove Nerd Font" :weight regular :height 150)
+  "The CaskCove font family.")
+
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
- '(line-number ((t (:inherit default))))
+ `(fixed-pitch ((t ,conf/cask-mono)))
  `(variable-pitch ((t ,conf/ubuntu-sans))))
 
 ;; And now for the themes
@@ -71,23 +79,8 @@
      (7 . (variable-pitch 1.1))
      (t . (variable-pitch 1.1))))
 
-  ;; (conf/switch-theme-to-os 'ef-light 'ef-trio-dark)
-  )
+  (conf/switch-theme-to-os 'ef-light 'ef-trio-dark))
 
-(use-package kaolin-themes
-  :straight t
-  :config
-  (setq kaolin-themes-bold nil
-        kaolin-themes-italic t
-        kaolin-themes-italic-comments t
-        kaolin-themes-underline-wave nil
-        kaolin-themes-comments-style 'alt
-        kaolin-themes-distinct-parentheses t
-        kaolin-themes-modeline-border t
-        kaolin-themes-modeline-padded t
-        kaolin-themes-git-gutter-solid t
-        kaolin-ocean-alt-bg t)
-  (conf/switch-theme-to-os 'kaolin-light 'kaolin-ocean))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

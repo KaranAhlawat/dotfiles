@@ -38,6 +38,17 @@
   (add-hook 'web-mode-hook (lambda ()
                              (smartparens-mode -1))))
 
+;; Flutter and dart
+(use-package flutter
+  :straight t
+  :custom
+  (flutter-sdk-path "/opt/flutter"))
+
+(use-package dart-mode
+  :straight t
+  :hook (dart-mode . (lambda ()
+                       (add-hook 'after-save-hook #'flutter-run-or-hot-reload nil t))))
+
 ;; Associate extensions with the correct tree-sitter mode and others
 ;; Keep this as the last operation in this file
 (dolist (pair

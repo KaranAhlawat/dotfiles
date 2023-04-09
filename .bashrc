@@ -8,10 +8,15 @@ fi
 # Aliases
 alias ls='exa --icons'
 alias l='ls -la'
-alias ts='tree-sitter'
 alias open='xdg-open'
 alias lfont='pango-list | rg -S'
-alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+
+# inside toolboxes
+if [ -f "/run/.toolboxenv" ]
+then
+	alias ts='tree-sitter'
+	alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+fi
 
 # completions
 COMPLETIONS_DIR="$HOME/.bash_completions"

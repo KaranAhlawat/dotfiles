@@ -37,6 +37,8 @@
      ".project"
      "project.clj"
      "composer.json"
+     "pubspec.yaml"
+     "pyproject.toml"
      "*.asd"))
   :config
   (setopt

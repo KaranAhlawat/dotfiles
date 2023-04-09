@@ -20,4 +20,4 @@ case $1 in
   ;;
 esac
 
-toolbox run -c dev emacsclient -e "(conf/switch-theme-to-os 'kaolin-light 'kaolin-temple)"
+toolbox run -c dev emacsclient -e "(conf/switch-theme-to-os 'ef-light 'ef-trio-dark)"

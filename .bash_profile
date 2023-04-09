@@ -23,10 +23,15 @@ function get_host() {
 
 export PS1="\n\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u@\`get_host\`\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n\$ "
 
-. "$HOME/.cargo/env"
-
 eval "$(zoxide init bash)"
-eval "$(fnm env --use-on-cd)"
 eval "$(starship init bash)"
 
-export PATH="$PATH:/opt/flutter/bin"
+# conditionals
+if [ -f "/run/.toolboxenv" ]
+then
+  . "$HOME/.cargo/env"
+  eval "$(fnm env --use-on-cd)"
+  export ANDROID_SDK="$HOME/Android/Sdk"
+  export PATH="$PATH:/opt/flutter/bin"
+  export PATH="$PATH:$ANDROID_SDK/emulator:$ANDROID_SDK/platform-tools:$ANDROID_SDK/cmdline-tools/latest/bin"
+fi
