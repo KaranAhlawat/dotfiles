@@ -28,22 +28,22 @@
 (blink-cursor-mode -1)
 
 ;; Define font families
-(defvar conf/ubuntu-sans
-  '(:family "Ubuntu" :weight regular :height 150)
-  "The Ubuntu font family.")
+(defvar conf/overpass-sans
+  '(:family "Overpass Nerd Font" :weight regular :height 160)
+  "The Overpass font family.")
 
-(defvar conf/berk-mono
-  '(:family "BerkeleyMono Nerd Font" :weight regular :height 150)
-  "The Berkeley Mono font family.")
+(defvar conf/overpass-mono
+  '(:family "OverpassMono Nerd Font" :weight regular :height 160)
+  "The Overpass Mono font family.")
 
-(defvar conf/cask-mono
-  '(:family "CaskCove Nerd Font" :weight regular :height 150)
-  "The CaskCove font family.")
+(defvar conf/incon-mono
+  '(:family "Inconsolata Nerd Font" :weight regular :height 160)
+  "The Overpass Mono font family.")
 
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
- `(fixed-pitch ((t ,conf/cask-mono)))
- `(variable-pitch ((t ,conf/ubuntu-sans))))
+ `(fixed-pitch ((t ,conf/incon-mono)))
+ `(variable-pitch ((t ,conf/overpass-sans))))
 
 ;; And now for the themes
 (defun conf/is-it-dark-yet? ()
@@ -79,8 +79,7 @@
      (7 . (variable-pitch 1.1))
      (t . (variable-pitch 1.1))))
 
-  (conf/switch-theme-to-os 'ef-light 'ef-trio-dark))
-
+  (conf/switch-theme-to-os 'ef-light 'ef-dark))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

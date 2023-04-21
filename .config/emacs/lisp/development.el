@@ -34,7 +34,11 @@
              elixir-ts-mode-hook
              heex-ts-mode-hook
              php-mode-hook
-             dart-mode))
+             dart-mode-hook
+             clojure-mode-hook
+             clojurescript-mode-hook
+             clojurec-mode-hook
+             cider-mode-hook))
     (add-hook mode 'eglot-ensure))
 
   (dolist (mode '(elixir-ts-mode heex-ts-mode))

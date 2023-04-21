@@ -6,7 +6,6 @@
 ;; Cider for clojure
 (use-package cider
   :straight t
-  :mode "\\.clj\\'"
   :custom
   (cider-repl-pop-to-buffer-on-connect nil)
   (cider-repl-display-help-banner nil)

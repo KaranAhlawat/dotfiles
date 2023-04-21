@@ -8,15 +8,15 @@ case $1 in
     sed -i 's/catppuccin_frappe/catppuccin_latte/' $HOME/.config/helix/config.toml
     sed -i 's/Coldark-Dark/Coldark-Cold/' $HOME/.config/bat/config
     ln -s gtk-light.css gtk.css
-    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command "'gnome-terminal --maximize --profile host-light'"
-    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command "'gnome-terminal --maximize --profile dev-light'"
+    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command "'gnome-terminal --maximize --profile \'Everforst Light\''"
+    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command "'gnome-terminal --maximize --profile \'Hemisu Light\''"
   ;;
   dark)
     sed -i 's/catppuccin_latte/catppuccin_frappe/' $HOME/.config/helix/config.toml
     sed -i 's/Coldark-Cold/Coldark-Dark/' $HOME/.config/bat/config
     ln -s gtk-dark.css gtk.css
-    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command "'gnome-terminal --maximize --profile host-dark'"
-    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command "'gnome-terminal --maximize --profile dev-dark'"
+    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command "'gnome-terminal --maximize --profile \'Everforest Dark\''"
+    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command "'gnome-terminal --maximize --profile \'Hemisu Dark\''"
   ;;
 esac
 
