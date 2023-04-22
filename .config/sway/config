@@ -9,6 +9,8 @@ font pango: Inconsolata Nerd Font 15
 gaps inner 5px
 gaps outer 5px
 
+default_border pixel 2
+default_floating_border pixel 2
 client.focused #000000 #000000 #ffffff #000000
 
 ### Variables
@@ -27,12 +29,13 @@ set $term foot
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # Recommends: rofi-wayland
-set $wofi_cmd wofi \
-        --term '$term'
+set $rofi_cmd rofi \
+        --terminal '$term'
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
 # TODO: add window with the next release of rofi-wayland
-set $menu $wofi_cmd --show drun
+set $menu $rofi_cmd -show drun
+set $switch_window $rofi_cmd -show window
 
 ### Output configuration
 #
@@ -90,13 +93,15 @@ input "type:pointer" accel_profile flat
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Return exec $term
+    bindsym $mod+Return exec $term toolbox enter dev
+    bindsym $mod+Shift+Return exec $term
 
     # Kill focused window
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu
+    bindsym $mod+s exec $menu
+    bindsym $mod+Tab exec $switch_window
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -171,7 +176,7 @@ input "type:pointer" accel_profile flat
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
+    bindsym $mod+d layout stacking
     bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
 
@@ -198,6 +203,10 @@ input "type:pointer" accel_profile flat
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+# Application bindings
+bindsym Mod1+Shift+e exec toolbox run -c dev /usr/bin/emacsclient -a= -c
+
 #
 # Resizing containers:
 #

@@ -28,13 +28,9 @@
 (blink-cursor-mode -1)
 
 ;; Define font families
-(defvar conf/overpass-sans
-  '(:family "Overpass Nerd Font" :weight regular :height 160)
-  "The Overpass font family.")
-
-(defvar conf/overpass-mono
-  '(:family "OverpassMono Nerd Font" :weight regular :height 160)
-  "The Overpass Mono font family.")
+(defvar conf/noto-sans
+  '(:family "Noto Sans" :weight medium :height 140)
+  "The Noto Sans font family.")
 
 (defvar conf/incon-mono
   '(:family "Inconsolata Nerd Font" :weight regular :height 160)
@@ -43,7 +39,7 @@
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
  `(fixed-pitch ((t ,conf/incon-mono)))
- `(variable-pitch ((t ,conf/overpass-sans))))
+ `(variable-pitch ((t ,conf/noto-sans))))
 
 ;; And now for the themes
 (defun conf/is-it-dark-yet? ()
@@ -79,7 +75,7 @@
      (7 . (variable-pitch 1.1))
      (t . (variable-pitch 1.1))))
 
-  (conf/switch-theme-to-os 'ef-light 'ef-dark))
+  (conf/switch-theme-to-os 'ef-light 'ef-winter))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

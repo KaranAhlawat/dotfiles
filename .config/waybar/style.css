@@ -107,8 +107,8 @@ button:hover {
 }
 
 #window {
-    background: #000;
-    color: #fff;
+    background: #fff;
+    color: #000;
 }
 
 #waybar.empty #window {
@@ -137,7 +137,7 @@ button:hover {
 
 #battery.charging, #battery.plugged {
     color: #fff;
-    background-color: #000;
+    background-color: #090;
 }
 
 @keyframes blink {
