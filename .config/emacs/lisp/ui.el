@@ -33,8 +33,8 @@
   "The Noto Sans font family.")
 
 (defvar conf/incon-mono
-  '(:family "Inconsolata Nerd Font" :weight regular :height 160)
-  "The Overpass Mono font family.")
+  '(:family "Inconsolata" :weight medium :height 160)
+  "The Inconsolata font family.")
 
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces

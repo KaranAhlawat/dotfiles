@@ -34,13 +34,17 @@
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
     },
+    "sway/window": {
+        "format": "{}",
+        "max-length": 50,
+    },
     "tray": {
         "icon-size": 20,
         "spacing": 10
     },
     "clock": {
         "timezone": "Asia/Kolkata",
-	"format": "{:%I:%M%p} ",
+	    "format": "{:%I:%M%p} ",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%d-%b-%y %a} "
     },

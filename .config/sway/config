@@ -4,7 +4,7 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-font pango: Inconsolata Nerd Font 15
+font pango:Inconsolata Medium 15
 
 gaps inner 5px
 gaps outer 5px
