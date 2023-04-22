@@ -106,5 +106,10 @@
   :config
   (setq ctrlf-default-search-style 'fuzzy))
 
+(use-package jinx
+  :straight t
+  :hook (org-mode text-mode markdown-mode fundamental-mode)
+  :bind ([remap ispell-word] . jinx-correct))
+
 (provide 'general)
 ;;; general.el ends here

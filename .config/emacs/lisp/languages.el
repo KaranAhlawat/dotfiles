@@ -3,6 +3,35 @@
 ;;; This is just mostly language related stuff.
 ;;; Code:
 
+(use-package treesit
+  :straight nil
+  :demand t
+  :custom
+  (treesit-font-lock-level 4)
+  :config
+  (dolist (pair
+           '((typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "typescript/src" nil nil))
+             (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "tsx/src" nil nil))
+             (css . ("https://github.com/tree-sitter/tree-sitter-css" nil nil nil nil))
+             (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" nil nil nil nil))
+             (json . ("https://github.com/tree-sitter/tree-sitter-json" nil nil nil nil))
+             (python . ("https://github.com/tree-sitter/tree-sitter-python" nil nilnil nil))
+             (go . ("https://github.com/tree-sitter/tree-sitter-go"  nilnil nil))
+             (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" nil nil  nil))))
+    (push pair treesit-language-source-alist))
+
+  (dolist (pair
+           '((python-mode . python-ts-mode)
+             (c-mode . c-ts-mode)
+             (csharp-mode . csharp-ts-mode)
+             (c++-mode . c++-ts-mode)
+             (javascript-mode . js-ts-mode)
+             (java-mode . java-ts-mode)
+             (css-mode . css-ts-mode)
+             (sh-mode . bash-ts-mode)
+             (shell-script-mode . bash-ts-mode)))
+    (push pair major-mode-remap-alist)))
+
 ;; Cider for clojure
 (use-package cider
   :straight t
@@ -10,15 +39,6 @@
   (cider-repl-pop-to-buffer-on-connect nil)
   (cider-repl-display-help-banner nil)
   (cider-shadow-cljs-command "npx shadow-cljs"))
-
-;; Elixir TS
-(use-package heex-ts-mode
-  :straight
-  (:type git :host github :repo "wkirschbaum/heex-ts-mode"))
-
-(use-package elixir-ts-mode
-  :straight
-  (:type git :host github :repo "wkirschbaum/elixir-ts-mode"))
 
 ;; PHP
 (use-package php-mode
@@ -32,6 +52,13 @@
          ("\\.html?\\'" . web-mode))
   :custom
   (web-mode-enable-auto-pairing t)
+  (web-mode-css-indent-offset 2)
+  (web-mode-sql-indent-offset 2)
+  (web-mode-code-indent-offset 2)
+  (web-mode-markup-indent-offset 2)
+  (web-mode-markup-comment-indent-offset 2)
+  (web-mode-attr-indent-offset 2)
+  (web-mode-attr-value-indent-offset 2)
   :config
   (setq web-mode-engines-alist '(("blade" . "\\.blade\\.")))
   (add-hook 'web-mode-hook (lambda ()
@@ -48,42 +75,28 @@
   :hook (dart-mode . (lambda ()
                        (add-hook 'after-save-hook #'flutter-run-or-hot-reload nil t))))
 
-;; Associate extensions with the correct tree-sitter mode and others
-;; Keep this as the last operation in this file
-(dolist (pair
-         '(("\\.py\\'" . python-ts-mode)
-           ("\\.c\\'" . c-ts-mode)
-           ("\\.h\\'" . c-ts-mode)
-           ("\\.cs\\'" . csharp-ts-mode)
-           ("\\.cpp\\'" . c++-ts-mode)
-           ("\\.hpp\\'" . c++-ts-mode)
-           ("\\.sh\\'" . bash-ts-mode)
-           ("\\.js\\'" . js-ts-mode)
-           ("\\.ts\\'" . typescript-ts-mode)
-           ("\\.tsx\\'" . tsx-ts-mode)
-           ("\\.cs\\'" . csharp-ts-mode)
-           ("\\.java\\'" . java-ts-mode)
-           ("\\.json\\'" . json-ts-mode)
-           ("\\.css\\'" . css-ts-mode)
-           ("\\.rs\\'" . rust-ts-mode)
-           ("mix\\.lock" . elixir-ts-mode)
-           ("\\.exs\\'" . elixir-ts-mode)
-           ("\\.ex\\'" . elixir-ts-mode)
-           ("\\.elixir\\'" . elixir-ts-mode)
-           ("\\.[hl]?eex\\'" . heex-ts-mode)))
-  (push pair auto-mode-alist))
+(use-package js
+  :straight (:type built-in)
+  :custom
+  (js-indent-level 2))
 
-;; indentations
-(with-eval-after-load 'js-ts-mode
-  (setq js-indent-level 2))
-
-(with-eval-after-load "python"
-  (require 'python)
+(use-package python
+  :straight (:type built-in)
+  :config
   (setq
    python-indent-offset 4
    python-indent-guess-indent-offset nil
    python-indent-guess-indent-offset-verbose nil))
 
+(use-package css-mode
+  :straight (:type built-in)
+  :custom
+  (css-indent-offset 2))
+
+(use-package scss-mode
+  :straight (:type built-in)
+  :mode ("\\.scss\\'" . scss-mode)
+  :custom (css-indent-offset 2))
 
 (provide 'languages)
 ;;; languages.el ends here

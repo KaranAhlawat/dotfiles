@@ -37,14 +37,8 @@
              dart-mode-hook
              clojure-mode-hook
              clojurescript-mode-hook
-             clojurec-mode-hook
-             cider-mode-hook))
+             clojurec-mode-hook))
     (add-hook mode 'eglot-ensure))
-
-  (dolist (mode '(elixir-ts-mode heex-ts-mode))
-    (add-to-list
-     'eglot-server-programs
-     `(,mode . ("~/.local/bin/els/language_server.sh"))))
 
   (add-to-list
    'eglot-server-programs

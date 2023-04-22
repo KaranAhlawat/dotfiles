@@ -73,9 +73,14 @@
      (5 . (variable-pitch 1.1))
      (6 . (variable-pitch 1.1))
      (7 . (variable-pitch 1.1))
-     (t . (variable-pitch 1.1))))
+     (t . (variable-pitch 1.1)))))
 
-  (conf/switch-theme-to-os 'ef-light 'ef-winter))
+(use-package dracula-theme
+  :straight t
+  :custom
+  (dracula-alternate-modeline-and-minibuffer t)
+  :config
+  (load-theme 'dracula :no-confirm))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key
