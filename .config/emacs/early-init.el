@@ -29,20 +29,14 @@
 (setq frame-inhibit-implied-resize t)
 
 ;; Set some properties on the default and initial frames
-(setq default-frame-alist
-      `((vertical-scroll-bars . nil)
-        (horizontal-scroll-bars . nil)
-        (fullscreen . maximized)
-        (undecorated . t)
-        (menu-bar-lines . 0)
-        (tool-bar-lines . 0)))
-(setq initial-frame-alist
-      `((vertical-scroll-bars . nil)
-        (horizontal-scroll-bars . nil)
-        (fullscreen . maximized)
-        (undecorated . t)
-        (menu-bar-lines . 0)
-        (tool-bar-lines . 0)))
+(modify-all-frames-parameters
+ '((vertical-scroll-bars . nil)
+   (horizontal-scroll-bars . nil)
+   (fullscreen . maximized)
+   (undecorated . t)
+   (menu-bar-lines . 0)
+   (tool-bar-lines . 0)
+   (alpha . 100)))
 
 ;; Reducing the GUI clutter. I recommend not doing this if just
 ;; getting started with emacs, as they help massively in

@@ -244,3 +244,7 @@ I am going to try to use Flutter because it seems to be the only technology that
     #+end_src
 20. Create Flutter project, start emulator (if you want to develop a mobile application), use ~flutter run~, this gives you an option to select a device (Linux, Chrome, Android). Supports hot reload and hot refresh by default.
 21. You can disable telemetry using the =flutter= and =dart= executables.
+
+# Local Variables:
+# jinx-local-words: "Flatseal"
+# End:

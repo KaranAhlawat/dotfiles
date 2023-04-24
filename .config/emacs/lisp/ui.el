@@ -28,18 +28,18 @@
 (blink-cursor-mode -1)
 
 ;; Define font families
-(defvar conf/noto-sans
-  '(:family "Noto Sans" :weight medium :height 140)
-  "The Noto Sans font family.")
+(defvar conf/martian-sans
+  '(:family "Martian Grotesk W05 Std Rg" :height 140)
+  "The Martian Grotesk font family.")
 
 (defvar conf/incon-mono
-  '(:family "Inconsolata" :weight medium :height 160)
+  '(:family "Inconsolata" :weight medium :height 170)
   "The Inconsolata font family.")
 
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
  `(fixed-pitch ((t ,conf/incon-mono)))
- `(variable-pitch ((t ,conf/noto-sans))))
+ `(variable-pitch ((t ,conf/martian-sans))))
 
 ;; And now for the themes
 (defun conf/is-it-dark-yet? ()

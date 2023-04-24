@@ -16,7 +16,7 @@ configuration {
     active:         #98C379FF;
     urgent:         #E06B74FF;
 
-    font: "Open Sans Semibold 12";
+    font: "Martian Grotesk W05 11";
 }
 
 /*****----- Main Window -----*****/
@@ -138,8 +138,8 @@ element normal.normal {
     text-color:                  @foreground;
 }
 element selected.normal {
-    background-color:            @background-alt;
-    text-color:                  @foreground;
+    background-color:            @foreground;
+    text-color:                  @background;
 }
 element-icon {
     background-color:            transparent;
