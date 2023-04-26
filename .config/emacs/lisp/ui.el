@@ -9,6 +9,8 @@
 ;; Disable all other themes first
 (mapc #'disable-theme custom-enabled-themes)
 
+(add-to-list 'custom-theme-load-path "~/.config/emacs/themes")
+
 ;; Relative numbers to move around quicker
 (global-hl-line-mode 1)
 (setq display-line-numbers-type 'relative)
@@ -28,18 +30,22 @@
 (blink-cursor-mode -1)
 
 ;; Define font families
-(defvar conf/martian-sans
-  '(:family "Martian Grotesk W05 Std Rg" :height 140)
-  "The Martian Grotesk font family.")
+(defvar conf/input-sans
+  '(:family "Input Sans Narrow" :height 150)
+  "The Input Sans font family.")
 
-(defvar conf/incon-mono
-  '(:family "Inconsolata" :weight medium :height 170)
-  "The Inconsolata font family.")
+(defvar conf/input-serif
+  '(:family "Input Serif Narrow" :height 150)
+  "The Input Serif font family.")
+
+(defvar conf/input-mono
+  '(:family "Input Mono Narrow" :height 150)
+  "The Input Mono font family.")
 
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
- `(fixed-pitch ((t ,conf/incon-mono)))
- `(variable-pitch ((t ,conf/martian-sans))))
+ `(fixed-pitch ((t ,conf/input-mono)))
+ `(variable-pitch ((t ,conf/input-sans))))
 
 ;; And now for the themes
 (defun conf/is-it-dark-yet? ()
@@ -58,6 +64,8 @@
       (load-theme dark :no-confirm)
     (load-theme light :no-confirm)))
 
+(load-theme 'catppuccin t)
+
 (use-package ef-themes
   :straight t
   :config
@@ -74,13 +82,6 @@
      (6 . (variable-pitch 1.1))
      (7 . (variable-pitch 1.1))
      (t . (variable-pitch 1.1)))))
-
-(use-package dracula-theme
-  :straight t
-  :custom
-  (dracula-alternate-modeline-and-minibuffer t)
-  :config
-  (load-theme 'dracula :no-confirm))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

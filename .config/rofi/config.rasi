@@ -16,7 +16,7 @@ configuration {
     active:         #98C379FF;
     urgent:         #E06B74FF;
 
-    font: "Martian Grotesk W05 11";
+    font: "Input Sans Narrow Medium 11";
 }
 
 /*****----- Main Window -----*****/
@@ -140,6 +140,7 @@ element normal.normal {
 element selected.normal {
     background-color:            @foreground;
     text-color:                  @background;
+    font: "Input Sans Narrow Bold 11";
 }
 element-icon {
     background-color:            transparent;

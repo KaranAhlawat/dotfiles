@@ -61,7 +61,7 @@
    dired-recursive-copies 'always
    dired-recursive-deletes 'always
    delete-by-moving-to-trash t
-   dired-listing-switches "-AGFhlv --group-directories-first --time-style=long-iso"
+   dired-listing-switches "-aGFhlv --group-directories-first --time-style=long-iso"
    dired-dwim-target t
    dired-auto-revert-buffer #'dired-directory-changed-p
    dired-make-directory-clickable t
@@ -110,6 +110,19 @@
   :straight t
   :hook (org-mode text-mode markdown-mode fundamental-mode)
   :bind ([remap ispell-word] . jinx-correct))
+
+(use-package nerd-icons
+  :straight (:type git
+             :host github
+             :repo "rainstormstudio/nerd-icons.el"
+             :files ("*"))
+  :custom
+  (nerd-icons-scale-factor 1.2))
+
+(use-package nerd-icons-dired
+  :straight (nerd-icons-dired :type git :host github :repo "rainstormstudio/nerd-icons-dired")
+  :hook
+  (dired-mode . nerd-icons-dired-mode))
 
 (provide 'general)
 ;;; general.el ends here

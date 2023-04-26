@@ -6,7 +6,7 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # Aliases
-alias ls='exa --icons'
+alias ls='exa'
 alias l='ls -la'
 alias open='xdg-open'
 alias lfont='pango-list | rg -S'

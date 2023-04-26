@@ -59,7 +59,7 @@ Also because using Ansible would be overkill for this. (not my words, but wise w
      
 5. ~sudo nano /etc/yum.repos.d/asus.repo~
    
-6. Paste in this repo metadata
+6. Paste in this repository meta-data
 
    #+begin_src shell
      [copr:copr.fedorainfracloud.org:lukenukem:asus-linux]
@@ -80,7 +80,7 @@ Also because using Ansible would be overkill for this. (not my words, but wise w
      sudo wget https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-$(rpm -E %fedora)/atim-starship-fedora-$(rpm -E %fedora).repo -O /etc/yum.repos.d/_copr\:copr.fedorainfracloud.org\:atim\:starship.repo
    #+end_src
    
-8. Setup RPMfusion repos properly
+8. Setup RPMfusion repositories properly
 
    #+begin_src shell
      rpm-ostree install --apply-live https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
@@ -170,13 +170,7 @@ Also because using Ansible would be overkill for this. (not my words, but wise w
       gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab '<Control>Tab'
       gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab '<Control><Shift>Tab'
     #+end_src
-
-18. Install catppuccin-theme for gnome-terminal
-
-   #+begin_src shell
-     curl -L https://raw.githubusercontent.com/catppuccin/gnome-terminal/v0.2.0/install.py |   python3 -
-   #+end_src
-
+    
 * Firefox Stuff
 
 Run this:
