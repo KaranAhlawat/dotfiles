@@ -4,7 +4,7 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-font pango:Input Serif Narrow 12
+font pango:Source Sans 3 12
 
 gaps inner 5px
 gaps outer 5px

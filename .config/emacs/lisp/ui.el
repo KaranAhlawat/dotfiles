@@ -30,22 +30,22 @@
 (blink-cursor-mode -1)
 
 ;; Define font families
-(defvar conf/input-sans
-  '(:family "Input Sans Narrow" :height 150)
-  "The Input Sans font family.")
+(defvar conf/source-sans
+  '(:family "Source Sans 3" :height 160)
+  "The Source Sans 3 font family.")
 
-(defvar conf/input-serif
-  '(:family "Input Serif Narrow" :height 150)
-  "The Input Serif font family.")
+(defvar conf/source-serif
+  '(:family "Source Serif 4" :height 150)
+  "The Source Serif 4 font family.")
 
-(defvar conf/input-mono
-  '(:family "Input Mono Narrow" :height 150)
-  "The Input Mono font family.")
+(defvar conf/lisa-mono
+  '(:family "MonoLisa" :height 130)
+  "The MonoLisa font family.")
 
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
- `(fixed-pitch ((t ,conf/input-mono)))
- `(variable-pitch ((t ,conf/input-sans))))
+ `(fixed-pitch ((t ,conf/lisa-mono)))
+ `(variable-pitch ((t ,conf/source-sans))))
 
 ;; And now for the themes
 (defun conf/is-it-dark-yet? ()
