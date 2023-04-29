@@ -45,12 +45,12 @@ button:hover {
 }
 
 #workspaces button {
-  padding: 0.2rem 0.8rem;
+  padding: 0.2rem;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   background: @text;
   color: @base;
-  border-radius: 8px;
+  border-radius: 10px;
   transition: 0.3s;
 }
 

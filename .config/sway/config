@@ -41,7 +41,7 @@ set $switch_window $rofi_cmd -show window
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
-output * bg /var/home/karan/Pictures/dark.jpeg fill
+output * bg /var/home/karan/Pictures/dark.png fill
 #
 # Example configuration:
 #
