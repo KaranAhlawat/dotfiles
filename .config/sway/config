@@ -205,7 +205,7 @@ input "type:pointer" accel_profile flat
     bindsym $mod+minus scratchpad show
 
 # Application bindings
-bindsym Mod1+Shift+e exec toolbox run -c dev /usr/bin/emacsclient -a= -c
+	bindsym Mod1+Shift+e exec toolbox run -c dev /usr/bin/emacsclient -a= -c
 
 #
 # Resizing containers:

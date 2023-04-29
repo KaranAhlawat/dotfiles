@@ -30,13 +30,14 @@
     "sway/scratchpad": {
         "format": "{icon} {count}",
         "show-empty": false,
-        "format-icons": ["", ""],
+        "format-icons": ["", ""],
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
     },
     "sway/window": {
         "format": "{}",
         "max-length": 50,
+        "show-empty": false
     },
     "tray": {
         "icon-size": 20,

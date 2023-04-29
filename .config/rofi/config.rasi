@@ -9,12 +9,9 @@ configuration {
 @theme "/dev/null"
 
 * {
-    background:     #000000FF;
-    background-alt: #101010FF;
-    foreground:     #FFFFFFFF;
-    selected:       #62AEEFFF;
-    active:         #98C379FF;
-    urgent:         #E06B74FF;
+    background:     #1e1e2eff;
+    foreground:     #cdd6f4ff;
+    selected:       #94e2d5ff;
 
     font: "Source Sans 3 Medium 12";
 }
@@ -32,7 +29,7 @@ window {
     enabled:                     true;
     margin:                      0px;
     padding:                     0px;
-    border:                      0px solid;
+    border:                      2px solid;
     border-radius:               20px;
     border-color:                @selected;
     background-color:            @background;
