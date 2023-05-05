@@ -89,7 +89,9 @@
 
 (use-package smartparens
   :straight t
-  :hook ((clojure-mode) . smartparens-strict-mode)
+  :hook ((clojure-mode . smartparens-strict-mode)
+         (clojurescript-mode . smartparens-strict-mode)
+         (clojurec-mode . smartparens-strict-mode))
   :init (smartparens-global-mode))
 
 ;; Tweak flymake just a little bit

@@ -12,7 +12,6 @@
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes")
 
 ;; Relative numbers to move around quicker
-(global-hl-line-mode 1)
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode)
 
@@ -44,7 +43,7 @@
 
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
- `(fixed-pitch ((t ,conf/lisa-mono)))
+ `(fixed-pitch ((t ,conf/menlo-mono)))
  `(variable-pitch ((t ,conf/source-sans))))
 
 ;; And now for the themes
@@ -64,7 +63,18 @@
       (load-theme dark :no-confirm)
     (load-theme light :no-confirm)))
 
-(load-theme 'catppuccin t)
+(use-package catppuccin-theme
+  :straight (catppuccin-theme
+             :type git
+             :host github
+             :repo "catppuccin/emacs"
+             :fork (:host github
+                    :repo "KaranAhlawat/catppuccin-emacs"))
+  :custom
+  (catppuccin-italic-comments t)
+  (catppuccin-italic-variables t)
+  :config
+  (load-theme 'catppuccin :no-confirm))
 
 (use-package ef-themes
   :straight t

@@ -152,11 +152,12 @@
 
  :config (setq popper-display-control 'user) (popper-mode +1))
 
+(require 'general)
+(require 'keybindings)
 (require 'ui)
 (require 'ligate)
 (require 'defaults)
 (require 'completions)
-(require 'general)
 (require 'languages)
 (require 'development)
 (require 'shells)
@@ -164,4 +165,6 @@
 (require 'setup-latex)
 
 (setq gc-cons-threshold (* 2 1000 1000))
-;; init.el ends here
+
+(provide 'init)
+;;; init.el ends here

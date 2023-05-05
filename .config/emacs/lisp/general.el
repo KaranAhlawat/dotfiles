@@ -29,6 +29,9 @@
 
 (use-package project
   :straight (:type built-in)
+  :general
+  (conf/leader
+    "p" '(:keymap project-prefix-map :wk "project"))
   :custom
   (project-vc-extra-root-markers
    '("package.json"
@@ -49,9 +52,9 @@
      (project-dired "Root dired")
      (project-eshell "Eshell")))
 
-  (keymap-global-set "C-x p ." #'project-dired)
-  (keymap-global-set "C-x p <return>" #'project-dired)
-  (keymap-global-set "C-x p <delete>" #'project-forget-project))
+  (keymap-set project-prefix-map "." #'project-dired)
+  (keymap-set project-prefix-map "<return>" #'project-dired)
+  (keymap-set project-prefix-map "<delete>" #'project-forget-project))
 
 (use-package dired
   :straight (:type built-in)

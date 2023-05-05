@@ -95,8 +95,8 @@ button:hover {
 }
 
 #window {
-  background: @base;
-  color: @text;
+  background: @text;
+  color: @base;
 }
 
 #waybar.empty #window {

@@ -6,8 +6,10 @@
 
 font pango:Source Sans 3 12
 
-gaps inner 5px
-gaps outer 5px
+gaps {
+    inner 5px
+    outer 5px
+}
 
 default_border pixel 2
 default_floating_border pixel 2
@@ -29,8 +31,8 @@ set $term foot
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # Recommends: rofi-wayland
-set $rofi_cmd rofi \
-        --terminal '$term'
+set $rofi_cmd rofi --terminal '$term'
+
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
 # TODO: add window with the next release of rofi-wayland
@@ -41,7 +43,7 @@ set $switch_window $rofi_cmd -show window
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
-output * bg /var/home/karan/Pictures/dark.png fill
+output * bg /var/home/karan/Pictures/light.jpg fill
 #
 # Example configuration:
 #

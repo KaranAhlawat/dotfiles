@@ -94,7 +94,7 @@ comma."
     "Setup tempel capf function."
     (setq-local completion-at-point-functions
                 (cons #'tempel-expand completion-at-point-functions)))
-
+  
   (add-hook 'org-mode-hook #'conf/tempel-setup-capf)
   (add-hook 'clojure-mode-hook #'conf/tempel-setup-capf)
 
@@ -102,7 +102,6 @@ comma."
         (directory-files (concat user-emacs-directory "templates")
                          t
                          directory-files-no-dot-files-regexp)))
-
 ;; Corfu for completion at point popup
 (use-package corfu
   :straight t
