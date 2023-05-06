@@ -37,12 +37,17 @@
   '(:family "Source Serif 4" :height 150)
   "The Source Serif 4 font family.")
 
-(defvar conf/lisa-mono
-  '(:family "MonoLisa" :height 130)
-  "The MonoLisa font family.")
+(defvar conf/menlo-mono
+  '(:family "Menlo" :height 150)
+  "The Menlo font family.")
+
+(defvar conf/victor-italic
+  '(:family "Victor Mono" :height 150 :slant italic :weight medium)
+  "VictorMono italic.")
 
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
+ `(italic ((t ,conf/victor-italic)))
  `(fixed-pitch ((t ,conf/menlo-mono)))
  `(variable-pitch ((t ,conf/source-sans))))
 

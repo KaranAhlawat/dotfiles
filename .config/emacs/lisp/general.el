@@ -29,9 +29,6 @@
 
 (use-package project
   :straight (:type built-in)
-  :general
-  (conf/leader
-    "p" '(:keymap project-prefix-map :wk "project"))
   :custom
   (project-vc-extra-root-markers
    '("package.json"
@@ -105,9 +102,9 @@
 (use-package ctrlf
   :straight t
   :init
-  (ctrlf-mode +1)
+  (setq ctrlf-default-search-style 'fuzzy)
   :config
-  (setq ctrlf-default-search-style 'fuzzy))
+  (ctrlf-mode +1))
 
 (use-package jinx
   :straight t
