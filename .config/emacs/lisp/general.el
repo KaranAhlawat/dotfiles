@@ -40,6 +40,10 @@
      "pubspec.yaml"
      "pyproject.toml"
      "*.asd"))
+  (project-vc-ignores
+   '("node_modules"
+     "target"
+     ".git"))
   :config
   (setopt
    project-switch-commands

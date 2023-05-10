@@ -17,6 +17,7 @@ then
 	alias ts='tree-sitter'
 	alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 	alias vi='zile'
+
 fi
 
 # completions

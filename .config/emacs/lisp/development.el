@@ -66,15 +66,15 @@
 
   (setq-default eglot-workspace-configuration
                 '(:vtsls (:experimental (:completion (:enableServerSideFuzzyMatch t
-                                                      :entriesLimit 200)))
-                  :pylsp (:plugins (:jedi_completion (:include_params t
-                                                      :fuzzy t)
-                                    :pylint (:enabled :json-false)))
-                  :golsp (:usePlaceholders t
-                          :staticcheck t
-                          :matcher "Fuzzy")
-                  :dart (:completeFunctionCalls t
-                         :enableSnippets t))))
+                                                                                  :entriesLimit 200)))
+                         :pylsp (:plugins (:jedi_completion (:include_params t
+                                                                             :fuzzy t)
+                                                            :pylint (:enabled :json-false)))
+                         :golsp (:usePlaceholders t
+                                                  :staticcheck t
+                                                  :matcher "Fuzzy")
+                         :dart (:completeFunctionCalls t
+                                                       :enableSnippets t))))
 
 ;; Eldoc for documentation
 (use-package eldoc
@@ -118,6 +118,11 @@
   :straight t
   :config
   (yas-global-mode))
+
+(use-package apheleia
+  :straight t
+  :config
+  (apheleia-global-mode))
 
 (provide 'development)
 ;;; development.el ends here

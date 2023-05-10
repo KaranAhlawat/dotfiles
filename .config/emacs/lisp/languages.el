@@ -98,5 +98,11 @@
   :mode ("\\.scss\\'" . scss-mode)
   :custom (css-indent-offset 2))
 
+;; Scala TS (local)
+(use-package scala-ts-mode
+  :straight nil
+  :mode ("\\.scala\\'" . scala-ts-mode)
+  :load-path ("lisp/scala-ts-mode.el"))
+
 (provide 'languages)
 ;;; languages.el ends here
