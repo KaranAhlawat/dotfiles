@@ -29,18 +29,17 @@
 (blink-cursor-mode -1)
 
 ;; Define font families
+(defvar conf/intel-mono
+  '(:family "IntelOne Mono" :height 150)
+  "The IntelOne Mono font family.")
+
 (defvar conf/source-sans
   '(:family "Source Sans 3" :height 160)
-  "The Source Sans 3 font family.")
-
-(defvar conf/menlo-mono
-  '(:family "Menlo" :height 135)
-  "The Menlo font family.")
+  "The Source Sans font family.")
 
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
- `(italic ((t (,@conf/menlo-mono :slant italic))))
- `(fixed-pitch ((t ,conf/menlo-mono)))
+ `(fixed-pitch ((t ,conf/intel-mono)))
  `(variable-pitch ((t ,conf/source-sans))))
 
 ;; And now for the themes

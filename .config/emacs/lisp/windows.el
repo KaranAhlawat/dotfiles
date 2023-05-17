@@ -13,7 +13,6 @@
   (setq beframe-global-buffers
         '("*scratch*" "*Messages*" "*lsp-bridge*" "*Org Agenda*"))
   (setq beframe-functions-in-frames '(project-prompt-project-dir))
-  (setq beframe-create-frame-scratch-buffer t)
   (setq beframe-kill-frame-scratch-buffer t)
   (defvar consult-buffer-sources)
   (declare-function consult--buffer-state "consult")

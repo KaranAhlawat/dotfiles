@@ -141,6 +141,7 @@ comma."
   (setq
    xref-show-xrefs-function #'consult-xref
    xref-show-definitions-function #'consult-xref)
+  (setq consult-buffer-sources (remove 'consult--source-buffer consult-buffer-sources))
 
   :config
   (consult-customize
