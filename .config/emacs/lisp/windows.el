@@ -9,11 +9,11 @@
 
 (use-package beframe
   :straight t
-  :config
+  :init
   (setq beframe-global-buffers
-        '("*scratch*" "*Messages*" "*lsp-bridge*" "*Org Agenda*"))
+        '("*scratch*" "*Messages*" "*Org Agenda*"))
   (setq beframe-functions-in-frames '(project-prompt-project-dir))
-  (setq beframe-kill-frame-scratch-buffer t)
+  (setq beframe-create-frame-scratch-buffer nil)
   (defvar consult-buffer-sources)
   (declare-function consult--buffer-state "consult")
 
@@ -33,7 +33,7 @@
         :state ,#'consult--buffer-state))
 
     (add-to-list 'consult-buffer-sources 'beframe--consult-source))
-
+  :config
   (beframe-mode +1))
 
 (defvar conf/occur-grep-modes-list

@@ -29,9 +29,13 @@
 (blink-cursor-mode -1)
 
 ;; Define font families
-(defvar conf/intel-mono
-  '(:family "IntelOne Mono" :height 150)
-  "The IntelOne Mono font family.")
+(defvar conf/menlo-mono
+  '(:family "Menlo" :height 140)
+  "The Menlo font family.")
+
+(defvar conf/pragsevka-mono
+  '(:family "Pragmasevka" :height 150)
+  "The Pragmasevka font family.")
 
 (defvar conf/source-sans
   '(:family "Source Sans 3" :height 160)
@@ -39,7 +43,7 @@
 
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
- `(fixed-pitch ((t ,conf/intel-mono)))
+ `(fixed-pitch ((t ,conf/pragsevka-mono)))
  `(variable-pitch ((t ,conf/source-sans))))
 
 ;; And now for the themes

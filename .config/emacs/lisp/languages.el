@@ -100,9 +100,7 @@
 
 ;; Scala TS (local)
 (use-package scala-ts-mode
-  :straight nil
-  :mode ("\\.scala\\'" . scala-ts-mode)
-  :load-path ("lisp/scala-ts-mode.el"))
+  :straight (:local-repo "/home/karan/repos/scala-ts-mode"))
 
 (provide 'languages)
 ;;; languages.el ends here

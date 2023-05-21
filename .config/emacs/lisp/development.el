@@ -13,68 +13,65 @@
 ;; Now that eglot is in Emacs itself, that is a huge incentive to move
 ;; away from lsp-mode, at least for me.
 (use-package eglot
-  :straight nil
-  :ensure nil
-  :custom
-  (eglot-autoshutdown t)
-  (eglot-send-changes-idle-time 0.2)
-  (eglot-confirm-server-initiated-edits nil)
-  (eglot-events-buffer-size 0)
+    :straight nil
+    :ensure nil
+    :custom
+    (eglot-autoshutdown t)
+    (eglot-send-changes-idle-time 0.2)
+    (eglot-confirm-server-initiated-edits nil)
+    (eglot-events-buffer-size 0)
 
-  :config
-  (dolist (mode
-           '(c-ts-mode-hook
-             c++-ts-mode-hook
-             typescript-ts-mode-hook
-             tsx-ts-mode-hook
-             js-ts-mode-hook
-             python-ts-mode-hook
-             java-ts-mode-hook
-             csharp-ts-mode-hook
-             elixir-ts-mode-hook
-             heex-ts-mode-hook
-             php-mode-hook
-             dart-mode-hook
-             clojure-mode-hook
-             clojurescript-mode-hook
-             clojurec-mode-hook))
-    (add-hook mode 'eglot-ensure))
+    :config
+    (dolist (mode
+              '(c-ts-mode-hook
+                c++-ts-mode-hook
+                typescript-ts-mode-hook
+                tsx-ts-mode-hook
+                js-ts-mode-hook
+                python-ts-mode-hook
+                java-ts-mode-hook
+                csharp-ts-mode-hook
+                elixir-ts-mode-hook
+                heex-ts-mode-hook
+                php-mode-hook
+                dart-mode-hook
+                clojure-mode-hook
+                clojurescript-mode-hook
+                clojurec-mode-hook))
+      (add-hook mode 'eglot-ensure))
 
-  (add-to-list
-   'eglot-server-programs
-   `(php-mode
-     .
-     ,(eglot-alternatives
-       '(("phpactor" "language-server") ("intelephense" "--stdio")))))
+    (add-to-list
+     'eglot-server-programs
+     '(php-mode . ("intelephense" "--stdio")))
 
-  (dolist (mode '(js-ts-mode typescript-ts-mode tsx-ts-mode))
-    (let ((lang-id
-           (cond
-            ((eq mode 'js-ts-mode)
-             "javascript")
-            ((eq mode 'typescript-ts-mode)
-             "typescript")
-            ((eq mode 'tsx-ts-mode)
-             "typescriptreact"))))
-      (add-to-list
-       'eglot-server-programs
-       `((,mode :language-id ,lang-id)
-         .
-         ,(eglot-alternatives
-           '(("vtsls" "--stdio")
-             ("typescript-language-server" "--stdio")))))))
+    (dolist (mode '(js-ts-mode typescript-ts-mode tsx-ts-mode))
+      (let ((lang-id
+             (cond
+               ((eq mode 'js-ts-mode)
+                "javascript")
+               ((eq mode 'typescript-ts-mode)
+                "typescript")
+               ((eq mode 'tsx-ts-mode)
+                "typescriptreact"))))
+        (add-to-list
+         'eglot-server-programs
+         `((,mode :language-id ,lang-id)
+           .
+           ,(eglot-alternatives
+             '(("vtsls" "--stdio")
+               ("typescript-language-server" "--stdio")))))))
 
-  (setq-default eglot-workspace-configuration
-                '(:vtsls (:experimental (:completion (:enableServerSideFuzzyMatch t
-                                                                                  :entriesLimit 200)))
-                         :pylsp (:plugins (:jedi_completion (:include_params t
-                                                                             :fuzzy t)
-                                                            :pylint (:enabled :json-false)))
-                         :golsp (:usePlaceholders t
-                                                  :staticcheck t
-                                                  :matcher "Fuzzy")
-                         :dart (:completeFunctionCalls t
-                                                       :enableSnippets t))))
+    (setq-default eglot-workspace-configuration
+                  '( :vtsls ( :experimental ( :completion ( :enableServerSideFuzzyMatch t
+                                                            :entriesLimit 200)))
+                     :pylsp ( :plugins ( :jedi_completion ( :include_params t
+                                                            :fuzzy t)
+                                         :pylint ( :enabled :json-false)))
+                     :gopls ( :usePlaceholders t
+                              :staticcheck t
+                              :matcher "Fuzzy")
+                     :dart ( :completeFunctionCalls t
+                             :enableSnippets t))))
 
 ;; Eldoc for documentation
 (use-package eldoc
@@ -123,6 +120,10 @@
   :straight t
   :config
   (apheleia-global-mode))
+
+(use-package aggressive-indent-mode
+  :straight t
+  :hook (emacs-lisp-mode . aggressive-indent-mode))
 
 (provide 'development)
 ;;; development.el ends here
