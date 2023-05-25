@@ -22,7 +22,6 @@ function get_host() {
 }
 
 export PS1="\n\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u@\`get_host\`\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n\$ "
-export DOCKER_HOST="unix:///run/user/$UID/podman/podman.sock"
 export XDG_CONFIG_HOME="$HOME/.config"
 
 eval "$(zoxide init bash)"

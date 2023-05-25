@@ -6,6 +6,7 @@
 (defun conf/org-font-setup ()
   "Setup fixed-pitch font for Org."
   (custom-set-faces
+   '(org-meta-line ((t :inherit (font-lock-comment-face fixed-pitch))))
    '(org-block ((t (:inherit fixed-pitch))))
    '(org-table ((t (:inherit fixed-pitch))))
    '(org-formula ((t (:inherit fixed-pitch))))
@@ -79,6 +80,12 @@
   :hook (org-mode . org-superstar-mode)
   :config
   (org-superstar-configure-like-org-bullets))
+
+;; Org babel
+(with-eval-after-load 'org
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((sql . t))))
 
 ;; Some minor org tweaks
 (use-package visual-fill-column

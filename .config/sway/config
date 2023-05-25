@@ -11,8 +11,8 @@ gaps {
     outer 5px
 }
 
-default_border pixel 2
-default_floating_border pixel 2
+default_border pixel 0
+default_floating_border pixel 0
 client.focused #000000 #000000 #ffffff #000000
 
 ### Variables
@@ -43,7 +43,7 @@ set $switch_window $rofi_cmd -show window
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
-output * bg /var/home/karan/Pictures/light.jpg fill
+output * bg /var/home/karan/Pictures/dark.png fill
 #
 # Example configuration:
 #

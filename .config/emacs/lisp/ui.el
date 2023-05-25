@@ -41,9 +41,17 @@
   '(:family "Source Sans 3" :height 160)
   "The Source Sans font family.")
 
+(defvar conf/source-mono
+  '(:family "Source Code Pro" :height 140)
+  "The Source Code Pro font family.")
+
+(defvar conf/intel-mono
+  '(:family "Intel One Mono" :height 140)
+  "The Intel One Mono font family.")
+
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
- `(fixed-pitch ((t ,conf/pragsevka-mono)))
+ `(fixed-pitch ((t ,conf/intel-mono)))
  `(variable-pitch ((t ,conf/source-sans))))
 
 ;; And now for the themes

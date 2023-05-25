@@ -121,8 +121,8 @@ comma."
               ("S-TAB" . corfu-previous)
               ([backtab] . corfu-previous)
               ("RET" . corfu-insert))
-
-  :init (global-corfu-mode))
+  :init
+  (global-corfu-mode))
 
 (use-package consult
   :straight t
