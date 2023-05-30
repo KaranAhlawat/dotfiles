@@ -1,23 +1,14 @@
 #!/usr/bin/env bash
 
-cd $HOME/.config/gtk-4.0
-rm ./gtk.css
-
 case $1 in
   light)
-    sed -i 's/catppuccin_frappe/catppuccin_latte/' $HOME/.config/helix/config.toml
-    sed -i 's/Coldark-Dark/Coldark-Cold/' $HOME/.config/bat/config
-    ln -s gtk-light.css gtk.css
-    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command "'gnome-terminal --maximize --profile \'Everforst Light\''"
-    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command "'gnome-terminal --maximize --profile \'Hemisu Light\''"
+    sed -i 's/Coldark-Dark/Coldark-Cold/' $XDG_CONFIG_HOME/bat/config
+    sed -i 's/vivendi/operandi/' $XDG_CONFIG_HOME/foot/foot.ini
   ;;
   dark)
-    sed -i 's/catppuccin_latte/catppuccin_frappe/' $HOME/.config/helix/config.toml
-    sed -i 's/Coldark-Cold/Coldark-Dark/' $HOME/.config/bat/config
-    ln -s gtk-dark.css gtk.css
-    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command "'gnome-terminal --maximize --profile \'Everforest Dark\''"
-    dconf write /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command "'gnome-terminal --maximize --profile \'Hemisu Dark\''"
+    sed -i 's/Coldark-Cold/Coldark-Dark/' $XDG_CONFIG_HOME/bat/config
+    sed -i 's/operandi/vivendi/' $XDG_CONFIG_HOME/foot/foot.ini
   ;;
 esac
 
-toolbox run -c dev emacsclient -e "(conf/switch-theme-to-os 'ef-light 'ef-trio-dark)"
+toolbox run -c dev emacsclient -e "(conf/switch-theme-to-os 'ef-light 'catppuccin)"

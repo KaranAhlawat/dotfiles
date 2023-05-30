@@ -30,28 +30,20 @@
 
 ;; Define font families
 (defvar conf/menlo-mono
-  '(:family "Menlo" :height 140)
+  '(:family "Menlo" :height 130)
   "The Menlo font family.")
 
-(defvar conf/pragsevka-mono
-  '(:family "Pragmasevka" :height 150)
+(defvar conf/brut-mono
+  '(:family "Brutalist Mono" :height 130)
   "The Pragmasevka font family.")
 
 (defvar conf/source-sans
-  '(:family "Source Sans 3" :height 160)
+  '(:family "Source Sans 3" :height 150)
   "The Source Sans font family.")
-
-(defvar conf/source-mono
-  '(:family "Source Code Pro" :height 140)
-  "The Source Code Pro font family.")
-
-(defvar conf/intel-mono
-  '(:family "Intel One Mono" :height 140)
-  "The Intel One Mono font family.")
 
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
- `(fixed-pitch ((t ,conf/intel-mono)))
+ `(fixed-pitch ((t ,conf/brut-mono)))
  `(variable-pitch ((t ,conf/source-sans))))
 
 ;; And now for the themes
@@ -72,17 +64,10 @@
     (load-theme light :no-confirm)))
 
 (use-package catppuccin-theme
-  :straight (catppuccin-theme
-             :type git
-             :host github
-             :repo "catppuccin/emacs"
-             :fork (:host github
-                    :repo "KaranAhlawat/catppuccin-emacs"))
+  :straight (catppuccin :local-repo "/home/karan/repos/catppuccin")
   :custom
   (catppuccin-italic-comments t)
-  (catppuccin-italic-variables t)
-  :config
-  (load-theme 'catppuccin :no-confirm))
+  (catppuccin-italic-variables t))
 
 (use-package ef-themes
   :straight t
@@ -100,6 +85,8 @@
      (6 . (variable-pitch 1.1))
      (7 . (variable-pitch 1.1))
      (t . (variable-pitch 1.1)))))
+
+(conf/switch-theme-to-os 'ef-light 'catppuccin)
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

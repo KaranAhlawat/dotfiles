@@ -46,7 +46,7 @@
 
   (add-to-list
    'eglot-server-programs
-   '(scala-ts-mode . ("metals" :initializationOptions )))
+   '(scala-ts-mode . ("metals")))
 
   (dolist (mode '(js-ts-mode typescript-ts-mode tsx-ts-mode))
     (let ((lang-id
@@ -138,6 +138,17 @@
   :init
   (setq sql-postgres-login-params
         (append sql-postgres-login-params '(port))))
+
+;; ANSI color in compilation buffer
+(use-package ansi-color
+  :straight (:type built-in)
+  :config
+  (defun colorize-compilation-buffer ()
+    (read-only-mode 'toggle)
+    (ansi-color-apply-on-region (point-min) (point-max))
+    (read-only-mode 'toggle))
+  
+  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
 
 (provide 'development)
 ;;; development.el ends here

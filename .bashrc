@@ -37,6 +37,8 @@ then
 	# <<< mamba initialize <<<
 	
 	micromamba activate base
+
+	eval $(opam env --switch=default)
 fi
 
 # completions
