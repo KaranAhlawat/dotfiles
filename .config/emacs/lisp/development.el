@@ -46,7 +46,13 @@
 
   (add-to-list
    'eglot-server-programs
-   '(scala-ts-mode . ("metals")))
+   '(scala-ts-mode . ("metals" "-Dmetals.extensions=false"
+                      :initializationOptions ( :compilerOptions ( :snippetAutoIndent :json-false
+                                                                  :overrideDefFormat "unicode")
+                                               :icons "unicode"
+                                               :statusBarProvider "log-message"
+                                               :isHttpEnabled t
+                                               :treeViewProvider :json-false))))
 
   (dolist (mode '(js-ts-mode typescript-ts-mode tsx-ts-mode))
     (let ((lang-id
@@ -67,10 +73,15 @@
 
   (setq-default eglot-workspace-configuration
                 '( :vtsls ( :experimental ( :completion ( :enableServerSideFuzzyMatch t
-                                                          :entriesLimit 200)))
+                                                          :entriesLimit 200 )))
                    :pylsp ( :plugins ( :jedi_completion ( :include_params t
                                                           :fuzzy t)
-                                       :pylint ( :enabled :json-false)))
+                                       :mypy ( :live_mode :json-false
+                                               :dmypy t)
+                                       :ruff ( :enabled t
+                                               :lineLength 100)
+                                       :black ( :enabled t
+                                                :line_length 100)))
                    :gopls ( :usePlaceholders t
                             :staticcheck t
                             :matcher "Fuzzy")
@@ -79,7 +90,8 @@
                    :metals ( :superMethodLensesEnabled t
                              :showInferredType t
                              :showImplicitArguments t
-                             :showImplicitConversionsAndClasses t))))
+                             :showImplicitConversionsAndClasses t
+                             :bloopSbtAlreadyInsatlled t))))
 
 ;; Eldoc for documentation
 (use-package eldoc
@@ -126,8 +138,17 @@
 
 (use-package apheleia
   :straight t
-  :config
-  (apheleia-global-mode))
+  :init
+  (dolist (fmt '((scalafmt . ("scalafmt"
+                              "--stdin"))
+                 (zprint . ("zprint"))))
+    (push fmt apheleia-formatters))
+
+  (dolist (mapping '((scala-ts-mode . scalafmt)
+                     (clojure-mode . zprint)
+                     (clojurescript-mode . zprint)
+                     (clojurec-mode . zprint)))
+    (push mapping apheleia-mode-alist)))
 
 (use-package aggressive-indent-mode
   :straight t

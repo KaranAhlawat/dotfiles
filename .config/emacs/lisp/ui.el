@@ -33,9 +33,17 @@
   '(:family "Menlo" :height 130)
   "The Menlo font family.")
 
-(defvar conf/brut-mono
-  '(:family "Brutalist Mono" :height 130)
-  "The Pragmasevka font family.")
+(defvar conf/twilio-mono
+  '(:family "Twilio Sans Mono" :height 130)
+  "The Twilio sans mono font family.")
+
+(defvar conf/zed-mono
+  '(:family "Zed Mono" :height 140 :width expanded :weight medium)
+  "The Zed Mono font family.")
+
+(defvar conf/courier-mono
+  '(:family "Courier 10 Pitch" :height 140)
+  "The Courier Mono font family.")
 
 (defvar conf/source-sans
   '(:family "Source Sans 3" :height 150)
@@ -43,7 +51,8 @@
 
 ;; Setup fonts (not using Fontaine anymore)
 (custom-set-faces
- `(fixed-pitch ((t ,conf/brut-mono)))
+ `(default ((t ,conf/courier-mono)))
+ `(fixed-pitch ((t ,conf/courier-mono)))
  `(variable-pitch ((t ,conf/source-sans))))
 
 ;; And now for the themes
@@ -69,24 +78,17 @@
   (catppuccin-italic-comments t)
   (catppuccin-italic-variables t))
 
-(use-package ef-themes
+(use-package modus-themes
   :straight t
-  :config
-  (setq
-   ef-themes-mixed-fonts nil
-   ef-themes-region '(intense extend)
-   ef-themes-headings
-   '((0 . (variable-pitch 1.5))
-     (1 . (variable-pitch 1.4))
-     (2 . (variable-pitch 1.3))
-     (3 . (variable-pitch 1.2))
-     (4 . (variable-pitch 1.1))
-     (5 . (variable-pitch 1.1))
-     (6 . (variable-pitch 1.1))
-     (7 . (variable-pitch 1.1))
-     (t . (variable-pitch 1.1)))))
+  :custom
+  (modus-themes-italic-constructs t)
+  (modus-themes-bold-constructs t)
+  (modus-themes-slanted-constructs t)
+  :init
+  (setq modus-themes-common-palette-overrides
+        '((comment fg-dim))))
 
-(conf/switch-theme-to-os 'ef-light 'catppuccin)
+(conf/switch-theme-to-os 'modus-operandi-tinted 'catppuccin)
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

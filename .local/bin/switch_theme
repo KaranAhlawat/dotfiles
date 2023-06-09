@@ -3,12 +3,12 @@
 case $1 in
   light)
     sed -i 's/Coldark-Dark/Coldark-Cold/' $XDG_CONFIG_HOME/bat/config
-    sed -i 's/vivendi/operandi/' $XDG_CONFIG_HOME/foot/foot.ini
+    sed -i 's/paper-color-dark/paper-color-light/' $XDG_CONFIG_HOME/foot/foot.ini
   ;;
   dark)
     sed -i 's/Coldark-Cold/Coldark-Dark/' $XDG_CONFIG_HOME/bat/config
-    sed -i 's/operandi/vivendi/' $XDG_CONFIG_HOME/foot/foot.ini
+    sed -i 's/paper-color-light/paper-color-dark/' $XDG_CONFIG_HOME/foot/foot.ini
   ;;
 esac
 
-toolbox run -c dev emacsclient -e "(conf/switch-theme-to-os 'ef-light 'catppuccin)"
+toolbox run -c dev emacsclient -e "(conf/switch-theme-to-os 'modus-operandi-tinted 'catppuccin)"

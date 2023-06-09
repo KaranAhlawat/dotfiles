@@ -103,6 +103,11 @@ comma."
                          t
                          directory-files-no-dot-files-regexp)))
 ;; Corfu for completion at point popup
+;; (use-package company
+;;   :straight t
+;;   :config
+;;   (global-company-mode))
+
 (use-package corfu
   :straight t
   :custom

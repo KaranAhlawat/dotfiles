@@ -17,7 +17,8 @@
              (json . ("https://github.com/tree-sitter/tree-sitter-json" nil nil nil nil))
              (python . ("https://github.com/tree-sitter/tree-sitter-python" nil nilnil nil))
              (go . ("https://github.com/tree-sitter/tree-sitter-go"  nilnil nil))
-             (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" nil nil  nil))))
+             (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" nil nil  nil))
+             (scala . ("https://github.com/tree-sitter/tree-sitter-scala" nil nil nil))))
     (push pair treesit-language-source-alist))
 
   (dolist (pair
