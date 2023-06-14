@@ -39,6 +39,7 @@ then
   # FLUTTER
   export ANDROID_SDK="$HOME/Android/Sdk"
   export PATH="$PATH:/opt/flutter/bin"
+  export PATH="$PATH:$HOME/.pub-cache/bin"
   export PATH="$PATH:$ANDROID_SDK/emulator:$ANDROID_SDK/platform-tools:$ANDROID_SDK/cmdline-tools/latest/bin"
   
   # Scala

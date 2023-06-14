@@ -15,6 +15,14 @@
 (use-package eglot
   :straight nil
   :ensure nil
+  :bind ( :map eglot-mode-map
+          ("C-l c a" . eglot-code-actions)
+          ("C-l f r" . eglot-format)
+          ("C-l f b" . eglot-format-buffer)
+          ("C-l r n" . eglot-rename)
+          ("C-l g d" . eglot-find-declaration)
+          ("C-l g i" . eglot-find-implementation)
+          ("C-l g t" . eglot-find-typeDefinition))
   :custom
   (eglot-autoshutdown t)
   (eglot-send-changes-idle-time 0.2)
@@ -138,7 +146,7 @@
 
 (use-package apheleia
   :straight t
-  :init
+  :config
   (dolist (fmt '((scalafmt . ("scalafmt"
                               "--stdin"))
                  (zprint . ("zprint"))))

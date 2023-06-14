@@ -18,6 +18,7 @@
 
 ;; Here we're just bootstraping straight.el as noted in their github README.
 (defvar bootstrap-version)
+(defvar straight-repository-branch nil)
 (setq straight-repository-branch "develop")
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el"

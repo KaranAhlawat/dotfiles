@@ -72,9 +72,7 @@
   (flutter-sdk-path "/opt/flutter"))
 
 (use-package dart-mode
-  :straight t
-  :hook (dart-mode . (lambda ()
-                       (add-hook 'after-save-hook #'flutter-run-or-hot-reload nil t))))
+  :straight t)
 
 (use-package js
   :straight (:type built-in)

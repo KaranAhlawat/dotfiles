@@ -4,6 +4,15 @@
 ;;; too small to create it's own module
 ;;; Code:
 
+(use-package emacs
+  :straight (:type built-in)
+  :init
+  (setq frame-title-format "%b")
+  (setq ring-bell-function 'ignore)
+  (setq use-short-answers t)
+  (setq visible-bell nil)
+  (blink-cursor-mode -1))
+
 ;; Makes it easier to see where what is
 (use-package rainbow-delimiters
   :straight t

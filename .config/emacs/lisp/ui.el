@@ -28,32 +28,44 @@
 (setq visible-bell nil)
 (blink-cursor-mode -1)
 
-;; Define font families
-(defvar conf/menlo-mono
-  '(:family "Menlo" :height 130)
-  "The Menlo font family.")
+(use-package fontaine
+  :straight t
+  :init
+  (setq x-underline-at-descent-line nil)
+  (setq-default text-scale-remap-header-line t)
+  (setq fontaine-latest-state-file (locate-user-emacs-file
+                                    "fontaine-latest-state.eld"))
 
-(defvar conf/twilio-mono
-  '(:family "Twilio Sans Mono" :height 130)
-  "The Twilio sans mono font family.")
+  (setq fontaine-presets
+        '((small
+           :default-family "monospace"
+           :default-height 100
+           :variable-pitch-family "sans-serif")
+          (regular)
+          (medium
+           :default-weight semilight
+           :default-height 160
+           :bold-weight extrabold)
+          (large
+           :inherit medium
+           :default-weight light
+           :default-height 210)
+          (presentation
+           :inherit medium
+           :default-weight light
+           :default-height 210)
+          (t
+           :default-family "monospace"
+           :default-weight regular
+           :default-height 130
+           :variable-pitch-family "sans-serif"
+           :variable-pitch-height 160)))
 
-(defvar conf/zed-mono
-  '(:family "Zed Mono" :height 140 :width expanded :weight medium)
-  "The Zed Mono font family.")
+  :config
+  (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular))
 
-(defvar conf/courier-mono
-  '(:family "Courier 10 Pitch" :height 140)
-  "The Courier Mono font family.")
+  (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
-(defvar conf/source-sans
-  '(:family "Source Sans 3" :height 150)
-  "The Source Sans font family.")
-
-;; Setup fonts (not using Fontaine anymore)
-(custom-set-faces
- `(default ((t ,conf/courier-mono)))
- `(fixed-pitch ((t ,conf/courier-mono)))
- `(variable-pitch ((t ,conf/source-sans))))
 
 ;; And now for the themes
 (defun conf/is-it-dark-yet? ()
@@ -67,10 +79,15 @@
 (defun conf/switch-theme-to-os (light dark)
   "Switch the current Emacs theme according to either LIGHT or DARK."
   (interactive)
+  (defvar catppuccin-flavor)
   (mapc #'disable-theme custom-enabled-themes)
   (if (conf/is-it-dark-yet?)
-      (load-theme dark :no-confirm)
-    (load-theme light :no-confirm)))
+      (progn
+        (setq catppuccin-flavor 'mocha)
+        (load-theme dark :no-confirm))
+    (progn
+      (setq catppuccin-flavor 'latte)
+      (load-theme light :no-confirm))))
 
 (use-package catppuccin-theme
   :straight (catppuccin :local-repo "/home/karan/repos/catppuccin")
@@ -88,7 +105,7 @@
   (setq modus-themes-common-palette-overrides
         '((comment fg-dim))))
 
-(conf/switch-theme-to-os 'modus-operandi-tinted 'catppuccin)
+(conf/switch-theme-to-os 'catppuccin 'catppuccin)
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key
