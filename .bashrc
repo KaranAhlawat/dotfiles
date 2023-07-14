@@ -18,6 +18,7 @@ alias mill='mill --disable-ticker'
 if [ -f "/run/.toolboxenv" ]
 then
 	alias ts='tree-sitter'
+	alias vi='nvim'
 	alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
 	# opam configuration

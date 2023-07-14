@@ -35,12 +35,6 @@ then
 
   # NODE
   eval "$(fnm env --use-on-cd)"
-
-  # FLUTTER
-  export ANDROID_SDK="$HOME/Android/Sdk"
-  export PATH="$PATH:/opt/flutter/bin"
-  export PATH="$PATH:$HOME/.pub-cache/bin"
-  export PATH="$PATH:$ANDROID_SDK/emulator:$ANDROID_SDK/platform-tools:$ANDROID_SDK/cmdline-tools/latest/bin"
   
   # Scala
   export PATH="$PATH:$HOME/.local/share/coursier/bin"
@@ -49,7 +43,4 @@ then
   export PYENV_ROOT="$HOME/.pyenv"
   command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
-
-  # dotnet
-  export PATH="$PATH:/var/home/karan/.dotnet/tools"
 fi
