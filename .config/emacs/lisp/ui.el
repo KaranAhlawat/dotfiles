@@ -39,33 +39,30 @@
   (setq fontaine-presets
         '((small
            :default-family "monospace"
-           :default-height 100
+           :default-height 80
            :variable-pitch-family "sans-serif")
-          (regular)
+          (regular
+           :default-weight medium)
           (medium
-           :default-weight semilight
-           :default-height 160
-           :bold-weight extrabold)
+           :default-height 140)
           (large
            :inherit medium
-           :default-weight light
-           :default-height 210)
+           :default-height 190)
           (presentation
            :inherit medium
-           :default-weight light
-           :default-height 210)
+           :default-height 190)
           (t
            :default-family "monospace"
-           :default-weight regular
            :default-height 130
+           :fixed-pitch-family "monospace"
+           :fixed-pitch-height 130
            :variable-pitch-family "sans-serif"
-           :variable-pitch-height 160)))
+           :variable-pitch-height 140)))
 
   :config
   (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular))
 
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
-
 
 ;; And now for the themes
 (defun conf/is-it-dark-yet? ()
@@ -92,20 +89,13 @@
 (use-package catppuccin-theme
   :straight (catppuccin :local-repo "/home/karan/repos/catppuccin")
   :custom
-  (catppuccin-italic-comments t)
-  (catppuccin-italic-variables t))
+  (catppuccin-italic-comments nil)
+  (catppuccin-italic-variables nil))
 
-(use-package modus-themes
+(use-package ef-themes
   :straight t
-  :custom
-  (modus-themes-italic-constructs t)
-  (modus-themes-bold-constructs t)
-  (modus-themes-slanted-constructs t)
-  :init
-  (setq modus-themes-common-palette-overrides
-        '((comment fg-dim))))
-
-(conf/switch-theme-to-os 'catppuccin 'catppuccin)
+  :config
+  (conf/switch-theme-to-os 'ef-elea-light 'ef-elea-dark))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

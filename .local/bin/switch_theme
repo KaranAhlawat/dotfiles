@@ -11,4 +11,4 @@ case $1 in
   ;;
 esac
 
-toolbox run -c dev emacsclient -e "(conf/switch-theme-to-os 'catppuccin 'catppuccin)"
+toolbox run -c dev emacsclient -e "(conf/switch-theme-to-os 'ef-elea-light 'ef-elea-dark)"

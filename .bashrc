@@ -12,6 +12,7 @@ alias open='xdg-open'
 alias lfont='pango-list | rg -S'
 alias dcr='docker compose run --rm'
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+alias mill='mill --disable-ticker'
 
 # inside toolboxes
 if [ -f "/run/.toolboxenv" ]
@@ -19,7 +20,8 @@ then
 	alias ts='tree-sitter'
 	alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
-	eval $(opam env --switch=default)
+	# opam configuration
+	test -r /var/home/karan/.opam/opam-init/init.sh && . /var/home/karan/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
 	#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 	export SDKMAN_DIR="$HOME/.sdkman"
@@ -33,3 +35,4 @@ fi
 
 # completions
 COMPLETIONS_DIR="$HOME/.bash_completions"
+

@@ -29,7 +29,7 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq-default cursor-type t)
-(setq tab-always-indent 'complete)
+(setq tab-always-indent t)
 
 ;; Shorten yes or no to y or n
 (fset 'yes-or-no-p 'y-or-n-p)

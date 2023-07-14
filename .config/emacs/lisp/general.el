@@ -42,16 +42,22 @@
   (project-vc-extra-root-markers
    '("package.json"
      "build.sbt"
+     "build.sc"
      "mix.exs"
      ".project"
      "project.clj"
      "composer.json"
      "pubspec.yaml"
      "pyproject.toml"
-     "*.asd"))
+     "*.asd"
+     "dune-project"
+     "dune-workspace"))
   (project-vc-ignores
    '("node_modules"
      "target"
+     "out"
+     "_build"
+     "_opam"
      ".git"))
   :config
   (setopt
@@ -136,6 +142,14 @@
   :straight (nerd-icons-dired :type git :host github :repo "rainstormstudio/nerd-icons-dired")
   :hook
   (dired-mode . nerd-icons-dired-mode))
+
+(use-package emacs-gc-stats
+  :straight t
+  :hook (kill-emacs-hook . emacs-gc-stats-save-session)
+  :init
+  (setq emacs-gc-stats-gc-defaults 'emacs-defaults)
+  :config
+  (emacs-gc-stats-mode))
 
 (provide 'general)
 ;;; general.el ends here

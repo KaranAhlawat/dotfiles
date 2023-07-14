@@ -27,7 +27,7 @@
   (eglot-autoshutdown t)
   (eglot-send-changes-idle-time 0.2)
   (eglot-confirm-server-initiated-edits nil)
-  (eglot-events-buffer-size 0)
+  (eglot-events-buffer-size 200000)
 
   :config
   (dolist (mode
@@ -45,7 +45,8 @@
              dart-mode-hook
              clojure-mode-hook
              clojurescript-mode-hook
-             clojurec-mode-hook))
+             clojurec-mode-hook
+             scala-ts-mode-hook))
     (add-hook mode 'eglot-ensure))
 
   (add-to-list
@@ -61,6 +62,10 @@
                                                :statusBarProvider "log-message"
                                                :isHttpEnabled t
                                                :treeViewProvider :json-false))))
+
+  (add-to-list
+   'eglot-server-programs
+   '(elixir-ts-mode . ("~/.local/bin/els/language_server.sh")))
 
   (dolist (mode '(js-ts-mode typescript-ts-mode tsx-ts-mode))
     (let ((lang-id
@@ -99,7 +104,14 @@
                              :showInferredType t
                              :showImplicitArguments t
                              :showImplicitConversionsAndClasses t
-                             :bloopSbtAlreadyInsatlled t))))
+                             :bloopSbtAlreadyInsatlled t)
+                   :elixirLS ( :autoBuild t
+                               :dialyzerEnabled t
+                               :fetchDeps :json-false
+                               :suggestSpecs t
+                               :trace ( :server t)
+                               :enableTestLenses t
+                               :signatureAfterComplete t))))
 
 ;; Eldoc for documentation
 (use-package eldoc
@@ -147,15 +159,20 @@
 (use-package apheleia
   :straight t
   :config
-  (dolist (fmt '((scalafmt . ("scalafmt"
+  (dolist (fmt '((scalafmt . ("scalafmt-native"
+                              (when-let* ((project (project-current))
+                                          (root (project-root project)))
+                                (list "--config" (expand-file-name ".scalafmt.conf" root)))
                               "--stdin"))
-                 (zprint . ("zprint"))))
+                 (zprint . ("zprint"))
+                 (refmt . ("refmt"))))
     (push fmt apheleia-formatters))
 
   (dolist (mapping '((scala-ts-mode . scalafmt)
                      (clojure-mode . zprint)
                      (clojurescript-mode . zprint)
-                     (clojurec-mode . zprint)))
+                     (clojurec-mode . zprint)
+                     (reason-mode . refmt)))
     (push mapping apheleia-mode-alist)))
 
 (use-package aggressive-indent-mode

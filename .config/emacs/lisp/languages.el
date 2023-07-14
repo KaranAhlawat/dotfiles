@@ -16,7 +16,7 @@
              (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" nil nil nil nil))
              (json . ("https://github.com/tree-sitter/tree-sitter-json" nil nil nil nil))
              (python . ("https://github.com/tree-sitter/tree-sitter-python" nil nilnil nil))
-             (go . ("https://github.com/tree-sitter/tree-sitter-go"  nilnil nil))
+             (go . ("https://github.com/tree-sitter/tree-sitter-go"  nil nil nil))
              (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" nil nil  nil))
              (scala . ("https://github.com/tree-sitter/tree-sitter-scala" nil nil nil))))
     (push pair treesit-language-source-alist))
@@ -100,6 +100,24 @@
 ;; Scala TS (local)
 (use-package scala-ts-mode
   :straight (:local-repo "/home/karan/repos/scala-ts-mode"))
+
+;; OCaml and Reason
+(use-package merlin
+  :straight t)
+
+(use-package merlin-eldoc
+  :straight t
+  :hook (merlin-mode . merlin-eldoc-setup)
+  :init
+  (setq merlin-eldoc-max-lines 2))
+
+(use-package tuareg
+  :straight t
+  :hook (tuareg-mode . merlin-mode))
+
+(use-package reason-mode
+  :straight t
+  :hook (reason-mode . merlin-mode))
 
 (provide 'languages)
 ;;; languages.el ends here
