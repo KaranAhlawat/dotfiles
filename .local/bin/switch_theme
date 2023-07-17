@@ -3,11 +3,11 @@
 case $1 in
   light)
     sed -i 's/Coldark-Dark/Coldark-Cold/' $XDG_CONFIG_HOME/bat/config
-    sed -i 's/catppuccin-mocha/catppuccin-latte/' $XDG_CONFIG_HOME/foot/foot.ini
+    sed -i 's/ef-elea-dark/ef-elea-light/' $XDG_CONFIG_HOME/foot/foot.ini
   ;;
   dark)
     sed -i 's/Coldark-Cold/Coldark-Dark/' $XDG_CONFIG_HOME/bat/config
-    sed -i 's/catppuccin-latte/catppuccin-mocha/' $XDG_CONFIG_HOME/foot/foot.ini
+    sed -i 's/ef-elea-light/ef-elea-dark/' $XDG_CONFIG_HOME/foot/foot.ini
   ;;
 esac
 

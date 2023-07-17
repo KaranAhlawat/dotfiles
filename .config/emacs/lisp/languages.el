@@ -101,23 +101,5 @@
 (use-package scala-ts-mode
   :straight (:local-repo "/home/karan/repos/scala-ts-mode"))
 
-;; OCaml and Reason
-(use-package merlin
-  :straight t)
-
-(use-package merlin-eldoc
-  :straight t
-  :hook (merlin-mode . merlin-eldoc-setup)
-  :init
-  (setq merlin-eldoc-max-lines 2))
-
-(use-package tuareg
-  :straight t
-  :hook (tuareg-mode . merlin-mode))
-
-(use-package reason-mode
-  :straight t
-  :hook (reason-mode . merlin-mode))
-
 (provide 'languages)
 ;;; languages.el ends here
