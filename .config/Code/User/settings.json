@@ -8,11 +8,16 @@
   "window.titleBarStyle": "custom",
   "window.zoomLevel": 1,
   "editor.formatOnSave": true,
+  "editor.linkedEditing": true,
+  "editor.tabSize": 2,
+  "window.autoDetectColorScheme": true,
+  "workbench.preferredDarkColorTheme": "Tokyo Night",
+  "workbench.preferredLightColorTheme": "Tokyo Night Light",
+  "C_Cpp.clang_format_fallbackStyle": "GNU",
   "svelte.enable-ts-plugin": true,
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
-  "editor.linkedEditing": true,
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -35,7 +40,5 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.tabSize": 2,
-  "workbench.colorTheme": "Tokyo Night",
-  "C_Cpp.clang_format_fallbackStyle": "GNU"
+  "workbench.colorTheme": "Tokyo Night Light"
 }
