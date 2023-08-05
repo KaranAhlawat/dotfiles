@@ -15,7 +15,7 @@
              (css . ("https://github.com/tree-sitter/tree-sitter-css" nil nil nil nil))
              (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" nil nil nil nil))
              (json . ("https://github.com/tree-sitter/tree-sitter-json" nil nil nil nil))
-             (python . ("https://github.com/tree-sitter/tree-sitter-python" nil nilnil nil))
+             (python . ("https://github.com/tree-sitter/tree-sitter-python" nil nil nil nil))
              (go . ("https://github.com/tree-sitter/tree-sitter-go"  nil nil nil))
              (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" nil nil  nil))
              (scala . ("https://github.com/tree-sitter/tree-sitter-scala" nil nil nil))))

@@ -164,6 +164,7 @@ comma."
   :custom
   (kind-icon-default-face nil)
   (kind-icon-extra-space t)
+  (kind-icon-use-icons nil)
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 

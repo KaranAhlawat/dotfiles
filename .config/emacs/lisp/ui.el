@@ -58,7 +58,6 @@
            :fixed-pitch-height 130
            :variable-pitch-family "sans-serif"
            :variable-pitch-height 140)))
-
   :config
   (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular))
 
@@ -86,16 +85,10 @@
       (setq catppuccin-flavor 'latte)
       (load-theme light :no-confirm))))
 
-(use-package catppuccin-theme
-  :straight (catppuccin :local-repo "/home/karan/repos/catppuccin")
-  :custom
-  (catppuccin-italic-comments nil)
-  (catppuccin-italic-variables nil))
-
-(use-package ef-themes
+(use-package solarized-theme
   :straight t
   :config
-  (conf/switch-theme-to-os 'ef-elea-light 'ef-elea-dark))
+  (conf/switch-theme-to-os 'solarized-light 'solarized-dark))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

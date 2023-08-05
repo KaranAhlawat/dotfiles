@@ -1,6 +1,6 @@
 format = """
 $username\
-${custom.toolbox}\
+$hostname\
 $conda\
 $directory\
 $git_branch\
@@ -16,6 +16,9 @@ show_always = true
 format = "[$user]($style)@"
 style_user = "bold yellow"
 
+[hostname]
+ssh_only = false
+
 [directory]
 style = "blue"
 
@@ -26,7 +29,7 @@ vimcmd_symbol = "[❮](green)"
 
 [git_branch]
 format = "[$branch]($style)"
-style = "bright-black"
+style = "bright-cyan"
 
 [git_status]
 format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
@@ -50,14 +53,3 @@ style = "yellow"
 [python]
 format = "[$virtualenv]($style) "
 style = "bright-black"
-
-[conda]
-format = "\\([$environment]($style)\\) "
-style = "bold green"
-ignore_base = false
-
-[custom.toolbox]
-description = "Display the name of the toolbox"
-style = "bright-blue bold"
-command = "echo $(get_host)"
-when = "true"

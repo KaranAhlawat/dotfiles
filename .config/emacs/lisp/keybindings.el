@@ -5,11 +5,12 @@
 
 (use-package god-mode
   :straight t
-  :bind (:map god-local-mode-map
-              ("i" . god-local-mode)
-              ("." . repeat))
+  :bind (("<escape>" . god-mode-all)
+         :map god-local-mode-map
+         ("i" . god-local-mode)
+         ("." . repeat))
   :config
-  (god-mode-all))
+  (god-mode))
 
 (defun conf/delete-ws-backward-till-char ()
   "Delete whitespace backwards till it encounters a character."

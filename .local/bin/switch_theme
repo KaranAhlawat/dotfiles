@@ -2,13 +2,13 @@
 
 case $1 in
   light)
-    sed -i 's/Coldark-Dark/Coldark-Cold/' $XDG_CONFIG_HOME/bat/config
-    sed -i 's/ef-elea-dark/ef-elea-light/' $XDG_CONFIG_HOME/foot/foot.ini
+    sed -i 's/Solarized (dark)/Solarized (light)/' $XDG_CONFIG_HOME/bat/config
+    sed -i 's/tokyonight-night/tokyonight-day/' $XDG_CONFIG_HOME/foot/foot.ini
   ;;
   dark)
-    sed -i 's/Coldark-Cold/Coldark-Dark/' $XDG_CONFIG_HOME/bat/config
-    sed -i 's/ef-elea-light/ef-elea-dark/' $XDG_CONFIG_HOME/foot/foot.ini
+    sed -i 's/Solarized (light)/Solarized (dark)/' $XDG_CONFIG_HOME/bat/config
+    sed -i 's/tokyonight-day/tokyonight-night/' $XDG_CONFIG_HOME/foot/foot.ini
   ;;
 esac
 
-toolbox run -c dev emacsclient -e "(conf/switch-theme-to-os 'ef-elea-light 'ef-elea-dark)"
+emacsclient -e "(conf/switch-theme-to-os 'solarized-light 'solarized-dark)"

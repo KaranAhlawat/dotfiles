@@ -179,12 +179,6 @@
   :straight t
   :hook (emacs-lisp-mode . aggressive-indent-mode))
 
-(use-package sql
-  :straight (:type built-in)
-  :init
-  (setq sql-postgres-login-params
-        (append sql-postgres-login-params '(port))))
-
 ;; ANSI color in compilation buffer
 (use-package ansi-color
   :straight (:type built-in)

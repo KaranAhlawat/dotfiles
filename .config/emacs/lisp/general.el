@@ -11,6 +11,7 @@
   (setq ring-bell-function 'ignore)
   (setq use-short-answers t)
   (setq visible-bell nil)
+  :config
   (blink-cursor-mode -1))
 
 ;; Makes it easier to see where what is
