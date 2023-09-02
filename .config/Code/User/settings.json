@@ -1,35 +1,58 @@
 {
-  "editor.fontFamily": "monospace",
-  "editor.fontSize": 14,
-  "editor.fontWeight": "500",
-  "editor.lineHeight": 2.75,
-  "editor.cursorBlinking": "phase",
-  "window.menuBarVisibility": "hidden",
-  "window.titleBarStyle": "custom",
-  "window.zoomLevel": 1,
-  "editor.formatOnSave": true,
-  "editor.linkedEditing": true,
-  "editor.tabSize": 2,
-  "window.autoDetectColorScheme": true,
-  "workbench.preferredDarkColorTheme": "Tokyo Night",
-  "workbench.preferredLightColorTheme": "Tokyo Night Light",
-  "C_Cpp.clang_format_fallbackStyle": "GNU",
-  "svelte.enable-ts-plugin": true,
-  "[svelte]": {
-    "editor.defaultFormatter": "svelte.svelte-vscode"
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[css]": {
+  "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "C_Cpp.clang_format_fallbackStyle": "GNU",
+  "C_Cpp.default.cppStandard": "gnu++20",
+  "cssvar.extensions": [
+    "css",
+    "scss",
+    "sass",
+    "less",
+    "postcss",
+    "vue",
+    "svelte",
+    "astro",
+    "ts",
+    "tsx",
+    "js",
+    "jsx"
+  ],
+  "cssvar.files": [
+    "./node_modules/open-props/open-props.min.css",
+    "./node_modules/open-props/media.min.css"
+  ],
+  "cssvar.ignore": [],
+  "editor.cursorBlinking": "solid",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorStyle": "block",
+  "editor.fontFamily": "monospace",
+  "editor.fontLigatures": false,
+  "editor.fontSize": 15,
+  "editor.formatOnSave": true,
+  "editor.lineHeight": 2.5,
+  "editor.linkedEditing": true,
+  "editor.minimap.autohide": true,
+  "editor.scrollbar.vertical": "hidden",
+  "editor.tabSize": 2,
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -37,8 +60,14 @@
     "typescript", // Enable .ts
     "typescriptreact" // Enable .tsx
   ],
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "workbench.colorTheme": "Tokyo Night Light"
+  "svelte.enable-ts-plugin": true,
+  "window.menuBarVisibility": "hidden",
+  "window.titleBarStyle": "native",
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.startupEditor": "none",
+  "zig.zigPath": "",
+  "zig.zls.enabled": true,
+  "zig.zls.path": "/home/karan/.config/Code/User/globalStorage/ziglang.vscode-zig/zls_install/zls",
+  "workbench.colorTheme": "Nord",
+  "window.zoomLevel": 1
 }

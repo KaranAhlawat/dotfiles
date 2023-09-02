@@ -9,6 +9,8 @@
          :map god-local-mode-map
          ("i" . god-local-mode)
          ("." . repeat))
+  :init
+  (setq god-exempt-predicates (list #'god-exempt-mode-p))
   :config
   (god-mode))
 

@@ -44,15 +44,13 @@
    '("package.json"
      "build.sbt"
      "build.sc"
-     "mix.exs"
      ".project"
      "project.clj"
      "composer.json"
-     "pubspec.yaml"
      "pyproject.toml"
-     "*.asd"
-     "dune-project"
-     "dune-workspace"))
+     "build.zig"
+     "Cargo.toml"
+     "CMakeLists.txt"))
   (project-vc-ignores
    '("node_modules"
      "target"
@@ -144,13 +142,10 @@
   :hook
   (dired-mode . nerd-icons-dired-mode))
 
-(use-package emacs-gc-stats
-  :straight t
-  :hook (kill-emacs-hook . emacs-gc-stats-save-session)
+(use-package doc-view
+  :straight (:type built-in)
   :init
-  (setq emacs-gc-stats-gc-defaults 'emacs-defaults)
-  :config
-  (emacs-gc-stats-mode))
+  (setq doc-view-mupdf-use-svg t))
 
 (provide 'general)
 ;;; general.el ends here

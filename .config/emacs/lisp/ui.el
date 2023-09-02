@@ -53,10 +53,10 @@
            :default-height 190)
           (t
            :default-family "monospace"
-           :default-height 130
+           :default-height 140
            :fixed-pitch-family "monospace"
-           :fixed-pitch-height 130
-           :variable-pitch-family "sans-serif"
+           :fixed-pitch-height 140
+           :variable-pitch-family "monospace"
            :variable-pitch-height 140)))
   :config
   (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular))
@@ -85,10 +85,17 @@
       (setq catppuccin-flavor 'latte)
       (load-theme light :no-confirm))))
 
-(use-package solarized-theme
+(use-package nord-theme
   :straight t
+  :init
+  (setq nord-uniform-mode-lines t)
+  (setq nord-region-highlight "frost")
   :config
-  (conf/switch-theme-to-os 'solarized-light 'solarized-dark))
+  (if (daemonp)
+	    (add-hook 'after-make-frame-functions
+		            (lambda (frame)
+			            (with-selected-frame frame (load-theme 'nord t))))
+	  (load-theme 'nord t)))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

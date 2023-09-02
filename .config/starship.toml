@@ -1,7 +1,6 @@
 format = """
 $username\
 $hostname\
-$conda\
 $directory\
 $git_branch\
 $git_state\
@@ -10,14 +9,6 @@ $cmd_duration\
 $line_break\
 $python\
 $character"""
-
-[username]
-show_always = true
-format = "[$user]($style)@"
-style_user = "bold yellow"
-
-[hostname]
-ssh_only = false
 
 [directory]
 style = "blue"
@@ -29,7 +20,7 @@ vimcmd_symbol = "[❮](green)"
 
 [git_branch]
 format = "[$branch]($style)"
-style = "bright-cyan"
+style = "bright-black"
 
 [git_status]
 format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"

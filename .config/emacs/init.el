@@ -53,7 +53,7 @@
                 help-mode-hook))
   (add-hook hook #'conf/set-spacing))
 
-(setq-default cursor-type 'bar)
+(require 'windows)
 
 (use-package popper
   :straight t
@@ -63,7 +63,8 @@
    ("C-M-`" . popper-cycle)
    ("C-c p t" . popper-toggle-type)
    ("C-M-q" . popper-kill-latest-popup))
-  :init (setq popper-group-function #'popper-group-by-directory)
+  :init
+  (setq popper-group-function #'popper-group-by-directory)
   (setq popper-reference-buffers
         (append
          conf/help-modes-list
@@ -150,7 +151,7 @@
   :config (setq popper-display-control 'user) (popper-mode +1))
 
 (require 'general)
-;; (require 'keybindings)
+(require 'keybindings)
 (require 'ui)
 (require 'ligate)
 (require 'defaults)

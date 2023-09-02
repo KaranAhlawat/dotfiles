@@ -67,6 +67,22 @@
    'eglot-server-programs
    '(elixir-ts-mode . ("~/.local/bin/els/language_server.sh")))
 
+  (dolist (mode '(c-ts-mode c++-ts-mode c-mode c++-mode))
+    (add-to-list
+     'eglot-server-programs
+     `(,mode . ( "clangd"
+                 "--background-index"
+                 "--all-scopes-completion"
+                 "--clang-tidy"
+                 "--log=error"
+                 "--suggest-missing-includes"
+                 "--cross-file-rename"
+                 "--completion-style=detailed"
+                 "--pch-storage=memory"
+                 "--folding-ranges"
+                 "--enable-config"
+                 "--offset-encoding=utf-16"))))
+
   (dolist (mode '(js-ts-mode typescript-ts-mode tsx-ts-mode))
     (let ((lang-id
            (cond

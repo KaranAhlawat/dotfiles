@@ -75,12 +75,6 @@
    org-appear-autoemphasis t
    org-appear-autosubmarkers t))
 
-(use-package org-superstar
-  :straight t
-  :hook (org-mode . org-superstar-mode)
-  :config
-  (org-superstar-configure-like-org-bullets))
-
 ;; Org babel
 (with-eval-after-load 'org
   (org-babel-do-load-languages
@@ -93,7 +87,7 @@
   :after org
   :hook org-mode
   :custom
-  (visual-fill-column-width 100)
+  (visual-fill-column-width 120)
   (visual-fill-column-center-text t))
 
 (use-package denote

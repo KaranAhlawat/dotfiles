@@ -54,6 +54,14 @@
   :custom (exec-path-from-shell-arguments nil)
   :init (exec-path-from-shell-initialize))
 
+(use-package whitespace
+  :straight (:type built-in)
+  :init
+  (setq whitespace-style '(face newline newline-mark))
+  (setq whitespace-display-mappings
+        '((newline-mark 10 [32 10])))
+  :config
+  (global-whitespace-mode))
 
 (provide 'defaults)
 ;; defaults.el ends here
