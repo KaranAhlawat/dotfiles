@@ -206,5 +206,14 @@
   
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
 
+(use-package tramp
+  :straight (:type built-in)
+  :init
+  (setq enable-remote-dir-locals t)
+  :config
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+  (add-to-list 'tramp-connection-properties
+               (list nil "remote-shell" "/bin/bash")))
+
 (provide 'development)
 ;;; development.el ends here

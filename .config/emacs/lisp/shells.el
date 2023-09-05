@@ -48,7 +48,7 @@
 
   (defun conf/eshell-setup-modes ()
     "Setup various modes for eshell."
-    (global-hl-line-mode -1)
+    (display-line-numbers-mode -1)
     (corfu-mode -1)))
 
 ;; Eshell appearance
@@ -132,6 +132,44 @@
     "TODO"
     :group 'eshell))
 
+(use-package comint
+  :straight (:type built-in)
+  :init
+  (setq comint-output-filter-functions
+        (remove 'ansi-color-process-output comint-output-filter-functions)))
+
+(use-package xterm-color
+  :straight t
+  :init
+  (setq xterm-color-use-bold-for-bright t)
+  (setq xterm-color-names ["#3B4252" "#BF616A" "#A3BE8C" "#EBCB8B" "#81A1C1" "#B48EAD" "#88C0D0" "#E5E9F0"])
+  (setq xterm-color-names-bright ["#4C566A" "#BF616A" "#A3BE8C" "#EBCB8B" "#81A1C1" "#B48EAD" "#8FBCBB" "#ECEFF4"]))
+
+(use-package shell
+  :straight (:type built-in)
+  :requires xterm-color
+  :hook
+  ((shell-mode . (lambda () (corfu-mode -1)))
+   (shell-mode . (lambda () (display-line-numbers-mode -1)))
+   (shell-mode . (lambda ()
+                   (font-lock-mode -1)
+                   (make-local-variable 'font-lock-function)
+                   (setq font-lock-function (lambda (_) nil))
+                   (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t)))
+   (shell-mode . (lambda () (setenv "TERM" "xterm-256color")))))
+
+(use-package eshell
+  :straight (:type built-in)
+  :requires xterm-color
+  :hook
+  ((eshell-before-prompt . (lambda ()
+                             (setq xterm-color-preserve-properties t)))
+   (eshell-mode . (lambda ()
+                    (setenv "TERM" "xterm-256color"))))
+  :init
+  (setq eshell-output-filter-functions (remove 'eshell-handle-ansi-color eshell-output-filter-functions))
+  :config
+  (add-to-list 'eshell-preoutput-filter-functions 'xterm-color-filter))
 
 (provide 'shells)
 ;;; shells.el ends here

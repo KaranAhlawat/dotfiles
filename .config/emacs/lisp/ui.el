@@ -53,13 +53,18 @@
            :default-height 190)
           (t
            :default-family "monospace"
-           :default-height 140
-           :fixed-pitch-family "monospace"
-           :fixed-pitch-height 140
+           :default-height 130
+           :default-weight semibold
            :variable-pitch-family "monospace"
-           :variable-pitch-height 140)))
+           :variable-pitch-height 130)))
   :config
-  (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular))
+  (if (daemonp)
+      (add-hook 'after-make-frame-functions
+                (lambda (frame)
+                  (with-selected-frame
+                      frame
+                    (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))))
+    (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
 
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
@@ -92,10 +97,12 @@
   (setq nord-region-highlight "frost")
   :config
   (if (daemonp)
-	    (add-hook 'after-make-frame-functions
-		            (lambda (frame)
-			            (with-selected-frame frame (load-theme 'nord t))))
-	  (load-theme 'nord t)))
+      (add-hook 'after-make-frame-functions
+                (lambda (frame)
+                  (with-selected-frame
+                      frame
+                    (load-theme 'nord t))))
+    (load-theme 'nord t)))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

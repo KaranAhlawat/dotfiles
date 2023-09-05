@@ -62,6 +62,9 @@
    org-highlight-latex-and-related '(native)
    org-indent-mode-turns-on-hiding-stars nil
    org-use-sub-superscripts '{}
+   org-edit-src-content-indentation 0
+   org-src-fontify-natively t
+   org-src-tab-acts-natively t
    org-pretty-entities nil
    org-pretty-entities-include-sub-superscripts nil))
 

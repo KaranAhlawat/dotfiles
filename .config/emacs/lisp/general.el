@@ -50,7 +50,8 @@
      "pyproject.toml"
      "build.zig"
      "Cargo.toml"
-     "CMakeLists.txt"))
+     "CMakeLists.txt"
+     "go.mod"))
   (project-vc-ignores
    '("node_modules"
      "target"

@@ -47,6 +47,7 @@
   "editor.fontFamily": "monospace",
   "editor.fontLigatures": false,
   "editor.fontSize": 15,
+  "editor.fontWeight": "500",
   "editor.formatOnSave": true,
   "editor.lineHeight": 2.5,
   "editor.linkedEditing": true,
@@ -69,5 +70,7 @@
   "zig.zls.enabled": true,
   "zig.zls.path": "/home/karan/.config/Code/User/globalStorage/ziglang.vscode-zig/zls_install/zls",
   "workbench.colorTheme": "Nord",
-  "window.zoomLevel": 1
+  "window.zoomLevel": 1,
+  "dev.containers.dockerPath": "podman",
+  "dev.containers.dockerComposePath": "podman-compose"
 }

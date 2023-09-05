@@ -28,7 +28,7 @@
 ;; Try to tame the TAB
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
-(setq-default cursor-type t)
+(setq-default cursor-type '(hbar . 5))
 (setq tab-always-indent t)
 
 ;; Shorten yes or no to y or n
@@ -59,7 +59,7 @@
   :init
   (setq whitespace-style '(face newline newline-mark))
   (setq whitespace-display-mappings
-        '((newline-mark 10 [32 10])))
+        '((newline-mark 10 [10])))
   :config
   (global-whitespace-mode))
 

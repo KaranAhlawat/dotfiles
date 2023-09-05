@@ -19,6 +19,7 @@ alias ts='tree-sitter'
 alias bat='batcat'
 alias fd='fdfind'
 alias tmux='tmux -u'
+alias docker='podman'
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
