@@ -45,7 +45,7 @@
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorStyle": "block",
   "editor.fontFamily": "monospace",
-  "editor.fontLigatures": false,
+  "editor.fontLigatures": "'salt'",
   "editor.fontSize": 15,
   "editor.fontWeight": "500",
   "editor.formatOnSave": true,

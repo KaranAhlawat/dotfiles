@@ -106,11 +106,16 @@
 
 (use-package pulsar
   :straight t
-  :config
+  :init
+  (defface pulsar-nord
+    '((t :background "#88C0D0"
+         :extend t))
+    "Face for pulsar.")
   (setq pulsar-pulse t)
-  (setq pulsar-delay 0.055)
+  (setq pulsar-delay 0.05)
   (setq pulsar-iterations 10)
-  (setq pulsar-face 'pulsar-blue)
+  (setq pulsar-face 'pulsar-nord)
+  :config
   (add-hook 'consult-after-jump-hook #'pulsar-recenter-top)
   (add-hook 'consult-after-jump-hook #'pulsar-reveal-entry)
   (add-hook 'next-error-hook #'pulsar-pulse-line)

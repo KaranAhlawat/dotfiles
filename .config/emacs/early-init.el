@@ -7,6 +7,8 @@
 (setq load-prefer-newer noninteractive)
 
 ;; Customize native compilation
+(setq byte-compile-warnings '(not obsolete))
+(setq warning-suppress-log-types '((comp) (bytecomp)))
 (setq native-comp-async-report-warnings-errors 'silent)
 (setq inhibit-automatic-native-compilation t)
 (add-to-list

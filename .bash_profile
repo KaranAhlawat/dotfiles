@@ -22,9 +22,6 @@ eval "$(starship init bash)"
 export PATH="$PATH:$HOME/.local/share/zig"
 export PATH="$PATH:$HOME/repos/vcpkg"
 
-# Scala
-export PATH="$PATH:$HOME/.local/share/coursier/bin"
-
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"

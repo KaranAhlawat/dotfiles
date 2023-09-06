@@ -27,9 +27,9 @@
   (eglot-autoshutdown t)
   (eglot-send-changes-idle-time 0.2)
   (eglot-confirm-server-initiated-edits nil)
-  (eglot-events-buffer-size 200000)
 
   :config
+  (fset #'jsonrpc--log-event #'ignore)
   (dolist (mode
            '(c-ts-mode-hook
              c++-ts-mode-hook
