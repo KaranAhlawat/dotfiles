@@ -51,3 +51,6 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
+
+# Haskell
+[ -f "/home/karan/.ghcup/env" ] && source "/home/karan/.ghcup/env" #ghcup-env

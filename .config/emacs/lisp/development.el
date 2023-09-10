@@ -215,5 +215,8 @@
   (add-to-list 'tramp-connection-properties
                (list nil "remote-shell" "/bin/bash")))
 
+(use-package crdt
+  :straight t)
+
 (provide 'development)
 ;;; development.el ends here

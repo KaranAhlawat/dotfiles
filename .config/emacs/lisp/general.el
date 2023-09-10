@@ -44,6 +44,7 @@
    '("package.json"
      "build.sbt"
      "build.sc"
+     "bleep.yaml"
      ".project"
      "project.clj"
      "composer.json"
@@ -51,7 +52,8 @@
      "build.zig"
      "Cargo.toml"
      "CMakeLists.txt"
-     "go.mod"))
+     "go.mod"
+     "cabal*"))
   (project-vc-ignores
    '("node_modules"
      "target"
