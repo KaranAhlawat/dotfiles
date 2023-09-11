@@ -69,8 +69,9 @@
   "zig.zigPath": "",
   "zig.zls.enabled": true,
   "zig.zls.path": "/home/karan/.config/Code/User/globalStorage/ziglang.vscode-zig/zls_install/zls",
-  "workbench.colorTheme": "Nord",
   "window.zoomLevel": 1,
   "dev.containers.dockerPath": "podman",
-  "dev.containers.dockerComposePath": "podman-compose"
+  "dev.containers.dockerComposePath": "podman-compose",
+  "haskell.manageHLS": "GHCup",
+  "workbench.colorTheme": "Nord"
 }

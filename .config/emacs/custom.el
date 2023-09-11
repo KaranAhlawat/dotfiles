@@ -123,11 +123,3 @@
      (python-shell-interpreter . "./.venv/bin/python3")))
  '(smtpmail-smtp-server "smtp.gmail.com")
  '(smtpmail-smtp-service 25))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(fixed-pitch ((t (:family "UbuntuMono Nerd Font" :weight regular :height 170))))
- '(line-number ((t (:inherit default))))
- '(variable-pitch ((t (:family "Ubuntu" :weight regular :height 150)))))

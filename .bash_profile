@@ -20,6 +20,7 @@ eval "$(starship init bash)"
 
 # Zig
 export PATH="$PATH:$HOME/.local/share/zig"
+
 export PATH="$PATH:$HOME/repos/vcpkg"
 
 # pyenv
@@ -34,16 +35,6 @@ eval "$(fnm env --use-on-cd)"
 
 # cargo
 export PATH="$PATH:$HOME/.cargo/bin"
-
-# opam configuration
-test -r /home/karan/.opam/opam-init/init.sh && . /home/karan/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-
-# roswell
-export PATH="$PATH:$HOME/.roswell/bin"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH=$BUN_INSTALL/bin:$PATH
 
 # pnpm
 export PNPM_HOME="/home/karan/.local/share/pnpm"

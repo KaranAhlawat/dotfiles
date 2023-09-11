@@ -88,7 +88,7 @@
 (use-package visual-fill-column
   :straight t
   :after org
-  :hook org-mode
+  :hook (org-mode nov-mode)
   :custom
   (visual-fill-column-width 120)
   (visual-fill-column-center-text t))

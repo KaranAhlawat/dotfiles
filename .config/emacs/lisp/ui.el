@@ -53,9 +53,11 @@
            :default-height 190)
           (t
            :default-family "monospace"
-           :default-height 130
-           :variable-pitch-family "monospace"
-           :variable-pitch-height 130)))
+           :default-height 120
+           :fixed-pitch-family "monospace"
+           :default-height 120
+           :variable-pitch-family "sans-serif"
+           :variable-pitch-height 140)))
   :config
   (if (daemonp)
       (add-hook 'after-make-frame-functions

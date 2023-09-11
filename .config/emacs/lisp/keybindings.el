@@ -11,6 +11,7 @@
          ("." . repeat))
   :init
   (setq god-exempt-predicates (list #'god-exempt-mode-p))
+  (setq god-exempt-major-modes (add-to-list 'god-exempt-major-modes 'nov-mode))
   :config
   (god-mode))
 
