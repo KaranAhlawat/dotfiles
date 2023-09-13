@@ -45,3 +45,7 @@ esac
 
 # Haskell
 [ -f "/home/karan/.ghcup/env" ] && source "/home/karan/.ghcup/env" #ghcup-env
+
+# >>> coursier install directory >>>
+export PATH="$PATH:/home/karan/.local/share/coursier/bin"
+# <<< coursier install directory <<<

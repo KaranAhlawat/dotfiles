@@ -161,6 +161,7 @@
 (require 'shells)
 (require 'setup-org)
 (require 'setup-latex)
+(require 'reader)
 
 (setq gc-cons-threshold (* 2 1000 1000))
 

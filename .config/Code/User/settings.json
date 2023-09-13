@@ -11,9 +11,6 @@
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[svelte]": {
-    "editor.defaultFormatter": "svelte.svelte-vscode"
-  },
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -47,7 +44,7 @@
   "editor.fontFamily": "monospace",
   "editor.fontLigatures": "'salt'",
   "editor.fontSize": 15,
-  "editor.fontWeight": "500",
+  "editor.fontWeight": "400",
   "editor.formatOnSave": true,
   "editor.lineHeight": 2.5,
   "editor.linkedEditing": true,
@@ -61,17 +58,18 @@
     "typescript", // Enable .ts
     "typescriptreact" // Enable .tsx
   ],
-  "svelte.enable-ts-plugin": true,
   "window.menuBarVisibility": "hidden",
   "window.titleBarStyle": "native",
   "workbench.iconTheme": "vscode-icons",
   "workbench.startupEditor": "none",
-  "zig.zigPath": "",
-  "zig.zls.enabled": true,
-  "zig.zls.path": "/home/karan/.config/Code/User/globalStorage/ziglang.vscode-zig/zls_install/zls",
-  "window.zoomLevel": 1,
   "dev.containers.dockerPath": "podman",
   "dev.containers.dockerComposePath": "podman-compose",
   "haskell.manageHLS": "GHCup",
-  "workbench.colorTheme": "Nord"
+  "files.watcherExclude": {
+    "**/.bloop": true,
+    "**/.metals": true,
+    "**/.ammonite": true
+  },
+  "workbench.colorTheme": "modus-vivendi",
+  "window.zoomLevel": 1
 }

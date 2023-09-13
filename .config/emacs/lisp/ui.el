@@ -40,7 +40,7 @@
         '((small
            :default-family "monospace"
            :default-height 80
-           :variable-pitch-family "sans-serif")
+           :variable-pitch-family "DejaVu Serif")
           (regular
            :default-weight medium)
           (medium
@@ -53,10 +53,10 @@
            :default-height 190)
           (t
            :default-family "monospace"
-           :default-height 120
+           :default-height 130
            :fixed-pitch-family "monospace"
-           :default-height 120
-           :variable-pitch-family "sans-serif"
+           :default-height 130
+           :variable-pitch-family "DejaVu Serif"
            :variable-pitch-height 140)))
   :config
   (if (daemonp)

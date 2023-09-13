@@ -10,7 +10,7 @@ export LANG=en_IN.UTF-8
 
 # Aliases
 alias ls='exa'
-alias l='ls -la'
+alias l='ls -alG'
 alias open='xdg-open'
 alias lfont='pango-list | rg -S'
 alias dcr='docker compose run --rm'
