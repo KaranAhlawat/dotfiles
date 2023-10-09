@@ -29,7 +29,7 @@
           (setq nov-cursor nil)
           (scroll-lock-mode 1))
       (progn
-        (setq cursor-type '(hbar . 5))
+        (setq cursor-type t)
         (setq nov-cursor t)
         (scroll-lock-mode -1))))
 

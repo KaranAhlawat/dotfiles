@@ -1,4 +1,4 @@
-;;; development.el --- Making the money -*- lexical-binding: t; -*-
+;; development.el --- Making the money -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Sets up a great dev exp inside Emacs
 ;;; Code:
@@ -144,8 +144,36 @@
   :straight t
   :hook ((clojure-mode . smartparens-strict-mode)
          (clojurescript-mode . smartparens-strict-mode)
-         (clojurec-mode . smartparens-strict-mode))
-  :init (smartparens-global-mode))
+         (clojurec-mode . smartparens-strict-mode)
+         (emacs-lisp-mode . smartparens-strict-mode))
+  :config
+  (sp-with-modes sp-lisp-modes
+    (sp-local-pair "'" nil :actions nil)
+    (sp-local-pair "`" "'" :actions '(wrap insert autoskip) :when '(sp-in-string-p)))
+  (eval-after-load 'cc-mode                  '(require 'smartparens-c))
+  (eval-after-load 'clojure-mode             '(require 'smartparens-clojure))
+  (eval-after-load 'elixir-ts-mode           '(require 'smartparens-elixir))
+  (eval-after-load 'erlang-mode              '(require 'smartparens-erlang))
+  (eval-after-load 'go-mode                  '(require 'smartparens-go))
+  (eval-after-load 'haskell-interactive-mode '(require 'smartparens-haskell))
+  (eval-after-load 'haskell-mode             '(require 'smartparens-haskell))
+  (--each sp--html-modes
+    (eval-after-load it                      '(require 'smartparens-html)))
+  (--each '(latex-mode LaTeX-mode)
+    (eval-after-load it                      '(require 'smartparens-latex)))
+  (eval-after-load 'markdown-mode            '(require 'smartparens-markdown))
+  (--each '(python-mode python)
+    (eval-after-load it                      '(require 'smartparens-python)))
+  (eval-after-load 'org                      '(require 'smartparens-org))
+  (eval-after-load 'rust-mode                '(require 'smartparens-rust))
+  (eval-after-load 'rustic                   '(require 'smartparens-rust))
+  (eval-after-load 'scala-mode               '(require 'smartparens-scala))
+  (eval-after-load 'scala-ts-mode            '(require 'smartparens-scala))
+  (eval-after-load 'tex-mode                 '(require 'smartparens-latex))
+  (eval-after-load 'text-mode                '(require 'smartparens-text))
+  (--each '(js-ts-mode typescript-ts-mode)
+    (eval-after-load it                      '(require 'smartparens-javascript)))
+  (smartparens-global-mode))
 
 ;; Tweak flymake just a little bit
 (use-package flymake
@@ -216,7 +244,9 @@
                (list nil "remote-shell" "/bin/bash")))
 
 (use-package crdt
-  :straight t)
+  :straight t
+  :init
+  (setq crdt-use-tuntox t))
 
 (provide 'development)
 ;;; development.el ends here

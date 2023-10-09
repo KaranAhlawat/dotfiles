@@ -36,6 +36,12 @@
   :config
   (beframe-mode +1))
 
+(use-package iwindow
+  :straight t
+  :bind (("C-x o" . #'iwindow-select)
+         ("C-x 1" . #'iwindow-delete-others)
+         ("C-x 0" . #'iwindow-delete)))
+
 (defvar conf/occur-grep-modes-list
   '(occur-mode
     grep-mode
@@ -232,6 +238,12 @@
            ("^\\*Async-native-compile-log\\*"
             :select nil
             :ignore t
+            :regexp t)
+           ("^\\*tree-sitter explorer for [^z-a]+\\*"
+            :select t
+            :popup t
+            :align right
+            :size 0.4
             :regexp t))))
 
   (shackle-mode +1))

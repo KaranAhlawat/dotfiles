@@ -11,6 +11,7 @@
   (setq ring-bell-function 'ignore)
   (setq use-short-answers t)
   (setq visible-bell nil)
+  (setq global-auto-revert-ignore-modes '(Buffer-menu-mode))
   :config
   (blink-cursor-mode -1))
 
@@ -49,11 +50,12 @@
      "project.clj"
      "composer.json"
      "pyproject.toml"
-     "build.zig"
      "Cargo.toml"
      "CMakeLists.txt"
      "go.mod"
-     "cabal*"))
+     "cabal*"
+     "*.csproj"
+     "*.sln"))
   (project-vc-ignores
    '("node_modules"
      "target"

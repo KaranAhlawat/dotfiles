@@ -40,7 +40,7 @@
         '((small
            :default-family "monospace"
            :default-height 80
-           :variable-pitch-family "DejaVu Serif")
+           :variable-pitch-family "Liberation Serif")
           (regular
            :default-weight medium)
           (medium
@@ -53,10 +53,10 @@
            :default-height 190)
           (t
            :default-family "monospace"
-           :default-height 130
+           :default-height 140
            :fixed-pitch-family "monospace"
-           :default-height 130
-           :variable-pitch-family "DejaVu Serif"
+           :default-height 140
+           :variable-pitch-family "Liberation Mono"
            :variable-pitch-height 140)))
   :config
   (if (daemonp)
@@ -81,29 +81,18 @@
 (defun conf/switch-theme-to-os (light dark)
   "Switch the current Emacs theme according to either LIGHT or DARK."
   (interactive)
-  (defvar catppuccin-flavor)
   (mapc #'disable-theme custom-enabled-themes)
   (if (conf/is-it-dark-yet?)
-      (progn
-        (setq catppuccin-flavor 'mocha)
-        (load-theme dark :no-confirm))
-    (progn
-      (setq catppuccin-flavor 'latte)
-      (load-theme light :no-confirm))))
+      (load-theme dark :no-confirm)
+    (load-theme light :no-confirm)))
 
-(use-package nord-theme
+(use-package doom-themes
   :straight t
-  :init
-  (setq nord-uniform-mode-lines t)
-  (setq nord-region-highlight "frost")
   :config
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions
-                (lambda (frame)
-                  (with-selected-frame
-                      frame
-                    (load-theme 'nord t))))
-    (load-theme 'nord t)))
+  (load-theme 'doom-nord t))
+
+(use-package fleetish-theme
+  :straight t)
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

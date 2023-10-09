@@ -44,7 +44,7 @@
 
 (defun conf/set-spacing ()
   "Set the `line-spacing' for buffers."
-  (setq-local line-spacing 16)
+  (setq-local line-spacing nil)
   (setq-local line-spacing-vertical-center t))
 
 (dolist (hook '(text-mode-hook
@@ -53,6 +53,7 @@
                 help-mode-hook))
   (add-hook hook #'conf/set-spacing))
 
+(require 'setup-org)
 (require 'windows)
 
 (use-package popper
@@ -150,6 +151,13 @@
 
   :config (setq popper-display-control 'user) (popper-mode +1))
 
+(use-package custom
+  :init
+  (defvar after-enable-theme-hook nil)
+  (defun run-after-enable-theme-hook (&rest _args)
+    (run-hooks 'after-enable-theme-hook))
+  (advice-add 'enable-theme :after #'run-after-enable-theme-hook))
+
 (require 'general)
 (require 'keybindings)
 (require 'ui)
@@ -159,7 +167,6 @@
 (require 'languages)
 (require 'development)
 (require 'shells)
-(require 'setup-org)
 (require 'setup-latex)
 (require 'reader)
 

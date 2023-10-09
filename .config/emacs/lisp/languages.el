@@ -33,6 +33,12 @@
              (shell-script-mode . bash-ts-mode)))
     (push pair major-mode-remap-alist)))
 
+(use-package ts-query-highlight
+  :straight (:type git :host sourcehut :repo "meow_king/ts-query-highlight")
+  :config
+  ;; default is `dabbrev-expand`. For `cape-dabbrev`, take a look at https://github.com/minad/cape
+  (setq ts-query-highlight-dabbrev-expand-function 'cape-dabbrev))
+
 ;; Cider for clojure
 (use-package cider
   :straight t
@@ -86,6 +92,9 @@
    python-indent-offset 4
    python-indent-guess-indent-offset nil
    python-indent-guess-indent-offset-verbose nil))
+
+(use-package micromamba
+  :straight t)
 
 (use-package css-mode
   :straight (:type built-in)

@@ -4,25 +4,19 @@
 ;;; Code:
 
 ;; AUCTEX
-(use-package cdlatex
+(use-package auctex
   :straight t
-  :hook (LaTeX-mode . turn-on-cdlatex)
-  :bind (:map cdlatex-mode-map
-              ("<tab>" . cdlatex-tab)))
-
-(use-package latex
-  :straight auctex
+  :defer t
   :mode ("\\.tex\\'" . TeX-latex-mode)
   :hook
   ((LaTeX-mode . prettify-symbols-mode)
    (LaTeX-mode . turn-on-auto-fill)
-   (LaTeX-mode . (lambda () (setq corfu-mode -1))))
-  :config
+   (LaTeX-mode . eglot-ensure))
+  :init
   (setq
    TeX-parse-self t
    TeX-auto-save t
    TeX-auto-untabify t
-   TeX-engine 'xetex
    TeX-auto-local ".auctex-auto"
    TeX-style-local ".auctex-style"
    TeX-source-correlate-mode t
@@ -32,6 +26,9 @@
    TeX-save-query nil
    TeX-view-program-selection '((output-pdf "Evince"))
    TeX-region ".auctex-region")
+  (setq-default
+   TeX-output-dir "build"
+   TeX-master nil)
 
   ;; Scale up previews
   (setq conf/org-latex-scale 1.75)
@@ -40,16 +37,26 @@
          org-format-latex-options
          :scale conf/org-latex-scale)))
 
-;; Faster org-mode previews
-(use-package org-auctex
-  :straight (:type git :host github :repo "karthink/org-auctex")
-  :after org
-  :hook org-mode)
+(use-package cdlatex
+  :straight t
+  :after tex-site
+  :hook (LaTeX-mode . turn-on-cdlatex)
+  :bind (:map cdlatex-mode-map
+              ("<tab>" . cdlatex-tab))
+  :init
+  (setq cdlatex-takeover-dollar nil)
+  (setq cdlatex-takeover-parenthesis nil))
 
 ;; Faster-er math lol
 (use-package laas
   :straight t
-  :hook LaTeX-mode)
+  :hook LaTeX-mode
+  :config
+  (aas-set-snippets
+   'laas-mode
+   "dm" (lambda () (interactive)
+          (yas-expand-snippet "\\[\n  $0 \n\\]"))))
+
 
 (provide 'setup-latex)
 ;;; setup-latex.el ends here

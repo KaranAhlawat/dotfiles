@@ -60,8 +60,8 @@
         (eshell-read-aliases-list)
       (progn
         (eshell/alias "clear" "clear 1")
-        (eshell/alias "ls" "exa $*")
-        (eshell/alias "l" "exa -la $*"))))
+        (eshell/alias "ls" "eza $*")
+        (eshell/alias "l" "eza -la $*"))))
 
   (defun conf/eshell-setup-modes ()
     "Setup various modes for eshell."

@@ -11,6 +11,9 @@
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -19,6 +22,9 @@
   },
   "C_Cpp.clang_format_fallbackStyle": "GNU",
   "C_Cpp.default.cppStandard": "gnu++20",
+  "calva.autoOpenREPLWindow": false,
+  "calva.clojureLspPath": "/home/karan/.local/bin/clojure-lsp",
+  "calva.useLiveShare": true,
   "cssvar.extensions": [
     "css",
     "scss",
@@ -38,15 +44,15 @@
     "./node_modules/open-props/media.min.css"
   ],
   "cssvar.ignore": [],
+  "dev.containers.dockerComposePath": "podman-compose",
+  "dev.containers.dockerPath": "podman",
   "editor.cursorBlinking": "solid",
-  "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorStyle": "block",
   "editor.fontFamily": "monospace",
-  "editor.fontLigatures": "'salt'",
+  "editor.fontLigatures": "false",
   "editor.fontSize": 15,
-  "editor.fontWeight": "400",
   "editor.formatOnSave": true,
-  "editor.lineHeight": 2.5,
+  "editor.lineHeight": 0,
   "editor.linkedEditing": true,
   "editor.minimap.autohide": true,
   "editor.scrollbar.vertical": "hidden",
@@ -58,18 +64,21 @@
     "typescript", // Enable .ts
     "typescriptreact" // Enable .tsx
   ],
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "files.watcherExclude": {
+    "**/.ammonite": true,
+    "**/.bloop": true,
+    "**/.metals": true
+  },
+  "liveshare.openSharedServers": false,
   "window.menuBarVisibility": "hidden",
   "window.titleBarStyle": "native",
+  "window.zoomLevel": 1,
+  "workbench.editor.enablePreview": true,
   "workbench.iconTheme": "vscode-icons",
+  "workbench.sideBar.location": "right",
   "workbench.startupEditor": "none",
-  "dev.containers.dockerPath": "podman",
-  "dev.containers.dockerComposePath": "podman-compose",
-  "haskell.manageHLS": "GHCup",
-  "files.watcherExclude": {
-    "**/.bloop": true,
-    "**/.metals": true,
-    "**/.ammonite": true
-  },
-  "workbench.colorTheme": "modus-vivendi",
-  "window.zoomLevel": 1
+  "workbench.colorTheme": "Nord"
 }

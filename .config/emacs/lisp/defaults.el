@@ -28,8 +28,9 @@
 ;; Try to tame the TAB
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
-(setq-default cursor-type '(hbar . 5))
-(setq tab-always-indent t)
+(setq-default cursor-type t)
+(setq-default tab-always-indent 't)
+(setq-default tab-first-completion 'eol)
 
 ;; Shorten yes or no to y or n
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -51,8 +52,9 @@
 ;; Exec path is taken from shell
 (use-package exec-path-from-shell
   :straight t
-  :custom (exec-path-from-shell-arguments nil)
-  :init (exec-path-from-shell-initialize))
+  :init
+  (setq exec-path-from-shell-arguments '("-l"))
+  :config (exec-path-from-shell-initialize))
 
 (use-package whitespace
   :straight (:type built-in)
