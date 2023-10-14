@@ -41,5 +41,4 @@ if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] &&
   exec tmux
 fi
 
-# Created by `pipx` on 2023-09-30 16:42:25
-export PATH="$PATH:/home/karan/.local/bin"
+export PATH="$PATH:/opt/idea-IC-232.9921.47/bin/"

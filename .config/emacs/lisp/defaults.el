@@ -31,6 +31,7 @@
 (setq-default cursor-type t)
 (setq-default tab-always-indent 't)
 (setq-default tab-first-completion 'eol)
+(setq-default read-process-output-max (* 1024 1024)) ;; 1 MB
 
 ;; Shorten yes or no to y or n
 (fset 'yes-or-no-p 'y-or-n-p)

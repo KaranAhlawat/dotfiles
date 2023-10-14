@@ -27,6 +27,7 @@
   (eglot-autoshutdown t)
   (eglot-send-changes-idle-time 0.2)
   (eglot-confirm-server-initiated-edits nil)
+  (eglot-events-buffer-size 20000)
 
   :config
   (fset #'jsonrpc--log-event #'ignore)
@@ -135,10 +136,19 @@
   :straight nil
   :hook eglot-ensure
   :custom
-  (eldoc-echo-area-use-multiline-p 2)
-  (eldoc-echo-area-display-truncation-message nil)
+  (eldoc-echo-area-use-multiline-p 'truncate-sym-name-if-fit)
+  (eldoc-echo-area-display-truncation-message t)
   (eldoc-echo-area-prefer-doc-buffer t)
-  (eldoc-idle-delay 0.25))
+  (eldoc-idle-delay 0.15))
+
+(use-package eldoc-box
+  :straight t
+  :after (eglot eldoc)
+  :hook (eldoc-mode . eldoc-box-hover-mode)
+  :init
+  (setq eldoc-box-only-multi-line t)
+  (setq eldoc-box-clear-with-C-g t)
+  (setq eldoc-box-max-pixel-width 500))
 
 (use-package smartparens
   :straight t
@@ -207,7 +217,8 @@
                               (when-let* ((project (project-current))
                                           (root (project-root project)))
                                 (list "--config" (expand-file-name ".scalafmt.conf" root)))
-                              "--stdin"))
+                              filepath
+                              "--stdout"))
                  (zprint . ("zprint"))
                  (refmt . ("refmt"))))
     (push fmt apheleia-formatters))

@@ -156,6 +156,7 @@
   (defvar after-enable-theme-hook nil)
   (defun run-after-enable-theme-hook (&rest _args)
     (run-hooks 'after-enable-theme-hook))
+  :config
   (advice-add 'enable-theme :after #'run-after-enable-theme-hook))
 
 (require 'general)

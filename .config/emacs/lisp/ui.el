@@ -20,6 +20,16 @@
   "Disable `display-line-numbers-mode' in a major-mode."
   (display-line-numbers-mode -1))
 
+(defmacro conf/daemon-frame-hook! (body)
+  "Add BODY to `after-make-frame-functions' properly."
+  `(if (daemonp)
+       (add-to-list 'after-make-frame-functions
+                    (lambda (frame)
+                      (with-selected-frame
+                          frame
+                        ,body)))
+     ,body))
+
 (dolist (mode '(org-mode-hook eshell-mode-hook))
   (add-hook mode #'conf/disable-line-numbers-in-mode))
 
@@ -53,19 +63,14 @@
            :default-height 190)
           (t
            :default-family "monospace"
-           :default-height 140
+           :default-height 130
            :fixed-pitch-family "monospace"
-           :default-height 140
+           :default-height 130
            :variable-pitch-family "Liberation Mono"
            :variable-pitch-height 140)))
   :config
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions
-                (lambda (frame)
-                  (with-selected-frame
-                      frame
-                    (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))))
-    (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
+  (conf/daemon-frame-hook!
+   (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
 
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
@@ -89,10 +94,7 @@
 (use-package doom-themes
   :straight t
   :config
-  (load-theme 'doom-nord t))
-
-(use-package fleetish-theme
-  :straight t)
+  (load-theme 'doom-oksolar-dark t))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

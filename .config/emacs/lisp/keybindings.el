@@ -14,9 +14,12 @@
 
 (use-package evil
   :straight t
-  :bind ( ( "<escape>" . keyboard-escape-quit)
-          :map evil-normal-state-map
-          ( "U" . evil-redo))
+  :demand t
+  :bind (( "<escape>" . keyboard-escape-quit )
+         :map evil-normal-state-map
+         ( "U" . evil-redo )
+         ( "M-." . nil )
+         ( "C-." . nil ))
   :init
   (setq evil-want-keybinding nil)
   (setq evil-want-Y-yank-to-eol t)
@@ -32,7 +35,7 @@
   (setq evil-want-fine-undo t)
   (setq evil-symbol-word-search t)
   :config
-  (evil-mode 1))
+  (evil-mode t))
 
 (use-package evil-collection
   :straight t
@@ -61,7 +64,13 @@
     "b" #'beframe-switch-buffer
     "s" #'save-buffer
     "f" #'find-file
-    "q" #'kill-buffer)
+    "q" #'kill-buffer
+    "pp" #'project-switch-project
+    "pb" #'project-switch-to-buffer
+    "pk" #'project-kill-buffers
+    "pe" #'project-eshell
+    "pg" #'consult-ripgrep
+    "pf" #'project-find-file)
   (global-evil-leader-mode))
 
 (use-package evil-cleverparens
