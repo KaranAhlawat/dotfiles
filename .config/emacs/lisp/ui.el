@@ -52,9 +52,9 @@
            :default-height 80
            :variable-pitch-family "Liberation Serif")
           (regular
-           :default-weight medium)
+           :default-weight normal)
           (medium
-           :default-height 140)
+           :default-height 130)
           (large
            :inherit medium
            :default-height 190)
@@ -67,7 +67,7 @@
            :fixed-pitch-family "monospace"
            :default-height 130
            :variable-pitch-family "Liberation Mono"
-           :variable-pitch-height 140)))
+           :variable-pitch-height 130)))
   :config
   (conf/daemon-frame-hook!
    (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
@@ -91,10 +91,18 @@
       (load-theme dark :no-confirm)
     (load-theme light :no-confirm)))
 
-(use-package doom-themes
+(use-package jetbrains-darcula-theme
   :straight t
   :config
-  (load-theme 'doom-oksolar-dark t))
+  (load-theme 'jetbrains-darcula t))
+
+(use-package adwaita-dark-theme
+  :straight t
+  :custom
+  (adwaita-dark-theme-bold-vertico-current t)
+  (adwaita-dark-theme-modeline-padding 5)
+  :config
+  (eval-after-load 'flymake #'adwaita-dark-theme-flymake-fringe-bmp-enable))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

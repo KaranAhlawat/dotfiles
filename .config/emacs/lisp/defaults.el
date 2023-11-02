@@ -66,5 +66,10 @@
   :config
   (global-whitespace-mode))
 
+(use-package delsel
+  :straight (:type built-in)
+  :config
+  (delete-selection-mode))
+
 (provide 'defaults)
 ;; defaults.el ends here

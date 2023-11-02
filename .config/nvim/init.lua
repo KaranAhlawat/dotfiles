@@ -17,11 +17,16 @@ vim.opt.expandtab = true
 
 require("lazy").setup({
   {
-    "Tsuzat/NeoSolarized.nvim",
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
+    "Mofiqul/adwaita.nvim",
+    lazy = false,
+    priority = 1000,
+    
+    -- configure and set on startup
     config = function()
-      vim.cmd.colorscheme 'NeoSolarized'
+        vim.g.adwaita_darker = false
+        vim.g.adwaita_disable_cursorline = true -- to disable cursorline
+        vim.g.adwaita_transparent = true        -- makes the background transparent
+        vim.cmd.colorscheme 'adwaita'
     end
   }
 })

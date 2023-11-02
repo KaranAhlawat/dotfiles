@@ -27,10 +27,10 @@
   (eglot-autoshutdown t)
   (eglot-send-changes-idle-time 0.2)
   (eglot-confirm-server-initiated-edits nil)
-  (eglot-events-buffer-size 20000)
 
   :config
   (fset #'jsonrpc--log-event #'ignore)
+
   (dolist (mode
            '(c-ts-mode-hook
              c++-ts-mode-hook
@@ -40,8 +40,6 @@
              python-ts-mode-hook
              java-ts-mode-hook
              csharp-ts-mode-hook
-             elixir-ts-mode-hook
-             heex-ts-mode-hook
              php-mode-hook
              dart-mode-hook
              clojure-mode-hook
@@ -54,20 +52,6 @@
    'eglot-server-programs
    '(php-mode . ("intelephense" "--stdio")))
 
-  (add-to-list
-   'eglot-server-programs
-   '(scala-ts-mode . ("metals" "-Dmetals.extensions=false"
-                      :initializationOptions ( :compilerOptions ( :snippetAutoIndent :json-false
-                                                                  :overrideDefFormat "unicode")
-                                               :icons "unicode"
-                                               :statusBarProvider "log-message"
-                                               :isHttpEnabled t
-                                               :treeViewProvider :json-false))))
-
-  (add-to-list
-   'eglot-server-programs
-   '(elixir-ts-mode . ("~/.local/bin/els/language_server.sh")))
-
   (dolist (mode '(c-ts-mode c++-ts-mode c-mode c++-mode))
     (add-to-list
      'eglot-server-programs
@@ -76,8 +60,6 @@
                  "--all-scopes-completion"
                  "--clang-tidy"
                  "--log=error"
-                 "--suggest-missing-includes"
-                 "--cross-file-rename"
                  "--completion-style=detailed"
                  "--pch-storage=memory"
                  "--folding-ranges"
@@ -105,30 +87,40 @@
                 '( :vtsls ( :experimental ( :completion ( :enableServerSideFuzzyMatch t
                                                           :entriesLimit 200 )))
                    :pylsp ( :plugins ( :jedi_completion ( :include_params t
-                                                          :fuzzy t)
+                                                          :fuzzy t )
                                        :mypy ( :live_mode :json-false
-                                               :dmypy t)
+                                               :dmypy t )
                                        :ruff ( :enabled t
-                                               :lineLength 100)
+                                               :lineLength 100 )
                                        :black ( :enabled t
-                                                :line_length 100)))
+                                                :line_length 100 )))
                    :gopls ( :usePlaceholders t
                             :staticcheck t
-                            :matcher "Fuzzy")
+                            :matcher "Fuzzy" )
                    :dart ( :completeFunctionCalls t
-                           :enableSnippets t)
-                   :metals ( :superMethodLensesEnabled t
-                             :showInferredType t
-                             :showImplicitArguments t
-                             :showImplicitConversionsAndClasses t
-                             :bloopSbtAlreadyInsatlled t)
+                           :enableSnippets t )
+                   :metals ( :showInferredType t )
                    :elixirLS ( :autoBuild t
                                :dialyzerEnabled t
                                :fetchDeps :json-false
                                :suggestSpecs t
-                               :trace ( :server t)
+                               :trace ( :server t )
                                :enableTestLenses t
-                               :signatureAfterComplete t))))
+                               :signatureAfterComplete t )
+                   :netbeans.javadoc.load.timeout 10000
+                   :netbeans.java.onSave.organizeImports t)))
+
+(use-package eglot-metals
+  :straight (:local-repo "/home/karan/repos/eglot-metals")
+  :after eglot)
+
+(use-package eglot-java
+  :straight (:local-repo "/home/karan/repos/eglot-java")
+  :after eglot)
+
+(use-package breadcrumb
+  :straight t
+  :hook eglot-ensure)
 
 ;; Eldoc for documentation
 (use-package eldoc
@@ -150,8 +142,10 @@
   (setq eldoc-box-clear-with-C-g t)
   (setq eldoc-box-max-pixel-width 500))
 
+
 (use-package smartparens
   :straight t
+  :demand t
   :hook ((clojure-mode . smartparens-strict-mode)
          (clojurescript-mode . smartparens-strict-mode)
          (clojurec-mode . smartparens-strict-mode)
@@ -253,11 +247,6 @@
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
   (add-to-list 'tramp-connection-properties
                (list nil "remote-shell" "/bin/bash")))
-
-(use-package crdt
-  :straight t
-  :init
-  (setq crdt-use-tuntox t))
 
 (provide 'development)
 ;;; development.el ends here

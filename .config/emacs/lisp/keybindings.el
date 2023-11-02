@@ -63,8 +63,11 @@
     "," #'execute-extended-command
     "b" #'beframe-switch-buffer
     "s" #'save-buffer
+    "k" #'kill-buffer
     "f" #'find-file
-    "q" #'kill-buffer
+    "r" #'recentf-open
+    "qe" #'kill-emacs
+    "qq" #'delete-frame
     "pp" #'project-switch-project
     "pb" #'project-switch-to-buffer
     "pk" #'project-kill-buffers

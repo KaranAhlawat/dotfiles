@@ -14,6 +14,7 @@
         '("*scratch*" "*Messages*" "*Org Agenda*"))
   (setq beframe-functions-in-frames '(project-prompt-project-dir))
   (setq beframe-create-frame-scratch-buffer nil)
+  (setq beframe-rename-function nil)
   (defvar consult-buffer-sources)
   (declare-function consult--buffer-state "consult")
 

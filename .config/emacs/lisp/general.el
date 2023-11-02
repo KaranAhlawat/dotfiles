@@ -13,7 +13,8 @@
   (setq visible-bell nil)
   (setq global-auto-revert-ignore-modes '(Buffer-menu-mode))
   :config
-  (blink-cursor-mode -1))
+  (blink-cursor-mode -1)
+  (global-set-key [remap eval-last-sexp] #'pp-eval-last-sexp))
 
 ;; Makes it easier to see where what is
 (use-package rainbow-delimiters
@@ -55,7 +56,8 @@
      "go.mod"
      "cabal*"
      "*.csproj"
-     "*.sln"))
+     "*.sln"
+     "*gradle*"))
   (project-vc-ignores
    '("node_modules"
      "target"
@@ -111,14 +113,10 @@
 (use-package pulsar
   :straight t
   :init
-  (defface pulsar-nord
-    '((t :background "#88C0D0"
-         :extend t))
-    "Face for pulsar.")
   (setq pulsar-pulse t)
   (setq pulsar-delay 0.05)
   (setq pulsar-iterations 10)
-  (setq pulsar-face 'pulsar-nord)
+  (setq pulsar-face 'pulsar-blue)
   :config
   (add-hook 'consult-after-jump-hook #'pulsar-recenter-top)
   (add-hook 'consult-after-jump-hook #'pulsar-reveal-entry)
@@ -151,6 +149,13 @@
   :straight (nerd-icons-dired :type git :host github :repo "rainstormstudio/nerd-icons-dired")
   :hook
   (dired-mode . nerd-icons-dired-mode))
+
+(use-package recentf
+  :straight (:type built-in)
+  :bind ("C-x C-r" . #'recentf-open)
+  :config
+  (recentf-load-list)
+  (recentf-mode))
 
 (provide 'general)
 ;;; general.el ends here

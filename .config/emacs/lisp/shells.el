@@ -66,7 +66,8 @@
   (defun conf/eshell-setup-modes ()
     "Setup various modes for eshell."
     (display-line-numbers-mode -1)
-    (corfu-mode -1))
+    ;; (corfu-mode -1)
+    )
 
   (defun conf/setup-remote-aliases ()
     "Setup remote aliases."
@@ -161,7 +162,7 @@
   :straight (:type built-in)
   :requires xterm-color
   :hook
-  ((shell-mode . (lambda () (corfu-mode -1)))
+  (;; (shell-mode . (lambda () (corfu-mode -1)))
    (shell-mode . (lambda () (display-line-numbers-mode -1)))
    (shell-mode . (lambda ()
                    (font-lock-mode -1)

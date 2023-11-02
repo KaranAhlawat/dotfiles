@@ -80,5 +80,11 @@
   "workbench.iconTheme": "vscode-icons",
   "workbench.sideBar.location": "right",
   "workbench.startupEditor": "none",
-  "workbench.colorTheme": "Nord"
+  "graalvm.home": "/home/karan/.sdkman/candidates/java/21-graalce",
+  "graalvm.installations": ["/home/karan/.sdkman/candidates/java/21-graalce"],
+  "terminal.integrated.env.linux": {
+    "GRAALVM_HOME": "/home/karan/.sdkman/candidates/java/21-graalce"
+  },
+  "metals.fallbackScalaVersion": "2.13.12",
+  "redhat.telemetry.enabled": false
 }

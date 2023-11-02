@@ -21,7 +21,7 @@
 
 ;; ORG CONFIGURATION
 (use-package org
-  :straight (:type built-in)
+  :straight t
   :hook
   ((org-mode . visual-line-mode)
    (org-mode . turn-on-org-cdlatex)

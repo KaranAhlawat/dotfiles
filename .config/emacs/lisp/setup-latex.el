@@ -28,14 +28,7 @@
    TeX-region ".auctex-region")
   (setq-default
    TeX-output-dir "build"
-   TeX-master nil)
-
-  ;; Scale up previews
-  (setq conf/org-latex-scale 1.75)
-  (setq org-format-latex-options
-        (plist-put
-         org-format-latex-options
-         :scale conf/org-latex-scale)))
+   TeX-master nil))
 
 (use-package cdlatex
   :straight t

@@ -91,27 +91,63 @@ comma."
         (directory-files (concat user-emacs-directory "templates")
                          t
                          directory-files-no-dot-files-regexp)))
-;; Corfu for completion at point popup
-(use-package corfu
-  :straight t
-  :custom
-  (corfu-cycle t)
-  (corfu-auto t)
-  (corfu-auto-prefix 2)
-  (corfu-auto-delay 0.0)
-  (corfu-preview-current 'insert)
-  (corfu-preselect-first t)
-  (corfu-on-exact-match nil)
 
-  :bind (:map corfu-map
-              ("M-SPC" . corfu-insert-separator)
-              ("TAB" . corfu-next)
-              ([tab] . corfu-next)
-              ("S-TAB" . corfu-previous)
-              ([backtab] . corfu-previous)
-              ("RET" . corfu-insert))
-  :init
-  (global-corfu-mode))
+(use-package company
+  :straight t
+  :demand t
+  :hook ((emacs-lisp-mode . (lambda ()
+                              (setq-local company-backends '(company-elisp company-files))))
+         (eglot-ensure . (lambda ()
+                           (setq-local company-backends '( company-capf (company-dabbrev-code company-keywords))))))
+  :bind (:map company-active-map
+              ([tab] . company-complete-common-or-cycle)
+              ([backtab] . (lambda ()
+                             (interactive)
+                             (company-complete-common-or-cycle -1))))
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0)
+  (company-require-match nil)
+  (company-selection-default 0)
+  (company-global-modes '(not eshell-mode shell-mode))
+  (company-selection-wrap-around t)
+  (company-tooltip-align-annotations t)
+  (company-tooltip-flip-when-above t)
+  (company-abort-on-unique-match nil)
+  (company-backends '( company-capf company-cmake company-files
+                       ( company-dabbrev-code company-keywords )))
+  (company-frontends '( company-pseudo-tooltip-frontend
+                        company-preview-frontend
+                        company-echo-metadata-frontend ))
+  :config
+  (keymap-global-unset "C-M-i")
+  (keymap-unset emacs-lisp-mode-map "C-M-i")
+  (keymap-global-set "C-M-i" #'company-complete)
+  (add-hook 'after-init-hook #'global-company-mode))
+
+
+
+;; Corfu for completion at point popup
+;; (use-package corfu
+;;   :straight t
+;;   :custom
+;;   (corfu-cycle t)
+;;   (corfu-auto t)
+;;   (corfu-auto-prefix 2)
+;;   (corfu-auto-delay 0.0)
+;;   (corfu-preview-current 'insert)
+;;   (corfu-preselect-first t)
+;;   (corfu-on-exact-match nil)
+
+;;   :bind (:map corfu-map
+;;               ("C-SPC" . corfu-insert-separator)
+;;               ("TAB" . corfu-next)
+;;               ([tab] . corfu-next)
+;;               ("S-TAB" . corfu-previous)
+;;               ([backtab] . corfu-previous)
+;;               ("RET" . corfu-insert))
+;;   :init
+;;   (global-corfu-mode))
 
 (use-package consult
   :straight t

@@ -18,6 +18,7 @@
              (python . ("https://github.com/tree-sitter/tree-sitter-python" nil nil nil nil))
              (go . ("https://github.com/tree-sitter/tree-sitter-go"  nil nil nil))
              (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" nil nil  nil))
+             (java . ("https://github.com/tree-sitter/tree-sitter-java" nil nil nil))
              (scala . ("https://github.com/tree-sitter/tree-sitter-scala" nil nil nil))))
     (push pair treesit-language-source-alist))
 
@@ -105,6 +106,11 @@
   :straight (:type built-in)
   :mode ("\\.scss\\'" . scss-mode)
   :custom (css-indent-offset 2))
+
+(use-package java-ts-mode
+  :straight (:type built-in)
+  :custom
+  (java-ts-mode-indent-offset 2))
 
 ;; Scala TS (local)
 (use-package scala-ts-mode

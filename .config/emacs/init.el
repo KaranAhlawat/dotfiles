@@ -34,6 +34,8 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+(straight-use-package 'org)
+
 ;; Setting the custom file
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (when (file-exists-p custom-file)
