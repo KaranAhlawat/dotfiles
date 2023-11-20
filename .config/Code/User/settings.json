@@ -1,25 +1,4 @@
 {
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "C_Cpp.clang_format_fallbackStyle": "GNU",
   "C_Cpp.default.cppStandard": "gnu++20",
   "calva.autoOpenREPLWindow": false,
@@ -49,10 +28,9 @@
   "editor.cursorBlinking": "solid",
   "editor.cursorStyle": "block",
   "editor.fontFamily": "monospace",
-  "editor.fontLigatures": "false",
-  "editor.fontSize": 13.5,
+  "editor.fontLigatures": "true",
+  "editor.fontSize": 13,
   "editor.formatOnSave": true,
-  "editor.lineHeight": 0,
   "editor.linkedEditing": true,
   "editor.minimap.autohide": true,
   "editor.scrollbar.vertical": "hidden",
@@ -64,9 +42,6 @@
     "typescript", // Enable .ts
     "typescriptreact" // Enable .tsx
   ],
-  "extensions.experimental.affinity": {
-    "asvetliakov.vscode-neovim": 1
-  },
   "files.watcherExclude": {
     "**/.ammonite": true,
     "**/.bloop": true,
@@ -75,16 +50,32 @@
   "liveshare.openSharedServers": false,
   "window.menuBarVisibility": "hidden",
   "window.titleBarStyle": "native",
-  "window.zoomLevel": 1,
   "workbench.editor.enablePreview": true,
   "workbench.iconTheme": "vscode-icons",
   "workbench.sideBar.location": "right",
   "workbench.startupEditor": "none",
-  "graalvm.home": "/home/karan/.sdkman/candidates/java/21-graalce",
-  "graalvm.installations": ["/home/karan/.sdkman/candidates/java/21-graalce"],
   "terminal.integrated.env.linux": {
     "GRAALVM_HOME": "/home/karan/.sdkman/candidates/java/21-graalce"
   },
   "metals.fallbackScalaVersion": "2.13.12",
-  "redhat.telemetry.enabled": false
+  "redhat.telemetry.enabled": false,
+  "metals.superMethodLensesEnabled": false,
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  },
+  "vim.leader": "<Space>",
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.handleKeys": {
+    "<C-d>": true,
+    "<C-s>": false,
+    "<C-z>": false,
+    "<C-p>": false
+  },
+  "window.zoomLevel": 1,
+  "workbench.colorTheme": "JetBrains New UI Dark Theme",
+  "editor.renderWhitespace": "all"
 }

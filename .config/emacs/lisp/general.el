@@ -54,7 +54,7 @@
      "Cargo.toml"
      "CMakeLists.txt"
      "go.mod"
-     "cabal*"
+     "*.cabal"
      "*.csproj"
      "*.sln"
      "*gradle*"))

@@ -114,18 +114,21 @@ comma."
   (company-tooltip-align-annotations t)
   (company-tooltip-flip-when-above t)
   (company-abort-on-unique-match nil)
-  (company-backends '( company-capf company-cmake company-files
-                       ( company-dabbrev-code company-keywords )))
+  (company-backends '( company-capf
+                       company-elisp
+                       company-cmake
+                       company-files
+                       ( company-dabbrev-code
+                         company-keywords )))
   (company-frontends '( company-pseudo-tooltip-frontend
                         company-preview-frontend
                         company-echo-metadata-frontend ))
+  (company-format-margin-function #'company-vscode-dark-icons-margin)
   :config
   (keymap-global-unset "C-M-i")
   (keymap-unset emacs-lisp-mode-map "C-M-i")
   (keymap-global-set "C-M-i" #'company-complete)
   (add-hook 'after-init-hook #'global-company-mode))
-
-
 
 ;; Corfu for completion at point popup
 ;; (use-package corfu
@@ -224,7 +227,6 @@ comma."
           (variable       "va"  :icon "symbol-variable"    :face font-lock-variable-name-face     :collection "vscode")
           (t              "."   :icon "question"           :face font-lock-warning-face           :collection "vscode")))
   :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
   (add-hook 'after-enable-theme-hook #'kind-icon-reset-cache))
 
 (setq

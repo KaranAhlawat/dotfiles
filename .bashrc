@@ -13,13 +13,11 @@ alias ls='eza'
 alias l='ls -alG'
 alias open='xdg-open'
 alias lfont='pango-list | rg -S'
-alias dcr='docker compose run --rm'
 alias mill='mill --disable-ticker'
 alias ts='tree-sitter'
 alias bat='batcat'
 alias fd='fdfind'
 alias tmux='tmux -u'
-alias docker='podman'
 alias apt='aptitude'
 alias mm='micromamba'
 alias vi='nvim'
@@ -37,8 +35,8 @@ fi
 
 source /home/karan/repos/vcpkg/scripts/vcpkg_completion.bash
 
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ dumb ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  exec tmux
+if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ dumb ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+	exec tmux
 fi
 
 export PATH="$PATH:/opt/idea-IC-232.9921.47/bin/"

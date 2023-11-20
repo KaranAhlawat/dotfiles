@@ -66,8 +66,8 @@
            :default-height 130
            :fixed-pitch-family "monospace"
            :default-height 130
-           :variable-pitch-family "Liberation Mono"
-           :variable-pitch-height 130)))
+           :variable-pitch-family "sans"
+           :variable-pitch-height 120)))
   :config
   (conf/daemon-frame-hook!
    (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
@@ -91,10 +91,17 @@
       (load-theme dark :no-confirm)
     (load-theme light :no-confirm)))
 
-(use-package jetbrains-darcula-theme
+(use-package modus-themes
   :straight t
+  :init
+  (setq modus-themes-bold-constructs t
+        modus-themes-italic-constructs t
+        modus-themes-intense-mouseovers t
+        modus-themes-mixed-fonts t
+        modus-themes-variable-pitch-ui nil
+        modus-themes-disable-other-themes t)
   :config
-  (load-theme 'jetbrains-darcula t))
+  (load-theme 'modus-vivendi-tinted t))
 
 (use-package adwaita-dark-theme
   :straight t

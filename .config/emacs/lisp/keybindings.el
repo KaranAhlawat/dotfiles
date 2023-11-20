@@ -34,6 +34,7 @@
   (setq evil-cross-lines t)
   (setq evil-want-fine-undo t)
   (setq evil-symbol-word-search t)
+  (setq evil-insert-state-cursor 'box)
   :config
   (evil-mode t))
 
@@ -73,7 +74,10 @@
     "pk" #'project-kill-buffers
     "pe" #'project-eshell
     "pg" #'consult-ripgrep
-    "pf" #'project-find-file)
+    "pf" #'project-find-file
+    "ca" #'eglot-code-actions
+    "af" #'apheleia-format-buffer
+    "lf" #'eglot-format-buffer)
   (global-evil-leader-mode))
 
 (use-package evil-cleverparens

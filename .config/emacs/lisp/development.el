@@ -45,7 +45,8 @@
              clojure-mode-hook
              clojurescript-mode-hook
              clojurec-mode-hook
-             scala-ts-mode-hook))
+             scala-ts-mode-hook
+             haskell-mode-hook))
     (add-hook mode 'eglot-ensure))
 
   (add-to-list
@@ -120,7 +121,9 @@
 
 (use-package breadcrumb
   :straight t
-  :hook eglot-ensure)
+  :config
+  (add-hook 'eglot-ensure-hook (lambda ()
+                                 (breadcrumb-local-mode 1))))
 
 ;; Eldoc for documentation
 (use-package eldoc
@@ -141,7 +144,6 @@
   (setq eldoc-box-only-multi-line t)
   (setq eldoc-box-clear-with-C-g t)
   (setq eldoc-box-max-pixel-width 500))
-
 
 (use-package smartparens
   :straight t
@@ -214,14 +216,16 @@
                               filepath
                               "--stdout"))
                  (zprint . ("zprint"))
-                 (refmt . ("refmt"))))
+                 (refmt . ("refmt"))
+                 (ormolu . ("ormolu" filepath))))
     (push fmt apheleia-formatters))
 
   (dolist (mapping '((scala-ts-mode . scalafmt)
                      (clojure-mode . zprint)
                      (clojurescript-mode . zprint)
                      (clojurec-mode . zprint)
-                     (reason-mode . refmt)))
+                     (reason-mode . refmt)
+                     (haskell-mode . ormolu)))
     (push mapping apheleia-mode-alist)))
 
 (use-package aggressive-indent-mode

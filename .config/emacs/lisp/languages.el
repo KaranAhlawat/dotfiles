@@ -72,15 +72,6 @@
   (add-hook 'web-mode-hook (lambda ()
                              (smartparens-mode -1))))
 
-;; Flutter and dart
-(use-package flutter
-  :straight t
-  :custom
-  (flutter-sdk-path "/opt/flutter"))
-
-(use-package dart-mode
-  :straight t)
-
 (use-package js
   :straight (:type built-in)
   :custom
@@ -115,6 +106,10 @@
 ;; Scala TS (local)
 (use-package scala-ts-mode
   :straight (:local-repo "/home/karan/repos/scala-ts-mode"))
+
+;; Haskell
+(use-package haskell-mode
+  :straight t)
 
 (provide 'languages)
 ;;; languages.el ends here
