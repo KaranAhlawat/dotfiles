@@ -1,7 +1,9 @@
-;; development.el --- Making the money -*- lexical-binding: t; -*-
+;;; development.el --- Making the money -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Sets up a great dev exp inside Emacs
 ;;; Code:
+
+(require 'dash)
 
 ;; Magit, the magical git interface
 (use-package magit
@@ -10,126 +12,86 @@
   (magit-display-buffer-function
    #'magit-display-buffer-same-window-except-diff-v1))
 
-;; Now that eglot is in Emacs itself, that is a huge incentive to move
-;; away from lsp-mode, at least for me.
-(use-package eglot
-  :straight nil
-  :ensure nil
-  :bind ( :map eglot-mode-map
-          ("C-l c a" . eglot-code-actions)
-          ("C-l f r" . eglot-format)
-          ("C-l f b" . eglot-format-buffer)
-          ("C-l r n" . eglot-rename)
-          ("C-l g d" . eglot-find-declaration)
-          ("C-l g i" . eglot-find-implementation)
-          ("C-l g t" . eglot-find-typeDefinition))
-  :custom
-  (eglot-autoshutdown t)
-  (eglot-send-changes-idle-time 0.2)
-  (eglot-confirm-server-initiated-edits nil)
-
-  :config
-  (fset #'jsonrpc--log-event #'ignore)
-
-  (dolist (mode
-           '(c-ts-mode-hook
-             c++-ts-mode-hook
-             typescript-ts-mode-hook
-             tsx-ts-mode-hook
-             js-ts-mode-hook
-             python-ts-mode-hook
-             java-ts-mode-hook
-             csharp-ts-mode-hook
-             php-mode-hook
-             dart-mode-hook
-             clojure-mode-hook
-             clojurescript-mode-hook
-             clojurec-mode-hook
-             scala-ts-mode-hook
-             haskell-mode-hook))
-    (add-hook mode 'eglot-ensure))
-
-  (add-to-list
-   'eglot-server-programs
-   '(php-mode . ("intelephense" "--stdio")))
-
-  (dolist (mode '(c-ts-mode c++-ts-mode c-mode c++-mode))
-    (add-to-list
-     'eglot-server-programs
-     `(,mode . ( "clangd"
-                 "--background-index"
-                 "--all-scopes-completion"
-                 "--clang-tidy"
-                 "--log=error"
-                 "--completion-style=detailed"
-                 "--pch-storage=memory"
-                 "--folding-ranges"
-                 "--enable-config"
-                 "--offset-encoding=utf-16"))))
-
-  (dolist (mode '(js-ts-mode typescript-ts-mode tsx-ts-mode))
-    (let ((lang-id
-           (cond
-            ((eq mode 'js-ts-mode)
-             "javascript")
-            ((eq mode 'typescript-ts-mode)
-             "typescript")
-            ((eq mode 'tsx-ts-mode)
-             "typescriptreact"))))
-      (add-to-list
-       'eglot-server-programs
-       `((,mode :language-id ,lang-id)
-         .
-         ,(eglot-alternatives
-           '(("vtsls" "--stdio")
-             ("typescript-language-server" "--stdio")))))))
-
-  (setq-default eglot-workspace-configuration
-                '( :vtsls ( :experimental ( :completion ( :enableServerSideFuzzyMatch t
-                                                          :entriesLimit 200 )))
-                   :pylsp ( :plugins ( :jedi_completion ( :include_params t
-                                                          :fuzzy t )
-                                       :mypy ( :live_mode :json-false
-                                               :dmypy t )
-                                       :ruff ( :enabled t
-                                               :lineLength 100 )
-                                       :black ( :enabled t
-                                                :line_length 100 )))
-                   :gopls ( :usePlaceholders t
-                            :staticcheck t
-                            :matcher "Fuzzy" )
-                   :dart ( :completeFunctionCalls t
-                           :enableSnippets t )
-                   :metals ( :showInferredType t )
-                   :elixirLS ( :autoBuild t
-                               :dialyzerEnabled t
-                               :fetchDeps :json-false
-                               :suggestSpecs t
-                               :trace ( :server t )
-                               :enableTestLenses t
-                               :signatureAfterComplete t )
-                   :netbeans.javadoc.load.timeout 10000
-                   :netbeans.java.onSave.organizeImports t)))
-
-(use-package eglot-metals
-  :straight (:local-repo "/home/karan/repos/eglot-metals")
-  :after eglot)
-
-(use-package eglot-java
-  :straight (:local-repo "/home/karan/repos/eglot-java")
-  :after eglot)
-
-(use-package breadcrumb
+(use-package lsp-mode
   :straight t
+  :commands (lsp lsp-deferred)
+  :hook ((kotlin-ts-mode . lsp-deferred)
+         (typescript-ts-mode . lsp-deferred)
+         (tsx-ts-mode . lsp-deferred)
+         (js-ts-mode . lsp-deferred)
+         (java-ts-mode . lsp-deferred)
+         (astro-ts-mode . lsp-deferred)
+         (scala-ts-mode . lsp-deferred)
+         (lsp-completion-mode . conf/lsp-mode-completion-setup))
+  :custom
+  (lsp-completion-provider :none)
+  :init
+  (defun conf/orderless-dispatch-flex-first (_pattern index _total)
+    (and (eq index 0) 'orderless-flex))
+  
+  (defun conf/lsp-mode-completion-setup ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless))
+
+    (add-hook 'orderless-style-dispatchers #'conf/orderless-dispatch-flex-first nil 'local)
+
+    (setq-local completion-at-point-functions (list (cape-capf-buster #'lsp-completion-at-point))))
+
+  (setq lsp-keymap-prefix ", l")
+  (setq lsp-keep-workspace-alive nil)
+  (setq lsp-enable-links t)
+  (setq lsp-signature-doc-lines 2)
+
+  (require 'lsp-astro)
   :config
-  (add-hook 'eglot-ensure-hook (lambda ()
-                                 (breadcrumb-local-mode 1))))
+  (lsp-enable-which-key-integration t))
+
+(defun lsp-booster--advice-json-parse (old-fn &rest args)
+  "Try to parse bytecode instead of json."
+  (or
+   (when (equal (following-char) ?#)
+     (let ((bytecode (read (current-buffer))))
+       (when (byte-code-function-p bytecode)
+         (funcall bytecode))))
+   (apply old-fn args)))
+
+(advice-add (if (progn (require 'json)
+                       (fboundp 'json-parse-buffer))
+                'json-parse-buffer
+              'json-read)
+            :around
+            #'lsp-booster--advice-json-parse)
+
+(defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
+  "Prepend emacs-lsp-booster command to lsp CMD."
+  (let ((orig-result (funcall old-fn cmd test?)))
+    (if (and (not test?)                             ;; for check lsp-server-present?
+             (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
+             lsp-use-plists
+             (not (functionp 'json-rpc-connection))  ;; native json-rpc
+             (executable-find "emacs-lsp-booster"))
+        (progn
+          (message "Using emacs-lsp-booster for %s!" orig-result)
+          (append '("emacs-lsp-booster" "--json-false-value" ":json-false" "--") orig-result))
+      orig-result)))
+
+(advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
+
+(use-package dap-mode
+  :straight t
+  :after lsp-mode
+  :hook
+  (lsp-mode . dap-mode)
+  (lsp-mode . dap-ui-mode))
+
+(use-package lsp-metals
+  :straight t)
 
 ;; Eldoc for documentation
 (use-package eldoc
   :ensure nil
   :straight nil
-  :hook eglot-ensure
+  :hook lsp-mode
   :custom
   (eldoc-echo-area-use-multiline-p 'truncate-sym-name-if-fit)
   (eldoc-echo-area-display-truncation-message t)
@@ -209,39 +171,48 @@
 (use-package apheleia
   :straight t
   :config
-  (dolist (fmt '((scalafmt . ("scalafmt-native"
-                              (when-let* ((project (project-current))
-                                          (root (project-root project)))
-                                (list "--config" (expand-file-name ".scalafmt.conf" root)))
-                              filepath
-                              "--stdout"))
-                 (zprint . ("zprint"))
-                 (refmt . ("refmt"))
-                 (ormolu . ("ormolu" filepath))))
-    (push fmt apheleia-formatters))
+  (--each '((scalafmt . ("scalafmt-native"
+                         (when-let* ((project (project-current))
+                                     (root (project-root project)))
+                           (list "--config" (expand-file-name ".scalafmt.conf" root)))
+                         filepath
+                         "--stdout"))
+            (zprint . ("zprint"))
+            (refmt . ("refmt"))
+            (ormolu . ("ormolu" filepath)))
+    (push it apheleia-formatters))
 
-  (dolist (mapping '((scala-ts-mode . scalafmt)
-                     (clojure-mode . zprint)
-                     (clojurescript-mode . zprint)
-                     (clojurec-mode . zprint)
-                     (reason-mode . refmt)
-                     (haskell-mode . ormolu)))
-    (push mapping apheleia-mode-alist)))
+  (--each '((scala-ts-mode . scalafmt)
+            (clojure-mode . zprint)
+            (clojurescript-mode . zprint)
+            (clojurec-mode . zprint)
+            (reason-mode . refmt)
+            (haskell-mode . ormolu)
+            (kotlin-ts-mode . ktlint))
+    (push it apheleia-mode-alist)))
 
 (use-package aggressive-indent-mode
   :straight t
   :hook (emacs-lisp-mode . aggressive-indent-mode))
 
+(use-package compile
+  :straight (:type built-in)
+  :init
+  (setq compilation-scroll-output t)
+  (--each '((sbt "^\\[error][[:space:]]\\([/[:word:]]:?[^:[:space:]]+\\):\\([[:digit:]]+\\):\\([[:digit:]]+\\):" 1 2 3 2 1)
+            (dotty "^\\[error][[:space:]]--[[:space:]].*Error: \\([^:]+\\):\\([[:digit:]]+\\):\\([[:digit:]]+\\)" 1 2 3 nil)
+            (munit "^==> X .*: \\(.*\\):\\([[:digit:]]+\\)" 1 2 nil 2 1)
+            (scalatest-info  "^\\[info][[:space:]]+\\(.*\\) (\\([^:[:space:]]+\\):\\([[:digit:]]+\\))" 2 3 nil 2 1)
+            (scalatest-warn "^\\[warn][[:space:]][[:space:]]\\[[[:digit:]]+][[:space:]]\\([/[:word:]]:?[^:[:space:]]+\\):\\([[:digit:]]+\\):\\([[:digit:]]+\\):" 1 2 3 1 1))
+    (push it compilation-error-regexp-alist-alist))
+  (--each '(sbt dotty munit scalatest-info scalatest-warn)
+    (push it compilation-error-regexp-alist)))
+
 ;; ANSI color in compilation buffer
 (use-package ansi-color
   :straight (:type built-in)
   :config
-  (defun colorize-compilation-buffer ()
-    (read-only-mode 'toggle)
-    (ansi-color-apply-on-region (point-min) (point-max))
-    (read-only-mode 'toggle))
-  
-  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
+  (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter))
 
 (use-package tramp
   :straight (:type built-in)

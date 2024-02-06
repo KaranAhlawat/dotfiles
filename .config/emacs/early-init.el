@@ -35,7 +35,7 @@
  '((vertical-scroll-bars . nil)
    (horizontal-scroll-bars . nil)
    (fullscreen . maximized)
-   (undecorated . t)
+   (undecorated . nil)
    (menu-bar-lines . 0)
    (tool-bar-lines . 0)
    (alpha . 100)))
@@ -49,10 +49,6 @@
 (setq inhibit-splash-screen t)
 (setq use-dialog-box t)
 (setq use-file-dialog nil)
-(setq initial-scratch-message
-      (concat
-       ";; *scratch* buffer for "
-       (frame-parameter (selected-frame) 'name)))
 (setq inhibit-startup-echo-area-message user-login-name) ; read the docstring
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-buffer-menu t)

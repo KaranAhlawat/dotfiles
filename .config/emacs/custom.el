@@ -105,18 +105,132 @@
  '(package-vc-selected-packages
    '((scala-ts-mode :vc-backend Git :url "https://github.com/KaranAhlawat/scala-ts-mode")))
  '(safe-local-variable-values
-   '((eval progn
-           (add-to-list 'tramp-remote-path "/usr/local/bin/go")
-           (add-to-list 'tramp-remote-path "/go/bin"))
-     (eval setq tramp-remote-path
-           (append
-            (list "/usr/local/go/bin" "/go/bin")
-            tramp-remote-path))
-     (eval append
-           (list "/usr/local/go/bin" "/go/bin")
-           tramp-remote-path)
-     (eval add-to-list 'tramp-remote-path "/usr/local/go/bin")
-     (eval add-to-list 'tramp-remote-path "/go/bin")
+   '((cider-repl-auto-detect-type nil)
+     (lsp-disabled-clients eslint)
+     (eval eval-after-load 'lsp-mode
+           '(progn
+              (require 'lsp-javascript)
+              (plist-put lsp-deps-providers :local
+                         '(:path
+                           (lambda
+                             (path)
+                             (concat ".yarn/sdks" path))))
+              (lsp-dependency 'typescript
+                              '(:local "typescript/lib"))))
+     (eval eval-after-load 'lsp-mode
+           '(progn
+              (require 'lsp-javascript)
+              (plist-put lsp-deps-provider :local
+                         '(:path
+                           (lambda
+                             (path)
+                             (concat ".yarn/sdks" path))))
+              (lsp-dependency 'typescript
+                              '(:local "typescript/lib"))))
+     (lsp-enabled-clients ts-ls biomejs)
+     (eval eval-after-load 'lsp-mode
+           '(progn
+              (require 'lsp-javascript)
+              (setq lsp-eslint-node-path ".yarn/sdks")
+              (setq lsp-eslint-run "onSave")
+              (plist-put lsp-deps-providers :local
+                         '(:path
+                           (lambda
+                             (path)
+                             (concat ".yarn/sdks/" path))))
+              (lsp-dependency 'typescript
+                              '(:local "typescript/lib"))))
+     (lsp-enabled-clients ts-ls eslint)
+     (eval eval-after-load 'lsp-mode
+           '(progn
+              (require 'lsp-javascript)
+              (plist-put lsp-deps-providers :local
+                         '(:path
+                           (lambda
+                             (path)
+                             (concat ".yarn/sdks/" path))))
+              (lsp-dependency 'typescript
+                              '(:local "typescript/lib"))))
+     (eval eval-after-load 'lsp-mode
+           '(progn
+              (require 'lsp-javascript)
+              (plist-put lsp-deps-providers :local
+                         (:path
+                          (lambda
+                            (path)
+                            (concat ".yarn/sdks/" path))))
+              (lsp-dependency 'typescript
+                              (:local "typescript/lib"))))
+     (eval eval-after-load 'lsp-mode
+           '(progn
+              (require lsp-javascript)
+              (plist-put lsp-deps-providers :local
+                         (:path
+                          (lambda
+                            (path)
+                            (concat ".yarn/sdks/" path))))
+              (lsp-dependency 'typescript
+                              (:local "typescript/lib"))))
+     (eval progn
+           (require 'lsp-javascript)
+           (plist-put lsp-deps-providers :local
+                      '(:path
+                        (lambda
+                          (path)
+                          (concat ".yarn/sdks/" path))))
+           (with-eval-after-load 'lsp-javascript
+             (message "Evaling after load")
+             (lsp-dependency 'typescript
+                             '(:local "typescript/lib"))
+             (message "Done evaling")))
+     (eval progn
+           (require 'lsp-javascript)
+           (plist-put lsp-deps-providers :local
+                      '(:path
+                        (lambda
+                          (path)
+                          (concat ".yarn/sdks/" path))))
+           (eval-after-load 'lsp-javascript
+             (lsp-dependency 'typescript
+                             '(:local "typescript/lib"))))
+     (eval let
+           ((project-directory
+             (car
+              (dir-locals-find-file default-directory))))
+           (require 'lsp-javascript)
+           (plist-put lsp-deps-providers :local
+                      '(:path
+                        (lambda
+                          (path)
+                          (concat ".yarn/sdks/" path))))
+           (lsp-dependency 'typescript
+                           '(:local "typescript/lib")))
+     (eval let
+           ((project-directory
+             (car
+              (dir-locals-find-file default-directory))))
+           (require 'lsp-javascript)
+           (with-eval-after-load 'lsp-javascript
+             (plist-put lsp-deps-providers :local
+                        '(:path
+                          (lambda
+                            (path)
+                            (concat ".yarn/sdks/" path))))
+             (lsp-dependency 'typescript
+                             '(:local "typescript/lib"))))
+     (eval let
+           ((project-directory
+             (car
+              (dir-locals-find-file default-directory))))
+           (with-eval-after-load 'lsp-javascript
+             (plist-put lsp-deps-providers :local
+                        '(:path
+                          (lambda
+                            (path)
+                            (concat ".yarn/sdks/" path))))
+             (lsp-dependency 'typescript
+                             '(:local "typescript/lib"))))
+     (lsp-enabled-clients ts-ls)
      (cider-shadow-watched-builds "app")
      (cider-default-cljs-repl . shadow)
      (cider-preferred-build-tool . shadow)

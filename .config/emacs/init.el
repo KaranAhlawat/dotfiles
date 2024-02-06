@@ -36,6 +36,10 @@
 
 (straight-use-package 'org)
 
+(use-package dash
+  :straight t
+  :demand t)
+
 ;; Setting the custom file
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (when (file-exists-p custom-file)
@@ -46,14 +50,13 @@
 
 (defun conf/set-spacing ()
   "Set the `line-spacing' for buffers."
-  (setq-local line-spacing nil)
-  (setq-local line-spacing-vertical-center t))
+  (setq-local line-spacing nil))
 
-(dolist (hook '(text-mode-hook
-                prog-mode-hook
-                fundamental-mode-hook
-                help-mode-hook))
-  (add-hook hook #'conf/set-spacing))
+(--each '(text-mode-hook
+	        prog-mode-hook
+	        fundamental-mode-hook
+	        help-mode-hook)
+	(add-hook it #'conf/set-spacing))
 
 (require 'setup-org)
 (require 'windows)

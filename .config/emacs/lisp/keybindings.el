@@ -3,15 +3,6 @@
 ;;; Keybindings I had setup but forgot to add to yadm lmao
 ;;; Code:
 
-;; (use-package god-mode
-;;   :straight t
-;;   :bind (("<escape>" . god-mode-all)
-;;          :map god-local-mode-map
-;;          ("i" . god-local-mode)
-;;          ("." . repeat))
-;;   :config
-;;   (add-hook 'after-init-hook #'god-mode-all))
-
 (use-package evil
   :straight t
   :demand t
@@ -34,7 +25,8 @@
   (setq evil-cross-lines t)
   (setq evil-want-fine-undo t)
   (setq evil-symbol-word-search t)
-  (setq evil-insert-state-cursor 'box)
+  (setq evil-default-cursor 't)
+  (setq evil-insert-state-cursor 't)
   :config
   (evil-mode t))
 
@@ -67,6 +59,7 @@
     "k" #'kill-buffer
     "f" #'find-file
     "r" #'recentf-open
+    "w" evil-window-map
     "qe" #'kill-emacs
     "qq" #'delete-frame
     "pp" #'project-switch-project
@@ -75,9 +68,7 @@
     "pe" #'project-eshell
     "pg" #'consult-ripgrep
     "pf" #'project-find-file
-    "ca" #'eglot-code-actions
-    "af" #'apheleia-format-buffer
-    "lf" #'eglot-format-buffer)
+    "af" #'apheleia-format-buffer)
   (global-evil-leader-mode))
 
 (use-package evil-cleverparens

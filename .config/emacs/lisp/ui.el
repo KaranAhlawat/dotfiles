@@ -49,10 +49,8 @@
   (setq fontaine-presets
         '((small
            :default-family "monospace"
-           :default-height 80
-           :variable-pitch-family "Liberation Serif")
-          (regular
-           :default-weight normal)
+           :default-height 80)
+          (regular)
           (medium
            :default-height 130)
           (large
@@ -64,32 +62,20 @@
           (t
            :default-family "monospace"
            :default-height 130
+           :default-weight regular
            :fixed-pitch-family "monospace"
            :default-height 130
-           :variable-pitch-family "sans"
-           :variable-pitch-height 120)))
+           :variable-pitch-family "monospace"
+           :variable-pitch-height 130
+           :bold-family nil
+           :bold-weight regular
+           :italic-family nil
+           :italic-slant italic)))
   :config
   (conf/daemon-frame-hook!
    (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
 
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
-
-;; And now for the themes
-(defun conf/is-it-dark-yet? ()
-  "Return t if the OS color theme is dark."
-  (let
-      ((color-scheme
-        (shell-command-to-string
-         "gsettings get org.gnome.desktop.interface color-scheme")))
-    (cl-search "dark" (downcase color-scheme))))
-
-(defun conf/switch-theme-to-os (light dark)
-  "Switch the current Emacs theme according to either LIGHT or DARK."
-  (interactive)
-  (mapc #'disable-theme custom-enabled-themes)
-  (if (conf/is-it-dark-yet?)
-      (load-theme dark :no-confirm)
-    (load-theme light :no-confirm)))
 
 (use-package modus-themes
   :straight t
@@ -99,17 +85,19 @@
         modus-themes-intense-mouseovers t
         modus-themes-mixed-fonts t
         modus-themes-variable-pitch-ui nil
-        modus-themes-disable-other-themes t)
-  :config
-  (load-theme 'modus-vivendi-tinted t))
+        modus-themes-disable-other-themes t))
 
-(use-package adwaita-dark-theme
+(use-package standard-themes
   :straight t
-  :custom
-  (adwaita-dark-theme-bold-vertico-current t)
-  (adwaita-dark-theme-modeline-padding 5)
+  :init
+  (setq standard-themes-prompts '(bold)
+        standard-themes-bold-constructs t
+        standard-themes-italic-constructs t)
   :config
-  (eval-after-load 'flymake #'adwaita-dark-theme-flymake-fringe-bmp-enable))
+  (let ((cur-time (string-to-number (format-time-string "%H" (current-time)))))
+    (if (<= cur-time 20)
+        (load-theme 'standard-light t)
+      (load-theme 'standard-dark t))))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

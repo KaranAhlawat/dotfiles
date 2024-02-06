@@ -14,6 +14,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export LC_ALL=en_IN.UTF-8
 export LANG=en_IN.UTF-8
+export LSP_USE_PLISTS=true
 
 eval "$(zoxide init bash)"
 eval "$(starship init bash)"
@@ -60,10 +61,13 @@ fi
 unset __mamba_setup
 # <<< mamba initialize <<<
 
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-
 export DOCKER_HOST="unix:///run/user/1000/docker.sock"
 
 # GHCUP
 source $XDG_DATA_HOME/ghcup/env
+
+# Added by Toolbox App
+export PATH="$PATH:/home/karan/.local/share/JetBrains/Toolbox/scripts"
+
+# Composer
+export PATH="$PATH:$XDG_CONFIG_HOME/composer/vendor/bin"

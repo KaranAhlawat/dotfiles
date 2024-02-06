@@ -28,7 +28,7 @@
 ;; Try to tame the TAB
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
-(setq-default cursor-type t)
+(setq-default cursor-type 'bar)
 (setq-default tab-always-indent 't)
 (setq-default tab-first-completion 'eol)
 (setq-default read-process-output-max (* 1024 1024)) ;; 1 MB
@@ -55,16 +55,9 @@
   :straight t
   :init
   (setq exec-path-from-shell-arguments '("-l"))
-  :config (exec-path-from-shell-initialize))
-
-(use-package whitespace
-  :straight (:type built-in)
-  :init
-  (setq whitespace-style '(face newline newline-mark))
-  (setq whitespace-display-mappings
-        '((newline-mark 10 [10])))
   :config
-  (global-whitespace-mode))
+  (add-to-list 'exec-path-from-shell-variables "LSP_USE_PLISTS")
+  (exec-path-from-shell-initialize))
 
 (use-package delsel
   :straight (:type built-in)

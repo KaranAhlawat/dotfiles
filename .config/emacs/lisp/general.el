@@ -7,11 +7,13 @@
 (use-package emacs
   :straight (:type built-in)
   :init
-  (setq frame-title-format "%b")
+  (setq frame-title-format "%F %* %b")
   (setq ring-bell-function 'ignore)
   (setq use-short-answers t)
   (setq visible-bell nil)
   (setq global-auto-revert-ignore-modes '(Buffer-menu-mode))
+  (setq backup-by-copying t)
+  (setq use-dialog-box nil)
   :config
   (blink-cursor-mode -1)
   (global-set-key [remap eval-last-sexp] #'pp-eval-last-sexp))
@@ -57,7 +59,8 @@
      "*.cabal"
      "*.csproj"
      "*.sln"
-     "*gradle*"))
+     "*gradle*"
+     "pom.xml"))
   (project-vc-ignores
    '("node_modules"
      "target"

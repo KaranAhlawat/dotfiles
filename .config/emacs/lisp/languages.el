@@ -3,36 +3,38 @@
 ;;; This is just mostly language related stuff.
 ;;; Code:
 
+(require 'dash)
+
 (use-package treesit
   :straight nil
   :demand t
   :custom
   (treesit-font-lock-level 4)
   :config
-  (dolist (pair
-           '((typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "typescript/src" nil nil))
-             (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "tsx/src" nil nil))
-             (css . ("https://github.com/tree-sitter/tree-sitter-css" nil nil nil nil))
-             (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" nil nil nil nil))
-             (json . ("https://github.com/tree-sitter/tree-sitter-json" nil nil nil nil))
-             (python . ("https://github.com/tree-sitter/tree-sitter-python" nil nil nil nil))
-             (go . ("https://github.com/tree-sitter/tree-sitter-go"  nil nil nil))
-             (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" nil nil  nil))
-             (java . ("https://github.com/tree-sitter/tree-sitter-java" nil nil nil))
-             (scala . ("https://github.com/tree-sitter/tree-sitter-scala" nil nil nil))))
-    (push pair treesit-language-source-alist))
+  (--each '((typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "typescript/src" nil nil))
+            (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "tsx/src" nil nil))
+            (css . ("https://github.com/tree-sitter/tree-sitter-css" nil nil nil nil))
+            (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" nil nil nil nil))
+            (json . ("https://github.com/tree-sitter/tree-sitter-json" nil nil nil nil))
+            (python . ("https://github.com/tree-sitter/tree-sitter-python" nil nil nil nil))
+            (go . ("https://github.com/tree-sitter/tree-sitter-go"  nil nil nil))
+            (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" nil nil  nil))
+            (java . ("https://github.com/tree-sitter/tree-sitter-java" nil nil nil))
+            (kotlin . ("https://github.com/fwcd/tree-sitter-kotlin" nil nil nil))
+            (scala . ("https://github.com/tree-sitter/tree-sitter-scala" nil nil nil)))
+    (push it treesit-language-source-alist))
 
-  (dolist (pair
-           '((python-mode . python-ts-mode)
-             (c-mode . c-ts-mode)
-             (csharp-mode . csharp-ts-mode)
-             (c++-mode . c++-ts-mode)
-             (javascript-mode . js-ts-mode)
-             (java-mode . java-ts-mode)
-             (css-mode . css-ts-mode)
-             (sh-mode . bash-ts-mode)
-             (shell-script-mode . bash-ts-mode)))
-    (push pair major-mode-remap-alist)))
+  (--each '((python-mode . python-ts-mode)
+            (c-mode . c-ts-mode)
+            (csharp-mode . csharp-ts-mode)
+            (c++-mode . c++-ts-mode)
+            (javascript-mode . js-ts-mode)
+            (java-mode . java-ts-mode)
+            (css-mode . css-ts-mode)
+            (sh-mode . bash-ts-mode)
+            (scala-mode . scala-ts-mode)
+            (shell-script-mode . bash-ts-mode))
+    (push it major-mode-remap-alist)))
 
 (use-package ts-query-highlight
   :straight (:type git :host sourcehut :repo "meow_king/ts-query-highlight")
@@ -95,7 +97,7 @@
 
 (use-package scss-mode
   :straight (:type built-in)
-  :mode ("\\.scss\\'" . scss-mode)
+  :mode "\\.scss\\'"
   :custom (css-indent-offset 2))
 
 (use-package java-ts-mode
@@ -103,13 +105,36 @@
   :custom
   (java-ts-mode-indent-offset 2))
 
+(use-package typescript-ts-mode
+  :straight (:type built-in)
+  :mode (("\\.jsx\\'" . tsx-ts-mode)
+         ("\\.tsx\\'" . tsx-ts-mode))
+  :init
+  (setq typescript-ts-mode-indent-offset 4))
+
 ;; Scala TS (local)
 (use-package scala-ts-mode
+  :mode "\\.scala\\'"
   :straight (:local-repo "/home/karan/repos/scala-ts-mode"))
 
 ;; Haskell
 (use-package haskell-mode
   :straight t)
+
+;; Astro
+(use-package astro-ts-mode
+  :straight t
+  :hook (astro-ts-mode . (lambda ()
+                           (jinx-mode -1))))
+
+(use-package kotlin-ts-mode
+  :straight t
+  :mode ("\\.kt\\'" "\\.kts\\'")
+  :custom
+  (kotlin-ts-mode-indent-offset 2))
+
+(use-package yaml-ts-mode
+  :straight (:type built-in))
 
 (provide 'languages)
 ;;; languages.el ends here

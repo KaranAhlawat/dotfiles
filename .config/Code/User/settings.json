@@ -1,81 +1,160 @@
 {
-  "C_Cpp.clang_format_fallbackStyle": "GNU",
-  "C_Cpp.default.cppStandard": "gnu++20",
-  "calva.autoOpenREPLWindow": false,
-  "calva.clojureLspPath": "/home/karan/.local/bin/clojure-lsp",
-  "calva.useLiveShare": true,
-  "cssvar.extensions": [
-    "css",
-    "scss",
-    "sass",
-    "less",
-    "postcss",
-    "vue",
-    "svelte",
-    "astro",
-    "ts",
-    "tsx",
-    "js",
-    "jsx"
-  ],
-  "cssvar.files": [
-    "./node_modules/open-props/open-props.min.css",
-    "./node_modules/open-props/media.min.css"
-  ],
-  "cssvar.ignore": [],
-  "dev.containers.dockerComposePath": "podman-compose",
-  "dev.containers.dockerPath": "podman",
-  "editor.cursorBlinking": "solid",
-  "editor.cursorStyle": "block",
-  "editor.fontFamily": "monospace",
-  "editor.fontLigatures": "true",
-  "editor.fontSize": 13,
-  "editor.formatOnSave": true,
-  "editor.linkedEditing": true,
-  "editor.minimap.autohide": true,
-  "editor.scrollbar.vertical": "hidden",
-  "editor.tabSize": 2,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "astro", // Enable .astro
-    "typescript", // Enable .ts
-    "typescriptreact" // Enable .tsx
-  ],
-  "files.watcherExclude": {
-    "**/.ammonite": true,
-    "**/.bloop": true,
-    "**/.metals": true
-  },
-  "liveshare.openSharedServers": false,
-  "window.menuBarVisibility": "hidden",
-  "window.titleBarStyle": "native",
-  "workbench.editor.enablePreview": true,
-  "workbench.iconTheme": "vscode-icons",
-  "workbench.sideBar.location": "right",
-  "workbench.startupEditor": "none",
-  "terminal.integrated.env.linux": {
-    "GRAALVM_HOME": "/home/karan/.sdkman/candidates/java/21-graalce"
-  },
-  "metals.fallbackScalaVersion": "2.13.12",
-  "redhat.telemetry.enabled": false,
-  "metals.superMethodLensesEnabled": false,
-  "extensions.experimental.affinity": {
-    "vscodevim.vim": 1
-  },
-  "vim.leader": "<Space>",
-  "vim.easymotion": true,
-  "vim.incsearch": true,
-  "vim.useSystemClipboard": true,
-  "vim.useCtrlKeys": true,
-  "vim.hlsearch": true,
-  "vim.handleKeys": {
-    "<C-d>": true,
-    "<C-s>": false,
-    "<C-z>": false,
-    "<C-p>": false
-  },
-  "window.zoomLevel": 1,
-  "workbench.colorTheme": "JetBrains New UI Dark Theme",
-  "editor.renderWhitespace": "all"
+	/**
+    * Better Defaults
+    **/
+	"editor.copyWithSyntaxHighlighting": false,
+	"diffEditor.ignoreTrimWhitespace": false,
+	"editor.emptySelectionClipboard": false,
+	"workbench.editor.enablePreview": false,
+	"window.newWindowDimensions": "inherit",
+	"editor.multiCursorModifier": "ctrlCmd",
+	"files.trimTrailingWhitespace": true,
+	"diffEditor.renderSideBySide": false,
+	"editor.snippetSuggestions": "top",
+	"editor.detectIndentation": true,
+	"editor.tabSize": 2,
+	"editor.indentSize": 2,
+	"editor.insertSpaces": false,
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": true,
+	/**
+   * Hide Everything
+   */
+	"workbench.activityBar.location": "hidden",
+	"workbench.sideBar.location": "right",
+	"workbench.statusBar.visible": true,
+	"workbench.editor.showTabs": "single",
+	"editor.guides.indentation": false,
+	"editor.minimap.enabled": false,
+	"editor.lineNumbers": "on",
+	"editor.scrollbar.vertical": "hidden",
+	/**
+   * Silence The Noise
+   */
+	"breadcrumbs.enabled": false,
+	"scm.diffDecorations": "none",
+	"editor.hover.enabled": false,
+	"editor.matchBrackets": "never",
+	"workbench.tips.enabled": false,
+	"editor.colorDecorators": false,
+	"git.decorations.enabled": false,
+	"workbench.startupEditor": "none",
+	"editor.lightbulb.enabled": "off",
+	"editor.selectionHighlight": false,
+	"editor.overviewRulerBorder": false,
+	"editor.renderLineHighlight": "none",
+	"editor.occurrencesHighlight": "off",
+	"problems.decorations.enabled": false,
+	"editor.renderControlCharacters": false,
+	"editor.hideCursorInOverviewRuler": true,
+	"editor.gotoLocation.multipleReferences": "goto",
+	"editor.gotoLocation.multipleDefinitions": "goto",
+	"editor.gotoLocation.multipleDeclarations": "goto",
+	"workbench.editor.enablePreviewFromQuickOpen": false,
+	"editor.gotoLocation.multipleImplementations": "goto",
+	"editor.gotoLocation.multipleTypeDefinitions": "goto",
+	"workbench.colorTheme": "Moin Dark",
+	"workbench.iconTheme": "Mihale",
+	"editor.cursorBlinking": "solid",
+	"editor.fontFamily": "'Leo Serene'",
+	"editor.fontWeight": "400",
+	"editor.fontLigatures": "true",
+	"editor.fontSize": 15,
+	"editor.lineHeight": 45,
+	"editor.suggestFontSize": 13,
+	"editor.suggestLineHeight": 28,
+	"terminal.integrated.fontSize": 13,
+	"terminal.integrated.lineHeight": 1.5,
+	"window.zoomLevel": 1,
+	"window.titleBarStyle": "native",
+	"window.menuBarVisibility": "hidden",
+	/**
+   * Code
+   **/
+	// Include "-" in word selection.
+	"editor.wordSeparators": "`~!@#%^&*()=+[{]}\\|;:'\",.<>/?",
+	"emmet.includeLanguages": {
+		"blade": "html",
+		"vue-html": "html",
+		"vue": "html"
+	},
+	/**
+		* Language Specific
+		**/
+	// PHP
+	"php.suggest.basic": false,
+	"files.associations": {
+		".php_cs": "php",
+		".php_cs.dist": "php"
+	},
+	// C/C++
+	"C_Cpp.clang_format_fallbackStyle": "GNU",
+	"C_Cpp.default.cppStandard": "gnu++20",
+	// Scala/Metals
+	"metals.fallbackScalaVersion": "2.13.12",
+	"metals.superMethodLensesEnabled": false,
+	"files.watcherExclude": {
+		"**/.ammonite": true,
+		"**/.bloop": true,
+		"**/.metals": true
+	},
+
+	// YAML
+	"redhat.telemetry.enabled": false,
+
+	// JS/TS/JSON
+	"typescript.tsserver.log": "off",
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true
+	},
+
+	/**
+		* Extension specifics
+		**/
+	/**
+	 	* amVim
+		**/
+	"amVim.useSystemClipboard": true,
+	"amVim.bindCtrlCommands": true,
+
+	/**
+		* Intelephense
+		**/
+	"intelephense.telemetry.enabled": false,
+	/**
+		* Prettier
+		**/
+	"prettier.requireConfig": true,
+	"prettier.useEditorConfig": false,
+	/**
+		* VS Code Icons
+		**/
+	"vsicons.dontShowNewVersionMessage": true,
+	"files.eol": "\n",
+	"[css]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	/**
+		* Metals
+		**/
+	"metals.suggestLatestUpgrade": true,
+	"metals.enableSemanticHighlighting": true,
+	"metals.serverVersion": "1.2.0+116-5f699243-SNAPSHOT"
 }

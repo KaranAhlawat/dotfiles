@@ -31,11 +31,18 @@ COMPLETIONS_DIR="$HOME/.bash_completions"
 if [ -d $COMPLETIONS_DIR ]; then
 	. "$COMPLETIONS_DIR/cmake"
 	. "$COMPLETIONS_DIR/mill"
+	. "$COMPLETIONS_DIR/valet"
 fi
 
-source /home/karan/repos/vcpkg/scripts/vcpkg_completion.bash
+# Bleep managed
+_bleep_completions() {
+	COMPREPLY=($(bleep _complete "${COMP_LINE}" "${COMP_CWORD}" "${COMP_POINT}"))
+}
 
-if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ dumb ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+complete -F _bleep_completions bleep
+# Bleep managed
+
+if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ dumb ]] && [[ ! "$TERM_PROGRAM" =~ vscode ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
 	exec tmux
 fi
 
