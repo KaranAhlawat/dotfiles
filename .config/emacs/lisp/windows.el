@@ -4,17 +4,19 @@
 ;;; Most credit goes to Karthink for this.
 ;;; Code:
 
-(setq fit-window-to-buffer-horizontally t
+(setq fit-window-to-buffer-horizontally nil
       fit-frame-to-buffer t)
 
 (use-package beframe
   :straight t
   :init
   (setq beframe-global-buffers
-        '("*scratch*" "*Messages*" "*Org Agenda*"))
+        '("*Messages*" "*Org Agenda*"))
   (setq beframe-functions-in-frames '(project-prompt-project-dir))
-  (setq beframe-create-frame-scratch-buffer nil)
+  (setq beframe-create-frame-scratch-buffer t)
+  (setq beframe-kill-frame-scratch-buffer t)
   (setq beframe-rename-function nil)
+
   (defvar consult-buffer-sources)
   (declare-function consult--buffer-state "consult")
 
@@ -48,7 +50,8 @@
     grep-mode
     xref--xref-buffer-mode
     locate-mode
-    flymake-diagnostics-buffer-mode)
+    flymake-diagnostics-buffer-mode
+    flycheck-error-list-mode)
   "List of major-modes used in occur-type buffers.")
 (defvar conf/occur-grep-shackle-rules
   (mapcar
@@ -215,7 +218,7 @@
            ("\\*Completions\\*"
             :select t
             :popup t
-            :align right
+            :align bottom
             :size 0.4
             :regexp t)
            ("[Oo]utput\\*"

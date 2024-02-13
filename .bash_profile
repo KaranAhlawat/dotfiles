@@ -22,9 +22,6 @@ eval "$(starship init bash)"
 # Flatpak
 export PATH="$PATH:$XDG_DATA_HOME/flatpak/exports/bin"
 
-# Zig
-export PATH="$PATH:$HOME/.local/share/zig"
-
 export PATH="$PATH:$HOME/repos/vcpkg"
 
 # fnm
@@ -34,6 +31,7 @@ eval "$(fnm env --use-on-cd)"
 # cargo
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export PATH="$PATH:$CARGO_HOME/bin"
+. "/home/karan/.local/share/cargo/env"
 
 # pnpm
 export PNPM_HOME="/home/karan/.local/share/pnpm"
@@ -46,7 +44,6 @@ esac
 export PATH="$PATH:/home/karan/.local/share/coursier/bin"
 # <<< coursier install directory <<<
 #
-. "/home/karan/.local/share/cargo/env"
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
@@ -63,11 +60,5 @@ unset __mamba_setup
 
 export DOCKER_HOST="unix:///run/user/1000/docker.sock"
 
-# GHCUP
-source $XDG_DATA_HOME/ghcup/env
-
 # Added by Toolbox App
 export PATH="$PATH:/home/karan/.local/share/JetBrains/Toolbox/scripts"
-
-# Composer
-export PATH="$PATH:$XDG_CONFIG_HOME/composer/vendor/bin"

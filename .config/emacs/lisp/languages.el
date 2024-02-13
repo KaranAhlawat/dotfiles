@@ -3,15 +3,15 @@
 ;;; This is just mostly language related stuff.
 ;;; Code:
 
-(require 'dash)
-
 (use-package treesit
   :straight nil
   :demand t
   :custom
   (treesit-font-lock-level 4)
   :config
-  (--each '((typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "typescript/src" nil nil))
+  (seq-do (lambda (it)
+            (push it treesit-language-source-alist))
+          '((typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "typescript/src" nil nil))
             (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" nil "tsx/src" nil nil))
             (css . ("https://github.com/tree-sitter/tree-sitter-css" nil nil nil nil))
             (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" nil nil nil nil))
@@ -21,10 +21,11 @@
             (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" nil nil  nil))
             (java . ("https://github.com/tree-sitter/tree-sitter-java" nil nil nil))
             (kotlin . ("https://github.com/fwcd/tree-sitter-kotlin" nil nil nil))
-            (scala . ("https://github.com/tree-sitter/tree-sitter-scala" nil nil nil)))
-    (push it treesit-language-source-alist))
+            (scala . ("https://github.com/tree-sitter/tree-sitter-scala" nil nil nil))))
 
-  (--each '((python-mode . python-ts-mode)
+  (seq-do (lambda (it)
+            (push it major-mode-remap-alist))
+          '((python-mode . python-ts-mode)
             (c-mode . c-ts-mode)
             (csharp-mode . csharp-ts-mode)
             (c++-mode . c++-ts-mode)
@@ -33,8 +34,7 @@
             (css-mode . css-ts-mode)
             (sh-mode . bash-ts-mode)
             (scala-mode . scala-ts-mode)
-            (shell-script-mode . bash-ts-mode))
-    (push it major-mode-remap-alist)))
+            (shell-script-mode . bash-ts-mode))))
 
 (use-package ts-query-highlight
   :straight (:type git :host sourcehut :repo "meow_king/ts-query-highlight")

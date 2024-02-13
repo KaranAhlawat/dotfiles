@@ -65,4 +65,4 @@
   (delete-selection-mode))
 
 (provide 'defaults)
-;; defaults.el ends here
+;;; defaults.el ends here

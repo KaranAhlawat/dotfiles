@@ -7,7 +7,7 @@
 (use-package emacs
   :straight (:type built-in)
   :init
-  (setq frame-title-format "%F %* %b")
+  (setq frame-title-format "%b")
   (setq ring-bell-function 'ignore)
   (setq use-short-answers t)
   (setq visible-bell nil)

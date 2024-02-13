@@ -1,5 +1,7 @@
 ;;; early-init.el --- Early Init File -*- lexical-binding: t -*-
-
+;;; Commentary:
+;;; Early init file
+;;; Code:
 (setq gc-cons-threshold (* 50 1000 1000))
 
 ;; Load the latest version of a file in `load', if an extension is not
@@ -57,4 +59,4 @@
 (setq initial-major-mode 'fundamental-mode)
 (setq backup-directory-alist '(("." . "~/.cache/emacssaves")))
 (setq create-lockfiles nil)
-;; early-init.el ends here
+;;; early-init.el ends here

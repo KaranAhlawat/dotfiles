@@ -56,7 +56,7 @@
 	"workbench.colorTheme": "Moin Dark",
 	"workbench.iconTheme": "Mihale",
 	"editor.cursorBlinking": "solid",
-	"editor.fontFamily": "'Leo Serene'",
+	"editor.fontFamily": "'JetBrains Mono', 'Leo Serene'",
 	"editor.fontWeight": "400",
 	"editor.fontLigatures": "true",
 	"editor.fontSize": 15,
@@ -66,7 +66,7 @@
 	"terminal.integrated.fontSize": 13,
 	"terminal.integrated.lineHeight": 1.5,
 	"window.zoomLevel": 1,
-	"window.titleBarStyle": "native",
+	"window.titleBarStyle": "custom",
 	"window.menuBarVisibility": "hidden",
 	/**
    * Code
@@ -90,14 +90,6 @@
 	// C/C++
 	"C_Cpp.clang_format_fallbackStyle": "GNU",
 	"C_Cpp.default.cppStandard": "gnu++20",
-	// Scala/Metals
-	"metals.fallbackScalaVersion": "2.13.12",
-	"metals.superMethodLensesEnabled": false,
-	"files.watcherExclude": {
-		"**/.ammonite": true,
-		"**/.bloop": true,
-		"**/.metals": true
-	},
 
 	// YAML
 	"redhat.telemetry.enabled": false,
@@ -146,7 +138,6 @@
 	/**
 		* VS Code Icons
 		**/
-	"vsicons.dontShowNewVersionMessage": true,
 	"files.eol": "\n",
 	"[css]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -154,7 +145,12 @@
 	/**
 		* Metals
 		**/
-	"metals.suggestLatestUpgrade": true,
+	"metals.suggestLatestUpgrade": false,
 	"metals.enableSemanticHighlighting": true,
-	"metals.serverVersion": "1.2.0+116-5f699243-SNAPSHOT"
+	"metals.superMethodLensesEnabled": false,
+	"files.watcherExclude": {
+		"**/.ammonite": true,
+		"**/.bloop": true,
+		"**/.metals": true
+	}
 }

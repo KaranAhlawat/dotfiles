@@ -34,11 +34,8 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+(declare-function straight-use-package "straight")
 (straight-use-package 'org)
-
-(use-package dash
-  :straight t
-  :demand t)
 
 ;; Setting the custom file
 (setq custom-file (locate-user-emacs-file "custom.el"))
@@ -52,11 +49,12 @@
   "Set the `line-spacing' for buffers."
   (setq-local line-spacing nil))
 
-(--each '(text-mode-hook
+(seq-do (lambda (it)
+          (add-hook it #'conf/set-spacing))
+        '(text-mode-hook
 	        prog-mode-hook
 	        fundamental-mode-hook
-	        help-mode-hook)
-	(add-hook it #'conf/set-spacing))
+	        help-mode-hook))
 
 (require 'setup-org)
 (require 'windows)
@@ -65,12 +63,12 @@
   :straight t
   :commands popper-mode
   :bind
-  (("C-`" . popper-toggle-latest)
+  (("C-`" . popper-toggle)
    ("C-M-`" . popper-cycle)
    ("C-c p t" . popper-toggle-type)
    ("C-M-q" . popper-kill-latest-popup))
   :init
-  (setq popper-group-function #'popper-group-by-directory)
+  (setq popper-group-function #'popper-group-by-project)
   (setq popper-reference-buffers
         (append
          conf/help-modes-list
@@ -162,6 +160,7 @@
   (defun run-after-enable-theme-hook (&rest _args)
     (run-hooks 'after-enable-theme-hook))
   :config
+  (declare-function run-after-enable-theme-hook "init")
   (advice-add 'enable-theme :after #'run-after-enable-theme-hook))
 
 (require 'general)

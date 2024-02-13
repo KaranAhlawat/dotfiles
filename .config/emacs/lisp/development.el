@@ -3,8 +3,6 @@
 ;;; Sets up a great dev exp inside Emacs
 ;;; Code:
 
-(require 'dash)
-
 ;; Magit, the magical git interface
 (use-package magit
   :straight t
@@ -30,52 +28,58 @@
     (and (eq index 0) 'orderless-flex))
   
   (defun conf/lsp-mode-completion-setup ()
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(orderless))
+    (if (seq-contains-p '("clojure-mode" "clojurescript-mode" "clojurec-mode" "cider-mode")
+                        major-mode)
+        (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+              '(orderless cider))
+      (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+            '(orderless)))
+    
 
     (add-hook 'orderless-style-dispatchers #'conf/orderless-dispatch-flex-first nil 'local)
 
     (setq-local completion-at-point-functions (list (cape-capf-buster #'lsp-completion-at-point))))
 
-  (setq lsp-keymap-prefix ", l")
+  (defun lsp-booster--advice-json-parse (old-fn &rest args)
+    "Try to parse bytecode instead of json."
+    (or
+     (when (equal (following-char) ?#)
+       (let ((bytecode (read (current-buffer))))
+         (when (byte-code-function-p bytecode)
+           (funcall bytecode))))
+     (apply old-fn args)))
+
+  (advice-add (if (progn (require 'json)
+                         (fboundp 'json-parse-buffer))
+                  'json-parse-buffer
+                'json-read)
+              :around
+              #'lsp-booster--advice-json-parse)
+
+  (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
+
+  (defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
+    "Prepend emacs-lsp-booster command to lsp CMD."
+    (let ((orig-result (funcall old-fn cmd test?)))
+      (if (and (not test?)                             ;; for check lsp-server-present?
+               (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
+               lsp-use-plists
+               (not (functionp 'json-rpc-connection))  ;; native json-rpc
+               (executable-find "emacs-lsp-booster"))
+          (progn
+            (message "Using emacs-lsp-booster for %s!" orig-result)
+            (append '("emacs-lsp-booster" "--json-false-value" ":json-false" "--") orig-result))
+        orig-result)))
+
+  (setq lsp-keymap-prefix nil)
   (setq lsp-keep-workspace-alive nil)
   (setq lsp-enable-links t)
   (setq lsp-signature-doc-lines 2)
 
   (require 'lsp-astro)
   :config
+  (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
   (lsp-enable-which-key-integration t))
-
-(defun lsp-booster--advice-json-parse (old-fn &rest args)
-  "Try to parse bytecode instead of json."
-  (or
-   (when (equal (following-char) ?#)
-     (let ((bytecode (read (current-buffer))))
-       (when (byte-code-function-p bytecode)
-         (funcall bytecode))))
-   (apply old-fn args)))
-
-(advice-add (if (progn (require 'json)
-                       (fboundp 'json-parse-buffer))
-                'json-parse-buffer
-              'json-read)
-            :around
-            #'lsp-booster--advice-json-parse)
-
-(defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
-  "Prepend emacs-lsp-booster command to lsp CMD."
-  (let ((orig-result (funcall old-fn cmd test?)))
-    (if (and (not test?)                             ;; for check lsp-server-present?
-             (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
-             lsp-use-plists
-             (not (functionp 'json-rpc-connection))  ;; native json-rpc
-             (executable-find "emacs-lsp-booster"))
-        (progn
-          (message "Using emacs-lsp-booster for %s!" orig-result)
-          (append '("emacs-lsp-booster" "--json-false-value" ":json-false" "--") orig-result))
-      orig-result)))
-
-(advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
 
 (use-package dap-mode
   :straight t
@@ -119,19 +123,12 @@
     (sp-local-pair "'" nil :actions nil)
     (sp-local-pair "`" "'" :actions '(wrap insert autoskip) :when '(sp-in-string-p)))
   (eval-after-load 'cc-mode                  '(require 'smartparens-c))
-  (eval-after-load 'clojure-mode             '(require 'smartparens-clojure))
   (eval-after-load 'elixir-ts-mode           '(require 'smartparens-elixir))
   (eval-after-load 'erlang-mode              '(require 'smartparens-erlang))
   (eval-after-load 'go-mode                  '(require 'smartparens-go))
   (eval-after-load 'haskell-interactive-mode '(require 'smartparens-haskell))
   (eval-after-load 'haskell-mode             '(require 'smartparens-haskell))
-  (--each sp--html-modes
-    (eval-after-load it                      '(require 'smartparens-html)))
-  (--each '(latex-mode LaTeX-mode)
-    (eval-after-load it                      '(require 'smartparens-latex)))
   (eval-after-load 'markdown-mode            '(require 'smartparens-markdown))
-  (--each '(python-mode python)
-    (eval-after-load it                      '(require 'smartparens-python)))
   (eval-after-load 'org                      '(require 'smartparens-org))
   (eval-after-load 'rust-mode                '(require 'smartparens-rust))
   (eval-after-load 'rustic                   '(require 'smartparens-rust))
@@ -139,15 +136,29 @@
   (eval-after-load 'scala-ts-mode            '(require 'smartparens-scala))
   (eval-after-load 'tex-mode                 '(require 'smartparens-latex))
   (eval-after-load 'text-mode                '(require 'smartparens-text))
-  (--each '(js-ts-mode typescript-ts-mode)
-    (eval-after-load it                      '(require 'smartparens-javascript)))
+
+  (seq-do (lambda (it)
+            (eval-after-load it              '(require 'smartparens-clojure)))
+          '(clojure-mode clojurescript-mode clojurec-mode))
+  (seq-do (lambda (it)
+            (eval-after-load it              '(require 'smartparens-html)))
+          sp--html-modes)
+  (seq-do (lambda (it)
+            (eval-after-load it              '(require 'smartparens-latex)))
+          '(latex-mode LaTeX-mode))
+  (seq-do (lambda (it)
+            (eval-after-load it              '(require 'smartparens-python)))
+          '(python-mode python))
+  (seq-do (lambda (it)
+            (eval-after-load it              '(require 'smartparens-javascript)))
+          '(js-ts-mode typescript-ts-mode))
+
   (smartparens-global-mode))
 
 ;; Tweak flymake just a little bit
 (use-package flymake
   :ensure nil
   :straight nil
-  :hook prog-mode
   :bind
   (:map
    flymake-mode-map
@@ -156,6 +167,15 @@
   :config
   (remove-hook
    'flymake-diagnostic-functions #'flymake-proc-legacy-flymake))
+
+(use-package flycheck
+  :straight t
+  :hook ((prog-mode . flycheck-mode)
+         (flycheck-error-list-mode . visual-line-mode))
+  :bind
+  (:map
+   flycheck-mode-map
+   ("M-g d" . #'flycheck-list-errors)))
 
 (use-package markdown-mode
   :straight t
@@ -171,19 +191,12 @@
 (use-package apheleia
   :straight t
   :config
-  (--each '((scalafmt . ("scalafmt-native"
-                         (when-let* ((project (project-current))
-                                     (root (project-root project)))
-                           (list "--config" (expand-file-name ".scalafmt.conf" root)))
-                         filepath
-                         "--stdout"))
-            (zprint . ("zprint"))
+  (--each '((zprint . ("zprint"))
             (refmt . ("refmt"))
             (ormolu . ("ormolu" filepath)))
     (push it apheleia-formatters))
 
-  (--each '((scala-ts-mode . scalafmt)
-            (clojure-mode . zprint)
+  (--each '((clojure-mode . zprint)
             (clojurescript-mode . zprint)
             (clojurec-mode . zprint)
             (reason-mode . refmt)

@@ -77,27 +77,12 @@
 
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
-(use-package modus-themes
+(use-package ef-themes
   :straight t
   :init
-  (setq modus-themes-bold-constructs t
-        modus-themes-italic-constructs t
-        modus-themes-intense-mouseovers t
-        modus-themes-mixed-fonts t
-        modus-themes-variable-pitch-ui nil
-        modus-themes-disable-other-themes t))
-
-(use-package standard-themes
-  :straight t
-  :init
-  (setq standard-themes-prompts '(bold)
-        standard-themes-bold-constructs t
-        standard-themes-italic-constructs t)
+  (setq ef-themes-disable-other-themes t)
   :config
-  (let ((cur-time (string-to-number (format-time-string "%H" (current-time)))))
-    (if (<= cur-time 20)
-        (load-theme 'standard-light t)
-      (load-theme 'standard-dark t))))
+  (ef-themes-select 'ef-arbutus))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

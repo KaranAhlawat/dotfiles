@@ -21,7 +21,6 @@
 (use-package vertico
   :straight (vertico :files (:defaults "extensions/*.el")
                      :includes (vertico-directory))
-  :init (vertico-mode)
   :bind
   (:map vertico-map
         ("TAB" . #'vertico-insert)
@@ -29,7 +28,27 @@
   :custom
   (vertico-resize t)
   (vertico-cycle t)
-  (vertico-preselect 'first))
+  (vertico-preselect 'first)
+  :config (vertico-mode))
+
+(use-package minibuffer
+  :straight (:type built-in)
+  :bind ( :map minibuffer-local-completion-map
+          ("<up>" . minibuffer-previous-line-completion)
+          ("<down>" . minibuffer-next-line-completion))
+  :init
+  (setq completions-format 'one-column)
+  (setq completion-show-help nil)
+  (setq completion-auto-help 'always)
+  (setq completion-auto-select nil)
+  (setq completions-detailed t)
+  (setq completion-show-inline-help nil)
+  (setq completions-max-height 6)
+  (setq completions-header-format (propertize "%s candidates:\n" 'face 'bold-italic))
+  (setq completions-highlight-face 'completions-highlight)
+  (setq minibuffer-completion-auto-choose t)
+  ;; (setq minibuffer-visible-completions t) ; Emacs 30
+  (setq completions-sort nil))
 
 ;; A few more useful configurations
 (require 'crm)
@@ -62,7 +81,7 @@ comma."
   (orderless-component-separator " +\\|[-/]")
   :init
   (setq
-   completion-styles '(orderless)
+   completion-styles '(basic substring orderless)
    completion-ignore-case t
    completion-category-defaults nil
    completion-category-overrides '((file (orderless styles partial-completion))))
@@ -192,7 +211,6 @@ comma."
           (variable       "va"  :icon "symbol-variable"    :face font-lock-variable-name-face     :collection "vscode")
           (t              "."   :icon "question"           :face font-lock-warning-face           :collection "vscode")))
   :config
-  (add-hook 'after-enable-theme-hook #'kind-icon-reset-cache)
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
   (add-hook 'after-enable-theme-hook #'kind-icon-reset-cache))
 
