@@ -53,12 +53,13 @@
 	"workbench.editor.enablePreviewFromQuickOpen": false,
 	"editor.gotoLocation.multipleImplementations": "goto",
 	"editor.gotoLocation.multipleTypeDefinitions": "goto",
-	"workbench.colorTheme": "Moin Dark",
+	"window.autoDetectColorScheme": true,
+	"workbench.preferredDarkColorTheme": "Material Theme",
+	"workbench.preferredLightColorTheme": "Material Theme Lighter",
 	"workbench.iconTheme": "Mihale",
 	"editor.cursorBlinking": "solid",
-	"editor.fontFamily": "'JetBrains Mono', 'Leo Serene'",
+	"editor.fontFamily": "'PragmataPro Mono Liga', 'Noto Sans Mono', 'monospace'",
 	"editor.fontWeight": "400",
-	"editor.fontLigatures": "true",
 	"editor.fontSize": 15,
 	"editor.lineHeight": 45,
 	"editor.suggestFontSize": 13,
@@ -68,6 +69,10 @@
 	"window.zoomLevel": 1,
 	"window.titleBarStyle": "custom",
 	"window.menuBarVisibility": "hidden",
+	"settingsSync.ignoredExtensions": [
+		"antfu.unocss",
+		"anhsirk0.ef-themes"
+	],
 	/**
    * Code
    **/
@@ -85,15 +90,14 @@
 	"php.suggest.basic": false,
 	"files.associations": {
 		".php_cs": "php",
-		".php_cs.dist": "php"
+		".php_cs.dist": "php",
+		"*.css": "scss"
 	},
 	// C/C++
 	"C_Cpp.clang_format_fallbackStyle": "GNU",
 	"C_Cpp.default.cppStandard": "gnu++20",
-
 	// YAML
 	"redhat.telemetry.enabled": false,
-
 	// JS/TS/JSON
 	"typescript.tsserver.log": "off",
 	"[typescriptreact]": {
@@ -116,7 +120,6 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.formatOnSave": true
 	},
-
 	/**
 		* Extension specifics
 		**/
@@ -125,7 +128,6 @@
 		**/
 	"amVim.useSystemClipboard": true,
 	"amVim.bindCtrlCommands": true,
-
 	/**
 		* Intelephense
 		**/
@@ -149,8 +151,11 @@
 	"metals.enableSemanticHighlighting": true,
 	"metals.superMethodLensesEnabled": false,
 	"files.watcherExclude": {
-		"**/.ammonite": true,
-		"**/.bloop": true,
-		"**/.metals": true
-	}
+    "**/.ammonite": true,
+    "**/.bloop": true,
+    "**/.metals": true
+	},
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"update.showReleaseNotes": false,
+	"workbench.colorTheme": "Material Theme Lighter",
 }

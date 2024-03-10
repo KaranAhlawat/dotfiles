@@ -21,7 +21,8 @@
             (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" nil nil  nil))
             (java . ("https://github.com/tree-sitter/tree-sitter-java" nil nil nil))
             (kotlin . ("https://github.com/fwcd/tree-sitter-kotlin" nil nil nil))
-            (scala . ("https://github.com/tree-sitter/tree-sitter-scala" nil nil nil))))
+            (scala . ("https://github.com/tree-sitter/tree-sitter-scala" nil nil nil))
+            (php . ("https://github.com/tree-sitter/tree-sitter-php" nil "php/src" nil nil))))
 
   (seq-do (lambda (it)
             (push it major-mode-remap-alist))
@@ -34,6 +35,7 @@
             (css-mode . css-ts-mode)
             (sh-mode . bash-ts-mode)
             (scala-mode . scala-ts-mode)
+            (php-mode . php-ts-mode)
             (shell-script-mode . bash-ts-mode))))
 
 (use-package ts-query-highlight
@@ -50,16 +52,10 @@
   (cider-repl-display-help-banner nil)
   (cider-shadow-cljs-command "npx shadow-cljs"))
 
-;; PHP
-(use-package php-mode
-  :straight t
-  :mode "\\.php\\'")
-
 ;; Web Stuff
 (use-package web-mode
   :straight t
-  :mode (("\\.blade\\.php\\'" . web-mode)
-         ("\\.html?\\'" . web-mode))
+  :mode (("\\.html?\\'" . web-mode))
   :custom
   (web-mode-enable-auto-pairing t)
   (web-mode-css-indent-offset 2)
@@ -70,7 +66,6 @@
   (web-mode-attr-indent-offset 2)
   (web-mode-attr-value-indent-offset 2)
   :config
-  (setq web-mode-engines-alist '(("blade" . "\\.blade\\.")))
   (add-hook 'web-mode-hook (lambda ()
                              (smartparens-mode -1))))
 
@@ -109,29 +104,13 @@
   :straight (:type built-in)
   :mode (("\\.jsx\\'" . tsx-ts-mode)
          ("\\.tsx\\'" . tsx-ts-mode))
-  :init
-  (setq typescript-ts-mode-indent-offset 4))
+  :custom
+  (typescript-ts-mode-indent-offset 2))
 
 ;; Scala TS (local)
 (use-package scala-ts-mode
   :mode "\\.scala\\'"
   :straight (:local-repo "/home/karan/repos/scala-ts-mode"))
-
-;; Haskell
-(use-package haskell-mode
-  :straight t)
-
-;; Astro
-(use-package astro-ts-mode
-  :straight t
-  :hook (astro-ts-mode . (lambda ()
-                           (jinx-mode -1))))
-
-(use-package kotlin-ts-mode
-  :straight t
-  :mode ("\\.kt\\'" "\\.kts\\'")
-  :custom
-  (kotlin-ts-mode-indent-offset 2))
 
 (use-package yaml-ts-mode
   :straight (:type built-in))

@@ -66,7 +66,7 @@
   (defun conf/eshell-setup-modes ()
     "Setup various modes for eshell."
     (display-line-numbers-mode -1)
-    ;; (corfu-mode -1)
+    (corfu-mode -1)
     )
 
   (defun conf/setup-remote-aliases ()
@@ -170,6 +170,19 @@
                    (setq font-lock-function (lambda (_) nil))
                    (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t)))
    (shell-mode . (lambda () (setenv "TERM" "xterm-256color")))))
+
+(use-package eat
+  :straight '(eat :type git
+                  :host codeberg
+                  :repo "akib/emacs-eat"
+                  :files ("*.el" ("term" "term/*.el") "*.texi"
+                          "*.ti" ("terminfo/e" "terminfo/e/*")
+                          ("terminfo/65" "terminfo/65/*")
+                          ("integration" "integration/*")
+                          (:exclude ".dir-locals.el" "*-tests.el")))
+  :hook (eat-mode . (lambda () (display-line-numbers-mode -1)))
+  :bind ( :map project-prefix-map
+          ("e" . #'eat-project-other-window)))
 
 (provide 'shells)
 ;;; shells.el ends here

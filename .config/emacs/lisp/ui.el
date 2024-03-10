@@ -50,7 +50,8 @@
         '((small
            :default-family "monospace"
            :default-height 80)
-          (regular)
+          (regular
+           :default-weight medium)
           (medium
            :default-height 130)
           (large
@@ -61,14 +62,14 @@
            :default-height 190)
           (t
            :default-family "monospace"
-           :default-height 130
-           :default-weight regular
+           :default-height 150
+           :default-weight medium
            :fixed-pitch-family "monospace"
-           :default-height 130
-           :variable-pitch-family "monospace"
-           :variable-pitch-height 130
+           :default-height 150
+           :variable-pitch-family "sans"
+           :variable-pitch-height 140
            :bold-family nil
-           :bold-weight regular
+           :bold-weight medium
            :italic-family nil
            :italic-slant italic)))
   :config
@@ -80,9 +81,14 @@
 (use-package ef-themes
   :straight t
   :init
-  (setq ef-themes-disable-other-themes t)
-  :config
-  (ef-themes-select 'ef-arbutus))
+  (setq ef-themes-disable-other-themes t))
+
+(use-package auto-dark
+  :straight t
+  :init
+  (setq auto-dark-dark-theme 'ef-night)
+  (setq auto-dark-light-theme 'ef-light)
+  (auto-dark-mode))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key
@@ -102,6 +108,13 @@
   (mood-line-show-encoding-information t)
   :config
   (mood-line-mode))
+
+;; Let it breathe
+(use-package spacious-padding
+  :straight t
+  :config
+  (conf/daemon-frame-hook!
+   (spacious-padding-mode)))
 
 (provide 'ui)
 ;;; ui.el ends here

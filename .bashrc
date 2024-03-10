@@ -16,11 +16,11 @@ alias lfont='pango-list | rg -S'
 alias mill='mill --disable-ticker'
 alias ts='tree-sitter'
 alias bat='batcat'
+alias cat='batcat'
 alias fd='fdfind'
 alias tmux='tmux -u'
 alias apt='nala'
 alias mm='micromamba'
-alias vi='nvim'
 alias vim='nvim'
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
@@ -31,7 +31,6 @@ COMPLETIONS_DIR="$HOME/.bash_completions"
 if [ -d $COMPLETIONS_DIR ]; then
 	. "$COMPLETIONS_DIR/cmake"
 	. "$COMPLETIONS_DIR/mill"
-	. "$COMPLETIONS_DIR/valet"
 fi
 
 # Bleep managed
@@ -46,4 +45,5 @@ if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && 
 	exec tmux
 fi
 
-export PATH="$PATH:/opt/idea-IC-232.9921.47/bin/"
+[ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
+  source "$EAT_SHELL_INTEGRATION_DIR/bash"

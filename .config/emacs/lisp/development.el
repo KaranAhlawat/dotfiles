@@ -13,12 +13,10 @@
 (use-package lsp-mode
   :straight t
   :commands (lsp lsp-deferred)
-  :hook ((kotlin-ts-mode . lsp-deferred)
-         (typescript-ts-mode . lsp-deferred)
+  :hook ((typescript-ts-mode . lsp-deferred)
          (tsx-ts-mode . lsp-deferred)
          (js-ts-mode . lsp-deferred)
          (java-ts-mode . lsp-deferred)
-         (astro-ts-mode . lsp-deferred)
          (scala-ts-mode . lsp-deferred)
          (lsp-completion-mode . conf/lsp-mode-completion-setup))
   :custom
@@ -71,12 +69,11 @@
             (append '("emacs-lsp-booster" "--json-false-value" ":json-false" "--") orig-result))
         orig-result)))
 
-  (setq lsp-keymap-prefix nil)
+  (setq lsp-keymap-prefix "C-l")
   (setq lsp-keep-workspace-alive nil)
   (setq lsp-enable-links t)
   (setq lsp-signature-doc-lines 2)
 
-  (require 'lsp-astro)
   :config
   (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
   (lsp-enable-which-key-integration t))
@@ -191,17 +188,14 @@
 (use-package apheleia
   :straight t
   :config
-  (--each '((zprint . ("zprint"))
-            (refmt . ("refmt"))
-            (ormolu . ("ormolu" filepath)))
+  (--each '((zprint . ("zprint")))
     (push it apheleia-formatters))
 
   (--each '((clojure-mode . zprint)
             (clojurescript-mode . zprint)
             (clojurec-mode . zprint)
-            (reason-mode . refmt)
-            (haskell-mode . ormolu)
-            (kotlin-ts-mode . ktlint))
+            (kotlin-ts-mode . ktlint)
+            (php-ts-mode . phpcs))
     (push it apheleia-mode-alist)))
 
 (use-package aggressive-indent-mode
@@ -235,6 +229,10 @@
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
   (add-to-list 'tramp-connection-properties
                (list nil "remote-shell" "/bin/bash")))
+
+(use-package which-func
+  :straight (:type built-in)
+  :hook (prog-mode . which-function-mode))
 
 (provide 'development)
 ;;; development.el ends here

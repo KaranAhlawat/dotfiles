@@ -149,12 +149,19 @@
   (nerd-icons-scale-factor 1.2))
 
 (use-package nerd-icons-dired
-  :straight (nerd-icons-dired :type git :host github :repo "rainstormstudio/nerd-icons-dired")
+  :straight t
   :hook
   (dired-mode . nerd-icons-dired-mode))
 
+(use-package nerd-icons-completion
+  :straight t
+  :config
+  (nerd-icons-completion-mode)
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+
 (use-package recentf
   :straight (:type built-in)
+  :demand t
   :bind ("C-x C-r" . #'recentf-open)
   :config
   (recentf-load-list)

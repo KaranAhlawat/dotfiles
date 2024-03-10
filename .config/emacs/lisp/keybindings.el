@@ -1,4 +1,4 @@
-;; keybindings.el --- Convenient keybindings for Emacs -*- lexical-binding: t; -*-
+;;; keybindings.el --- Convenient keybindings for Emacs -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Keybindings I had setup but forgot to add to yadm lmao
 ;;; Code:
@@ -28,14 +28,16 @@
   (setq evil-default-cursor 't)
   (setq evil-insert-state-cursor 't)
   :config
+  (evil-set-initial-state 'eat-mode 'insert)
   (evil-mode t))
 
 (use-package evil-collection
   :straight t
   :after evil
   :bind ( :map evil-normal-state-map
-          ( "f" . evil-avy-goto-char-in-line)
-          ( "gl" . evil-avy-goto-line))
+          ( "f"  . #'evil-avy-goto-char-in-line )
+          ( "gl" . #'evil-avy-goto-line )
+          ( "gs"  . #'evil-avy-goto-char-timer ))
   :init
   (setq evil-want-integration t)
   :config
@@ -54,7 +56,7 @@
   (evil-leader/set-leader ",")
   (evil-leader/set-key
     "," #'execute-extended-command
-    "b" #'beframe-switch-buffer
+    "b" #'switch-to-buffer
     "s" #'save-buffer
     "k" #'kill-buffer
     "f" #'find-file
@@ -65,7 +67,7 @@
     "pp" #'project-switch-project
     "pb" #'project-switch-to-buffer
     "pk" #'project-kill-buffers
-    "pe" #'project-eshell
+    "pe" #'eat-project-other-window
     "pg" #'consult-ripgrep
     "pf" #'project-find-file
     "af" #'apheleia-format-buffer)
@@ -76,8 +78,8 @@
   :straight t
   :hook (smartparens-mode . evil-cleverparens-mode)
   :bind ( :map evil-insert-state-map
-          ( "M-<" . #'evil-cp-<)
-          ( "M->" . #'evil-cp->))
+          ( "M-<" . #'evil-cp-< )
+          ( "M->" . #'evil-cp-> ))
   :init
   (setq evil-cleverparens-use-regular-insert t)
   :config
@@ -93,16 +95,14 @@
 
 (defun conf/delete-ws-backward-till-char ()
   "Delete whitespace backwards till it encounters a character."
+  (declare (indent defun))
   (interactive)
   (save-excursion
     (delete-region
      (point)
-     (re-search-backward (rx (not space))))))
+     (1+ (re-search-backward (rx (not (in blank space control))))))))
 
 (keymap-global-set "M-\\" #'conf/delete-ws-backward-till-char)
-
-(defvar test/mylist
-  '(1 2 3))
 
 (provide 'keybindings)
 ;;; keybindings.el ends here
