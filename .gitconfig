@@ -8,6 +8,7 @@
 	br = branch
 	cm = commit
 	st = status
+	s = st -s
 	l = log --oneline
 	lg = log --graph
 [core]
