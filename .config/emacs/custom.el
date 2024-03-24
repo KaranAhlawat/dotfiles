@@ -105,7 +105,9 @@
  '(package-vc-selected-packages
    '((scala-ts-mode :vc-backend Git :url "https://github.com/KaranAhlawat/scala-ts-mode")))
  '(safe-local-variable-values
-   '((lsp-css-experimental-custom-data .
+   '((lsp-typescript-preferences-import-module-specifier . "non-relative")
+     (lsp-typescript-tsdk . "node_modules/typescript/lib")
+     (lsp-css-experimental-custom-data .
                                        ["./proj.css-data.json"])
      (lsp-css-experimental-custom-data "./proj.css-data.json")
      (lsp-css-experimental-custom-data quote

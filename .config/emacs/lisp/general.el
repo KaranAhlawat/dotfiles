@@ -14,9 +14,9 @@
   (setq global-auto-revert-ignore-modes '(Buffer-menu-mode))
   (setq backup-by-copying t)
   (setq use-dialog-box nil)
+  (setq xref-search-program 'ripgrep)
   :config
-  (blink-cursor-mode -1)
-  (global-set-key [remap eval-last-sexp] #'pp-eval-last-sexp))
+  (blink-cursor-mode -1))
 
 ;; Makes it easier to see where what is
 (use-package rainbow-delimiters
@@ -46,21 +46,9 @@
   :custom
   (project-vc-extra-root-markers
    '("package.json"
-     "build.sbt"
-     "build.sc"
-     "bleep.yaml"
      ".project"
      "project.clj"
-     "composer.json"
-     "pyproject.toml"
-     "Cargo.toml"
-     "CMakeLists.txt"
-     "go.mod"
-     "*.cabal"
-     "*.csproj"
-     "*.sln"
-     "*gradle*"
-     "pom.xml"))
+     "dune-project"))
   (project-vc-ignores
    '("node_modules"
      "target"
@@ -162,9 +150,16 @@
 (use-package recentf
   :straight (:type built-in)
   :demand t
-  :bind ("C-x C-r" . #'recentf-open)
   :config
-  (recentf-load-list)
+  (if
+      (daemonp)
+      (add-to-list 'after-make-frame-functions
+                   (lambda
+                     (frame)
+                     (with-selected-frame frame
+                       (recentf-load-list))))
+    (recentf-load-list))
+
   (recentf-mode))
 
 (provide 'general)

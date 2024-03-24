@@ -10,7 +10,9 @@
          :map evil-normal-state-map
          ( "U" . evil-redo )
          ( "M-." . nil )
-         ( "C-." . nil ))
+         ( "C-." . nil )
+         :map evil-insert-state-map
+         ( "C-y" . nil ))
   :init
   (setq evil-want-keybinding nil)
   (setq evil-want-Y-yank-to-eol t)
@@ -67,9 +69,9 @@
     "pp" #'project-switch-project
     "pb" #'project-switch-to-buffer
     "pk" #'project-kill-buffers
-    "pe" #'eat-project-other-window
-    "pg" #'consult-ripgrep
+    "pg" #'project-find-regexp
     "pf" #'project-find-file
+    "pe" #'eat-project-other-window
     "af" #'apheleia-format-buffer)
   (global-evil-leader-mode))
 

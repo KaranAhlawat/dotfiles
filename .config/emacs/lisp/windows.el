@@ -64,8 +64,9 @@
 ;; REPLs is not yet set when `display-buffer' is called, but is
 ;; useful afterwards
 (defvar conf/repl-modes-list
-  '(eshell-mode shell-mode inferior-python-mode cider-repl-mode)
+  '(eshell-mode shell-mode inferior-python-mode cider-repl-mode eat-mode eat-eshell-mode)
   "List of major-modes used in REPL buffers.")
+
 (defvar conf/repl-modes-shackle-rules
   (mapcar
    (lambda (regex)

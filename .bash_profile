@@ -1,10 +1,5 @@
 # .bash_profile
 
-# Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-	. ~/.bashrc
-fi
-
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:" ]]; then
 	PATH="$HOME/.local/bin:$PATH"
@@ -16,17 +11,8 @@ export LC_ALL=en_IN.UTF-8
 export LANG=en_IN.UTF-8
 export LSP_USE_PLISTS=true
 
-eval "$(zoxide init bash)"
-eval "$(starship init bash)"
-
 # Flatpak
 export PATH="$PATH:$XDG_DATA_HOME/flatpak/exports/bin"
-
-export PATH="$PATH:$HOME/repos/vcpkg"
-
-# fnm
-export PATH="/home/karan/.local/share/fnm:$PATH"
-eval "$(fnm env --use-on-cd)"
 
 # cargo
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
@@ -40,25 +26,23 @@ case ":$PATH:" in
 *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# >>> coursier install directory >>>
-export PATH="$PATH:/home/karan/.local/share/coursier/bin"
-# <<< coursier install directory <<<
-#
-
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'mamba init' !!
-export MAMBA_EXE='/home/karan/.local/bin/micromamba'
-export MAMBA_ROOT_PREFIX='/home/karan/.local/share/micromamba'
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2>/dev/null)"
-if [ $? -eq 0 ]; then
-	eval "$__mamba_setup"
-else
-	alias micromamba="$MAMBA_EXE" # Fallback on help from mamba activate
-fi
-unset __mamba_setup
-# <<< mamba initialize <<<
-
 export DOCKER_HOST="unix:///run/user/1000/docker.sock"
 
 # Added by Toolbox App
 export PATH="$PATH:/home/karan/.local/share/JetBrains/Toolbox/scripts"
+
+# NVIM
+export PATH="$PATH:/opt/nvim-linux64/bin"
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# Non-interactive setup for Mise shims
+if [ -z "$PS1" ]; then
+	eval "$(mise activate --shims)"
+fi
+
+# opam configuration
+test -r /home/karan/.opam/opam-init/init.sh && . /home/karan/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true

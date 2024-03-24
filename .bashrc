@@ -23,14 +23,9 @@ alias apt='nala'
 alias mm='micromamba'
 alias vim='nvim'
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 COMPLETIONS_DIR="$HOME/.bash_completions"
 if [ -d $COMPLETIONS_DIR ]; then
-	. "$COMPLETIONS_DIR/cmake"
-	. "$COMPLETIONS_DIR/mill"
+	. "$COMPLETIONS_DIR/mise"
 fi
 
 # Bleep managed
@@ -47,3 +42,9 @@ fi
 
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
   source "$EAT_SHELL_INTEGRATION_DIR/bash"
+
+eval "$(mise activate bash)"
+eval "$(mise hook-env -s bash)"
+
+eval "$(zoxide init --cmd cd bash)"
+eval "$(starship init bash)"

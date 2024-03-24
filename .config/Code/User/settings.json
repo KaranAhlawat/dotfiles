@@ -10,7 +10,7 @@
 	"editor.multiCursorModifier": "ctrlCmd",
 	"files.trimTrailingWhitespace": true,
 	"diffEditor.renderSideBySide": false,
-	"editor.snippetSuggestions": "top",
+	"editor.snippetSuggestions": "bottom",
 	"editor.detectIndentation": true,
 	"editor.tabSize": 2,
 	"editor.indentSize": 2,
@@ -54,14 +54,66 @@
 	"editor.gotoLocation.multipleImplementations": "goto",
 	"editor.gotoLocation.multipleTypeDefinitions": "goto",
 	"window.autoDetectColorScheme": true,
-	"workbench.preferredDarkColorTheme": "Material Theme",
-	"workbench.preferredLightColorTheme": "Material Theme Lighter",
-	"workbench.iconTheme": "Mihale",
+	"workbench.preferredDarkColorTheme": "Tokyo Night",
+	"workbench.preferredLightColorTheme": "Tokyo Night Light",
+	"editor.tokenColorCustomizations": {
+		"[Tokyo Night]": { // or "[Tokyo Night Storm]"
+			"textMateRules": [
+				{
+					"scope": "comment",
+					"settings": {
+						"fontStyle": ""
+					}
+				},
+				{
+					"scope": [
+						"entity.name.type",
+						"meta.var.expr storage.type",
+						"keyword.control",
+						"meta.directive.vue punctuation.separator.key-value.html",
+						"meta.directive.vue entity.other.attribute-name.html",
+						"tag.decorator.js entity.name.tag.js",
+						"tag.decorator.js punctuation.definition.tag.js",
+						"storage.modifier"
+					],
+					"settings": {
+						"fontStyle": "bold"
+					}
+				}
+			]
+		},
+		"[Tokyo Night Light]": { // or "[Tokyo Night Storm]"
+			"textMateRules": [
+				{
+					"scope": "comment",
+					"settings": {
+						"fontStyle": ""
+					}
+				},
+				{
+					"scope": [
+						"meta.var.expr storage.type",
+						"keyword.control",
+						"meta.directive.vue punctuation.separator.key-value.html",
+						"meta.directive.vue entity.other.attribute-name.html",
+						"tag.decorator.js entity.name.tag.js",
+						"tag.decorator.js punctuation.definition.tag.js",
+						"storage.modifier",
+						"entity.name.type"
+					],
+					"settings": {
+						"fontStyle": "bold"
+					}
+				},
+			]
+		}
+	},
+	"workbench.iconTheme": "vscode-icons",
 	"editor.cursorBlinking": "solid",
-	"editor.fontFamily": "'PragmataPro Mono Liga', 'Noto Sans Mono', 'monospace'",
+	"editor.fontFamily": "'Rec Mono Duotone','Leo Serene'",
 	"editor.fontWeight": "400",
-	"editor.fontSize": 15,
-	"editor.lineHeight": 45,
+	"editor.fontSize": 14,
+	"editor.lineHeight": 40,
 	"editor.suggestFontSize": 13,
 	"editor.suggestLineHeight": 28,
 	"terminal.integrated.fontSize": 13,
@@ -151,11 +203,14 @@
 	"metals.enableSemanticHighlighting": true,
 	"metals.superMethodLensesEnabled": false,
 	"files.watcherExclude": {
-    "**/.ammonite": true,
-    "**/.bloop": true,
-    "**/.metals": true
+		"**/.ammonite": true,
+		"**/.bloop": true,
+		"**/.metals": true
 	},
 	"typescript.updateImportsOnFileMove.enabled": "always",
 	"update.showReleaseNotes": false,
-	"workbench.colorTheme": "Material Theme Lighter",
+	"workbench.colorTheme": "Tokyo Night Light",
+	"[csharp]": {
+		"editor.defaultFormatter": "ms-dotnettools.csharp"
+	},
 }

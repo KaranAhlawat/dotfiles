@@ -10,6 +10,19 @@
   (magit-display-buffer-function
    #'magit-display-buffer-same-window-except-diff-v1))
 
+(use-package git-gutter
+  :straight t
+  :hook (prog-mode . git-gutter-mode)
+  :config
+  (setq git-gutter:update-interval 0.02))
+
+(use-package git-gutter-fringe
+  :straight t
+  :config
+  (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
+
 (use-package lsp-mode
   :straight t
   :commands (lsp lsp-deferred)
@@ -18,6 +31,8 @@
          (js-ts-mode . lsp-deferred)
          (java-ts-mode . lsp-deferred)
          (scala-ts-mode . lsp-deferred)
+         (elixir-ts-mode . lsp-deferred)
+         (heex-ts-mode . lsp-deferred)
          (lsp-completion-mode . conf/lsp-mode-completion-setup))
   :custom
   (lsp-completion-provider :none)
@@ -63,6 +78,7 @@
                (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
                lsp-use-plists
                (not (functionp 'json-rpc-connection))  ;; native json-rpc
+               (not (seq-contains-p orig-result "ocamllsp"))
                (executable-find "emacs-lsp-booster"))
           (progn
             (message "Using emacs-lsp-booster for %s!" orig-result)
@@ -73,6 +89,13 @@
   (setq lsp-keep-workspace-alive nil)
   (setq lsp-enable-links t)
   (setq lsp-signature-doc-lines 2)
+  (setq lsp-enable-text-document-color nil)
+
+  (require 'lsp-javascript)
+  (setq lsp-typescript-preferences-import-module-specifier "non-relative")
+
+  (require 'lsp-elixir)
+  (setq lsp-elixir-server-command '("/home/karan/repos/lexical/_build/dev/package/lexical/bin/start_lexical.sh"))
 
   :config
   (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
@@ -101,7 +124,7 @@
 
 (use-package eldoc-box
   :straight t
-  :after (eglot eldoc)
+  :after (eldoc)
   :hook (eldoc-mode . eldoc-box-hover-mode)
   :init
   (setq eldoc-box-only-multi-line t)
@@ -154,8 +177,7 @@
 
 ;; Tweak flymake just a little bit
 (use-package flymake
-  :ensure nil
-  :straight nil
+  :straight (:type built-in)
   :bind
   (:map
    flymake-mode-map

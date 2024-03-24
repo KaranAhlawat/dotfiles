@@ -115,27 +115,19 @@ comma."
 (use-package cape
   :straight t)
 
-;; Corfu for completion at point popup
-(use-package corfu
+(use-package company-mode
   :straight t
+  :demand t
+  :hook (prog-mode . company-mode)
   :custom
-  (corfu-cycle t)
-  (corfu-auto t)
-  (corfu-auto-prefix 2)
-  (corfu-auto-delay 0.0)
-  (corfu-preview-current 'insert)
-  (corfu-preselect-first t)
-  (corfu-on-exact-match nil)
-
-  :bind (:map corfu-map
-              ("C-SPC" . corfu-insert-separator)
-              ("TAB" . corfu-next)
-              ([tab] . corfu-next)
-              ("S-TAB" . corfu-previous)
-              ([backtab] . corfu-previous)
-              ("RET" . corfu-insert))
-  :init
-  (global-corfu-mode))
+  (company-minimum-prefix-length 1)
+  (company-tooltip-align-annotations t)
+  (company-require-match 'never)
+  (company-global-modes '(not shell-mode eat-mode eshell-mode))
+  (company-idle-delay 0.1)
+  (company-show-quick-access t)
+  (company-format-margin-function #'company-text-icons-margin)
+  (company-frontends '(company-pseudo-tooltip-frontend)))
 
 (use-package consult
   :straight t
@@ -146,7 +138,6 @@ comma."
          ("C-x 4 b" . consult-buffer-other-window)
          ("C-x 5 b" . consult-buffer-other-frame)
          ("C-x p b" . consult-project-buffer)
-         ("C-x p g" . consult-ripgrep)
          ("C-x r b" . consult-bookmark)
          ("M-y" . consult-yank-pop))
   :hook (completion-list-mode . consult-preview-at-point-mode)
@@ -165,11 +156,6 @@ comma."
 
 (use-package consult-eglot
   :straight t)
-
-(use-package nerd-icons-corfu
-  :straight t
-  :config
-  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (provide 'completions)
 ;;; completions.el ends here

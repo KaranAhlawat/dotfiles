@@ -40,7 +40,8 @@
    (undecorated . t)
    (menu-bar-lines . 0)
    (tool-bar-lines . 0)
-   (alpha . 100)))
+   (alpha . 100)
+   (alpha-background . 100)))
 
 ;; Reducing the GUI clutter. I recommend not doing this if just
 ;; getting started with emacs, as they help massively in

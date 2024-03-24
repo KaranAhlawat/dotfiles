@@ -62,14 +62,13 @@
            :default-height 190)
           (t
            :default-family "monospace"
-           :default-height 150
+           :default-height 130
            :default-weight medium
            :fixed-pitch-family "monospace"
-           :default-height 150
+           :default-height 130
            :variable-pitch-family "sans"
-           :variable-pitch-height 140
-           :bold-family nil
-           :bold-weight medium
+           :variable-pitch-height 130
+           :variable-pitch-weight regular
            :italic-family nil
            :italic-slant italic)))
   :config
@@ -83,11 +82,18 @@
   :init
   (setq ef-themes-disable-other-themes t))
 
+(use-package catppuccin-theme
+  :straight t)
+
+(use-package tokyonight-themes
+  :straight (:local-repo "/home/karan/repos/tokyo-emacs/lisp/tokyonight-themes"))
+
 (use-package auto-dark
   :straight t
   :init
-  (setq auto-dark-dark-theme 'ef-night)
-  (setq auto-dark-light-theme 'ef-light)
+  (setq auto-dark-dark-theme 'tokyonight-night)
+  (setq auto-dark-light-theme 'tokyonight-day)
+  :config
   (auto-dark-mode))
 
 ;; Cuz I may have the memory of a fish
