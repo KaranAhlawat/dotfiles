@@ -1,0 +1,14 @@
+[tools]
+usage = "latest"
+node = "20"
+java = "temurin-21"
+"cargo:eza" = "latest"
+"cargo:zoxide" = "latest"
+opam = "2.1"
+tokei = "latest"
+deno = "1.42.0"
+"cargo:jj-cli" = "latest"
+delta = "latest"
+
+[settings]
+experimental = true

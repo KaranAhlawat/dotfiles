@@ -1,0 +1,13 @@
+[user]
+name = "Karan Ahlawat"
+email = "ahlawatkaran12@gmail.com"
+
+[ui]
+graph.style = "square"
+pager = "delta"
+editor = "nvim"
+diff-editor = "nvim"
+default-command = "log"
+
+[ui.diff]
+format = "git"
