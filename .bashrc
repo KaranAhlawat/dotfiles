@@ -13,14 +13,11 @@ alias ls='eza'
 alias l='ls -alG'
 alias open='xdg-open'
 alias lfont='pango-list | rg -S'
-alias mill='mill --disable-ticker'
-alias ts='tree-sitter'
-alias bat='batcat'
-alias cat='batcat'
+alias bat='batcat --paging=never'
+alias cat='batcat --paging=never'
 alias fd='fdfind'
 alias tmux='tmux -u'
 alias apt='nala'
-alias mm='micromamba'
 alias vim='nvim'
 
 COMPLETIONS_DIR="$HOME/.bash_completions"
@@ -46,5 +43,6 @@ fi
 eval "$(mise activate bash)"
 eval "$(mise hook-env -s bash)"
 
+source <(jj util completion bash)
 eval "$(zoxide init --cmd cd bash)"
 eval "$(starship init bash)"

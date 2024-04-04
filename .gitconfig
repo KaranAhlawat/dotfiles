@@ -1,8 +1,13 @@
-[init]
-	defaultBranch = main
 [user]
 	name = Karan Ahlawat
 	email = ahlawatkaran12@gmail.com
+
+[init]
+	defaultBranch = main
+
+[core]
+	pager = delta
+
 [alias]
 	co = checkout
 	br = branch
@@ -11,11 +16,44 @@
 	s = st -s
 	l = log --oneline
 	lg = log --graph
+
 [core]
-	editor = vim
+	editor = nvim
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only --features=interactive
+
+[delta]
+	features = side-by-side diff-so-fancy line-numbers decorations
+	syntax-theme = ansi
+
+[delta "line-numbers"]
+	line-numbers-left-style = cyan
+	line-numbers-right-style = cyan
+	line-numbers-minus-style = 124
+	line-numbers-plus-style = 28
+
+[delta "decorations"]
+	commit-decoration-style = bold yellow box ul
+	file-style = bold yellow ul
+	file-decoration-style = none
+	hunk-header-decoration-style = cyan box ul
+
+[delta "interactive"]
+	keep-plus-minus-markers = false
+
+
+[diff]
+	colorMoved = default
+
 [credential "https://github.com"]
 	helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = !/usr/bin/gh auth git-credential
+	
 [rerere]
 	enabled = true
+
+[merge]
+	conflictStyle = diff3

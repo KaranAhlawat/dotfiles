@@ -3,7 +3,6 @@
     * Better Defaults
     **/
 	"editor.copyWithSyntaxHighlighting": false,
-	"diffEditor.ignoreTrimWhitespace": false,
 	"editor.emptySelectionClipboard": false,
 	"workbench.editor.enablePreview": false,
 	"window.newWindowDimensions": "inherit",
@@ -110,10 +109,10 @@
 	},
 	"workbench.iconTheme": "vscode-icons",
 	"editor.cursorBlinking": "solid",
-	"editor.fontFamily": "'Rec Mono Duotone','Leo Serene'",
+	"editor.fontFamily": "'Leo Serene', monospace",
 	"editor.fontWeight": "400",
-	"editor.fontSize": 14,
-	"editor.lineHeight": 40,
+	"editor.fontSize": 13,
+	"editor.lineHeight": 2,
 	"editor.suggestFontSize": 13,
 	"editor.suggestLineHeight": 28,
 	"terminal.integrated.fontSize": 13,
@@ -145,33 +144,10 @@
 		".php_cs.dist": "php",
 		"*.css": "scss"
 	},
-	// C/C++
-	"C_Cpp.clang_format_fallbackStyle": "GNU",
-	"C_Cpp.default.cppStandard": "gnu++20",
 	// YAML
 	"redhat.telemetry.enabled": false,
 	// JS/TS/JSON
 	"typescript.tsserver.log": "off",
-	"[typescriptreact]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.formatOnSave": true
-	},
-	"[typescript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.formatOnSave": true
-	},
-	"[javascriptreact]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.formatOnSave": true
-	},
-	"[javascript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.formatOnSave": true
-	},
-	"[jsonc]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.formatOnSave": true
-	},
 	/**
 		* Extension specifics
 		**/
@@ -181,10 +157,6 @@
 	"amVim.useSystemClipboard": true,
 	"amVim.bindCtrlCommands": true,
 	/**
-		* Intelephense
-		**/
-	"intelephense.telemetry.enabled": false,
-	/**
 		* Prettier
 		**/
 	"prettier.requireConfig": true,
@@ -193,24 +165,7 @@
 		* VS Code Icons
 		**/
 	"files.eol": "\n",
-	"[css]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
-	/**
-		* Metals
-		**/
-	"metals.suggestLatestUpgrade": false,
-	"metals.enableSemanticHighlighting": true,
-	"metals.superMethodLensesEnabled": false,
-	"files.watcherExclude": {
-		"**/.ammonite": true,
-		"**/.bloop": true,
-		"**/.metals": true
-	},
 	"typescript.updateImportsOnFileMove.enabled": "always",
 	"update.showReleaseNotes": false,
-	"workbench.colorTheme": "Tokyo Night Light",
-	"[csharp]": {
-		"editor.defaultFormatter": "ms-dotnettools.csharp"
-	},
+	"workbench.colorTheme": "Tokyo Night",
 }
