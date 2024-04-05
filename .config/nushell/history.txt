@@ -79,3 +79,11 @@ eza
 jj -v
 jj --version
 yadm st -s
+yadm add .config/nushell/
+yadm s
+yadm cm -m 'add nushell'
+yadm push
+cat .config/jj/config.toml
+nvim .config/jj/config.toml
+yadn s
+yadm s

@@ -7,7 +7,7 @@ graph.style = "square"
 pager = "delta"
 editor = "nvim"
 diff-editor = "nvim"
-default-command = "log"
+default-command = "status"
 
 [ui.diff]
 format = "git"
