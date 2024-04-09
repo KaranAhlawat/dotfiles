@@ -48,6 +48,7 @@
    '("package.json"
      ".project"
      "project.clj"
+     "mix.exs"
      "dune-project"))
   (project-vc-ignores
    '("node_modules"

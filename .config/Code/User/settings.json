@@ -53,8 +53,8 @@
 	"editor.gotoLocation.multipleImplementations": "goto",
 	"editor.gotoLocation.multipleTypeDefinitions": "goto",
 	"window.autoDetectColorScheme": true,
-	"workbench.preferredDarkColorTheme": "Tokyo Night",
-	"workbench.preferredLightColorTheme": "Tokyo Night Light",
+	"workbench.preferredDarkColorTheme": "Default Dark Modern",
+	"workbench.preferredLightColorTheme": "Default Light Modern",
 	"editor.tokenColorCustomizations": {
 		"[Tokyo Night]": { // or "[Tokyo Night Storm]"
 			"textMateRules": [
@@ -107,23 +107,25 @@
 			]
 		}
 	},
-	"workbench.iconTheme": "vscode-icons",
+	"workbench.iconTheme": "vscode-jetbrains-icon-theme-2023-auto",
 	"editor.cursorBlinking": "solid",
-	"editor.fontFamily": "'Leo Serene', monospace",
-	"editor.fontWeight": "400",
-	"editor.fontSize": 13,
+	"editor.fontFamily": "'DejaVu Sans Mono', monospace",
+	"editor.fontSize": 14,
 	"editor.lineHeight": 2,
+	"editor.fontLigatures": true,
 	"editor.suggestFontSize": 13,
 	"editor.suggestLineHeight": 28,
 	"terminal.integrated.fontSize": 13,
 	"terminal.integrated.lineHeight": 1.5,
-	"window.zoomLevel": 1,
+	"window.zoomLevel": 0.5,
 	"window.titleBarStyle": "custom",
 	"window.menuBarVisibility": "hidden",
 	"settingsSync.ignoredExtensions": [
-		"antfu.unocss",
-		"anhsirk0.ef-themes"
+		"antfu.unocss"
 	],
+	"editor.bracketPairColorization.enabled": true,
+	"editor.guides.bracketPairs": "active",
+	"workbench.tree.renderIndentGuides": "always",
 	/**
    * Code
    **/
@@ -148,6 +150,10 @@
 	"redhat.telemetry.enabled": false,
 	// JS/TS/JSON
 	"typescript.tsserver.log": "off",
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"html.autoClosingTags": true,
+	"javascript.autoClosingTags": true,
+	"typescript.autoClosingTags": true,
 	/**
 		* Extension specifics
 		**/
@@ -165,7 +171,6 @@
 		* VS Code Icons
 		**/
 	"files.eol": "\n",
-	"typescript.updateImportsOnFileMove.enabled": "always",
 	"update.showReleaseNotes": false,
-	"workbench.colorTheme": "Tokyo Night",
+	"workbench.colorTheme": "Default Light Modern",
 }

@@ -136,11 +136,6 @@ let light_theme = {
     shape_vardecl: purple
 }
 
-# External completer example
-# let carapace_completer = {|spans|
-#     carapace $spans.0 nushell ...$spans | from json
-# }
-
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
     show_banner: false # true or false to enable or disable the welcome banner at startup
@@ -151,7 +146,7 @@ $env.config = {
     }
 
     rm: {
-        always_trash: false # always act as if -t was given. Can be overridden with -p
+        always_trash: true # always act as if -t was given. Can be overridden with -p
     }
 
     table: {
@@ -865,6 +860,11 @@ $env.config = {
     ]
 }
 
+# if ((which tmux | length) == 1) and ($env.PROMPT) and not ($env.TERM == "screen") and not ($env.TERM == "dumb") and not ($env.TERM_PROGRAM == "vscode") and not ($env.TERM == "tmux") and not $env.TMUX {
+#     tmux
+# }
+
+source ~/.config/nushell/scripts/carapace.nu
 source ~/.config/nushell/scripts/zoxide.nu
 
-use mise.nu
+use ~/.config/nushell/scripts/mise.nu

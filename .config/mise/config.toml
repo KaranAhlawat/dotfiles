@@ -9,6 +9,9 @@ tokei = "latest"
 deno = "1.42.0"
 "cargo:jj-cli" = "latest"
 delta = "latest"
+elixir = "1.16.2-otp-26"
+erlang = "26"
+ruby = "3"
 
 [settings]
 experimental = true

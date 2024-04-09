@@ -79,6 +79,7 @@
                lsp-use-plists
                (not (functionp 'json-rpc-connection))  ;; native json-rpc
                (not (seq-contains-p orig-result "ocamllsp"))
+               (not (cl-search "elixir-ls" (cl-first orig-result)))
                (executable-find "emacs-lsp-booster"))
           (progn
             (message "Using emacs-lsp-booster for %s!" orig-result)
@@ -93,9 +94,6 @@
 
   (require 'lsp-javascript)
   (setq lsp-typescript-preferences-import-module-specifier "non-relative")
-
-  (require 'lsp-elixir)
-  (setq lsp-elixir-server-command '("/home/karan/repos/lexical/_build/dev/package/lexical/bin/start_lexical.sh"))
 
   :config
   (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)

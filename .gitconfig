@@ -18,7 +18,7 @@
 	lg = log --graph
 
 [core]
-	editor = nvim
+	editor = flatpak run re.sonny.Commit
 	pager = delta
 
 [interactive]

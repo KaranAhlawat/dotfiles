@@ -105,12 +105,16 @@
  '(package-vc-selected-packages
    '((scala-ts-mode :vc-backend Git :url "https://github.com/KaranAhlawat/scala-ts-mode")))
  '(safe-local-variable-values
-   '((lsp-enabled-clients ts-ls)
+   '((lsp-enabled-clients deno-ls)
+     (lsp-enabled-clients "deno")
+     (lsp-enabled-clients quote
+                          ("deno"))
+     (lsp-enabled-clients ts-ls)
      (cider-shadow-watched-builds "app")
      (cider-default-cljs-repl . shadow)
      (cider-preferred-build-tool . shadow)))
-'(smtpmail-smtp-server "smtp.gmail.com")
-'(smtpmail-smtp-service 25))
+ '(smtpmail-smtp-server "smtp.gmail.com")
+ '(smtpmail-smtp-service 25))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -127,6 +131,9 @@
  '(mode-line-inactive ((t :box (:line-width 6 :color "#dbdbdb" :style nil))))
  '(tab-bar-tab ((t :box (:line-width 4 :color "#ffffff" :style nil))))
  '(tab-bar-tab-inactive ((t :box (:line-width 4 :color "#b3b3b3" :style nil))))
+ '(tab-line-tab ((t)))
+ '(tab-line-tab-active ((t)))
+ '(tab-line-tab-inactive ((t)))
  '(vertical-border ((t :background "#ffffff" :foreground "#ffffff")))
  '(window-divider ((t (:background "#ffffff" :foreground "#ffffff"))))
  '(window-divider-first-pixel ((t (:background "#ffffff" :foreground "#ffffff"))))

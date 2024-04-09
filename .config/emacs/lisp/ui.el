@@ -53,7 +53,7 @@
           (regular
            :default-weight medium)
           (medium
-           :default-height 130)
+           :default-height 120)
           (large
            :inherit medium
            :default-height 190)
@@ -62,10 +62,9 @@
            :default-height 190)
           (t
            :default-family "monospace"
-           :default-height 130
-           :default-weight medium
+           :default-height 120
            :fixed-pitch-family "monospace"
-           :default-height 130
+           :default-height 120
            :variable-pitch-family "sans"
            :variable-pitch-height 130
            :variable-pitch-weight regular
@@ -77,12 +76,7 @@
 
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
-(use-package ef-themes
-  :straight t
-  :init
-  (setq ef-themes-disable-other-themes t))
-
-(use-package catppuccin-theme
+(use-package standard-themes
   :straight t)
 
 (use-package tokyonight-themes
@@ -91,8 +85,8 @@
 (use-package auto-dark
   :straight t
   :init
-  (setq auto-dark-dark-theme 'tokyonight-night)
-  (setq auto-dark-light-theme 'tokyonight-day)
+  (setq auto-dark-dark-theme 'standard-dark)
+  (setq auto-dark-light-theme 'standard-light)
   :config
   (auto-dark-mode))
 

@@ -5,7 +5,7 @@ email = "ahlawatkaran12@gmail.com"
 [ui]
 graph.style = "square"
 pager = "delta"
-editor = "nvim"
+editor = ["flatpak", "run", "re.sonny.Commit"]
 diff-editor = "nvim"
 default-command = "status"
 
