@@ -25,14 +25,6 @@ if [ -d $COMPLETIONS_DIR ]; then
 	. "$COMPLETIONS_DIR/mise"
 fi
 
-# Bleep managed
-_bleep_completions() {
-	COMPREPLY=($(bleep _complete "${COMP_LINE}" "${COMP_CWORD}" "${COMP_POINT}"))
-}
-
-complete -F _bleep_completions bleep
-# Bleep managed
-
 if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ dumb ]] && [[ ! "$TERM_PROGRAM" =~ vscode ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
 	exec tmux
 fi

@@ -26,6 +26,8 @@ case ":$PATH:" in
 *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
+export PATH="$PATH:$HOME/.bun/bin"
+
 export DOCKER_HOST="unix:///run/user/1000/docker.sock"
 
 # Added by Toolbox App

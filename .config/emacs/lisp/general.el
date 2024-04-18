@@ -15,6 +15,7 @@
   (setq backup-by-copying t)
   (setq use-dialog-box nil)
   (setq xref-search-program 'ripgrep)
+  (setq custom-theme-directory (locate-user-emacs-file "themes"))
   :config
   (blink-cursor-mode -1))
 
@@ -45,10 +46,10 @@
   :straight (:type built-in)
   :custom
   (project-vc-extra-root-markers
-   '("package.json"
-     ".project"
+   '(".project"
      "project.clj"
      "mix.exs"
+     "Cargo.toml"
      "dune-project"))
   (project-vc-ignores
    '("node_modules"
@@ -56,6 +57,18 @@
      "out"
      "_build"
      "_opam"
+     "deps"
+     ".lexical"
+     ".elixir_ls"
+     "dist"
+     "_build"
+     "straight"
+     "var"
+     "elpa"
+     "etc"
+     "tree-sitter"
+     "lsp-cache"
+     "eln-cache"
      ".git"))
   :config
   (setopt
@@ -126,7 +139,7 @@
 
 (use-package jinx
   :straight t
-  :hook (org-mode text-mode markdown-mode fundamental-mode)
+  :hook (org-mode LaTeX-mode mode markdown-mode fundamental-mode)
   :bind ([remap ispell-word] . jinx-correct))
 
 (use-package nerd-icons

@@ -58,7 +58,7 @@
   (evil-leader/set-leader ",")
   (evil-leader/set-key
     "," #'execute-extended-command
-    "b" #'switch-to-buffer
+    "b" #'consult-buffer
     "s" #'save-buffer
     "k" #'kill-buffer
     "f" #'find-file
@@ -69,8 +69,8 @@
     "pp" #'project-switch-project
     "pb" #'project-switch-to-buffer
     "pk" #'project-kill-buffers
-    "pg" #'project-find-regexp
     "pf" #'project-find-file
+    "pg" #'consult-ripgrep
     "pe" #'eat-project-other-window
     "af" #'apheleia-format-buffer)
   (global-evil-leader-mode))

@@ -54,7 +54,7 @@
 (use-package exec-path-from-shell
   :straight t
   :init
-  (setq exec-path-from-shell-arguments '("-l"))
+  (setq exec-path-from-shell-arguments '("--login"))
   :config
   (add-to-list 'exec-path-from-shell-variables "LSP_USE_PLISTS")
   (exec-path-from-shell-initialize))

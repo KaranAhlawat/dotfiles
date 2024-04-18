@@ -182,7 +182,10 @@
                           (:exclude ".dir-locals.el" "*-tests.el")))
   :hook (eat-mode . (lambda () (display-line-numbers-mode -1)))
   :bind ( :map project-prefix-map
-          ("e" . #'eat-project-other-window)))
+          ("e" . #'eat-project-other-window))
+  :init
+  (setq eat-kill-buffer-on-exit t)
+  (setq eat-enable-yank-to-terminal t))
 
 (provide 'shells)
 ;;; shells.el ends here

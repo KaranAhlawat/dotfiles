@@ -51,8 +51,6 @@
            :default-family "monospace"
            :default-height 80)
           (regular
-           :default-weight medium)
-          (medium
            :default-height 120)
           (large
            :inherit medium
@@ -62,13 +60,13 @@
            :default-height 190)
           (t
            :default-family "monospace"
+           :default-weight medium
            :default-height 120
            :fixed-pitch-family "monospace"
            :default-height 120
-           :variable-pitch-family "sans"
-           :variable-pitch-height 130
+           :variable-pitch-family "iA Writer Duo V"
+           :variable-pitch-height 120
            :variable-pitch-weight regular
-           :italic-family nil
            :italic-slant italic)))
   :config
   (conf/daemon-frame-hook!
@@ -76,17 +74,14 @@
 
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
-(use-package standard-themes
-  :straight t)
-
 (use-package tokyonight-themes
   :straight (:local-repo "/home/karan/repos/tokyo-emacs/lisp/tokyonight-themes"))
 
 (use-package auto-dark
   :straight t
   :init
-  (setq auto-dark-dark-theme 'standard-dark)
-  (setq auto-dark-light-theme 'standard-light)
+  (setq auto-dark-dark-theme 'tokyonight-moon)
+  (setq auto-dark-light-theme 'tokyonight-day)
   :config
   (auto-dark-mode))
 

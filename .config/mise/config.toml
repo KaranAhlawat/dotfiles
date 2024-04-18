@@ -12,6 +12,8 @@ delta = "latest"
 elixir = "1.16.2-otp-26"
 erlang = "26"
 ruby = "3"
+python = "3.12"
+bun = "1"
 
 [settings]
 experimental = true

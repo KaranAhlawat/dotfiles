@@ -7,6 +7,7 @@
   "Setup fixed-pitch font for Org."
   (custom-set-faces
    '(org-meta-line ((t :inherit (font-lock-comment-face fixed-pitch))))
+   '(org-document-info-keyword ((t :inherit org-meta-line)))
    '(org-block ((t (:inherit fixed-pitch))))
    '(org-table ((t (:inherit fixed-pitch))))
    '(org-formula ((t (:inherit fixed-pitch))))
@@ -105,9 +106,7 @@
    denote-sort-keywords t
    denote-dired-directories `(,denote-directory)
    denote-prompts '(title keywords subdirectory)
-   denote-date-prompt-use-org-read-date t)
-
-  (denote-modules-global-mode))
+   denote-date-prompt-use-org-read-date t))
 
 (use-package denote-menu
   :straight t)

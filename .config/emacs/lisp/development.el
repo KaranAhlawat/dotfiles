@@ -34,8 +34,6 @@
          (elixir-ts-mode . lsp-deferred)
          (heex-ts-mode . lsp-deferred)
          (lsp-completion-mode . conf/lsp-mode-completion-setup))
-  :custom
-  (lsp-completion-provider :none)
   :init
   (defun conf/orderless-dispatch-flex-first (_pattern index _total)
     (and (eq index 0) 'orderless-flex))
@@ -44,14 +42,17 @@
     (if (seq-contains-p '("clojure-mode" "clojurescript-mode" "clojurec-mode" "cider-mode")
                         major-mode)
         (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-              '(orderless cider))
+              '(cider fussy))
       (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-            '(orderless)))
-    
+            '(fussy)))
 
     (add-hook 'orderless-style-dispatchers #'conf/orderless-dispatch-flex-first nil 'local)
 
-    (setq-local completion-at-point-functions (list (cape-capf-buster #'lsp-completion-at-point))))
+    (setq-local completion-at-point-functions
+                (delete-dups (append
+                              `(tempel-expand
+                                ,(cape-capf-buster #'lsp-completion-at-point))
+                              completion-at-point-functions))))
 
   (defun lsp-booster--advice-json-parse (old-fn &rest args)
     "Try to parse bytecode instead of json."
@@ -62,15 +63,6 @@
            (funcall bytecode))))
      (apply old-fn args)))
 
-  (advice-add (if (progn (require 'json)
-                         (fboundp 'json-parse-buffer))
-                  'json-parse-buffer
-                'json-read)
-              :around
-              #'lsp-booster--advice-json-parse)
-
-  (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
-
   (defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
     "Prepend emacs-lsp-booster command to lsp CMD."
     (let ((orig-result (funcall old-fn cmd test?)))
@@ -78,25 +70,53 @@
                (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
                lsp-use-plists
                (not (functionp 'json-rpc-connection))  ;; native json-rpc
-               (not (seq-contains-p orig-result "ocamllsp"))
-               (not (cl-search "elixir-ls" (cl-first orig-result)))
+               (not (seq-contains-p orig-result "ocamllsp")) ;; OCAML LSP
+               (not (cl-search "lexical" (cl-first orig-result))) ;; LEXICAL
                (executable-find "emacs-lsp-booster"))
           (progn
             (message "Using emacs-lsp-booster for %s!" orig-result)
             (append '("emacs-lsp-booster" "--json-false-value" ":json-false" "--") orig-result))
         orig-result)))
 
-  (setq lsp-keymap-prefix "C-l")
+  (setq lsp-keymap-prefix "C-c C-c")
+  (setq lsp-completion-provider :capf)
+  (setq lsp-headerline-breadcrumb-icons-enable nil)
   (setq lsp-keep-workspace-alive nil)
   (setq lsp-enable-links t)
   (setq lsp-signature-doc-lines 2)
   (setq lsp-enable-text-document-color nil)
+  (setq lsp-idle-delay 1.0)
 
   (require 'lsp-javascript)
   (setq lsp-typescript-preferences-import-module-specifier "non-relative")
 
+  (require 'lsp-elixir)
+  (setq lsp-elixir-server-command '("/home/karan/repos/lexical/_build/dev/package/lexical/bin/start_lexical.sh"))
+
+  ;; Mine is better :)
+  (setq lsp-disabled-clients '(emmet-ls eslint))
+
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection '("emmet-language-server" "--stdio"))
+    :activation-fn (lsp-activate-on "elixir" "eruby" "html" "css" "less" "javascriptreact" "typescriptreact")
+    :priority -1
+    :add-on? t
+    :multi-root t
+    :server-id 'emmet))
+
   :config
+  (push '(heex-ts-mode . "elixir") lsp-language-id-configuration)
+  
   (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
+  (advice-add (if (progn (require 'json)
+                         (fboundp 'json-parse-buffer))
+                  'json-parse-buffer
+                'json-read)
+              :around
+              #'lsp-booster--advice-json-parse)
+  (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
+
   (lsp-enable-which-key-integration t))
 
 (use-package dap-mode
@@ -192,7 +212,22 @@
   :bind
   (:map
    flycheck-mode-map
-   ("M-g d" . #'flycheck-list-errors)))
+   ("M-g d" . #'flycheck-list-errors))
+
+  :init
+  (setq flycheck-javascript-eslint-executable "eslint_d"))
+
+(use-package flycheck-deno
+  :straight t
+  :config
+  (with-eval-after-load 'flycheck
+    (flycheck-deno-setup)))
+
+(use-package eslintd-fix
+  :straight t
+  :hook ((js-ts-mode . eslintd-fix-mode)
+         (typescript-ts-mode . eslintd-fix-mode)
+         (tsx-ts-mode . eslintd-fix-mode)))
 
 (use-package markdown-mode
   :straight t

@@ -122,5 +122,8 @@
 (use-package elixir-ts-mode
   :straight t)
 
+(use-package heex-ts-mode
+  :straight t)
+
 (provide 'languages)
 ;;; languages.el ends here

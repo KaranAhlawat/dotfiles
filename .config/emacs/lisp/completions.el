@@ -71,26 +71,6 @@ comma."
 
 (setq enable-recursive-minibuffers t)
 
-;; Orderless - Chaos is nice
-(use-package orderless
-  :straight t
-  :commands (orderless-filter)
-  :custom
-  (orderless-matching-styles
-   '(orderless-literal
-     orderless-regexp))
-  (orderless-component-separator " +\\|[-/]")
-  :init
-  (setq
-   completion-styles '(basic orderless)
-   completion-ignore-case t
-   completion-category-defaults nil
-   completion-category-overrides nil)
-  :config
-  (let ((map minibuffer-local-completion-map))
-    (keymap-set map "SPC" nil)
-    (keymap-set map "?" nil)))
-
 ;; Tempel for expansion - May remove this in the future as I don't use it alot.
 (use-package tempel
   :straight t
@@ -105,35 +85,95 @@ comma."
                 (cons #'tempel-expand completion-at-point-functions)))
   
   (add-hook 'org-mode-hook #'conf/tempel-setup-capf)
-  (add-hook 'clojure-mode-hook #'conf/tempel-setup-capf)
+  (add-hook 'prog-mode-hook #'conf/tempel-setup-capf)
 
-  (setq tempel-path
-        (directory-files (concat user-emacs-directory "templates")
-                         t
-                         directory-files-no-dot-files-regexp)))
+  (setq tempel-path (locate-user-emacs-file "templates/*.eld")))
 
 (use-package cape
   :straight t)
 
+(use-package fzf-native
+  :straight '(fzf-native :repo "dangduc/fzf-native"
+                         :host github
+                         :files (:defaults "bin"))
+  :config
+  (fzf-native-load-dyn))
+
+(use-package fussy
+  :straight t
+  :init
+  (setq completion-styles '(fussy)
+        completion-ignore-case t
+        completion-category-defaults nil
+        completion-category-overrides nil
+        fussy-score-fn 'fussy-fzf-native-score
+        fussy-filter-fn 'fussy-filter-default
+        fussy-use-cache t
+        fussy-compare-same-score-fn 'fussy-histlen->strlen<))
+
 (use-package company-mode
   :straight t
   :demand t
-  :hook (prog-mode . company-mode)
+  :hook ((prog-mode . company-mode)
+         (heex-ts-mode . company-mode))
   :custom
+  (company-require-match nil)
+  (company-eclim-auto-save nil)
+  (company-dabbrev-down-case nil)
   (company-minimum-prefix-length 1)
   (company-tooltip-align-annotations t)
-  (company-require-match 'never)
   (company-global-modes '(not shell-mode eat-mode eshell-mode))
   (company-idle-delay 0.1)
   (company-show-quick-access t)
   (company-format-margin-function #'company-text-icons-margin)
-  (company-frontends '(company-pseudo-tooltip-frontend)))
+  (company-frontends '(company-pseudo-tooltip-frontend))
+  (company-backends '( company-capf company-semantic
+                       company-keywords
+                       company-etags company-gtags ))
+  :config
+  (defun conf/company-capf (f &rest args)
+    "Manage `completion-styles'."
+    (if (length= company-prefix 0)
+        ;; Don't use `company' for 0 length prefixes.
+        (let ((completion-styles (remq 'fussy completion-styles)))
+          (apply f args))
+      (let ((fussy-max-candidate-limit 5000)
+            (fussy-default-regex-fn 'fussy-pattern-first-letter)
+            (fussy-prefer-prefix nil))
+        (apply f args))))
+
+  (defun conf/company-transformers (f &rest args)
+    "Manage `company-transformers'."
+    (if (length= company-prefix 0)
+        ;; Don't use `company' for 0 length prefixes.
+        (apply f args)
+      (let ((company-transformers '(fussy-company-sort-by-completion-score)))
+        (apply f args))))
+
+  (advice-add 'company-auto-begin :before 'fussy-wipe-cache)
+  (advice-add 'company--transform-candidates :around 'conf/company-transformers)
+  (advice-add 'company-capf :around 'conf/company-capf))
+
+(use-package company-tailwindcss
+  :straight (:local-repo "/home/karan/repos/company-tailwindcss")
+  :init
+  (setq company-tailwindcss-complete-only-in-attributes nil)
+  (setq company-tailwindcss-sort-post-completion nil))
+
+(use-package consult-flycheck
+  :straight t
+  :bind ("M-g f" . consult-flycheck))
+
+(use-package consult-lsp
+  :straight t
+  :config
+  (define-key lsp-mode-map [remap xref-find-apropos] #'consult-lsp-symbols)
+  (define-key lsp-mode-map [remap lsp-treemacs-errors-lisp] #'consult-lsp-diagnostics))
 
 (use-package consult
   :straight t
   :demand t
-  :bind (("M-g f" . consult-flymake)
-         ("M-g i" . consult-imenu)
+  :bind (("M-g i" . consult-imenu)
          ("C-x b" . consult-buffer)
          ("C-x 4 b" . consult-buffer-other-window)
          ("C-x 5 b" . consult-buffer-other-frame)
@@ -144,7 +184,9 @@ comma."
   :init
   (setq
    xref-show-xrefs-function #'consult-xref
-   xref-show-definitions-function #'consult-xref)
+   xref-show-definitions-function #'consult-xref
+   consult--tofu-char #x100000
+   consult--tofu-range #xFFFE)
 
   :config
   (consult-customize
@@ -153,9 +195,6 @@ comma."
    consult-buffer-other-frame
    consult-project-buffer
    :preview-key "M-."))
-
-(use-package consult-eglot
-  :straight t)
 
 (provide 'completions)
 ;;; completions.el ends here
