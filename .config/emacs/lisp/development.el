@@ -71,7 +71,7 @@
                lsp-use-plists
                (not (functionp 'json-rpc-connection))  ;; native json-rpc
                (not (seq-contains-p orig-result "ocamllsp")) ;; OCAML LSP
-               (not (cl-search "lexical" (cl-first orig-result))) ;; LEXICAL
+               ;; (not (cl-search "lexical" (cl-first orig-result))) ;; LEXICAL
                (executable-find "emacs-lsp-booster"))
           (progn
             (message "Using emacs-lsp-booster for %s!" orig-result)

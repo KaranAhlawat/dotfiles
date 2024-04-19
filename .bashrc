@@ -20,11 +20,6 @@ alias tmux='tmux -u'
 alias apt='nala'
 alias vim='nvim'
 
-COMPLETIONS_DIR="$HOME/.bash_completions"
-if [ -d $COMPLETIONS_DIR ]; then
-	. "$COMPLETIONS_DIR/mise"
-fi
-
 if command -v tmux &>/dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ dumb ]] && [[ ! "$TERM_PROGRAM" =~ vscode ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
 	exec tmux
 fi

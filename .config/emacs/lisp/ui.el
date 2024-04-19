@@ -64,7 +64,7 @@
            :default-height 120
            :fixed-pitch-family "monospace"
            :default-height 120
-           :variable-pitch-family "iA Writer Duo V"
+           :variable-pitch-family "sans"
            :variable-pitch-height 120
            :variable-pitch-weight regular
            :italic-slant italic)))

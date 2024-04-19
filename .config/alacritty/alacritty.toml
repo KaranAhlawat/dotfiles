@@ -1,0 +1,44 @@
+# https://alacritty.org/config-alacritty.html
+
+import = [
+    "~/.config/alacritty/themes/vscode-dark.toml"
+]
+
+##########
+# WINDOW #
+##########
+
+[window]
+
+# Padding
+padding = { x = 10, y = 10 }  # Default: x = 0, y = 0
+
+# Dynamic padding
+dynamic_padding = true  # Default: false
+
+# Startup mode
+startup_mode = "Maximized"  # Default: "Windowed"
+
+# Decorations theme variant
+decorations_theme_variant = "None"  # Default: "None"
+
+########
+# FONT #
+########
+
+[font]
+
+# Normal font style
+normal = { family = "monospace", style = "Regular" }  # Default for Linux/BSD: "monospace", Regular
+
+# Font size in points
+size = 12  # Default: 11.25
+
+[keyboard]
+
+# Define keyboard bindings here
+# Example placeholder (actual bindings need to be defined based on user preference)
+bindings = [
+    { key = "c", mods = "Control | Shift", action = "Copy" },
+    { key = "p", mods = "Control | Shift", action = "Copy" },
+]

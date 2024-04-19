@@ -20,6 +20,7 @@
 [core]
 	editor = flatpak run re.sonny.Commit
 	pager = delta
+	excludesFiles = /home/karan/.gitignore
 
 [interactive]
 	diffFilter = delta --color-only --features=interactive
