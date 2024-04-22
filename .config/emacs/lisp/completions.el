@@ -154,12 +154,6 @@ comma."
   (advice-add 'company--transform-candidates :around 'conf/company-transformers)
   (advice-add 'company-capf :around 'conf/company-capf))
 
-(use-package company-tailwindcss
-  :straight (:local-repo "/home/karan/repos/company-tailwindcss")
-  :init
-  (setq company-tailwindcss-complete-only-in-attributes nil)
-  (setq company-tailwindcss-sort-post-completion nil))
-
 (use-package consult-flycheck
   :straight t
   :bind ("M-g f" . consult-flycheck))

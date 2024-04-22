@@ -123,6 +123,10 @@
   :straight t)
 
 (use-package heex-ts-mode
+  :straight (:local-repo "/home/karan/repos/heex-ts-mode"))
+
+(use-package kotlin-ts-mode
+  :mode ("\\.kt\\'" "\\.kts\\'")
   :straight t)
 
 (provide 'languages)

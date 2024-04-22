@@ -223,6 +223,12 @@
   (with-eval-after-load 'flycheck
     (flycheck-deno-setup)))
 
+(use-package flycheck-kotlin
+  :straight t
+  :config
+  (flycheck-kotlin-setup)
+  (flycheck-add-next-checker 'lsp 'kotlin-ktlint))
+
 (use-package eslintd-fix
   :straight t
   :hook ((js-ts-mode . eslintd-fix-mode)

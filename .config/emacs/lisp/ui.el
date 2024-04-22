@@ -48,7 +48,7 @@
 
   (setq fontaine-presets
         '((small
-           :default-family "monospace"
+           :default-family "Berkeley Mono Variable"
            :default-height 80)
           (regular
            :default-height 120)
@@ -59,15 +59,14 @@
            :inherit medium
            :default-height 190)
           (t
-           :default-family "monospace"
+           :default-family "Berkeley Mono Variable"
            :default-weight medium
            :default-height 120
-           :fixed-pitch-family "monospace"
+           :fixed-pitch-family "Berkeley Mono Variable"
            :default-height 120
            :variable-pitch-family "sans"
            :variable-pitch-height 120
-           :variable-pitch-weight regular
-           :italic-slant italic)))
+           :variable-pitch-weight regular)))
   :config
   (conf/daemon-frame-hook!
    (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))

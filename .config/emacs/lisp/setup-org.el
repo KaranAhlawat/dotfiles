@@ -69,15 +69,10 @@
    org-pretty-entities nil
    org-pretty-entities-include-sub-superscripts nil))
 
-(use-package org-appear
+(use-package org-modern
   :straight t
-  :after org
-  :hook (org-mode . org-appear-mode)
-  :config
-  (setq-default org-hide-emphasis-markers t)
-  (setq
-   org-appear-autoemphasis t
-   org-appear-autosubmarkers t))
+  :hook ((org-mode . org-modern-mode)
+         (org-agenda-finalize . org-modern-agenda)))
 
 ;; Org babel
 (with-eval-after-load 'org

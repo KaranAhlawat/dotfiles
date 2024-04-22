@@ -56,6 +56,8 @@
      "target"
      "out"
      "_build"
+     ".gradle"
+     "build"
      "_opam"
      "deps"
      ".lexical"
