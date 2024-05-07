@@ -35,13 +35,13 @@
 ;; Set some properties on the default and initial frames
 (modify-all-frames-parameters
  '((vertical-scroll-bars . nil)
-   (horizontal-scroll-bars . nil)
-   (fullscreen . maximized)
-   (undecorated . t)
-   (menu-bar-lines . 0)
-   (tool-bar-lines . 0)
-   (alpha . 100)
-   (alpha-background . 100)))
+	 (horizontal-scroll-bars . nil)
+	 (fullscreen . maximized)
+	 (undecorated . t)
+	 (menu-bar-lines . 0)
+	 (tool-bar-lines . 0)
+	 (alpha . 100)
+	 (alpha-background . 100)))
 
 ;; Reducing the GUI clutter. I recommend not doing this if just
 ;; getting started with emacs, as they help massively in

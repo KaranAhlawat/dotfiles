@@ -53,75 +53,26 @@
 	"editor.gotoLocation.multipleImplementations": "goto",
 	"editor.gotoLocation.multipleTypeDefinitions": "goto",
 	"window.autoDetectColorScheme": true,
-	"workbench.preferredDarkColorTheme": "Default Dark Modern",
 	"workbench.preferredLightColorTheme": "Default Light Modern",
-	"editor.tokenColorCustomizations": {
-		"[Tokyo Night]": { // or "[Tokyo Night Storm]"
-			"textMateRules": [
-				{
-					"scope": "comment",
-					"settings": {
-						"fontStyle": ""
-					}
-				},
-				{
-					"scope": [
-						"entity.name.type",
-						"meta.var.expr storage.type",
-						"keyword.control",
-						"meta.directive.vue punctuation.separator.key-value.html",
-						"meta.directive.vue entity.other.attribute-name.html",
-						"tag.decorator.js entity.name.tag.js",
-						"tag.decorator.js punctuation.definition.tag.js",
-						"storage.modifier"
-					],
-					"settings": {
-						"fontStyle": "bold"
-					}
-				}
-			]
-		},
-		"[Tokyo Night Light]": { // or "[Tokyo Night Storm]"
-			"textMateRules": [
-				{
-					"scope": "comment",
-					"settings": {
-						"fontStyle": ""
-					}
-				},
-				{
-					"scope": [
-						"meta.var.expr storage.type",
-						"keyword.control",
-						"meta.directive.vue punctuation.separator.key-value.html",
-						"meta.directive.vue entity.other.attribute-name.html",
-						"tag.decorator.js entity.name.tag.js",
-						"tag.decorator.js punctuation.definition.tag.js",
-						"storage.modifier",
-						"entity.name.type"
-					],
-					"settings": {
-						"fontStyle": "bold"
-					}
-				},
-			]
-		}
-	},
-	"workbench.iconTheme": "vscode-jetbrains-icon-theme-2023-auto",
+	"workbench.preferredDarkColorTheme": "Dracula",
 	"editor.cursorBlinking": "solid",
-	"editor.fontFamily": "'MonoLisa', monospace",
+	"editor.fontFamily": "monospace",
 	"editor.fontSize": 13,
-	"editor.lineHeight": 2,
+	"editor.fontWeight": "600",
+	"editor.lineHeight": 2.0,
 	"editor.fontLigatures": true,
 	"editor.suggestFontSize": 13,
 	"editor.suggestLineHeight": 28,
+	"editor.smoothScrolling": true,
 	"terminal.integrated.fontSize": 13,
 	"terminal.integrated.lineHeight": 1.5,
 	"window.zoomLevel": 1,
 	"window.titleBarStyle": "custom",
 	"window.menuBarVisibility": "hidden",
 	"settingsSync.ignoredExtensions": [
-		"antfu.unocss"
+		"antfu.unocss",
+		"ms-dotnettools.csdevkit",
+		"ocamllabs.ocaml-platform"
 	],
 	"editor.bracketPairColorization.enabled": true,
 	"editor.guides.bracketPairs": "active",
@@ -172,7 +123,18 @@
 		**/
 	"files.eol": "\n",
 	"update.showReleaseNotes": false,
-	"workbench.colorTheme": "Default Light Modern",
 	"workbench.editor.labelFormat": "short",
-	"explorer.compactFolders": false
+	"explorer.compactFolders": false,
+	"dotnet.codeLens.enableReferencesCodeLens": false,
+	"[csharp]": {
+		"editor.maxTokenizationLineLength": 2500,
+		"editor.formatOnSave": true
+	},
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"workbench.colorTheme": "Gruvbox Material Light",
+	"gruvboxMaterial.colorfulSyntax": true,
+	"extensions.ignoreRecommendations": true,
+	"workbench.iconTheme": "vscode-jetbrains-icon-theme-2023-dark",
 }

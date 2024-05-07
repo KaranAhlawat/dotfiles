@@ -5,31 +5,31 @@
 
 ;; Littering is bad. Stop it. Get some help.
 (use-package no-littering
-  :straight t
-  :config
-  (setq auto-save-file-name-transforms
-        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+	:straight t
+	:config
+	(setq auto-save-file-name-transforms
+				`((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
 (require 'autorevert)
 (setq global-auto-revert-non-file-buffers t)
 
-;; Measure the startup time of  emacs
+;; Measure the startup time of	emacs
 (defun conf/display-startup-time ()
-  "Dispaly the time it took for Emacs to start in the minibuffer."
-  (message "Emacs loaded in %s with %d GCs."
-           (format "%.2f seconds"
-                   (float-time
-                    (time-subtract after-init-time before-init-time)))
-           gcs-done))
+	"Dispaly the time it took for Emacs to start in the minibuffer."
+	(message "Emacs loaded in %s with %d GCs."
+					 (format "%.2f seconds"
+									 (float-time
+										(time-subtract after-init-time before-init-time)))
+					 gcs-done))
 
 (add-hook 'emacs-startup-hook #'conf/display-startup-time)
 (global-auto-revert-mode 1)
 
 ;; Try to tame the TAB
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
+(setq-default indent-tabs-mode t)
+(setq-default tab-width 4)
 (setq-default cursor-type 'bar)
-(setq-default tab-always-indent 't)
+(setq-default tab-always-indent nil)
 (setq-default tab-first-completion 'eol)
 (setq-default read-process-output-max (* 1024 1024)) ;; 1 MB
 
@@ -52,17 +52,18 @@
 
 ;; Exec path is taken from shell
 (use-package exec-path-from-shell
-  :straight t
-  :init
-  (setq exec-path-from-shell-arguments '("--login"))
-  :config
-  (add-to-list 'exec-path-from-shell-variables "LSP_USE_PLISTS")
-  (exec-path-from-shell-initialize))
+	:straight t
+	:init
+	(setq exec-path-from-shell-arguments '("--login"))
+	:config
+	(add-to-list 'exec-path-from-shell-variables "LSP_USE_PLISTS")
+	(add-to-list 'exec-path-from-shell-variables "JAVA_HOME")
+	(exec-path-from-shell-initialize))
 
 (use-package delsel
-  :straight (:type built-in)
-  :config
-  (delete-selection-mode))
+	:straight (:type built-in)
+	:config
+	(delete-selection-mode))
 
 (provide 'defaults)
 ;;; defaults.el ends here
