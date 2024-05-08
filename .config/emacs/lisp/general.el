@@ -35,54 +35,54 @@
 	:straight (:type built-in)
 	:config
 	(setq
-	 user-full-name "Karan Ahlawat"
-	 user-mail-address "ahlawatkaran12@gmail.com"
-	 smtpmail-smtp-server "smtp.gmail.com"
-	 smtpmail-stream-type 'starttls
-	 smtpmail-smtp-serice 587
-	 send-mail-function 'smtpmail-send-it))
+		user-full-name "Karan Ahlawat"
+		user-mail-address "ahlawatkaran12@gmail.com"
+		smtpmail-smtp-server "smtp.gmail.com"
+		smtpmail-stream-type 'starttls
+		smtpmail-smtp-serice 587
+		send-mail-function 'smtpmail-send-it))
 
 (use-package project
 	:straight (:type built-in)
 	:custom
 	(project-vc-extra-root-markers
-	 '(".project"
-		 "project.clj"
-		 "package.json"
-		 "mix.exs"
-		 "Cargo.toml"
-		 "dune-project"))
+		'(".project"
+			 "project.clj"
+			 "package.json"
+			 "mix.exs"
+			 "Cargo.toml"
+			 "dune-project"))
 	(project-vc-ignores
-	 '("node_modules"
-		 "target"
-		 "out"
-		 "_build"
-		 ".gradle"
-		 "build"
-		 "_opam"
-		 "esy.lock"
-		 "_esy"
-		 "deps"
-		 ".lexical"
-		 ".elixir_ls"
-		 "dist"
-		 "_build"
-		 "straight"
-		 "var"
-		 "elpa"
-		 "etc"
-		 "tree-sitter"
-		 "lsp-cache"
-		 "eln-cache"
-		 ".git"))
+		'("node_modules"
+			 "target"
+			 "out"
+			 "_build"
+			 ".gradle"
+			 "build"
+			 "_opam"
+			 "esy.lock"
+			 "_esy"
+			 "deps"
+			 ".lexical"
+			 ".elixir_ls"
+			 "dist"
+			 "_build"
+			 "straight"
+			 "var"
+			 "elpa"
+			 "etc"
+			 "tree-sitter"
+			 "lsp-cache"
+			 "eln-cache"
+			 ".git"))
 	:config
 	(setopt
-	 project-switch-commands
-	 '((project-find-file "Find file")
-		 (consult-ripgrep "Find regexp")
-		 (project-find-dir "Find directory")
-		 (project-dired "Root dired")
-		 (project-eshell "Eshell")))
+		project-switch-commands
+		'((project-find-file "Find file")
+			 (consult-ripgrep "Find regexp")
+			 (project-find-dir "Find directory")
+			 (project-dired "Root dired")
+			 (project-eshell "Eshell")))
 
 	(keymap-set project-prefix-map "." #'project-dired)
 	(keymap-set project-prefix-map "<return>" #'project-dired)
@@ -93,32 +93,32 @@
 	:hook ((dired-mode . dired-hide-details-mode) (dired-mode . hl-line-mode))
 	:config
 	(setq
-	 dired-recursive-copies 'always
-	 dired-recursive-deletes 'always
-	 delete-by-moving-to-trash t
-	 dired-listing-switches "-aGFhlv --group-directories-first --time-style=long-iso"
-	 dired-dwim-target t
-	 dired-auto-revert-buffer #'dired-directory-changed-p
-	 dired-make-directory-clickable t
-	 dired-free-space nil
-	 dired-mouse-drag-files t))
+		dired-recursive-copies 'always
+		dired-recursive-deletes 'always
+		delete-by-moving-to-trash t
+		dired-listing-switches "-aGFhlv --group-directories-first --time-style=long-iso"
+		dired-dwim-target t
+		dired-auto-revert-buffer #'dired-directory-changed-p
+		dired-make-directory-clickable t
+		dired-free-space nil
+		dired-mouse-drag-files t))
 
 (use-package dired-aux
 	:straight (:type built-in)
 	:config
 	(setq
-	 dired-isearch-filenames 'dwim
-	 dired-create-destination-dirs 'ask
-	 dired-vc-rename-file t
-	 dired-do-revert-buffer (lambda (dir) (not (file-remote-p dir)))))
+		dired-isearch-filenames 'dwim
+		dired-create-destination-dirs 'ask
+		dired-vc-rename-file t
+		dired-do-revert-buffer (lambda (dir) (not (file-remote-p dir)))))
 
 (use-package dired-x
 	:straight (:type built-in)
 	:config
 	(setq
-	 dired-clean-up-buffers-too t
-	 dired-clean-confirm-killing-deleted-buffers t
-	 dired-x-hands-off-my-keys t))
+		dired-clean-up-buffers-too t
+		dired-clean-confirm-killing-deleted-buffers t
+		dired-x-hands-off-my-keys t))
 
 (use-package pulsar
 	:straight t
@@ -149,9 +149,9 @@
 
 (use-package nerd-icons
 	:straight (:type git
-									 :host github
-									 :repo "rainstormstudio/nerd-icons.el"
-									 :files ("*"))
+				  :host github
+				  :repo "rainstormstudio/nerd-icons.el"
+				  :files ("*"))
 	:custom
 	(nerd-icons-scale-factor 1.2))
 
@@ -171,12 +171,12 @@
 	:demand t
 	:config
 	(if
-			(daemonp)
-			(add-to-list 'after-make-frame-functions
-									 (lambda
-										 (frame)
-										 (with-selected-frame frame
-											 (recentf-load-list))))
+		(daemonp)
+		(add-to-list 'after-make-frame-functions
+			(lambda
+				(frame)
+				(with-selected-frame frame
+					(recentf-load-list))))
 		(recentf-load-list))
 
 	(recentf-mode))

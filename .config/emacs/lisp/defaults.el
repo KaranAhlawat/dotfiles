@@ -8,19 +8,19 @@
 	:straight t
 	:config
 	(setq auto-save-file-name-transforms
-				`((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+		`((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
 (require 'autorevert)
 (setq global-auto-revert-non-file-buffers t)
 
 ;; Measure the startup time of	emacs
 (defun conf/display-startup-time ()
-	"Dispaly the time it took for Emacs to start in the minibuffer."
+	"Display the time it took for Emacs to start in the minibuffer."
 	(message "Emacs loaded in %s with %d GCs."
-					 (format "%.2f seconds"
-									 (float-time
-										(time-subtract after-init-time before-init-time)))
-					 gcs-done))
+		(format "%.2f seconds"
+			(float-time
+				(time-subtract after-init-time before-init-time)))
+		gcs-done))
 
 (add-hook 'emacs-startup-hook #'conf/display-startup-time)
 (global-auto-revert-mode 1)
@@ -28,6 +28,7 @@
 ;; Try to tame the TAB
 (setq-default indent-tabs-mode t)
 (setq-default tab-width 4)
+(setq-default lisp-indent-offset 4)
 (setq-default cursor-type 'bar)
 (setq-default tab-always-indent nil)
 (setq-default tab-first-completion 'eol)
@@ -47,8 +48,8 @@
 
 ;; .dir-locals
 (setq
- enable-local-variables t
- enable-dir-local-variables t)
+	enable-local-variables t
+	enable-dir-local-variables t)
 
 ;; Exec path is taken from shell
 (use-package exec-path-from-shell

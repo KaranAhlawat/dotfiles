@@ -23,7 +23,8 @@ dynamic_padding = true  # Default: false
 startup_mode = "Maximized"  # Default: "Windowed"
 
 # Decorations theme variant
-decorations_theme_variant = "None"  # Default: "None"
+decorations = "None"
+decorations_theme_variant = "Dark"  # Default: "None"
 
 ########
 # FONT #

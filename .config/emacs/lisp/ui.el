@@ -23,11 +23,11 @@
 (defmacro conf/daemon-frame-hook! (body)
 	"Add BODY to `after-make-frame-functions' properly."
 	`(if (daemonp)
-			 (add-to-list 'after-make-frame-functions
-										(lambda (frame)
-											(with-selected-frame
-													frame
-												,body)))
+		 (add-to-list 'after-make-frame-functions
+			 (lambda (frame)
+				 (with-selected-frame
+					 frame
+					 ,body)))
 		 ,body))
 
 (dolist (mode '(org-mode-hook eshell-mode-hook))
@@ -44,34 +44,34 @@
 	(setq x-underline-at-descent-line nil)
 	(setq-default text-scale-remap-header-line t)
 	(setq fontaine-latest-state-file (locate-user-emacs-file
-																		"fontaine-latest-state.eld"))
+										 "fontaine-latest-state.eld"))
 
 	(setq fontaine-presets
-				'((small
-					 :default-family "monospace"
-					 :default-height 80)
-					(regular
-					 :default-height 120
-					 :default-weight regular)
-					(large
-					 :inherit medium
-					 :default-height 190)
-					(presentation
-					 :inherit medium
-					 :default-height 190)
-					(t
-					 :default-family "monospace"
-					 :default-weight regular
-					 :default-height 120
-					 :bold-weight regular
-					 :fixed-pitch-family "monospace"
-					 :default-height 120
-					 :variable-pitch-family "sans"
-					 :variable-pitch-height 120
-					 :variable-pitch-weight regular)))
+		'((small
+			  :default-family "monospace"
+			  :default-height 80)
+			 (regular
+				 :default-height 120
+				 :default-weight regular)
+			 (large
+				 :inherit medium
+				 :default-height 190)
+			 (presentation
+				 :inherit medium
+				 :default-height 190)
+			 (t
+				 :default-family "monospace"
+				 :default-weight regular
+				 :default-height 120
+				 :bold-weight regular
+				 :fixed-pitch-family "monospace"
+				 :default-height 120
+				 :variable-pitch-family "sans"
+				 :variable-pitch-height 120
+				 :variable-pitch-weight regular)))
 	:config
 	(conf/daemon-frame-hook!
-	 (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
+		(fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
 
 	(add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
@@ -89,24 +89,24 @@
 	:config
 
 	(if (daemonp)
-			(add-hook 'after-make-frame-functions (lambda (frame)
-																							(select-frame frame)
-																							(if (window-system frame)
-																									(unless conf-theme-window-loaded
-																										(if conf-theme-terminal-loaded
-																												(enable-theme conf-theme)
-																											(load-theme conf-theme t))
-																										(setq conf-theme-window-loaded t))
-																								(unless conf-theme-terminal-loaded
-																									(if conf-theme-window-loaded
-																											(enable-theme conf-theme)
-																										(load-theme conf-theme t))
-																									(setq conf-theme-terminal-loaded t)))))
+		(add-hook 'after-make-frame-functions (lambda (frame)
+												  (select-frame frame)
+												  (if (window-system frame)
+													  (unless conf-theme-window-loaded
+														  (if conf-theme-terminal-loaded
+															  (enable-theme conf-theme)
+															  (load-theme conf-theme t))
+														  (setq conf-theme-window-loaded t))
+													  (unless conf-theme-terminal-loaded
+														  (if conf-theme-window-loaded
+															  (enable-theme conf-theme)
+															  (load-theme conf-theme t))
+														  (setq conf-theme-terminal-loaded t)))))
 
 		(progn
 			(load-theme conf-theme t)
 			(if (display-graphic-p)
-					(setq conf-theme-window-loaded t)
+				(setq conf-theme-window-loaded t)
 				(setq conf-theme-terminal-loaded t)))))
 
 ;; (use-package auto-dark
@@ -141,7 +141,7 @@
 	:straight t
 	:config
 	(conf/daemon-frame-hook!
-	 (spacious-padding-mode)))
+		(spacious-padding-mode)))
 
 (provide 'ui)
 ;;; ui.el ends here

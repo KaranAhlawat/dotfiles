@@ -7,7 +7,7 @@
 	:straight (:type built-in)
 	:init
 	(setq comint-output-filter-functions
-				(remove 'ansi-color-process-output comint-output-filter-functions)))
+		(remove 'ansi-color-process-output comint-output-filter-functions)))
 
 (use-package xterm-color
 	:straight t
@@ -23,26 +23,26 @@
 	:config
 	(defun conf/pcmpl-args-pcomplete-settings ()
 		(setq-local pcomplete-try-first-hook
-								'(eshell-complete-host-reference
-									eshell-complete-history-reference
-									eshell-complete-user-reference
-									;;eshell-complete-variable-assignment
-									eshell-complete-variable-reference
-									eshell-complete-lisp-symbols
-									t))))
+			'(eshell-complete-host-reference
+				 eshell-complete-history-reference
+				 eshell-complete-user-reference
+				 ;;eshell-complete-variable-assignment
+				 eshell-complete-variable-reference
+				 eshell-complete-lisp-symbols
+				 t))))
 
 (use-package eshell
 	:straight (:type built-in)
 	:hook
 	((eshell-mode . conf/eshell-setup-modes)
-	 (eshell-mode . conf/setup-remote-aliases)
-	 (eshell-first-time-mode . conf/eshell-first-load-settings)
-	 (eshell-before-prompt . (lambda ()
-														 (setq xterm-color-preserve-properties t)))
-	 (eshell-mode . (lambda ()
-										(setenv "TERM" "xterm-256color")))
-	 (eshell-mode . (lambda ()
-										(setenv "PAGER" "cat"))))
+		(eshell-mode . conf/setup-remote-aliases)
+		(eshell-first-time-mode . conf/eshell-first-load-settings)
+		(eshell-before-prompt . (lambda ()
+									(setq xterm-color-preserve-properties t)))
+		(eshell-mode . (lambda ()
+						   (setenv "TERM" "xterm-256color")))
+		(eshell-mode . (lambda ()
+						   (setenv "PAGER" "cat"))))
 	:init
 	(require 'esh-mode)
 	(setq eshell-output-filter-functions (remove 'eshell-handle-ansi-color eshell-output-filter-functions))
@@ -50,14 +50,14 @@
 	(add-to-list 'eshell-preoutput-filter-functions 'xterm-color-filter)
 	(defun conf/eshell-first-load-settings ()
 		(setq
-		 eshell-hist-ignoredups t
-		 eshell-history-size nil
-		 eshell-scroll-to-bottom-on-input t
-		 eshell-scroll-to-bottom-on-output t
-		 eshell-glob-case-insensitive t
-		 eshell-error-if-no-glob t)
+			eshell-hist-ignoredups t
+			eshell-history-size nil
+			eshell-scroll-to-bottom-on-input t
+			eshell-scroll-to-bottom-on-output t
+			eshell-glob-case-insensitive t
+			eshell-error-if-no-glob t)
 		(if (and (file-readable-p eshell-aliases-file))
-				(eshell-read-aliases-list)
+			(eshell-read-aliases-list)
 			(progn
 				(eshell/alias "clear" "clear 1")
 				(eshell/alias "ls" "eza $*")
@@ -80,70 +80,70 @@
 	:straight (:type built-in)
 	:config
 	(setq
-	 eshell-prompt-regexp "^.* λ "
-	 eshell-prompt-function #'conf/eshell-default-prompt-fn)
+		eshell-prompt-regexp "^.* λ "
+		eshell-prompt-function #'conf/eshell-default-prompt-fn)
 
 	;; From the Doom emacs config
 	(setq eshell-banner-message
-				'(format "%s %s\n"
-								 (propertize (format " %s "
-																		 (string-trim (buffer-name)))
-														 'face 'mode-line-highlight)
-								 (propertize (current-time-string)
-														 'face
-														 'font-lock-keyword-face)))
+		'(format "%s %s\n"
+			 (propertize (format " %s "
+							 (string-trim (buffer-name)))
+				 'face 'mode-line-highlight)
+			 (propertize (current-time-string)
+				 'face
+				 'font-lock-keyword-face)))
 
 	(defun conf/eshell-default-prompt-fn ()
 		"Generate the prompt string for eshell. Use for `eshell-prompt-function'."
 		(concat
-		 (if (bobp)
-				 ""
-			 "\n")
-		 (when (bound-and-true-p conda-env-current-name)
-			 (propertize (concat "(" conda-env-current-name ") ")
-									 'face
-									 'conf/eshell-prompt-git-branch))
-		 (let ((pwd (eshell/pwd)))
-			 (propertize (if (equal pwd "~")
-											 pwd
-										 (abbreviate-file-name pwd))
-									 'face 'conf/eshell-prompt-pwd))
-		 (propertize (conf/eshell--current-git-branch)
-								 'face
-								 'conf/eshell-prompt-git-branch)
-		 (propertize " λ"
-								 'face
-								 (if (zerop eshell-last-command-status)
-										 'success
-									 'error))
-		 " "))
+			(if (bobp)
+				""
+				"\n")
+			(when (bound-and-true-p conda-env-current-name)
+				(propertize (concat "(" conda-env-current-name ") ")
+					'face
+					'conf/eshell-prompt-git-branch))
+			(let ((pwd (eshell/pwd)))
+				(propertize (if (equal pwd "~")
+								pwd
+								(abbreviate-file-name pwd))
+					'face 'conf/eshell-prompt-pwd))
+			(propertize (conf/eshell--current-git-branch)
+				'face
+				'conf/eshell-prompt-git-branch)
+			(propertize " λ"
+				'face
+				(if (zerop eshell-last-command-status)
+					'success
+					'error))
+			" "))
 
 	(defsubst conf/eshell--current-git-branch ()
 		;; TODO Refactor me
 		(cl-destructuring-bind
-				(status . output)
-				(with-temp-buffer
-					(cons
-					 (or (call-process "git"
-														 nil
-														 t
-														 nil
-														 "symbolic-ref"
-														 "-q"
-														 "--short"
-														 "HEAD")
-							 (call-process "git"
-														 nil
-														 t
-														 nil
-														 "describe"
-														 "--all"
-														 "--always"
-														 "HEAD")
-							 -1)
-					 (string-trim (buffer-string))))
+			(status . output)
+			(with-temp-buffer
+				(cons
+					(or (call-process "git"
+							nil
+							t
+							nil
+							"symbolic-ref"
+							"-q"
+							"--short"
+							"HEAD")
+						(call-process "git"
+							nil
+							t
+							nil
+							"describe"
+							"--all"
+							"--always"
+							"HEAD")
+						-1)
+					(string-trim (buffer-string))))
 			(if (equal status 0)
-					(format " [%s]" output)
+				(format " [%s]" output)
 				"")))
 
 	(defface conf/eshell-prompt-pwd
@@ -163,26 +163,26 @@
 	:requires xterm-color
 	:hook
 	(;; (shell-mode . (lambda () (corfu-mode -1)))
-	 (shell-mode . (lambda () (display-line-numbers-mode -1)))
-	 (shell-mode . (lambda ()
-									 (font-lock-mode -1)
-									 (make-local-variable 'font-lock-function)
-									 (setq font-lock-function (lambda (_) nil))
-									 (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t)))
-	 (shell-mode . (lambda () (setenv "TERM" "xterm-256color")))))
+		(shell-mode . (lambda () (display-line-numbers-mode -1)))
+		(shell-mode . (lambda ()
+						  (font-lock-mode -1)
+						  (make-local-variable 'font-lock-function)
+						  (setq font-lock-function (lambda (_) nil))
+						  (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t)))
+		(shell-mode . (lambda () (setenv "TERM" "xterm-256color")))))
 
 (use-package eat
 	:straight '(eat :type git
-									:host codeberg
-									:repo "akib/emacs-eat"
-									:files ("*.el" ("term" "term/*.el") "*.texi"
-													"*.ti" ("terminfo/e" "terminfo/e/*")
-													("terminfo/65" "terminfo/65/*")
-													("integration" "integration/*")
-													(:exclude ".dir-locals.el" "*-tests.el")))
+				   :host codeberg
+				   :repo "akib/emacs-eat"
+				   :files ("*.el" ("term" "term/*.el") "*.texi"
+							  "*.ti" ("terminfo/e" "terminfo/e/*")
+							  ("terminfo/65" "terminfo/65/*")
+							  ("integration" "integration/*")
+							  (:exclude ".dir-locals.el" "*-tests.el")))
 	:hook (eat-mode . (lambda () (display-line-numbers-mode -1)))
 	:bind ( :map project-prefix-map
-					("e" . #'eat-project-other-window))
+			  ("e" . #'eat-project-other-window))
 	:init
 	(setq eat-kill-buffer-on-exit t)
 	(setq eat-enable-yank-to-terminal t))

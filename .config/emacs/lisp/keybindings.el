@@ -7,12 +7,12 @@
 	:straight t
 	:demand t
 	:bind (( "<escape>" . keyboard-escape-quit )
-				 :map evil-normal-state-map
-				 ( "U" . evil-redo )
-				 ( "M-." . nil )
-				 ( "C-." . nil )
-				 :map evil-insert-state-map
-				 ( "C-y" . nil ))
+			  :map evil-normal-state-map
+			  ( "U" . evil-redo )
+			  ( "M-." . nil )
+			  ( "C-." . nil )
+			  :map evil-insert-state-map
+			  ( "C-y" . nil ))
 	:init
 	(setq evil-want-keybinding nil)
 	(setq evil-want-Y-yank-to-eol t)
@@ -37,9 +37,9 @@
 	:straight t
 	:after evil
 	:bind ( :map evil-normal-state-map
-					( "f"	 . #'evil-avy-goto-char-in-line )
-					( "gl" . #'evil-avy-goto-line )
-					( "gs"	. #'evil-avy-goto-char-timer ))
+			  ( "f"	 . #'evil-avy-goto-char-in-line )
+			  ( "gl" . #'evil-avy-goto-line )
+			  ( "gs"	. #'evil-avy-goto-char-timer ))
 	:init
 	(setq evil-want-integration t)
 	:config
@@ -87,8 +87,8 @@
 	:straight t
 	:hook (smartparens-mode . evil-cleverparens-mode)
 	:bind ( :map evil-insert-state-map
-					( "M-<" . #'evil-cp-< )
-					( "M->" . #'evil-cp-> ))
+			  ( "M-<" . #'evil-cp-< )
+			  ( "M->" . #'evil-cp-> ))
 	:init
 	(setq evil-cleverparens-use-regular-insert t)
 	:config
@@ -108,8 +108,8 @@
 	(interactive)
 	(save-excursion
 		(delete-region
-		 (point)
-		 (1+ (re-search-backward (rx (not (in blank space control))))))))
+			(point)
+			(1+ (re-search-backward (rx (not (in blank space control))))))))
 
 (keymap-global-set "M-\\" #'conf/delete-ws-backward-till-char)
 
