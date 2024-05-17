@@ -44,15 +44,15 @@
 	(setq x-underline-at-descent-line nil)
 	(setq-default text-scale-remap-header-line t)
 	(setq fontaine-latest-state-file (locate-user-emacs-file
-										 "fontaine-latest-state.eld"))
+																		 "fontaine-latest-state.eld"))
 
 	(setq fontaine-presets
 		'((small
 			  :default-family "monospace"
 			  :default-height 80)
 			 (regular
-				 :default-height 120
-				 :default-weight regular)
+				 :default-height 110
+				 :default-weight medium)
 			 (large
 				 :inherit medium
 				 :default-height 190)
@@ -62,10 +62,10 @@
 			 (t
 				 :default-family "monospace"
 				 :default-weight regular
-				 :default-height 120
+				 :default-height 110
 				 :bold-weight regular
 				 :fixed-pitch-family "monospace"
-				 :default-height 120
+				 :default-height 110
 				 :variable-pitch-family "sans"
 				 :variable-pitch-height 120
 				 :variable-pitch-weight regular)))

@@ -165,27 +165,11 @@
 	(;; (shell-mode . (lambda () (corfu-mode -1)))
 		(shell-mode . (lambda () (display-line-numbers-mode -1)))
 		(shell-mode . (lambda ()
-						  (font-lock-mode -1)
-						  (make-local-variable 'font-lock-function)
-						  (setq font-lock-function (lambda (_) nil))
-						  (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t)))
+										(font-lock-mode -1)
+										(make-local-variable 'font-lock-function)
+										(setq font-lock-function (lambda (_) nil))
+										(add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t)))
 		(shell-mode . (lambda () (setenv "TERM" "xterm-256color")))))
-
-(use-package eat
-	:straight '(eat :type git
-				   :host codeberg
-				   :repo "akib/emacs-eat"
-				   :files ("*.el" ("term" "term/*.el") "*.texi"
-							  "*.ti" ("terminfo/e" "terminfo/e/*")
-							  ("terminfo/65" "terminfo/65/*")
-							  ("integration" "integration/*")
-							  (:exclude ".dir-locals.el" "*-tests.el")))
-	:hook (eat-mode . (lambda () (display-line-numbers-mode -1)))
-	:bind ( :map project-prefix-map
-			  ("e" . #'eat-project-other-window))
-	:init
-	(setq eat-kill-buffer-on-exit t)
-	(setq eat-enable-yank-to-terminal t))
 
 (provide 'shells)
 ;;; shells.el ends here

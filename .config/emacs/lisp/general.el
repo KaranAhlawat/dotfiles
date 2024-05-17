@@ -49,6 +49,8 @@
 		'(".project"
 			 "project.clj"
 			 "package.json"
+			 "build.sbt"
+			 "build.sc"
 			 "mix.exs"
 			 "Cargo.toml"
 			 "dune-project"))

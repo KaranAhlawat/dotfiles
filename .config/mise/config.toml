@@ -16,6 +16,8 @@ bun = "1"
 quarkus = "3"
 ktlint = "latest"
 opam = "2.2.0-beta2"
+coursier = "latest"
+fzf = "latest"
 
 [settings]
 experimental = true

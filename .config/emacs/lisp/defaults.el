@@ -27,8 +27,8 @@
 
 ;; Try to tame the TAB
 (setq-default indent-tabs-mode t)
-(setq-default tab-width 4)
-(setq-default lisp-indent-offset 4)
+(setq-default tab-width 2)
+(setq-default lisp-indent-offset 2)
 (setq-default cursor-type 'bar)
 (setq-default tab-always-indent nil)
 (setq-default tab-first-completion 'eol)
@@ -58,7 +58,6 @@
 	(setq exec-path-from-shell-arguments '("--login"))
 	:config
 	(add-to-list 'exec-path-from-shell-variables "LSP_USE_PLISTS")
-	(add-to-list 'exec-path-from-shell-variables "JAVA_HOME")
 	(exec-path-from-shell-initialize))
 
 (use-package delsel

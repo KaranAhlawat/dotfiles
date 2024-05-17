@@ -84,27 +84,10 @@
 (use-package visual-fill-column
 	:straight t
 	:after org
-	:hook (org-mode nov-mode)
+	:hook (org-mode)
 	:custom
 	(visual-fill-column-width 120)
 	(visual-fill-column-center-text t))
-
-(use-package denote
-	:straight t
-	:config
-	(setq
-		denote-allow-multi-word-keywords t
-		denote-directory "/home/karan/Documents/denotes"
-		denote-file-type 'org
-		denote-known-keywords (list "emacs" "college" "major" "sem8")
-		denote-modules '(project xref ffap)
-		denote-sort-keywords t
-		denote-dired-directories `(,denote-directory)
-		denote-prompts '(title keywords subdirectory)
-		denote-date-prompt-use-org-read-date t))
-
-(use-package denote-menu
-	:straight t)
 
 (provide 'setup-org)
 ;;; setup-org.el ends here

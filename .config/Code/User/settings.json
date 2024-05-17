@@ -53,13 +53,11 @@
 	"editor.gotoLocation.multipleImplementations": "goto",
 	"editor.gotoLocation.multipleTypeDefinitions": "goto",
 	"window.autoDetectColorScheme": true,
-	"workbench.preferredLightColorTheme": "Default Light Modern",
-	"workbench.preferredDarkColorTheme": "Dracula",
+	"workbench.preferredLightColorTheme": "Nord",
+	"workbench.preferredDarkColorTheme": "Nord",
 	"editor.cursorBlinking": "solid",
-	"editor.fontFamily": "monospace",
-	"editor.fontSize": 13,
-	"editor.fontWeight": "600",
-	"editor.lineHeight": 2.0,
+	"editor.fontFamily": "'Hack', 'Meslo LG S', monospace",
+	"editor.fontSize": 14,
 	"editor.fontLigatures": true,
 	"editor.suggestFontSize": 13,
 	"editor.suggestLineHeight": 28,
@@ -133,8 +131,10 @@
 	"[json]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"workbench.colorTheme": "Gruvbox Material Light",
-	"gruvboxMaterial.colorfulSyntax": true,
 	"extensions.ignoreRecommendations": true,
 	"workbench.iconTheme": "vscode-jetbrains-icon-theme-2023-dark",
+	"editor.renderWhitespace": "none",
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
 }

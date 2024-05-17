@@ -36,7 +36,7 @@ decorations_theme_variant = "Dark"  # Default: "None"
 normal = { family = "monospace", style = "Medium" }  # Default for Linux/BSD: "monospace", Regular
 
 # Font size in points
-size = 11.25 # Default: 11.25
+size = 11.5 # Default: 11.25
 
 [keyboard]
 

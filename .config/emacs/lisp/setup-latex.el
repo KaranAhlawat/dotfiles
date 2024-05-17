@@ -4,14 +4,12 @@
 ;;; Code:
 
 ;; AUCTEX
-(use-package auctex
-	:straight t
+(use-package tex
+	:straight auctex
 	:defer t
-	:mode ("\\.tex\\'" . TeX-latex-mode)
-	:hook
-	((LaTeX-mode . prettify-symbols-mode)
-		(LaTeX-mode . turn-on-auto-fill)
-		(LaTeX-mode . eglot-ensure))
+	:hook ((LaTeX-mode . prettify-symbols-mode)
+			  (LaTeX-mode . turn-on-auto-fill)
+			  (LaTeX-mode . lsp-deferred))
 	:init
 	(setq
 		TeX-parse-self t
@@ -26,9 +24,25 @@
 		TeX-save-query nil
 		TeX-view-program-selection '((output-pdf "Evince"))
 		TeX-region ".auctex-region")
+	(setq
+		TeX-engine-alist '((default
+							   "Tectonic" "tectonic -X compile -f plain %T"
+							   "tectonic -X watch"
+							   nil))
+		LaTeX-command-style '(("" "%(latex)"))
+		TeX-process-asynchronous t
+		TeX-check-TeX nil
+		TeX-engine 'default)
+
 	(setq-default
 		TeX-output-dir "build"
-		TeX-master nil))
+		TeX-master nil)
+
+	:config
+	(let ((tex-list (assoc "TeX" TeX-command-list))
+			 (latex-list (assoc "LaTeX" TeX-command-list)))
+		(setf (cadr tex-list) "%(tex)"
+			(cadr latex-list) "%l")))
 
 (use-package cdlatex
 	:straight t
