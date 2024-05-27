@@ -23,6 +23,7 @@ set ideajoin
 let mapleader=" "
 
 nnoremap <leader>bd :action CloseEditor<CR>
+nnoremap <leader>bo :action CloseAllEditorsButActive<CR>
 nnoremap <leader>sf :action GotoFile<CR>
 nnoremap <leader>f :action RecentFiles<CR>
 nnoremap <leader>bf :action ReformatCode<CR>

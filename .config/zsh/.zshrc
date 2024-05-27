@@ -67,7 +67,6 @@ alias lfont='pango-list | rg -S'
 alias bat='batcat --paging=never'
 alias cat='batcat --paging=never'
 alias fd='fdfind'
-alias tmux='tmux -u'
 alias apt='nala'
 alias vim='nvim'
 

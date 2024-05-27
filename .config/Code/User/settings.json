@@ -21,8 +21,6 @@
    */
 	"workbench.activityBar.location": "hidden",
 	"workbench.sideBar.location": "right",
-	"workbench.statusBar.visible": true,
-	"workbench.editor.showTabs": "single",
 	"editor.guides.indentation": false,
 	"editor.minimap.enabled": false,
 	"editor.lineNumbers": "on",
@@ -56,8 +54,9 @@
 	"workbench.preferredLightColorTheme": "Nord",
 	"workbench.preferredDarkColorTheme": "Nord",
 	"editor.cursorBlinking": "solid",
-	"editor.fontFamily": "'Hack', 'Meslo LG S', monospace",
+	"editor.fontFamily": "'Office Code Pro', 'Brutalist Mono', monospace",
 	"editor.fontSize": 14,
+	"editor.fontWeight": "400",
 	"editor.fontLigatures": true,
 	"editor.suggestFontSize": 13,
 	"editor.suggestLineHeight": 28,
@@ -137,4 +136,8 @@
 	"[javascriptreact]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
+	"biome.searchInPath": false,
+	"workbench.productIconTheme": "icons-carbon",
+	"editor.lineHeight": 2,
+	"workbench.editor.showTabs": "single",
 }
