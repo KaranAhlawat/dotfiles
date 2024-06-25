@@ -20,6 +20,8 @@ path+=("$XDG_DATA_HOME/JetBrains/Toolbox/scripts")
 
 path+=("/opt/nvim-linux64/bin")
 
+path+=("$XDG_DATA_HOME/coursier/bin")
+
 if [ -z "$PS1" ]; then
 	eval "$(mise activate --shims)"
 fi

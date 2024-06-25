@@ -4,9 +4,9 @@
 ;;; Code:
 
 (use-package doc-view
-	:straight (:type built-in)
-	:init
-	(setq doc-view-mupdf-use-svg t))
+  :straight (:type built-in)
+  :init
+  (setq doc-view-mupdf-use-svg t))
 
 (provide 'reader)
 ;;; reader.el ends here

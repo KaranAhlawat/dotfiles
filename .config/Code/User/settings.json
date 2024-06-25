@@ -51,17 +51,15 @@
 	"editor.gotoLocation.multipleImplementations": "goto",
 	"editor.gotoLocation.multipleTypeDefinitions": "goto",
 	"window.autoDetectColorScheme": true,
-	"workbench.preferredLightColorTheme": "Nord",
-	"workbench.preferredDarkColorTheme": "Nord",
 	"editor.cursorBlinking": "solid",
-	"editor.fontFamily": "'Office Code Pro', 'Brutalist Mono', monospace",
-	"editor.fontSize": 14,
+	"editor.fontFamily": "monospace",
+	"editor.fontSize": 13,
 	"editor.fontWeight": "400",
 	"editor.fontLigatures": true,
 	"editor.suggestFontSize": 13,
 	"editor.suggestLineHeight": 28,
 	"editor.smoothScrolling": true,
-	"terminal.integrated.fontSize": 13,
+	"terminal.integrated.fontSize": 14,
 	"terminal.integrated.lineHeight": 1.5,
 	"window.zoomLevel": 1,
 	"window.titleBarStyle": "custom",
@@ -69,7 +67,8 @@
 	"settingsSync.ignoredExtensions": [
 		"antfu.unocss",
 		"ms-dotnettools.csdevkit",
-		"ocamllabs.ocaml-platform"
+		"ocamllabs.ocaml-platform",
+		"elmtooling.elm-ls-vscode"
 	],
 	"editor.bracketPairColorization.enabled": true,
 	"editor.guides.bracketPairs": "active",
@@ -111,11 +110,6 @@
 	"amVim.useSystemClipboard": true,
 	"amVim.bindCtrlCommands": true,
 	/**
-		* Prettier
-		**/
-	"prettier.requireConfig": true,
-	"prettier.useEditorConfig": false,
-	/**
 		* VS Code Icons
 		**/
 	"files.eol": "\n",
@@ -127,17 +121,29 @@
 		"editor.maxTokenizationLineLength": 2500,
 		"editor.formatOnSave": true
 	},
-	"[json]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
 	"extensions.ignoreRecommendations": true,
-	"workbench.iconTheme": "vscode-jetbrains-icon-theme-2023-dark",
 	"editor.renderWhitespace": "none",
 	"[javascriptreact]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"biome.searchInPath": false,
-	"workbench.productIconTheme": "icons-carbon",
-	"editor.lineHeight": 2,
+	"editor.lineHeight": 0,
 	"workbench.editor.showTabs": "single",
+	"workbench.iconTheme": "catppuccin-mocha",
+	"settingsSync.ignoredSettings": [
+		"workbench.preferredDarkColorTheme",
+		"workbench.colorTheme",
+		"editor.fontFamily",
+		"editor.fontSize",
+		"editor.fontWeight",
+		"editor.fontLigatures"
+	],
+	"workbench.preferredDarkColorTheme": "Monokai Pro",
+	"files.watcherExclude": {
+		"**/.bloop": true,
+		"**/.metals": true,
+		"**/.ammonite": true
+	},
+	"metals.defaultBspToBuildTool": true,
+	"elixir-tools.nextLS.experimental.completions.enable": true,
 }

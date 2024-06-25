@@ -1,13 +1,18 @@
-#!/bin/bash
-dir="open-sans"
-prev_name="Office Code Pro"
-new_name="Leo Code"
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+dir="ox"
+prev_name="0xProto"
+new_font_name=('Leo' 'Proto')
+font_name=${new_font_name[@]}
+IFS=; sub_name=${new_font_name[*]}
 
 # Create an empty array to store the file names
 for file in ./$dir/*; do
 	# Add the file name to the array
 	IFS=\/ read -r base name font <<< $file
 	IFS=- read -r name weight <<< $font
-	IFS=' ' read -r -a new_font_name <<< $new_name
-	IFS=; pyftfeatfreeze -R  "'$prev_name/$new_name'" $file "./mod/$new_font_name-${weight}"
+	$(pyftfreeze -R "'$prev_name/$font_name'" "$file" "./modout/$sub_name-$weight")
 done

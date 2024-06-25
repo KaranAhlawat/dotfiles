@@ -17,21 +17,21 @@
 
 ;; Hide the line numbering in certain modes as well
 (defun conf/disable-line-numbers-in-mode ()
-	"Disable `display-line-numbers-mode' in a major-mode."
-	(display-line-numbers-mode -1))
+  "Disable `display-line-numbers-mode' in a major-mode."
+  (display-line-numbers-mode -1))
 
 (defmacro conf/daemon-frame-hook! (body)
-	"Add BODY to `after-make-frame-functions' properly."
-	`(if (daemonp)
-		 (add-to-list 'after-make-frame-functions
-			 (lambda (frame)
-				 (with-selected-frame
-					 frame
-					 ,body)))
-		 ,body))
+  "Add BODY to `after-make-frame-functions' properly."
+  `(if (daemonp)
+       (add-to-list 'after-make-frame-functions
+                    (lambda (frame)
+                      (with-selected-frame
+                          frame
+                        ,body)))
+     ,body))
 
 (dolist (mode '(org-mode-hook eshell-mode-hook))
-	(add-hook mode #'conf/disable-line-numbers-in-mode))
+  (add-hook mode #'conf/disable-line-numbers-in-mode))
 
 ;; Switch off the visible bell, it's distracting to me. As well as the
 ;; blinking cursor
@@ -39,109 +39,82 @@
 (blink-cursor-mode -1)
 
 (use-package fontaine
-	:straight t
-	:init
-	(setq x-underline-at-descent-line nil)
-	(setq-default text-scale-remap-header-line t)
-	(setq fontaine-latest-state-file (locate-user-emacs-file
-																		 "fontaine-latest-state.eld"))
+  :straight t
+  :init
+  (setq x-underline-at-descent-line nil)
+  (setq-default text-scale-remap-header-line t)
+  (setq fontaine-latest-state-file (locate-user-emacs-file
+                                    "fontaine-latest-state.eld"))
 
-	(setq fontaine-presets
-		'((small
-			  :default-family "monospace"
-			  :default-height 80)
-			 (regular
-				 :default-height 110
-				 :default-weight medium)
-			 (large
-				 :inherit medium
-				 :default-height 190)
-			 (presentation
-				 :inherit medium
-				 :default-height 190)
-			 (t
-				 :default-family "monospace"
-				 :default-weight regular
-				 :default-height 110
-				 :bold-weight regular
-				 :fixed-pitch-family "monospace"
-				 :default-height 110
-				 :variable-pitch-family "sans"
-				 :variable-pitch-height 120
-				 :variable-pitch-weight regular)))
-	:config
-	(conf/daemon-frame-hook!
-		(fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
+  (setq fontaine-presets
+        '((small
+           :default-family "monospace"
+           :default-height 80)
+          (regular
+           :default-weight regular
+           :default-height 110)
+          (large
+           :inherit medium
+           :default-height 190)
+          (presentation
+           :inherit medium
+           :default-height 190)
+          (t
+           :default-family "monospace"
+           :default-weight regular
+           :default-height 110
+           :bold-weight regular
+           :fixed-pitch-family "monospace"
+           :default-height 110
+           :variable-pitch-family "sans"
+           :variable-pitch-height 120
+           :variable-pitch-weight regular)))
+  :config
+  (conf/daemon-frame-hook!
+   (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
 
-	(add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
+  (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
 (use-package tokyonight-themes
-	:straight (:local-repo "/home/karan/repos/tokyo-emacs/lisp/tokyonight-themes"))
+  :straight (:local-repo "/home/karan/repos/tokyo-emacs/lisp/tokyonight-themes"))
 
-(defvar conf-theme 'nord)
-(defvar conf-theme-window-loaded nil)
-(defvar conf-theme-terminal-loaded nil)
-
-(use-package nord-theme
-	:straight (:type git :host github :repo "nordtheme/emacs")
-	:init
-	(setq nord-region-highlight "frost")
-	:config
-
-	(if (daemonp)
-		(add-hook 'after-make-frame-functions (lambda (frame)
-												  (select-frame frame)
-												  (if (window-system frame)
-													  (unless conf-theme-window-loaded
-														  (if conf-theme-terminal-loaded
-															  (enable-theme conf-theme)
-															  (load-theme conf-theme t))
-														  (setq conf-theme-window-loaded t))
-													  (unless conf-theme-terminal-loaded
-														  (if conf-theme-window-loaded
-															  (enable-theme conf-theme)
-															  (load-theme conf-theme t))
-														  (setq conf-theme-terminal-loaded t)))))
-
-		(progn
-			(load-theme conf-theme t)
-			(if (display-graphic-p)
-				(setq conf-theme-window-loaded t)
-				(setq conf-theme-terminal-loaded t)))))
+(use-package monokai-pro-theme
+  :straight t
+  :config
+  (load-theme 'monokai-pro t))
 
 ;; (use-package auto-dark
-;;	 :straight t
-;;	 :init
-;;	 (setq auto-dark-dark-theme 'nord)
-;;	 (setq auto-dark-light-theme 'nord)
-;;	 :config
-;;	 (auto-dark-mode))
+;;   :straight t
+;;   :init
+;;   (setq auto-dark-dark-theme 'nord)
+;;   (setq auto-dark-light-theme 'nord)
+;;   :config
+;;   (auto-dark-mode))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key
-	:straight t
-	:custom
-	(which-key-idle-delay 0.5)
-	:config
-	(which-key-setup-side-window-right)
-	(which-key-mode))
+  :straight t
+  :custom
+  (which-key-idle-delay 0.5)
+  :config
+  (which-key-setup-side-window-right)
+  (which-key-mode))
 
 ;; A more minimal modeline. Maybe someday I'll actually customize the defualt in-built one.
 (use-package mood-line
-	:straight t
-	:custom
-	(mood-line-show-eol-style t)
-	(mood-line-show-cursor-point t)
-	(mood-line-show-encoding-information t)
-	:config
-	(mood-line-mode))
+  :straight t
+  :custom
+  (mood-line-show-eol-style t)
+  (mood-line-show-cursor-point t)
+  :config
+  (mood-line-mode))
 
 ;; Let it breathe
 (use-package spacious-padding
-	:straight t
-	:config
-	(conf/daemon-frame-hook!
-		(spacious-padding-mode)))
+  :straight t
+  :config
+  (conf/daemon-frame-hook!
+   (spacious-padding-mode)))
 
 (provide 'ui)
 ;;; ui.el ends here
