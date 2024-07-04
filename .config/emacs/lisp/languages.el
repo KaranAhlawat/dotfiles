@@ -121,12 +121,6 @@
 (use-package yaml-ts-mode
   :straight (:type built-in))
 
-(use-package elixir-ts-mode
-  :straight t)
-
-(use-package heex-ts-mode
-  :straight (:local-repo "/home/karan/repos/heex-ts-mode"))
-
 (use-package kotlin-ts-mode
   :mode ("\\.kt\\'" "\\.kts\\'")
   :straight t)
@@ -139,12 +133,6 @@
 (use-package reason-mode
   :straight t
   :mode ("\\.re\\'" "\\.rei\\'"))
-
-;; CC Vars
-(use-package cc-vars
-  :straight ( :type built-in )
-  :init
-  (setq-default c-tab-always-indent nil))
 
 (provide 'languages)
 ;;; languages.el ends here

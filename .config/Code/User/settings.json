@@ -16,15 +16,21 @@
 	"editor.insertSpaces": false,
 	"files.insertFinalNewline": true,
 	"files.trimFinalNewlines": true,
+	"files.eol": "\n",
+	"update.showReleaseNotes": false,
+	"explorer.compactFolders": false,
 	/**
    * Hide Everything
    */
 	"workbench.activityBar.location": "hidden",
 	"workbench.sideBar.location": "right",
+	"workbench.editor.labelFormat": "short",
+	"workbench.editor.showTabs": "multiple",
 	"editor.guides.indentation": false,
 	"editor.minimap.enabled": false,
-	"editor.lineNumbers": "on",
+	"editor.lineNumbers": "relative",
 	"editor.scrollbar.vertical": "hidden",
+	"editor.renderWhitespace": "none",
 	/**
    * Silence The Noise
    */
@@ -48,12 +54,14 @@
 	"editor.gotoLocation.multipleDefinitions": "goto",
 	"editor.gotoLocation.multipleDeclarations": "goto",
 	"workbench.editor.enablePreviewFromQuickOpen": false,
+	"catppuccin.accentColor": "blue",
+	"workbench.iconTheme": "catppuccin-perfect-mocha",
 	"editor.gotoLocation.multipleImplementations": "goto",
 	"editor.gotoLocation.multipleTypeDefinitions": "goto",
-	"window.autoDetectColorScheme": true,
 	"editor.cursorBlinking": "solid",
 	"editor.fontFamily": "monospace",
 	"editor.fontSize": 13,
+	"editor.lineHeight": 2,
 	"editor.fontWeight": "400",
 	"editor.fontLigatures": true,
 	"editor.suggestFontSize": 13,
@@ -64,12 +72,6 @@
 	"window.zoomLevel": 1,
 	"window.titleBarStyle": "custom",
 	"window.menuBarVisibility": "hidden",
-	"settingsSync.ignoredExtensions": [
-		"antfu.unocss",
-		"ms-dotnettools.csdevkit",
-		"ocamllabs.ocaml-platform",
-		"elmtooling.elm-ls-vscode"
-	],
 	"editor.bracketPairColorization.enabled": true,
 	"editor.guides.bracketPairs": "active",
 	"workbench.tree.renderIndentGuides": "always",
@@ -101,35 +103,106 @@
 	"html.autoClosingTags": true,
 	"javascript.autoClosingTags": true,
 	"typescript.autoClosingTags": true,
-	/**
-		* Extension specifics
-		**/
-	/**
-	 	* amVim
-		**/
-	"amVim.useSystemClipboard": true,
-	"amVim.bindCtrlCommands": true,
-	/**
-		* VS Code Icons
-		**/
-	"files.eol": "\n",
-	"update.showReleaseNotes": false,
-	"workbench.editor.labelFormat": "short",
-	"explorer.compactFolders": false,
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	// Scala
+	"files.watcherExclude": {
+		"**/.bloop": true,
+		"**/.metals": true,
+		"**/.ammonite": true
+	},
+	// C#
 	"dotnet.codeLens.enableReferencesCodeLens": false,
 	"[csharp]": {
 		"editor.maxTokenizationLineLength": 2500,
 		"editor.formatOnSave": true
 	},
+	/**
+		* Extension specifics
+		**/
 	"extensions.ignoreRecommendations": true,
-	"editor.renderWhitespace": "none",
-	"[javascriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome"
+	/**
+	  * biome
+	  **/
+	"biome.searchInPath": true,
+	/**
+	  * VIM
+	  **/
+	"vim.easymotion": true,
+	"vim.incsearch": true,
+	"vim.useSystemClipboard": true,
+	"vim.useCtrlKeys": true,
+	"vim.enableNeovim": true,
+	"vim.neovimUseConfigFile": false,
+	"vim.leader": " ",
+	"vim.normalModeKeyBindingsNonRecursive": [
+		{
+			"before": ["<leader>", "<leader>"],
+			"commands": ["workbench.action.showCommands"]
+		},
+		{
+			"before": ["<leader>", "b", "d"],
+			"commands": ["workbench.action.closeActiveEditor"]
+		},
+		{
+			"before": ["<leader>", "b", "o"],
+			"commands": ["workbench.action.closeOtherEditors"]
+		},
+		{
+			"before": ["<leader>", "b", "f"],
+			"commands": ["editor.action.formatDocument"]
+		},
+		{
+			"before": ["<leader>", "s", "f"],
+			"commands": ["workbench.action.quickOpen"]
+		},
+		{
+			"before": ["<leader>", "f"],
+			"commands": [
+				{
+					"command": "workbench.action.quickOpen",
+					"args": "edt "
+				}
+			]
+		},
+		{
+			"before": ["<S-k>"],
+			"commands": ["editor.action.showHover"]
+		},
+		{
+			"before": ["<leader>", "x", "e"],
+			"commands": ["workbench.view.explorer"]
+		},
+		{
+			"before": ["<leader>", "x", "g"],
+			"commands": ["workbench.view.scm"]
+		},
+		{
+			"before": ["<leader>", "x", "x"],
+			"commands": ["workbench.view.extensions"]
+		},
+		{
+			"before": ["]", "d"],
+			"commands": ["editor.action.marker.nextInFiles"]
+		},
+		{
+			"before": ["[", "d"],
+			"commands": ["editor.action.marker.prevInFiles"]
+		}
+	],
+	"vim.handleKeys": {
+		"<C-d>": false,
+		"<C-s>": true,
+		"<C-z>": false,
+		"<C-k>": true,
+		"<C-n>": false
 	},
-	"biome.searchInPath": false,
-	"editor.lineHeight": 0,
-	"workbench.editor.showTabs": "single",
-	"workbench.iconTheme": "catppuccin-mocha",
+	"extensions.experimental.affinity": {
+		"vscodevim.vim": 1
+	},
+
+	// Settings sync
 	"settingsSync.ignoredSettings": [
 		"workbench.preferredDarkColorTheme",
 		"workbench.colorTheme",
@@ -138,12 +211,11 @@
 		"editor.fontWeight",
 		"editor.fontLigatures"
 	],
-	"workbench.preferredDarkColorTheme": "Monokai Pro",
-	"files.watcherExclude": {
-		"**/.bloop": true,
-		"**/.metals": true,
-		"**/.ammonite": true
-	},
-	"metals.defaultBspToBuildTool": true,
-	"elixir-tools.nextLS.experimental.completions.enable": true,
+	"settingsSync.ignoredExtensions": [
+		"ms-dotnettools.csdevkit",
+		"ocamllabs.ocaml-platform",
+		"denoland.vscode-deno",
+		"scalameta.metals"
+	],
+	"workbench.colorTheme": "Catppuccin Mocha",
 }

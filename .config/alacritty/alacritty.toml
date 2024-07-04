@@ -1,7 +1,7 @@
 # https://alacritty.org/config-alacritty.htm
 
 import = [
-    "~/.config/alacritty/monokai_pro.toml"
+    "~/.config/alacritty/catppuccin-mocha.toml"
 ]
 
 [env]

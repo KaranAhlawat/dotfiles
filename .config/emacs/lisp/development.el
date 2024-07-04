@@ -238,6 +238,7 @@
 
 (use-package flycheck-kotlin
   :straight t
+  :after 'lsp-mode
   :config
   (flycheck-kotlin-setup)
   (flycheck-add-next-checker 'lsp 'kotlin-ktlint))

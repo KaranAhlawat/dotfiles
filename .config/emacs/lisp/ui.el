@@ -52,7 +52,7 @@
            :default-height 80)
           (regular
            :default-weight regular
-           :default-height 110)
+           :default-height 120)
           (large
            :inherit medium
            :default-height 190)
@@ -78,10 +78,12 @@
 (use-package tokyonight-themes
   :straight (:local-repo "/home/karan/repos/tokyo-emacs/lisp/tokyonight-themes"))
 
-(use-package monokai-pro-theme
+(use-package catppuccin-theme
   :straight t
+  :init
+  (setq catppuccin-flavor 'mocha)
   :config
-  (load-theme 'monokai-pro t))
+  (load-theme 'catppuccin t))
 
 ;; (use-package auto-dark
 ;;   :straight t

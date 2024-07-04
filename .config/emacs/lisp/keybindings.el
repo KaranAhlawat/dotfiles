@@ -11,6 +11,7 @@
          ( "U" . evil-redo )
          ( "M-." . nil )
          ( "C-." . nil )
+         ( "<SPC>" . nil)
          :map evil-insert-state-map
          ( "C-y" . nil ))
   :init
@@ -54,9 +55,9 @@
   :straight t
   :after evil
   :config
-  (evil-leader/set-leader ",")
+  (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
-    "," #'execute-extended-command
+    "<SPC>" #'execute-extended-command
     "b" #'consult-buffer
     "s" #'save-buffer
     "k" #'kill-buffer
