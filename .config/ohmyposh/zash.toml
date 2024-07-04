@@ -1,0 +1,50 @@
+final_space = true
+version = 2
+console_title_template = '{{ .Shell }} in {{ .Folder }}'
+
+[palette]
+pink = "#F5C2E7"
+lavender = "#B4BEFE"
+blue = "#89B4FA"
+mauve = "#CBA6F7"
+maroon = "#EBA0AC"
+
+[[blocks]]
+alignment = "left"
+type = "prompt"
+newline = true
+
+  [[blocks.segments]]
+  foreground = "p:lavender"
+  style = "plain"
+  template = "@{{ .UserName }}"
+  type = "session"
+
+  [[blocks.segments]]
+  foreground = "p:blue"
+  style = "plain"
+  template = " {{ .Path }}"
+  type = "path"
+
+    [blocks.segments.properties]
+    style = "folder"
+
+  [[blocks.segments]]
+  foreground = "p:mauve"
+  style = "plain"
+  template = " <p:maroon>git:(</>{{ .HEAD }}{{ if gt .Ahead 0 }} ↑ {{.Ahead}}{{ end }}{{ if gt .Behind 0 }} ↓ {{.Behind}}{{ end }}{{ if .Working.Changed }} {{ .Working.String }}{{ end }}{{ if .Staging.Changed }} {{ .Staging.String }}{{ end }}<p:maroon>)</>"
+  type = "git"
+
+    [blocks.segments.properties]
+    branch_icon = ""
+    commit_icon = '@'
+    fetch_status = true
+
+  [[blocks.segments]]
+  foreground = "p:pink"
+  style = "plain"
+  template = """
+
+➜"""
+  type = "text"
+
