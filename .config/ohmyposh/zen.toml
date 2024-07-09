@@ -32,7 +32,7 @@ newline = true
   [[blocks.segments]]
   foreground = "p:mauve"
   style = "plain"
-  template = " <p:maroon>git:(</>{{ .HEAD }}{{ if gt .Ahead 0 }} ↑ {{.Ahead}}{{ end }}{{ if gt .Behind 0 }} ↓ {{.Behind}}{{ end }}{{ if .Working.Changed }} {{ .Working.String }}{{ end }}{{ if .Staging.Changed }} {{ .Staging.String }}{{ end }}<p:maroon>)</>"
+  template = " <p:maroon>git:(</>{{ .HEAD }}{{ if gt .Ahead 0 }} ↑{{.Ahead}}{{ end }}{{ if gt .Behind 0 }} ↓{{.Behind}}{{ end }}{{ if .Working.Changed }} {{ .Working.String }}{{ end }}{{ if .Staging.Changed }} {{ .Staging.String }}{{ end }}<p:maroon>)</>"
   type = "git"
 
     [blocks.segments.properties]
