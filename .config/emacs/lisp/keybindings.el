@@ -12,22 +12,30 @@
          ( "M-." . nil )
          ( "C-." . nil )
          ( "<SPC>" . nil)
+         ( "/" . ctrlf-forward-literal )
+         ( "?" . ctrlf-backward-literal )
+         ( "*"  . ctrlf-forward-symbol-at-point )
+         ( "C-n" . evil-ex-nohighlight )
+         :map evil-visual-state-map
+         ( "/" . ctrlf-forward-literal )
+         ( "?" . ctrlf-backward-literal )
+         ( "*"  . ctrlf-forward-symbol-at-point )
          :map evil-insert-state-map
          ( "C-y" . nil ))
   :init
   (setq evil-want-keybinding nil)
   (setq evil-want-Y-yank-to-eol t)
-  (setq evil-search-module 'isearch)
+  (setq evil-search-module 'evil-search)
   (setq evil-want-C-u-scroll t)
   (setq evil-want-C-d-scroll t)
   (setq evil-split-window-below t)
   (setq evil-vsplit-window-right t)
-  (setq evil-want-C-i-jump nil)
+  (setq evil-want-C-i-jump t)
   (setq evil-undo-system 'undo-redo)
   (setq evil-move-beyond-eol t)
   (setq evil-cross-lines t)
   (setq evil-want-fine-undo t)
-  (setq evil-symbol-word-search t)
+  (setq evil-symbol-word-search nil)
   (setq evil-default-cursor 't)
   (setq evil-insert-state-cursor 't)
   :config
@@ -50,6 +58,11 @@
   :after evil
   :config
   (evil-commentary-mode))
+
+(use-package evil-surround
+  :straight t
+  :config
+  (global-evil-surround-mode))
 
 (use-package evil-leader
   :straight t
@@ -88,8 +101,6 @@
   :bind ( :map evil-insert-state-map
           ( "M-<" . #'evil-cp-< )
           ( "M->" . #'evil-cp-> ))
-  :init
-  (setq evil-cleverparens-use-regular-insert t)
   :config
   (push 'evil-cp-change evil-change-commands)
   (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-w") nil))
@@ -97,6 +108,12 @@
 (use-package evil-cleverparens-text-objects
   :straight nil
   :after evil-cleverparens)
+
+(use-package evil-goggles
+  :straight t
+  :config
+  (evil-goggles-mode)
+  (evil-goggles-use-diff-faces))
 
 (use-package avy
   :straight t)

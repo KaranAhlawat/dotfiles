@@ -29,12 +29,12 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq-default cursor-type 'bar)
-(setq-default tab-always-indent 't)
+(setq-default tab-always-indent 'complete)
 (setq-default tab-first-completion 'eol)
 (setq-default read-process-output-max (* 1024 1024)) ;; 1 MB
 
 ;; Shorten yes or no to y or n
-(fset 'yes-or-no-p 'y-or-n-p)
+(setq use-short-answers t)
 
 ;; Save space in the kill ring
 (setq kill-do-not-save-duplicates t)

@@ -33,18 +33,20 @@
          (scala-ts-mode . lsp-deferred)
          (elixir-ts-mode . lsp-deferred)
          (heex-ts-mode . lsp-deferred)
+         (lsp-mode . lsp-diagnostics-mode)
+         (lsp-mode . lsp-enable-which-key-integration)
          (lsp-completion-mode . conf/lsp-mode-completion-setup))
   :init
-  (defun conf/orderless-dispatch-flex-first (_pattern index _total)
-    (and (eq index 0) 'orderless-flex))
-  
   (defun conf/lsp-mode-completion-setup ()
-    (if (seq-contains-p '("clojure-mode" "clojurescript-mode" "clojurec-mode" "cider-mode")
+    (setf (caadr ;; Pad before lsp modeline error info
+				   (assq 'global-mode-string mode-line-misc-info))
+				  " ")
+    (if (seq-contains-p '("clojure-mode" "clojurescript-mode" "clojurec-mode" "cider-mode" "clojure-ts-mode")
                         major-mode)
         (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-              '(cider fussy))
+              '(cider orderless))
       (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-            '(fussy))))
+            '(orderless))))
 
   (defun lsp-booster--advice-json-parse (old-fn &rest args)
     "Try to parse bytecode instead of json."
@@ -69,17 +71,26 @@
             (append '("emacs-lsp-booster" "--json-false-value" ":json-false" "--") orig-result))
         orig-result)))
 
-  (setq lsp-keymap-prefix "C-c C-c")
-  (setq lsp-completion-provider :capf)
+  (setq lsp-completion-provider :none)
+  (setq lsp-diagnostics-provider :flycheck)
   (setq lsp-headerline-breadcrumb-icons-enable nil)
-  (setq lsp-keep-workspace-alive nil)
+  (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
+  (setq lsp-headerline-breadcrumb-enable-symbol-numbers nil)
+  (setq lsp-keep-workspace-alive t)
   (setq lsp-enable-links t)
+  (setq lsp-enable-on-type-formatting nil)
   (setq lsp-enable-text-document-color nil)
-  (setq lsp-idle-delay 1.0)
-  (setq lsp-semantic-tokens-enable t)
-  (setq lsp-semantic-tokens-enable-multiline-token-support t)
+  (setq lsp-idle-delay 0.5)
+  (setq lsp-enable-file-watchers nil)
+  (setq lsp-enable-folding nil)
+  (setq lsp-semantic-tokens-enable nil)
+  (setq lsp-semantic-tokens-enable-multiline-token-support nil)
   (setq lsp-eldoc-render-all t)
   (setq lsp-modeline-code-actions-enable nil)
+  (setq lsp-modeline-diagnostics-enable nil)
+  (setq lsp-modeline-workspace-status-enable nil)
+  (setq lsp-signature-doc-lines 2)
+
 
   (require 'lsp-javascript)
   (setq lsp-typescript-preferences-import-module-specifier "non-relative")
@@ -120,16 +131,11 @@
               #'lsp-booster--advice-json-parse)
   (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
 
-  (keymap-set lsp-mode-map "C-c C-c" lsp-command-map)
+  (require 'evil-core)
+  (evil-define-key 'normal lsp-mode-map (kbd "SPC l") lsp-command-map)
+  (add-hook 'lsp-mode-hook #'evil-normalize-keymaps)
 
   (lsp-enable-which-key-integration t))
-
-(use-package lsp-tailwindcss
-  :straight t
-  :init
-  (setq lsp-tailwindcss-add-on-mode t)
-  :config
-  (push 'heex-ts-mode lsp-tailwindcss-major-modes))
 
 (use-package dap-mode
   :straight t
@@ -143,7 +149,7 @@
   :custom
   (lsp-metals-fallback-scala-version "3.3.3")
   (lsp-metals-enable-indent-on-paste t)
-  (lsp-metals-enable-semantic-highlighting t))
+  (lsp-metals-enable-semantic-highlighting nil))
 
 ;; Eldoc for documentation
 (use-package eldoc
@@ -154,6 +160,7 @@
   (eldoc-echo-area-use-multiline-p 1)
   (eldoc-echo-area-display-truncation-message t)
   (eldoc-echo-area-prefer-doc-buffer t)
+  (eldoc-documentation-strategy #'eldoc-documentation-compose)
   (eldoc-idle-delay 0.15))
 
 (use-package eldoc-box
@@ -224,11 +231,10 @@
   (setq flycheck-javascript-eslint-executable "eslint_d")
 
   :config
-  (with-eval-after-load 'doom-themes
-    (custom-set-faces
-     `(flycheck-error ((t :underline (:style line :color ,(doom-color 'red)))))
-     `(flycheck-warning ((t :underline (:style line :color ,(doom-color 'yellow)))))
-     `(flycheck-info ((t :underline (:style line :color ,(doom-color 'cyan))))))))
+  (custom-set-faces
+   `(flycheck-error ((t :underline (:style line :color ,(catppuccin-get-color 'red)))))
+   `(flycheck-warning ((t :underline (:style line :color ,(catppuccin-get-color 'yellow)))))
+   `(flycheck-info ((t :underline (:style line :color ,(catppuccin-get-color 'blue)))))))
 
 (use-package flycheck-deno
   :straight t

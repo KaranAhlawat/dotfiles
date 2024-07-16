@@ -53,6 +53,7 @@
      "build.sc"
      "mix.exs"
      "Cargo.toml"
+     "*.fsproj"
      "*.sln"
      "dune-project"))
   (project-vc-ignores
@@ -147,8 +148,7 @@
 
 (use-package jinx
   :straight t
-  :hook (org-mode LaTeX-mode mode markdown-mode fundamental-mode)
-  :bind ([remap ispell-word] . jinx-correct))
+  :hook (org-mode LaTeX-mode mode markdown-mode fundamental-mode))
 
 (use-package nerd-icons
   :straight (:type git
@@ -160,14 +160,22 @@
 
 (use-package nerd-icons-dired
   :straight t
+  :demand
   :hook
   (dired-mode . nerd-icons-dired-mode))
 
 (use-package nerd-icons-completion
   :straight t
+  :demand
   :config
-  (nerd-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
+  (nerd-icons-completion-mode))
+
+(use-package nerd-icons-corfu
+  :straight t
+  :after corfu
+  :config
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (use-package recentf
   :straight (:type built-in)

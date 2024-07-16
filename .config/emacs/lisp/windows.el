@@ -11,11 +11,11 @@
   :straight t
   :init
   (setq beframe-global-buffers
-        '("*Messages*" "*Org Agenda*"))
+        '("*Messages*" "*Org Agenda*" "*scratch*"))
   (setq beframe-functions-in-frames '(project-prompt-project-dir))
-  (setq beframe-create-frame-scratch-buffer t)
-  (setq beframe-kill-frame-scratch-buffer t)
-  (setq beframe-rename-function nil)
+  (setq beframe-create-frame-scratch-buffer nil)
+  (setq beframe-kill-frame-scratch-buffer nil)
+  (setq beframe-rename-function #'beframe-rename-frame)
 
   (defvar consult-buffer-sources)
   (declare-function consult--buffer-state "consult")
@@ -38,12 +38,6 @@
     (add-to-list 'consult-buffer-sources 'beframe--consult-source))
   :config
   (beframe-mode +1))
-
-(use-package iwindow
-  :straight t
-  :bind (("C-x o" . #'iwindow-select)
-         ("C-x 1" . #'iwindow-delete-others)
-         ("C-x 0" . #'iwindow-delete)))
 
 (defvar conf/occur-grep-modes-list
   '(occur-mode

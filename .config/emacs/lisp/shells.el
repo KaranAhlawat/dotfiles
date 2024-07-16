@@ -65,9 +65,7 @@
 
   (defun conf/eshell-setup-modes ()
     "Setup various modes for eshell."
-    (display-line-numbers-mode -1)
-    (corfu-mode -1)
-    )
+    (display-line-numbers-mode -1))
 
   (defun conf/setup-remote-aliases ()
     "Setup remote aliases."

@@ -3,10 +3,10 @@
 ;;; This packages sets up various completion providers
 ;;; Code:
 
-;; Learn from your history, so you are bound to repeat it?
-(use-package savehist
-  :straight t
-  :config (savehist-mode))
+(use-package savehist-mode
+  :straight (:type built-in)
+  :config
+  (savehist-mode))
 
 ;; Those quick annotations are really helpful
 (use-package marginalia
@@ -28,7 +28,7 @@
   :custom
   (vertico-resize t)
   (vertico-cycle t)
-  (vertico-preselect 'first)
+  (vertico-preselect 'directory)
   :config (vertico-mode))
 
 (use-package minibuffer
@@ -40,7 +40,7 @@
   (setq completions-format 'one-column)
   (setq completion-show-help nil)
   (setq completion-auto-help 'always)
-  (setq completion-auto-select nil)
+  (setq completion-auto-select 'second-tab)
   (setq completions-detailed t)
   (setq completion-show-inline-help nil)
   (setq completions-max-height 6)
@@ -48,28 +48,28 @@
   (setq completions-highlight-face 'completions-highlight)
   (setq minibuffer-completion-auto-choose t)
   ;; (setq minibuffer-visible-completions t) ; Emacs 30
-  (setq completions-sort nil))
+  (setq completions-sort nil)
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (setq enable-recursive-minibuffers t)
+  :config
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
 
 ;; A few more useful configurations
-(require 'crm)
-
-(defun crm-indicator (args)
-  "Add prompt indicator to `completing-read-multiple' with ARGS.
+(use-package crm
+  :straight (:type built-in)
+  :config
+  (defun crm-indicator (args)
+    "Add prompt indicator to `completing-read-multiple' with ARGS.
 We display [CRM<separator>], e.g., [CRM,] if the separator is a
 comma."
-  (cons
-   (format "[CRM%s] %s"
-           (replace-regexp-in-string
-            "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" "" crm-separator)
-           (car args))
-   (cdr args)))
-(advice-add #'completing-read-multiple :filter-args #'crm-indicator)
-
-(setq minibuffer-prompt-properties
-      '(read-only t cursor-intangible t face minibuffer-prompt))
-(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-
-(setq enable-recursive-minibuffers t)
+    (cons
+     (format "[CRM%s] %s"
+             (replace-regexp-in-string
+              "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" "" crm-separator)
+             (car args))
+     (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator))
 
 ;; Tempel for expansion - May remove this in the future as I don't use it alot.
 (use-package tempel
@@ -81,66 +81,52 @@ comma."
   :config
   (setq tempel-path (locate-user-emacs-file "templates/*.eld")))
 
-(use-package cape
-  :straight t)
-
-(use-package fzf-native
-  :straight '(fzf-native :repo "dangduc/fzf-native"
-                         :host github
-                         :files (:defaults "bin"))
-  :config
-  (fzf-native-load-dyn))
-
-(use-package fussy
+(use-package orderless
+  :after vertico
   :straight t
   :init
-  (setq completion-styles '(fussy)
-        completion-ignore-case t
+  (setq completion-styles '(orderless partial-completion basic)
         completion-category-defaults nil
         completion-category-overrides nil
-        fussy-score-fn 'fussy-fzf-native-score
-        fussy-filter-fn 'fussy-filter-default
-        fussy-use-cache t
-        fussy-compare-same-score-fn 'fussy-histlen->strlen<))
+        orderless-matching-styles '(orderless-literal orderless-initialism orderless-flex)))
 
-(use-package company-mode
+(use-package cape
   :straight t
-  :demand t
-  :hook ((prog-mode . company-mode)
-         (heex-ts-mode . company-mode))
-  :custom
-  (company-require-match nil)
-  (company-eclim-auto-save nil)
-  (company-dabbrev-down-case nil)
-  (company-minimum-prefix-length 1)
-  (company-tooltip-align-annotations nil)
-  (company-global-modes '(not shell-mode eat-mode eshell-mode))
-  (company-idle-delay 0.1)
-  (company-show-quick-access nil)
-  (company-format-margin-function #'company-text-icons-margin)
   :config
-  (defun conf/company-capf (f &rest args)
-    "Manage `completion-styles'."
-    (if (length= company-prefix 0)
-        ;; Don't use `company' for 0 length prefixes.
-        (let ((completion-styles (remq 'fussy completion-styles)))
-          (apply f args))
-      (let ((fussy-max-candidate-limit 5000)
-            (fussy-default-regex-fn 'fussy-pattern-first-letter)
-            (fussy-prefer-prefix t))
-        (apply f args))))
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file))
 
-  (defun conf/company-transformers (f &rest args)
-    "Manage `company-transformers'."
-    (if (length= company-prefix 0)
-        ;; Don't use `company' for 0 length prefixes.
-        (apply f args)
-      (let ((company-transformers '(fussy-company-sort-by-completion-score)))
-        (apply f args))))
-
-  (advice-add 'company-auto-begin :before 'fussy-wipe-cache)
-  (advice-add 'company--transform-candidates :around 'conf/company-transformers)
-  (advice-add 'company-capf :around 'conf/company-capf))
+(use-package corfu
+  :straight t
+  :custom
+  (corfu-cycle t)
+  (corfu-auto t)
+  (corfu-auto-prefix 2)
+  (corfu-auto-delay 0)
+  (corfu-preview-current 'insert)
+  (corfu-preselct 'prompt)
+  (corfu-on-exact-match nil)
+  (corfu-quit-no-match t)
+  :bind (:map corfu-map
+              ("SPC" . corfu-insert-separator)
+              ("TAB" . corfu-next)
+              ([tab] . corfu-next)
+              ("S-TAB" . corfu-previous)
+              ([backtab] . corfu-previous)
+              ("RET" . corfu-insert))
+  :init
+  (global-corfu-mode)
+  (corfu-history-mode)
+  (corfu-popupinfo-mode)
+  :config
+  (add-hook 'eshell-mode-hook
+            (lambda ()
+              (setq-local corfu-quit-at-boundary t
+                          corfu-quit-no-match t
+                          corfu-auto nil)
+              (corfu-mode)
+              nil
+              t)))
 
 (use-package consult-flycheck
   :straight t

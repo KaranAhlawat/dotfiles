@@ -33,10 +33,10 @@ decorations_theme_variant = "Dark"  # Default: "None"
 [font]
 
 # Normal font style
-normal = { family = "monospace", style = "Regular" }  # Default for Linux/BSD: "monospace", Regular
+normal = { family = "Sudo Var", style = "Medium" }  # Default for Linux/BSD: "monospace", Regular
 
 # Font size in points
-size = 12 # Default: 11.25
+size = 14
 
 [keyboard]
 

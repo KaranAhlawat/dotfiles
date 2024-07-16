@@ -25,25 +25,14 @@
 [interactive]
 	diffFilter = delta --color-only --features=interactive
 
+[include]
+	path = "~/repos/catppuccin.gitconfig"
+
 [delta]
-	features = side-by-side diff-so-fancy line-numbers decorations
-	syntax-theme = ansi
-
-[delta "line-numbers"]
-	line-numbers-left-style = cyan
-	line-numbers-right-style = cyan
-	line-numbers-minus-style = 124
-	line-numbers-plus-style = 28
-
-[delta "decorations"]
-	commit-decoration-style = bold yellow box ul
-	file-style = bold yellow ul
-	file-decoration-style = none
-	hunk-header-decoration-style = cyan box ul
+	features = side-by-side diff-so-fancy line-numbers decorations catppuccin-mocha
 
 [delta "interactive"]
 	keep-plus-minus-markers = false
-
 
 [diff]
 	colorMoved = default

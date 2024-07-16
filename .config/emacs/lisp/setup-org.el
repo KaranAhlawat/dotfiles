@@ -26,7 +26,6 @@
   :hook
   ((org-mode . visual-line-mode)
    (org-mode . turn-on-org-cdlatex)
-   (org-mode . org-indent-mode)
    (org-mode . org-toggle-pretty-entities)
    (org-mode . variable-pitch-mode)
    (org-mode . conf/org-font-setup)
@@ -34,6 +33,8 @@
                  (hl-line-mode -1))))
   :config
   (setq
+   org-startup-folded 'fold
+   org-startup-indented t
    org-auto-align-tags nil
    org-tags-column 0
    org-fold-catch-invisible-edits 'show-and-error
@@ -86,8 +87,7 @@
   :after org
   :hook (org-mode)
   :custom
-  (visual-fill-column-width 120)
-  (visual-fill-column-center-text t))
+  (visual-fill-column-width 120))
 
 (provide 'setup-org)
 ;;; setup-org.el ends here

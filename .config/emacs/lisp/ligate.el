@@ -62,7 +62,10 @@
                                      "{|"   "[|"  "]#"  "(*"  "}#"  "$>"  "^="))
 
 (use-package ligature
-  :straight t)
+  :straight t
+  :config
+  (ligature-set-ligatures 'prog-mode fira-code-coding-ligatures)
+  (global-ligature-mode))
 
 (provide 'ligate)
 ;;; ligate.el ends here

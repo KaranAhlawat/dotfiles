@@ -6,7 +6,6 @@
 (require 'cl-seq)
 (require 'display-line-numbers)
 
-;; Disable all other themes first
 (mapc #'disable-theme custom-enabled-themes)
 
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes")
@@ -45,14 +44,12 @@
   (setq-default text-scale-remap-header-line t)
   (setq fontaine-latest-state-file (locate-user-emacs-file
                                     "fontaine-latest-state.eld"))
-
   (setq fontaine-presets
         '((small
-           :default-family "monospace"
            :default-height 80)
           (regular
-           :default-weight regular
-           :default-height 120)
+           :default-weight semi-bold
+           :default-height 150)
           (large
            :inherit medium
            :default-height 190)
@@ -60,38 +57,32 @@
            :inherit medium
            :default-height 190)
           (t
-           :default-family "monospace"
-           :default-weight regular
-           :default-height 110
-           :bold-weight regular
-           :fixed-pitch-family "monospace"
-           :default-height 110
-           :variable-pitch-family "sans"
-           :variable-pitch-height 120
-           :variable-pitch-weight regular)))
+           :default-family "Sudo Var"
+           :fixed-pitch-family "Sudo Var"
+           :fixed-pitch-height 150
+           :bold-weight ultra-bold
+           :variable-pitch-family "Sudo UI Var"
+           :variable-pitch-height 150
+           :variable-pitch-weight semi-bold)))
   :config
   (conf/daemon-frame-hook!
    (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
 
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
-(use-package tokyonight-themes
-  :straight (:local-repo "/home/karan/repos/tokyo-emacs/lisp/tokyonight-themes"))
-
 (use-package catppuccin-theme
   :straight t
+  :demand
   :init
   (setq catppuccin-flavor 'mocha)
-  :config
-  (load-theme 'catppuccin t))
+  (setq catppuccin-italic-comments t)
+  (setq catppuccin-highlight-matches t))
 
-;; (use-package auto-dark
-;;   :straight t
-;;   :init
-;;   (setq auto-dark-dark-theme 'nord)
-;;   (setq auto-dark-light-theme 'nord)
-;;   :config
-;;   (auto-dark-mode))
+(use-package modus-themes
+  :straight (:type built-in)
+  :demand
+  :config
+  (load-theme 'modus-operandi t))
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key
@@ -111,12 +102,10 @@
   :config
   (mood-line-mode))
 
-;; Let it breathe
 (use-package spacious-padding
   :straight t
   :config
-  (conf/daemon-frame-hook!
-   (spacious-padding-mode)))
+  (spacious-padding-mode))
 
 (provide 'ui)
 ;;; ui.el ends here
