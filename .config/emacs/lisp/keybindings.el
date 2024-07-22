@@ -85,9 +85,9 @@
     "pf" #'project-find-file
     "pg" #'consult-ripgrep
     "af" #'apheleia-format-buffer
-    "hv" #'describe-variable
-    "hf" #'describe-function
-    "hk" #' describe-key
+    "hv" #'helpful-variable
+    "hf" #'helpful-callable
+    "hk" #'helpful-key
     "hi" #'info
     "gi" #'consult-imenu
     "xe" #'eval-last-sexp

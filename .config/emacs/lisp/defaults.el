@@ -64,5 +64,16 @@
   :config
   (delete-selection-mode))
 
+(use-package smart-tab
+  :straight t
+  :functions
+  global-smart-tab-mode
+  :custom
+  (smart-tab-completion-functions-alist '((text-mode . dabbrev-completion)))
+  (smart-tab-expand-eolp t)
+  (smart-tab-user-provided-completion-function 'completion-at-point)
+  :config
+  (global-smart-tab-mode))
+
 (provide 'defaults)
 ;;; defaults.el ends here

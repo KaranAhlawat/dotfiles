@@ -39,17 +39,19 @@
 
 (use-package fontaine
   :straight t
+  :bind ("C-c f" . #'fontaine-set-preset)
   :init
-  (setq x-underline-at-descent-line nil)
+  (setq x-underline-at-descent-line t)
   (setq-default text-scale-remap-header-line t)
   (setq fontaine-latest-state-file (locate-user-emacs-file
                                     "fontaine-latest-state.eld"))
   (setq fontaine-presets
         '((small
            :default-height 80)
-          (regular
-           :default-weight semi-bold
-           :default-height 150)
+          (regular)
+          (thicker
+           :inherit regular
+           :default-weight medium)
           (large
            :inherit medium
            :default-height 190)
@@ -57,32 +59,34 @@
            :inherit medium
            :default-height 190)
           (t
-           :default-family "Sudo Var"
-           :fixed-pitch-family "Sudo Var"
-           :fixed-pitch-height 150
-           :bold-weight ultra-bold
-           :variable-pitch-family "Sudo UI Var"
-           :variable-pitch-height 150
-           :variable-pitch-weight semi-bold)))
+           :default-family "Operator Mono"
+           :fixed-pitch-family "Operator Mono"
+           :fixed-pitch-serif-family "Operator Mono"
+           :fixed-pitch-serif-weight medium
+           :default-weight normal
+           :default-height 130
+           :variable-pitch-family "Lato"
+           :variable-pitch-height 130
+           :variable-pitch-weight normal)))
   :config
-  (conf/daemon-frame-hook!
-   (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular)))
+  (fontaine-set-preset 'regular)
 
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
-(use-package catppuccin-theme
-  :straight t
+(use-package modus-themes
+  :straight nil
   :demand
   :init
-  (setq catppuccin-flavor 'mocha)
-  (setq catppuccin-italic-comments t)
-  (setq catppuccin-highlight-matches t))
-
-(use-package modus-themes
-  :straight (:type built-in)
-  :demand
+  (setq modus-themes-mixed-fonts t)
+  (setq modus-themes-italic-constructs t)
+  (setq modus-themes-bold-constructs t)
   :config
-  (load-theme 'modus-operandi t))
+  (load-theme 'modus-vivendi t))
+
+(use-package autothemer
+  :straight t)
+
+(load-theme 'oxocarbon t)
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key

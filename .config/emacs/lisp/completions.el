@@ -3,7 +3,7 @@
 ;;; This packages sets up various completion providers
 ;;; Code:
 
-(use-package savehist-mode
+(use-package savehist
   :straight (:type built-in)
   :config
   (savehist-mode))

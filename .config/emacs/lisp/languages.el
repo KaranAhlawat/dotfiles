@@ -93,11 +93,6 @@
   :custom
   (css-indent-offset 2))
 
-(use-package scss-mode
-  :straight (:type built-in)
-  :mode "\\.scss\\'"
-  :custom (css-indent-offset 2))
-
 (use-package java-ts-mode
   :straight (:type built-in)
   :custom
@@ -117,6 +112,12 @@
   :straight (:local-repo "/home/karan/repos/scala-ts-mode")
   :init
   (setq scala-ts-indent-offset 4))
+
+(use-package fsharp-ts-mode
+  :mode "\\.fs\\'"
+  :straight (:local-repo "/home/karan/repos/fsharp-ts-mode")
+  :init
+  (setq fsharp-ts-indent-offset 4))
 
 (use-package yaml-ts-mode
   :straight (:type built-in))

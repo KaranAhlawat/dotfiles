@@ -15,6 +15,7 @@ fzf = "latest"
 elixir = "1.16"
 erlang = "26"
 bun = "1"
+sbcl = "2.4.6"
 
 [settings]
 experimental = true

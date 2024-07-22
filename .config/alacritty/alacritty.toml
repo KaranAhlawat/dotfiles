@@ -1,7 +1,7 @@
 # https://alacritty.org/config-alacritty.htm
 
 import = [
-    "~/.config/alacritty/catppuccin-mocha.toml"
+    "~/.config/alacritty/oxocarbon-dark.toml"
 ]
 
 [env]
@@ -33,10 +33,10 @@ decorations_theme_variant = "Dark"  # Default: "None"
 [font]
 
 # Normal font style
-normal = { family = "Sudo Var", style = "Medium" }  # Default for Linux/BSD: "monospace", Regular
+normal = { family = "Operator Mono", style = "Regular" }  # Default for Linux/BSD: "monospace", Regular
 
 # Font size in points
-size = 14
+size = 12
 
 [keyboard]
 

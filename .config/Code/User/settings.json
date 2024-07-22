@@ -54,19 +54,16 @@
 	"editor.gotoLocation.multipleDefinitions": "goto",
 	"editor.gotoLocation.multipleDeclarations": "goto",
 	"workbench.editor.enablePreviewFromQuickOpen": false,
-	"catppuccin.accentColor": "blue",
-	"catppuccin.italicKeywords": false,
-	"workbench.iconTheme": "catppuccin-perfect-mocha",
 	"editor.gotoLocation.multipleImplementations": "goto",
 	"editor.gotoLocation.multipleTypeDefinitions": "goto",
 	"editor.cursorBlinking": "solid",
-	"editor.fontFamily": "monospace",
-	"editor.fontSize": 12,
-	"editor.fontWeight": "500",
+	"editor.fontFamily": "Operator Mono",
+	"editor.fontSize": 13,
+	"editor.fontWeight": "400",
 	"editor.fontLigatures": false,
-	"editor.suggestFontSize": 12,
+	"editor.suggestFontSize": 13,
 	"editor.smoothScrolling": true,
-	"terminal.integrated.fontSize": 12,
+	"terminal.integrated.fontSize": 13,
 	"window.zoomLevel": 1,
 	"window.titleBarStyle": "custom",
 	"window.menuBarVisibility": "hidden",
@@ -133,6 +130,7 @@
 	"vim.useCtrlKeys": true,
 	"vim.enableNeovim": true,
 	"vim.neovimUseConfigFile": false,
+	"vim.neovimPath": "C:\\Users\\E03027\\scoop\\shims\\nvim.exe",
 	"vim.leader": " ",
 	"vim.normalModeKeyBindingsNonRecursive": [
 		{
@@ -216,7 +214,8 @@
 		"ocamllabs.ocaml-platform",
 		"denoland.vscode-deno",
 		"scalameta.metals",
-		"scala-lang.scala"
+		"scala-lang.scala",
+		"chenglou92.rescript-vscode"
 	],
-	"workbench.colorTheme": "Catppuccin Mocha",
+	"workbench.colorTheme": "oxocarbon-5",
 }

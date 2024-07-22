@@ -36,7 +36,7 @@
          (lsp-mode . lsp-diagnostics-mode)
          (lsp-mode . lsp-enable-which-key-integration)
          (lsp-completion-mode . conf/lsp-mode-completion-setup))
-  :init
+  :preface
   (defun conf/lsp-mode-completion-setup ()
     (setf (caadr ;; Pad before lsp modeline error info
 				   (assq 'global-mode-string mode-line-misc-info))
@@ -70,39 +70,38 @@
             (message "Using emacs-lsp-booster for %s!" orig-result)
             (append '("emacs-lsp-booster" "--json-false-value" ":json-false" "--") orig-result))
         orig-result)))
-
-  (setq lsp-completion-provider :none)
-  (setq lsp-diagnostics-provider :flycheck)
-  (setq lsp-headerline-breadcrumb-icons-enable nil)
-  (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
-  (setq lsp-headerline-breadcrumb-enable-symbol-numbers nil)
-  (setq lsp-keep-workspace-alive t)
-  (setq lsp-enable-links t)
-  (setq lsp-enable-on-type-formatting nil)
-  (setq lsp-enable-text-document-color nil)
-  (setq lsp-idle-delay 0.5)
-  (setq lsp-enable-file-watchers nil)
-  (setq lsp-enable-folding nil)
-  (setq lsp-semantic-tokens-enable nil)
-  (setq lsp-semantic-tokens-enable-multiline-token-support nil)
-  (setq lsp-eldoc-render-all t)
-  (setq lsp-modeline-code-actions-enable nil)
-  (setq lsp-modeline-diagnostics-enable nil)
-  (setq lsp-modeline-workspace-status-enable nil)
-  (setq lsp-signature-doc-lines 2)
-
-
-  (require 'lsp-javascript)
-  (setq lsp-typescript-preferences-import-module-specifier "non-relative")
-
-  (require 'lsp-elixir)
-  (setq lsp-elixir-server-command '("/home/karan/repos/lexical/_build/dev/package/lexical/bin/start_lexical.sh"))
-
-  (require 'lsp-roslyn)
-  (setq lsp-roslyn-server-dll-override-path "/home/karan/.local/bin/roslyn/Microsoft.CodeAnalysis.LanguageServer.dll")
-
+  :custom
+  (lsp-completion-provider :none)
+  (lsp-diagnostics-provider :flycheck)
+  (lsp-headerline-breadcrumb-enable nil)
+  (lsp-keep-workspace-alive t)
+  (lsp-enable-links t)
+  (lsp-enable-on-type-formatting nil)
+  (lsp-enable-text-document-color nil)
+  (lsp-idle-delay 0.5)
+  (lsp-enable-file-watchers nil)
+  (lsp-enable-folding nil)
+  (lsp-semantic-tokens-enable nil)
+  (lsp-semantic-tokens-enable-multiline-token-support nil)
+  (lsp-eldoc-render-all t)
+  (lsp-modeline-code-actions-enable nil)
+  (lsp-modeline-diagnostics-enable nil)
+  (lsp-modeline-workspace-status-enable nil)
+  (lsp-signature-doc-lines 2)
   ;; Mine are better :)
-  (setq lsp-disabled-clients '(emmet-ls eslint))
+  (lsp-disabled-clients '(emmet-ls eslint))
+  :init
+  (use-package lsp-elixir
+    :straight nil
+    :after lsp-mode
+    :custom
+    (lsp-elixir-server-command '("/home/karan/repos/lexical/_build/dev/package/lexical/bin/start_lexical.sh")))
+
+  (use-package lsp-roslyn
+    :straight nil
+    :after lsp-mode
+    :custom
+    (lsp-roslyn-server-dll-override-path "/home/karan/.local/bin/roslyn/Microsoft.CodeAnalysis.LanguageServer.dll"))
 
   (lsp-register-client
    (make-lsp-client
@@ -131,9 +130,12 @@
               #'lsp-booster--advice-json-parse)
   (advice-add #'lsp-completion-at-point :around #'cape-wrap-noninterruptible)
 
-  (require 'evil-core)
-  (evil-define-key 'normal lsp-mode-map (kbd "SPC l") lsp-command-map)
-  (add-hook 'lsp-mode-hook #'evil-normalize-keymaps)
+  (use-package evil-core
+    :straight nil
+    :after evil
+    :config
+    (evil-define-key 'normal lsp-mode-map (kbd "SPC l") lsp-command-map)
+    (add-hook 'lsp-mode-hook #'evil-normalize-keymaps))
 
   (lsp-enable-which-key-integration t))
 
@@ -147,6 +149,9 @@
 (use-package lsp-metals
   :straight t
   :custom
+  (lsp-metals-server-args
+   '("-J-Dmetals.allow-multiline-string-formatting=off"
+     "-Dmetals.client=emacs"))
   (lsp-metals-fallback-scala-version "3.3.3")
   (lsp-metals-enable-indent-on-paste t)
   (lsp-metals-enable-semantic-highlighting nil))
@@ -226,15 +231,8 @@
   (:map
    flycheck-mode-map
    ("M-g d" . #'flycheck-list-errors))
-
-  :init
-  (setq flycheck-javascript-eslint-executable "eslint_d")
-
-  :config
-  (custom-set-faces
-   `(flycheck-error ((t :underline (:style line :color ,(catppuccin-get-color 'red)))))
-   `(flycheck-warning ((t :underline (:style line :color ,(catppuccin-get-color 'yellow)))))
-   `(flycheck-info ((t :underline (:style line :color ,(catppuccin-get-color 'blue)))))))
+  :custom
+  (flycheck-javascript-eslint-executable "eslint_d"))
 
 (use-package flycheck-deno
   :straight t
@@ -285,22 +283,9 @@
             (scala-ts-mode . scalafmt))
     (push it apheleia-mode-alist)))
 
-(use-package aggressive-indent-mode
+(use-package aggressive-indent
   :straight t
   :hook (emacs-lisp-mode . aggressive-indent-mode))
-
-(use-package compile
-  :straight (:type built-in)
-  :init
-  (setq compilation-scroll-output t)
-  (--each '((sbt "^\\[error][[:space:]]\\([/[:word:]]:?[^:[:space:]]+\\):\\([[:digit:]]+\\):\\([[:digit:]]+\\):" 1 2 3 2 1)
-            (dotty "^\\[error][[:space:]]--[[:space:]].*Error: \\([^:]+\\):\\([[:digit:]]+\\):\\([[:digit:]]+\\)" 1 2 3 nil)
-            (munit "^==> X .*: \\(.*\\):\\([[:digit:]]+\\)" 1 2 nil 2 1)
-            (scalatest-info   "^\\[info][[:space:]]+\\(.*\\) (\\([^:[:space:]]+\\):\\([[:digit:]]+\\))" 2 3 nil 2 1)
-            (scalatest-warn "^\\[warn][[:space:]][[:space:]]\\[[[:digit:]]+][[:space:]]\\([/[:word:]]:?[^:[:space:]]+\\):\\([[:digit:]]+\\):\\([[:digit:]]+\\):" 1 2 3 1 1))
-    (push it compilation-error-regexp-alist-alist))
-  (--each '(sbt dotty munit scalatest-info scalatest-warn)
-    (push it compilation-error-regexp-alist)))
 
 ;; ANSI color in compilation buffer
 (use-package ansi-color

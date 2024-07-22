@@ -2,26 +2,19 @@ final_space = true
 version = 2
 console_title_template = '{{ .Shell }} in {{ .Folder }}'
 
-[palette]
-pink = "#F5C2E7"
-lavender = "#B4BEFE"
-blue = "#89B4FA"
-mauve = "#CBA6F7"
-maroon = "#EBA0AC"
-
 [[blocks]]
 alignment = "left"
 type = "prompt"
 newline = true
 
   [[blocks.segments]]
-  foreground = "p:lavender"
+  foreground = "magenta"
   style = "plain"
   template = "@{{ .UserName }}"
   type = "session"
 
   [[blocks.segments]]
-  foreground = "p:blue"
+  foreground = "blue"
   style = "plain"
   template = " {{ .Path }}"
   type = "path"
@@ -30,9 +23,8 @@ newline = true
     style = "folder"
 
   [[blocks.segments]]
-  foreground = "p:mauve"
   style = "plain"
-  template = " <p:maroon>git:(</>{{ .HEAD }}{{ if gt .Ahead 0 }} ↑{{.Ahead}}{{ end }}{{ if gt .Behind 0 }} ↓{{.Behind}}{{ end }}{{ if .Working.Changed }} {{ .Working.String }}{{ end }}{{ if .Staging.Changed }} {{ .Staging.String }}{{ end }}<p:maroon>)</>"
+  template = " <red>git:(</>{{ .HEAD }}{{ if gt .Ahead 0 }} ↑{{.Ahead}}{{ end }}{{ if gt .Behind 0 }} ↓{{.Behind}}{{ end }}{{ if .Working.Changed }} {{ .Working.String }}{{ end }}{{ if .Staging.Changed }} {{ .Staging.String }}{{ end }}<red>)</>"
   type = "git"
 
     [blocks.segments.properties]
@@ -41,7 +33,7 @@ newline = true
     fetch_status = true
 
   [[blocks.segments]]
-  foreground = "p:pink"
+  foreground = "cyan"
   style = "plain"
   template = """
 
