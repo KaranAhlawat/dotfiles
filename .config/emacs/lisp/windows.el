@@ -238,8 +238,8 @@
             :select nil
             :ignore t
             :regexp t)
-           ("^\\*tree-sitter explorer for [^z-a]+\\*"
-            :select t
+           ("^\\*tree-sitter explorer for \\(.+\\)\\*"
+            :select nil
             :popup t
             :align right
             :size 0.4

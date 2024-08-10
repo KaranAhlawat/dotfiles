@@ -5,7 +5,7 @@ java = "temurin-21"
 "cargo:eza" = "latest"
 "cargo:zoxide" = "latest"
 tokei = "latest"
-deno = "1.42.0"
+deno = "1"
 "cargo:jj-cli" = "latest"
 delta = "latest"
 python = "3.12"
@@ -15,7 +15,8 @@ fzf = "latest"
 elixir = "1.16"
 erlang = "26"
 bun = "1"
-sbcl = "2.4.6"
+clojure = "1"
+"cargo:trashy" = "latest"
 
 [settings]
 experimental = true

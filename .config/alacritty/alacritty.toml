@@ -1,7 +1,7 @@
 # https://alacritty.org/config-alacritty.htm
 
 import = [
-    "~/.config/alacritty/oxocarbon-dark.toml"
+    "~/.config/alacritty/doom_one.toml"
 ]
 
 [env]
@@ -23,7 +23,6 @@ dynamic_padding = true  # Default: false
 startup_mode = "Maximized"  # Default: "Windowed"
 
 # Decorations theme variant
-decorations = "None"
 decorations_theme_variant = "Dark"  # Default: "None"
 
 ########
@@ -33,7 +32,7 @@ decorations_theme_variant = "Dark"  # Default: "None"
 [font]
 
 # Normal font style
-normal = { family = "Operator Mono", style = "Regular" }  # Default for Linux/BSD: "monospace", Regular
+normal = { family = "monospace", style = "Medium" }  # Default for Linux/BSD: "monospace", Regular
 
 # Font size in points
 size = 12

@@ -53,6 +53,12 @@
   :config
   (evil-collection-init))
 
+(use-package evil-goggles
+  :straight t
+  :config
+  (evil-goggles-mode)
+  (evil-goggles-use-diff-faces))
+
 (use-package evil-commentary
   :straight t
   :after evil
@@ -75,7 +81,7 @@
     "s" #'save-buffer
     "k" #'kill-buffer
     "f" #'find-file
-    "r" #'recentf-open
+    "r" #'consult-recent-file
     "w" evil-window-map
     "qe" #'kill-emacs
     "qq" #'delete-frame
@@ -95,25 +101,11 @@
   (global-evil-leader-mode))
 
 (use-package evil-cleverparens
+  :straight t
   :after (evil smartparens)
-  :straight t
-  :hook (smartparens-mode . evil-cleverparens-mode)
-  :bind ( :map evil-insert-state-map
-          ( "M-<" . #'evil-cp-< )
-          ( "M->" . #'evil-cp-> ))
+  :hook ((clojure-mode emacs-lisp-mode lisp-mode) . evil-cleverparens-mode)
   :config
-  (push 'evil-cp-change evil-change-commands)
-  (evil-define-key 'normal evil-cleverparens-mode-map (kbd "M-w") nil))
-
-(use-package evil-cleverparens-text-objects
-  :straight nil
-  :after evil-cleverparens)
-
-(use-package evil-goggles
-  :straight t
-  :config
-  (evil-goggles-mode)
-  (evil-goggles-use-diff-faces))
+  (push 'evil-cp-change evil-change-commands))
 
 (use-package avy
   :straight t)

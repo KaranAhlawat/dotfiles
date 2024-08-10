@@ -1,4 +1,4 @@
-#files: 1324	version: 5.9
+#files: 1329	version: 5.9
 
 _comps=(
 '-' '_precommand'
@@ -505,6 +505,8 @@ _comps=(
 'fold' '_fold'
 'folder' '_mh'
 'folders' '_mh'
+'foot' '_foot'
+'footclient' '_footclient'
 'fortune' '_fortune'
 'forw' '_mh'
 'fprev' '_mh'
@@ -1568,6 +1570,8 @@ _comps=(
 'svnliteadmin' '_subversion'
 'swaks' '_swaks'
 'swanctl' '_swanctl'
+'sway' '_sway'
+'swaymsg' '_swaymsg'
 'swift' '_swift'
 'swiftc' '_swift'
 'sw_vers' '_sw_vers'
@@ -1792,6 +1796,7 @@ _comps=(
 '-value-,XZ_OPT,-default-' '_xz'
 '-vared-' '_in_vared'
 'vared' '_vared'
+'varlinkctl' '_varlinkctl'
 'vboxheadless' '_virtualbox'
 'VBoxHeadless' '_virtualbox'
 'vboxmanage' '_virtualbox'
@@ -2134,13 +2139,14 @@ autoload -Uz _afew _android _archlinux-java _artisan _atach \
             _wg-quick _xsel _yarn _zcash-cli _zinit \
             _batcat _bootctl _busctl _bwrap _calibre \
             _code _coredumpctl _curl _docker _dpkg-parsechangelog \
-            _fd _firewalld _flatpak _hostnamectl _journalctl \
-            _kernel-install _localectl _loginctl _meson _nala \
-            _networkctl _ninja _pulseaudio _python-argcomplete _resolvectl \
-            _run0 _sd_hosts_or_user_at_host _sd_outputmodes _sd_unit_files _systemctl \
-            _systemd _systemd-analyze _systemd-delta _systemd-inhibit _systemd-path \
-            _systemd-run _systemd-tmpfiles _timedatectl _tlp _tlp-radio-device \
-            _tlp-rdw _tlp-run-on _tlp-stat _udevadm _vlc \
+            _fd _firewalld _flatpak _foot _footclient \
+            _hostnamectl _journalctl _kernel-install _localectl _loginctl \
+            _meson _nala _networkctl _ninja _pulseaudio \
+            _python-argcomplete _resolvectl _run0 _sd_hosts_or_user_at_host _sd_outputmodes \
+            _sd_unit_files _sway _swaymsg _systemctl _systemd \
+            _systemd-analyze _systemd-delta _systemd-inhibit _systemd-path _systemd-run \
+            _systemd-tmpfiles _timedatectl _tlp _tlp-radio-device _tlp-rdw \
+            _tlp-run-on _tlp-stat _udevadm _varlinkctl _vlc \
             _wl-copy _wl-paste _yadm _cdr _floppy \
             _logical_volumes _lscfg _lsdev _lslv _lspv \
             _lsvg _object_classes _physical_volumes _smit _volume_groups \

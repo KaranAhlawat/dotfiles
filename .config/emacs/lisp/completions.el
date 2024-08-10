@@ -108,7 +108,7 @@ comma."
   (corfu-on-exact-match nil)
   (corfu-quit-no-match t)
   :bind (:map corfu-map
-              ("SPC" . corfu-insert-separator)
+              ("s-SPC" . corfu-insert-separator)
               ("TAB" . corfu-next)
               ([tab] . corfu-next)
               ("S-TAB" . corfu-previous)
@@ -127,16 +127,6 @@ comma."
               (corfu-mode)
               nil
               t)))
-
-(use-package consult-flycheck
-  :straight t
-  :bind ("M-g f" . consult-flycheck))
-
-(use-package consult-lsp
-  :straight t
-  :config
-  (define-key lsp-mode-map [remap xref-find-apropos] #'consult-lsp-symbols)
-  (define-key lsp-mode-map [remap lsp-treemacs-errors-lisp] #'consult-lsp-diagnostics))
 
 (use-package consult
   :straight t
@@ -162,7 +152,21 @@ comma."
    consult-buffer-other-window
    consult-buffer-other-frame
    consult-project-buffer
+   consult-recent-file
    :preview-key "M-."))
+
+(use-package consult-flycheck
+  :straight t
+  :after consult
+  :bind ("M-g f" . consult-flycheck))
+
+(use-package consult-lsp
+  :straight t
+  :after consult
+  :config
+  (define-key lsp-mode-map [remap xref-find-apropos] #'consult-lsp-symbols)
+  (define-key lsp-mode-map [remap lsp-treemacs-errors-lisp] #'consult-lsp-diagnostics))
+
 
 (provide 'completions)
 ;;; completions.el ends here

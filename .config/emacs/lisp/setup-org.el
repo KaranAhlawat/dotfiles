@@ -31,7 +31,7 @@
    (org-mode . conf/org-font-setup)
    (org-mode . (lambda ()
                  (hl-line-mode -1))))
-  :config
+  :init
   (setq
    org-startup-folded 'fold
    org-startup-indented t
@@ -68,26 +68,21 @@
    org-src-fontify-natively t
    org-src-tab-acts-natively t
    org-pretty-entities nil
-   org-pretty-entities-include-sub-superscripts nil))
+   org-pretty-entities-include-sub-superscripts nil)
+  :config
+  ;; Org babel
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((sql . t)))))
 
 (use-package org-modern
   :straight t
   :hook ((org-mode . org-modern-mode)
-         (org-agenda-finalize . org-modern-agenda)))
-
-;; Org babel
-(with-eval-after-load 'org
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((sql . t))))
-
-;; Some minor org tweaks
-(use-package visual-fill-column
-  :straight t
-  :after org
-  :hook (org-mode)
+         (org-agenda-finalize . org-modern-agenda))
   :custom
-  (visual-fill-column-width 120))
+  (org-modern-tag nil)
+  (org-modern-block-name t))
 
 (provide 'setup-org)
 ;;; setup-org.el ends here

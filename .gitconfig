@@ -26,24 +26,22 @@
 	diffFilter = delta --color-only --features=interactive
 
 [delta]
-	features = side-by-side diff-so-fancy line-numbers decorations
-	syntax-theme = ansi
-
-[delta "line-numbers"]
-	line-numbers-left-style = cyan
-	line-numbers-right-style = cyan
-	line-numbers-minus-style = 124
-	line-numbers-plus-style = 28
-
-[delta "decorations"]
-	commit-decoration-style = bold yellow box ul
-	file-style = bold yellow ul
-	file-decoration-style = none
-	hunk-header-decoration-style = cyan box ul
+	features                      = side-by-side diff-so-fancy line-numbers decorations
+	syntax-theme                  = ansi
+	minus-style                   = syntax "#3a273a"
+	minus-non-emph-style          = syntax "#3a273a"
+	minus-emph-style              = syntax "#6b2e43"
+	minus-empty-line-marker-style = syntax "#3a273a"
+	line-numbers-minus-style      = "#b55a67"
+	plus-style                    = syntax "#273849"
+	plus-non-emph-style           = syntax "#273849"
+	plus-emph-style               = syntax "#305f6f"
+	plus-empty-line-marker-style  = syntax "#273849"
+	line-numbers-plus-style       = "#627259"
+	line-numbers-zero-style       = "#3b4261"
 
 [delta "interactive"]
 	keep-plus-minus-markers = false
-
 
 [diff]
 	colorMoved = default

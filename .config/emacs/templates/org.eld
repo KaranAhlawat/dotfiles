@@ -8,7 +8,7 @@ org-mode ;; only in org mode
 (latex "#+begin_export latex" n> r> n> "#+end_export")
 (comment "#+begin_comment" n> r> n> "#+end_comment")
 (verse "#+begin_verse" n> r> n> "#+end_verse")
-(src "#+begin_src " q n> r> n> "#+end_src")
+(src "#+begin_src " p n> r> n> "#+end_src")
 (inlsrc "src_" p "{" q "}")
 (title "#+title: " p n "#+date: " p n "#+author: Karan Ahlawat" n)
 (par "\\paragraph{" q "}")

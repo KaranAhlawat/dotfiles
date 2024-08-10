@@ -57,10 +57,9 @@
 	"editor.gotoLocation.multipleImplementations": "goto",
 	"editor.gotoLocation.multipleTypeDefinitions": "goto",
 	"editor.cursorBlinking": "solid",
-	"editor.fontFamily": "Operator Mono",
-	"editor.fontSize": 13,
+	"editor.fontFamily": "Liberation Mono",
+	"editor.fontSize": 14,
 	"editor.fontWeight": "400",
-	"editor.fontLigatures": false,
 	"editor.suggestFontSize": 13,
 	"editor.smoothScrolling": true,
 	"terminal.integrated.fontSize": 13,
@@ -217,5 +216,5 @@
 		"scala-lang.scala",
 		"chenglou92.rescript-vscode"
 	],
-	"workbench.colorTheme": "oxocarbon-5",
+	"workbench.colorTheme": "Melange Redux: Dark",
 }

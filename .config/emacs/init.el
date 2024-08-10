@@ -10,6 +10,8 @@
 	 (concat (file-name-as-directory user-emacs-directory) "lisp/")))
 
 (set-default-coding-systems 'utf-8)
+(setq load-suffixes (list ".so" ".eln" ".elc" ".el"))
+(setq load-prefer-newer t)
 
 ;; Straight.el is my current package manager of choice, even with the
 ;; recent improvements to package.el in Emacs >=29. Also, since
@@ -45,23 +47,12 @@
 ;; Enable some disabled commands
 (put 'dired-find-alternate-file 'disabled nil)
 
-(defun conf/set-spacing ()
-	"Set the `line-spacing' for buffers."
-	(setq-local line-spacing nil))
-
-(seq-do (lambda (it)
-					(add-hook it #'conf/set-spacing))
-				'(text-mode-hook
-					prog-mode-hook
-					fundamental-mode-hook
-					help-mode-hook))
-
 (require 'setup-org)
 (require 'windows)
 
 (use-package popper
 	:straight t
-	:commands popper-mode
+  :demand t
 	:bind
 	(("C-`" . popper-toggle)
 	 ("C-M-`" . popper-cycle)
@@ -91,19 +82,10 @@
 					 "\\*Completions\\*"
 					 "[Oo]utput\\*"
 					 "\\*EGLOT\\(.*\\)\\*"
+           "^\\*tree-sitter explorer for \\(.+\\)\\*"
 					 ("^\\*straight-process\\*" . hide)
 					 ("^\\*straight-byte-compilation\\*" . hide)
 					 ("^\\*Async-native-compile-log" . hide))))
-
-	(advice-add
-	 'popper-cycle
-	 :after
-	 (defun conf/popper-cycle-repeated (&rest _)
-		 "Continue to cycle popups with the grave key."
-		 (set-transient-map
-			(let ((map (make-sparse-keymap)))
-				(define-key map (kbd "`") #'popper-cycle)
-				map))))
 
 	(setq popper-display-function
 				(defun conf/popper-select-below (buffer &optional _alist)
@@ -114,10 +96,23 @@
 									 `((window-height . ,popper-window-height)
 										 (direction . below)
 										 (body-function . ,#'select-window)))))
+  (setq popper-display-control t)
+  
+  :config
+	(advice-add
+	 'popper-cycle
+	 :after
+	 (defun conf/popper-cycle-repeated (&rest _)
+		 "Continue to cycle popups with the grave key."
+		 (set-transient-map
+			(let ((map (make-sparse-keymap)))
+				(define-key map (kbd "`") #'popper-cycle)
+				map))))
+
 	(use-package
 		popper-echo
 		:defer 3
-		:config
+		:init
 		(defun popper-message-shorten (name)
 			(cond
 			 ((string-match "^\\*[hH]elpful.*?: \\(.*\\)\\*$" name)
@@ -144,15 +139,16 @@
 		(setq
 		 popper-echo-dispatch-keys '(?0 ?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9)
 		 popper-echo-dispatch-actions t)
+    :config
 		(advice-add
 		 'popper-echo
 		 :around
-		 (defun my/popper-echo-no-which-key (orig-fn)
+		 (defun conf/popper-echo-no-which-key (orig-fn)
 			 (let ((which-key-show-transient-maps nil))
 				 (funcall orig-fn))))
-		(popper-echo-mode +1))
+		(popper-echo-mode))
 
-	:config (setq popper-display-control 'user) (popper-mode +1))
+	(popper-mode))
 
 (use-package custom
 	:init

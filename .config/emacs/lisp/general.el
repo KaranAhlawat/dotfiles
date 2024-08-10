@@ -49,6 +49,7 @@
    '(".project"
      "project.clj"
      "package.json"
+     "deno.json"
      "build.sbt"
      "build.sc"
      "mix.exs"
@@ -160,13 +161,11 @@
 
 (use-package nerd-icons-dired
   :straight t
-  :demand
   :hook
   (dired-mode . nerd-icons-dired-mode))
 
 (use-package nerd-icons-completion
   :straight t
-  :demand
   :config
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
   (nerd-icons-completion-mode))
@@ -179,18 +178,11 @@
 
 (use-package recentf
   :straight (:type built-in)
-  :demand t
-  :config
-  (if
-      (daemonp)
-      (add-to-list 'after-make-frame-functions
-                   (lambda
-                     (frame)
-                     (with-selected-frame frame
-                       (recentf-load-list))))
-    (recentf-load-list))
-
-  (recentf-mode))
+  :init
+  (setq recentf-max-saved-items 50)
+  (add-hook 'after-init-hook (lambda ()
+                               (recentf-load-list)
+                               (recentf-mode))))
 
 (use-package helpful
   :straight t

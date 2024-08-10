@@ -26,13 +26,14 @@
 (use-package lsp-mode
   :straight (lsp-mode :type git :host github :repo "emacs-lsp/lsp-mode")
   :commands (lsp lsp-deferred)
-  :hook ((typescript-ts-mode . lsp-deferred)
-         (tsx-ts-mode . lsp-deferred)
-         (js-ts-mode . lsp-deferred)
-         (java-ts-mode . lsp-deferred)
-         (scala-ts-mode . lsp-deferred)
-         (elixir-ts-mode . lsp-deferred)
-         (heex-ts-mode . lsp-deferred)
+  :hook (((heex-ts-mode
+           elixir-ts-mode
+           scala-ts-mode
+           java-ts-mode
+           js-ts-mode
+           tsx-ts-mode
+           typescript-ts-mode
+           smithy-mode) . lsp-deferred)
          (lsp-mode . lsp-diagnostics-mode)
          (lsp-mode . lsp-enable-which-key-integration)
          (lsp-completion-mode . conf/lsp-mode-completion-setup))
@@ -41,12 +42,13 @@
     (setf (caadr ;; Pad before lsp modeline error info
 				   (assq 'global-mode-string mode-line-misc-info))
 				  " ")
-    (if (seq-contains-p '("clojure-mode" "clojurescript-mode" "clojurec-mode" "cider-mode" "clojure-ts-mode")
-                        major-mode)
-        (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-              '(cider orderless))
-      (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-            '(orderless))))
+    ;; (if (seq-contains-p '("clojure-mode" "clojurescript-mode" "clojurec-mode" "cider-mode" "clojure-ts-mode")
+    ;;                     major-mode)
+    ;;     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+    ;;           '(cider orderless))
+    ;;   (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+    ;;         '(orderless)))
+    )
 
   (defun lsp-booster--advice-json-parse (old-fn &rest args)
     "Try to parse bytecode instead of json."
@@ -97,30 +99,32 @@
     :custom
     (lsp-elixir-server-command '("/home/karan/repos/lexical/_build/dev/package/lexical/bin/start_lexical.sh")))
 
-  (use-package lsp-roslyn
-    :straight nil
-    :after lsp-mode
-    :custom
-    (lsp-roslyn-server-dll-override-path "/home/karan/.local/bin/roslyn/Microsoft.CodeAnalysis.LanguageServer.dll"))
-
-  (lsp-register-client
-   (make-lsp-client
-    :new-connection (lsp-stdio-connection '("emmet-language-server" "--stdio"))
-    :activation-fn (lsp-activate-on "elixir" "eruby" "html" "css" "less" "javascriptreact" "typescriptreact" "phoenix-heex")
-    :priority -1
-    :add-on? t
-    :multi-root t
-    :server-id 'emmet))
-
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection '("/home/karan/repos/lexical/_build/dev/package/lexical/bin/start_lexical.sh"))
                     :multi-root t
                     :activation-fn (lsp-activate-on "elixir" "phoenix-heex")
                     :server-id 'lexical))
 
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("cs"
+                                                            "launch"
+                                                            "com.disneystreaming.smithy:smithy-language-server:0.0.30"
+                                                            "--ttl"
+                                                            "1h"
+                                                            "--repository"
+                                                            "m2Local"
+                                                            "--main-class"
+                                                            "software.amazon.smithy.lsp.Main"
+                                                            "--"
+                                                            "0"))
+                    :multi-root nil
+                    :activation-fn (lsp-activate-on "smithy")
+                    :initialization-options '((statusBarProvider . "show-message")
+                                              (isHttpEnabled . t))
+                    :server-id 'smithy-ls))
+
   :config
-  (push '(heex-ts-mode . "phoenix-heex") lsp-language-id-configuration)
-  
+  (push '("\\.smithy$" . "smithy") lsp-language-id-configuration)
   (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
   (advice-add (if (progn (require 'json)
                          (fboundp 'json-parse-buffer))
@@ -138,13 +142,6 @@
     (add-hook 'lsp-mode-hook #'evil-normalize-keymaps))
 
   (lsp-enable-which-key-integration t))
-
-(use-package dap-mode
-  :straight t
-  :after lsp-mode
-  :hook
-  (lsp-mode . dap-mode)
-  (lsp-mode . dap-ui-mode))
 
 (use-package lsp-metals
   :straight t
@@ -180,47 +177,13 @@
 (use-package smartparens
   :straight t
   :demand t
-  :hook ((clojure-mode . smartparens-strict-mode)
-         (clojurescript-mode . smartparens-strict-mode)
-         (clojurec-mode . smartparens-strict-mode)
-         (emacs-lisp-mode . smartparens-strict-mode))
+  :hook ((clojure-mode emacs-lisp-mode lisp-mode) . smartparens-strict-mode)
   :init
   (setq sp-highlight-pair-overlay nil)
   :config
-  (sp-with-modes sp-lisp-modes
-    (sp-local-pair "'" nil :actions nil)
-    (sp-local-pair "`" "'" :actions '(wrap insert autoskip) :when '(sp-in-string-p)))
-  (eval-after-load 'cc-mode                  '(require 'smartparens-c))
-  (eval-after-load 'elixir-ts-mode           '(require 'smartparens-elixir))
-  (eval-after-load 'erlang-mode              '(require 'smartparens-erlang))
-  (eval-after-load 'go-mode                  '(require 'smartparens-go))
-  (eval-after-load 'haskell-interactive-mode '(require 'smartparens-haskell))
-  (eval-after-load 'haskell-mode             '(require 'smartparens-haskell))
-  (eval-after-load 'markdown-mode            '(require 'smartparens-markdown))
-  (eval-after-load 'org                      '(require 'smartparens-org))
-  (eval-after-load 'rust-mode                '(require 'smartparens-rust))
-  (eval-after-load 'rustic                   '(require 'smartparens-rust))
-  (eval-after-load 'scala-mode               '(require 'smartparens-scala))
-  (eval-after-load 'scala-ts-mode            '(require 'smartparens-scala))
-  (eval-after-load 'tex-mode                 '(require 'smartparens-latex))
-  (eval-after-load 'text-mode                '(require 'smartparens-text))
-
-  (seq-do (lambda (it)
-            (eval-after-load it              '(require 'smartparens-clojure)))
-          '(clojure-mode clojurescript-mode clojurec-mode))
-  (seq-do (lambda (it)
-            (eval-after-load it              '(require 'smartparens-html)))
-          sp--html-modes)
-  (seq-do (lambda (it)
-            (eval-after-load it              '(require 'smartparens-latex)))
-          '(latex-mode LaTeX-mode))
-  (seq-do (lambda (it)
-            (eval-after-load it              '(require 'smartparens-python)))
-          '(python-mode python))
-  (seq-do (lambda (it)
-            (eval-after-load it              '(require 'smartparens-javascript)))
-          '(js-ts-mode typescript-ts-mode))
-
+  (require 'smartparens-config)
+  (show-smartparens-global-mode)
+  (sp-use-smartparens-bindings)
   (smartparens-global-mode))
 
 (use-package flycheck
@@ -308,6 +271,14 @@
 
 (use-package opam-switch-mode
   :straight t)
+
+(use-package emmet-mode
+  :straight t
+  :hook ((js-base-mode typescript-ts-base-mode) . emmet-mode))
+
+(use-package editorconfig
+  :straight t
+  :hook (prog-mode . editorconfig-mode))
 
 (provide 'development)
 ;;; development.el ends here

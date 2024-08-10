@@ -18,7 +18,6 @@ zinit light Aloxaf/fzf-tab
 
 # Load completions
 autoload -U compinit && compinit
-
 zinit cdreplay -q
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -42,7 +41,6 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-# Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
@@ -56,6 +54,9 @@ alias open='xdg-open'
 alias lfont='pango-list | rg -S'
 alias bat='batcat --paging=never'
 alias cat='batcat --paging=never'
+alias rm='trash --verbose'
+alias rml='trash-list | sort'
+alias unrm='trash-restore'
 alias fd='fdfind'
 alias apt='nala'
 alias vim='nvim'

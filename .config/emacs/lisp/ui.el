@@ -49,44 +49,55 @@
         '((small
            :default-height 80)
           (regular)
-          (thicker
-           :inherit regular
-           :default-weight medium)
+          (monitor
+           :default-height 140
+           :fixed-pitch-height 140
+           :variable-pitch-height 160)
           (large
-           :inherit medium
-           :default-height 190)
+           :inherit regular
+           :default-height 160)
           (presentation
-           :inherit medium
+           :inherit regular
            :default-height 190)
           (t
-           :default-family "Operator Mono"
-           :fixed-pitch-family "Operator Mono"
-           :fixed-pitch-serif-family "Operator Mono"
-           :fixed-pitch-serif-weight medium
-           :default-weight normal
-           :default-height 130
-           :variable-pitch-family "Lato"
-           :variable-pitch-height 130
-           :variable-pitch-weight normal)))
+           :default-family "Fira Code"
+           :default-weight medium
+           :default-height 120
+           :bold-family nil
+           :bold-weight bold
+           :italic-family nil
+           :italic-slant italic
+           :line-spacing nil
+           :fixed-pitch-family nil
+           :fixed-pitch-weight nil
+           :fixed-pitch-height 1.0
+           :fixed-pitch-serif-family nil
+           :variable-pitch-family "Fira Code"
+           :variable-pitch-height 120
+           :variable-pitch-weight medium)))
   :config
   (fontaine-set-preset 'regular)
-
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
-(use-package modus-themes
-  :straight nil
-  :demand
-  :init
-  (setq modus-themes-mixed-fonts t)
-  (setq modus-themes-italic-constructs t)
-  (setq modus-themes-bold-constructs t)
+(use-package doom-themes
+  :straight t
+  :custom
+  (doom-themes-enable-bold nil)
+  (doom-oksolar-dark-brighter-comments t)
+  (doom-oksolar-light-brighter-comments t)
+
   :config
-  (load-theme 'modus-vivendi t))
+  (with-eval-after-load 'org
+    (doom-themes-org-config)
+    (doom-themes-enable-org-fontification))
+  (doom-themes-set-faces nil
+    '(tooltip :inherit 'fixed-pitch)
+    '(font-lock-comment-face :inherit 'italic))
+  (load-theme 'doom-one t))
 
-(use-package autothemer
-  :straight t)
-
-(load-theme 'oxocarbon t)
+;; (use-package autothemer
+;;   :straight t)
+;; (load-theme 'oxocarbon t)
 
 ;; Cuz I may have the memory of a fish
 (use-package which-key
@@ -98,18 +109,12 @@
   (which-key-mode))
 
 ;; A more minimal modeline. Maybe someday I'll actually customize the defualt in-built one.
-(use-package mood-line
+(use-package doom-modeline
   :straight t
-  :custom
-  (mood-line-show-eol-style t)
-  (mood-line-show-cursor-point t)
+  :init
+  (setq doom-modeline-icon nil)
   :config
-  (mood-line-mode))
-
-(use-package spacious-padding
-  :straight t
-  :config
-  (spacious-padding-mode))
+  (doom-modeline-mode))
 
 (provide 'ui)
 ;;; ui.el ends here

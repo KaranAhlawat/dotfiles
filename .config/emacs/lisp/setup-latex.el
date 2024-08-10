@@ -46,24 +46,13 @@
 
 (use-package cdlatex
   :straight t
-  :after tex-site
+  :after tex
   :hook (LaTeX-mode . turn-on-cdlatex)
-  :bind (:map cdlatex-mode-map
-              ("<tab>" . cdlatex-tab))
-  :init
-  (setq cdlatex-takeover-dollar nil)
-  (setq cdlatex-takeover-parenthesis nil))
-
-;; Faster-er math lol
-(use-package laas
-  :straight t
-  :hook LaTeX-mode
-  :config
-  (aas-set-snippets
-   'laas-mode
-   "dm" (lambda () (interactive)
-          (yas-expand-snippet "\\[\n $0 \n\\]"))))
-
+  :bind ( :map cdlatex-mode-map
+          ("<tab>" . cdlatex-tab))
+  :custom
+  (cdlatex-takeover-dollar nil)
+  (cdlatex-takeover-parenthesis nil))
 
 (provide 'setup-latex)
 ;;; setup-latex.el ends here

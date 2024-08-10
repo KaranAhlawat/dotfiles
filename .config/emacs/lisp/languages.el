@@ -5,7 +5,6 @@
 
 (use-package treesit
   :straight (:type built-in)
-  :demand t
   :custom
   (treesit-font-lock-level 4)
   :config
@@ -24,7 +23,8 @@
             (scala . ("https://github.com/tree-sitter/tree-sitter-scala" "v0.20.2"))
             (ocaml . ("https://github.com/tree-sitter/tree-sitter-ocaml" "v0.21.2" "grammars/ocaml/src"))
             (ocaml-interface . ("https://github.com/tree-sitter/tree-sitter-ocaml" "v0.21.2" "grammars/interface/src"))
-            (php . ("https://github.com/tree-sitter/tree-sitter-php" nil "php/src"))))
+            (php . ("https://github.com/tree-sitter/tree-sitter-php" nil "php/src"))
+            (fsharp . ("https://github.com/ionide/tree-sitter-fsharp"))))
 
   (seq-do (lambda (it)
             (push it major-mode-remap-alist))
@@ -42,10 +42,7 @@
             (shell-script-mode . bash-ts-mode))))
 
 (use-package ts-query-highlight
-  :straight (:type git :host sourcehut :repo "meow_king/ts-query-highlight")
-  :config
-  ;; default is `dabbrev-expand`. For `cape-dabbrev`, take a look at https://github.com/minad/cape
-  (setq ts-query-highlight-dabbrev-expand-function 'cape-dabbrev))
+  :straight (:type git :host sourcehut :repo "meow_king/ts-query-highlight"))
 
 ;; Cider for clojure
 (use-package cider
@@ -67,10 +64,7 @@
   (web-mode-markup-indent-offset 2)
   (web-mode-markup-comment-indent-offset 2)
   (web-mode-attr-indent-offset 2)
-  (web-mode-attr-value-indent-offset 2)
-  :config
-  (add-hook 'web-mode-hook (lambda ()
-                             (smartparens-mode -1))))
+  (web-mode-attr-value-indent-offset 2))
 
 (use-package js
   :straight (:type built-in)
@@ -79,11 +73,10 @@
 
 (use-package python
   :straight (:type built-in)
-  :config
-  (setq
-   python-indent-offset 4
-   python-indent-guess-indent-offset nil
-   python-indent-guess-indent-offset-verbose nil))
+  :custom
+  (python-indent-offset 4)
+  (python-indent-guess-indent-offset nil)
+  (python-indent-guess-indent-offset-verbose nil))
 
 (use-package micromamba
   :straight t)
@@ -122,18 +115,13 @@
 (use-package yaml-ts-mode
   :straight (:type built-in))
 
-(use-package kotlin-ts-mode
-  :mode ("\\.kt\\'" "\\.kts\\'")
-  :straight t)
-
 (use-package ocaml-ts-mode
   :straight ( :type git
               :host github
               :repo "terrateamio/ocaml-ts-mode" ))
 
-(use-package reason-mode
-  :straight t
-  :mode ("\\.re\\'" "\\.rei\\'"))
+(use-package smithy-mode
+  :straight t)
 
 (provide 'languages)
 ;;; languages.el ends here
