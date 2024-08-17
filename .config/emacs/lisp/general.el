@@ -147,10 +147,6 @@
   :config
   (ctrlf-mode +1))
 
-(use-package jinx
-  :straight t
-  :hook (org-mode LaTeX-mode mode markdown-mode fundamental-mode))
-
 (use-package nerd-icons
   :straight (:type git
                    :host github

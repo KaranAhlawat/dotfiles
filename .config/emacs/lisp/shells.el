@@ -3,19 +3,6 @@
 ;;; Configure shells I rarely use
 ;;; Code:
 
-(use-package comint
-  :straight (:type built-in)
-  :init
-  (setq comint-output-filter-functions
-        (remove 'ansi-color-process-output comint-output-filter-functions)))
-
-(use-package xterm-color
-  :straight t
-  :init
-  (setq xterm-color-use-bold-for-bright t)
-  (setq xterm-color-names ["#3B4252" "#BF616A" "#A3BE8C" "#EBCB8B" "#81A1C1" "#B48EAD" "#88C0D0" "#E5E9F0"])
-  (setq xterm-color-names-bright ["#4C566A" "#BF616A" "#A3BE8C" "#EBCB8B" "#81A1C1" "#B48EAD" "#8FBCBB" "#ECEFF4"]))
-
 (use-package pcmpl-args
   :straight t
   :hook
@@ -26,7 +13,6 @@
                 '(eshell-complete-host-reference
                   eshell-complete-history-reference
                   eshell-complete-user-reference
-                  ;;eshell-complete-variable-assignment
                   eshell-complete-variable-reference
                   eshell-complete-lisp-symbols
                   t))))
@@ -35,19 +21,13 @@
   :straight (:type built-in)
   :hook
   ((eshell-mode . conf/eshell-setup-modes)
-   (eshell-mode . conf/setup-remote-aliases)
    (eshell-first-time-mode . conf/eshell-first-load-settings)
-   (eshell-before-prompt . (lambda ()
-                             (setq xterm-color-preserve-properties t)))
    (eshell-mode . (lambda ()
-                    (setenv "TERM" "xterm-256color")))
-   (eshell-mode . (lambda ()
-                    (setenv "PAGER" "cat"))))
-  :init
-  (require 'esh-mode)
-  (setq eshell-output-filter-functions (remove 'eshell-handle-ansi-color eshell-output-filter-functions))
+                    (setq-local completion-styles '(basic))
+                    (setq-local corfu-count 5)
+                    (setq-local completion-at-point-functions
+                                '(pcomplete-completions-at-point cape-file cape-history)))))
   :config
-  (add-to-list 'eshell-preoutput-filter-functions 'xterm-color-filter)
   (defun conf/eshell-first-load-settings ()
     (setq
      eshell-hist-ignoredups t
@@ -59,19 +39,11 @@
     (if (and (file-readable-p eshell-aliases-file))
         (eshell-read-aliases-list)
       (progn
-        (eshell/alias "clear" "clear 1")
-        (eshell/alias "ls" "eza $*")
-        (eshell/alias "l" "eza -la $*"))))
+        (eshell/alias "clear" "clear t"))))
 
   (defun conf/eshell-setup-modes ()
     "Setup various modes for eshell."
-    (display-line-numbers-mode -1))
-
-  (defun conf/setup-remote-aliases ()
-    "Setup remote aliases."
-    (when (file-remote-p default-directory)
-      (eshell/alias "ls")
-      (eshell/alias "l" "ls -la $*"))))
+    (display-line-numbers-mode -1)))
 
 ;; Eshell appearance
 (use-package eshell
@@ -158,16 +130,13 @@
 
 (use-package shell
   :straight (:type built-in)
-  :requires xterm-color
   :hook
   (;; (shell-mode . (lambda () (corfu-mode -1)))
    (shell-mode . (lambda () (display-line-numbers-mode -1)))
    (shell-mode . (lambda ()
                    (font-lock-mode -1)
                    (make-local-variable 'font-lock-function)
-                   (setq font-lock-function (lambda (_) nil))
-                   (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t)))
-   (shell-mode . (lambda () (setenv "TERM" "xterm-256color")))))
+                   (setq font-lock-function (lambda (_) nil))))))
 
 (provide 'shells)
 ;;; shells.el ends here

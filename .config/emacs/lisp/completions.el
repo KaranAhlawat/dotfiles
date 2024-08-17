@@ -31,6 +31,12 @@
   (vertico-preselect 'directory)
   :config (vertico-mode))
 
+(use-package vertico-posframe
+  :straight t
+  :after vertico
+  :config
+  (vertico-posframe-mode))
+
 (use-package minibuffer
   :straight (:type built-in)
   :bind ( :map minibuffer-local-completion-map
@@ -101,7 +107,7 @@ comma."
   :custom
   (corfu-cycle t)
   (corfu-auto t)
-  (corfu-auto-prefix 2)
+  (corfu-auto-prefix 0)
   (corfu-auto-delay 0)
   (corfu-preview-current 'insert)
   (corfu-preselct 'prompt)

@@ -6,19 +6,19 @@
 (defun conf/org-font-setup ()
   "Setup fixed-pitch font for Org."
   (custom-set-faces
-   '(org-meta-line ((t :inherit (font-lock-comment-face fixed-pitch))))
-   '(org-document-info-keyword ((t :inherit org-meta-line)))
-   '(org-block ((t (:inherit fixed-pitch))))
-   '(org-table ((t (:inherit fixed-pitch))))
-   '(org-formula ((t (:inherit fixed-pitch))))
-   '(org-code ((t (:inherit fixed-pitch))))
-   '(org-verbatim ((t (:inherit fixed-pitch))))
-   '(org-special-keyword ((t (:inherit fixed-pitch))))
-   '(org-checkbox ((t (:inherit fixed-pitch))))
-   '(line-number ((t (:inherit fixed-pitch))))
-   '(line-number-current-line ((t (:inherit fixed-pitch))))
-   '(org-block-begin-line ((t (:inherit fixed-pitch))))
-   '(org-block-end-line ((t (:inherit org-block-begin-line))))))
+   '(org-meta-line ((t :inherit (font-lock-comment-face fixed-pitch) :height 0.9)))
+   '(org-document-info-keyword ((t :inherit org-meta-line :height 0.9)))
+   '(org-block ((t (:inherit fixed-pitch :height 0.9))))
+   '(org-table ((t (:inherit fixed-pitch :height 0.9))))
+   '(org-formula ((t (:inherit fixed-pitch :height 0.9))))
+   '(org-code ((t (:inherit fixed-pitch :height 0.9))))
+   '(org-verbatim ((t (:inherit fixed-pitch :height 0.9))))
+   '(org-special-keyword ((t (:inherit fixed-pitch :height 0.9))))
+   '(org-checkbox ((t (:inherit fixed-pitch :height 0.9))))
+   '(line-number ((t (:inherit fixed-pitch :height 0.9))))
+   '(line-number-current-line ((t (:inherit fixed-pitch :height 0.9))))
+   '(org-block-begin-line ((t (:inherit fixed-pitch :height 0.9))))
+   '(org-block-end-line ((t (:inherit org-block-begin-line :height 0.9))))))
 
 ;; ORG CONFIGURATION
 (use-package org

@@ -47,7 +47,9 @@
   :bind ( :map evil-normal-state-map
           ( "f"  . #'evil-avy-goto-char-in-line )
           ( "gl" . #'evil-avy-goto-line )
-          ( "gs"  . #'evil-avy-goto-char-timer ))
+          ( "gs"  . #'evil-avy-goto-char-timer )
+          :map evil-visual-state-map
+          ( "f" . #'evil-avy-goto-char-in-line ))
   :init
   (setq evil-want-integration t)
   :config

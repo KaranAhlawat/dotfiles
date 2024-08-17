@@ -2,7 +2,6 @@
 ;;; Commentary:
 ;;; The file houses the UI changes I made to Emacs.
 ;;; Code:
-
 (require 'cl-seq)
 (require 'display-line-numbers)
 
@@ -53,6 +52,8 @@
            :default-height 140
            :fixed-pitch-height 140
            :variable-pitch-height 160)
+          (fira
+           :default-family "Fira Code")
           (large
            :inherit regular
            :default-height 160)
@@ -60,7 +61,7 @@
            :inherit regular
            :default-height 190)
           (t
-           :default-family "Fira Code"
+           :default-family "monospace"
            :default-weight medium
            :default-height 120
            :bold-family nil
@@ -72,11 +73,12 @@
            :fixed-pitch-weight nil
            :fixed-pitch-height 1.0
            :fixed-pitch-serif-family nil
-           :variable-pitch-family "Fira Code"
-           :variable-pitch-height 120
-           :variable-pitch-weight medium)))
+           :variable-pitch-family "Fira Sans"
+           :variable-pitch-height 140
+           :variable-pitch-weight regular)))
   :config
   (fontaine-set-preset 'regular)
+  (set-fontset-font t 'emoji "Segoue UI Emoji")
   (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset))
 
 (use-package doom-themes

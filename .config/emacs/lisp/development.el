@@ -108,7 +108,7 @@
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection '("cs"
                                                             "launch"
-                                                            "com.disneystreaming.smithy:smithy-language-server:0.0.30"
+                                                            "software.amazon.smithy:smithy-language-server:0.4.0"
                                                             "--ttl"
                                                             "1h"
                                                             "--repository"
@@ -147,7 +147,8 @@
   :straight t
   :custom
   (lsp-metals-server-args
-   '("-J-Dmetals.allow-multiline-string-formatting=off"
+   '("-Dmetals.allow-multiline-string-formatting=on"
+     "-Dmetals.enable-best-effort=true"
      "-Dmetals.client=emacs"))
   (lsp-metals-fallback-scala-version "3.3.3")
   (lsp-metals-enable-indent-on-paste t)

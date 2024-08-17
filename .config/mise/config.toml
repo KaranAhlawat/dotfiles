@@ -8,7 +8,6 @@ tokei = "latest"
 deno = "1"
 "cargo:jj-cli" = "latest"
 delta = "latest"
-python = "3.12"
 opam = "2.2"
 coursier = "latest"
 fzf = "latest"
@@ -16,7 +15,10 @@ elixir = "1.16"
 erlang = "26"
 bun = "1"
 clojure = "1"
-"cargo:trashy" = "latest"
+go = "latest"
+"go:github.com/sqls-server/sqls" = "latest"
 
 [settings]
 experimental = true
+
+[env]
