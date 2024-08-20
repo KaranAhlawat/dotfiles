@@ -32,10 +32,10 @@ decorations_theme_variant = "Dark"  # Default: "None"
 [font]
 
 # Normal font style
-normal = { family = "monospace", style = "Medium" }  # Default for Linux/BSD: "monospace", Regular
+normal = { family = "IBM Plex Mono", style = "Regular" }  # Default for Linux/BSD: "monospace", Regular
 
 # Font size in points
-size = 13
+size = 12
 
 [keyboard]
 
